@@ -9,7 +9,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :users, :session_token
-    add_index :users, :display_name
+    add_index :users, :session_token, unique: true
+    add_index :users, :display_name, unique: true
   end
 end
