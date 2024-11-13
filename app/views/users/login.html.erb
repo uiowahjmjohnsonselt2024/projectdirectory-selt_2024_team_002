@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag 'login-logout', media: 'all', 'data-turbolinks-track' => true %>
+<div class="container">
+  <div class="center_container">
+    <%= form_tag "/users/", class: "form", method: :post do %>
+      <h1 class="signup_text">Log in</h1>
+        <div class="form_element_container full_width_respect_padding">
+            <label for="user_name">User name:</label>
+            <input type="text" name="user_name" id="user_name" class="full_width_respect_padding">
+        </div>
+        <div class="form_element_container full_width_respect_padding">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" class="full_width_respect_padding">
+        </div>
+        <div class="buttons_container">
+            <a href="/users/new" class="fake_a_button">Sign Up</a>
+            <div class="spacer"></div>
+            <button type="submit">Log In</button>
+        </div>
+    <% end %>
+  </div>
+</div>
