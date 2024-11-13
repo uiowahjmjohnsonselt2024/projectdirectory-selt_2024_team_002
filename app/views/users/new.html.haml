@@ -3,7 +3,7 @@
 
 %div{class: "container"}
     %div{class: "center_container"}
-        = form_for :user,  :html => {class: "new_user_form"},url: new_user_path, method: :post do |f|
+        =form_for :user,url: '/users', method: :post, :html => {class: "form"} do |f|
             %h1{class: "signup_text"} Sign up
             %div{class: "names_container"}
                 %div{class: "form_element_container"}
@@ -22,5 +22,5 @@
                 = f.label :password_confirmation, "Confirm password:"
                 = f.text_field :password_confirmation, class: "full_width_respect_padding"
             %div{class: "buttons_container"}
+                = link_to "Log In", url_for(controller: 'users', action: 'login'), class: "fake_a_button login", method: :get
                 = f.button "Create User", class: "create_user"
-                = f.button "Log In"

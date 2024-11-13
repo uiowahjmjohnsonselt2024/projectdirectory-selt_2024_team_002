@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
-
+    puts 'sAEFfseseaFD'
   end
 
   def show
