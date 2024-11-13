@@ -1,0 +1,26 @@
+= stylesheet_link_tag asset_path("new_user.css")
+
+
+%div{class: "container"}
+    %div{class: "center_container"}
+        = form_for :user,  :html => {class: "new_user_form"},url: new_user_path, method: :post do |f|
+            %h1{class: "signup_text"} Sign up
+            %div{class: "names_container"}
+                %div{class: "form_element_container"}
+                    = f.label :first_name, "First name:"
+                    = f.text_field :first_name
+                %div{class: "form_element_container"}
+                    = f.label :last_name, "Last name:"
+                    = f.text_field :last_name
+            %div{class: "form_element_container full_width_respect_padding"}
+                = f.label :user_name, "User name:"
+                = f.text_field :user_name, class: "full_width_respect_padding"
+            %div{class: "form_element_container full_width_respect_padding"}
+                = f.label :password, "Password:"
+                = f.text_field :password, class: "full_width_respect_padding"
+            %div{class: "form_element_container full_width_respect_padding"}
+                = f.label :password_confirmation, "Confirm password:"
+                = f.text_field :password_confirmation, class: "full_width_respect_padding"
+            %div{class: "buttons_container"}
+                = f.button "Create User", class: "buttons"
+                = f.button "Log In", class: "buttons"
