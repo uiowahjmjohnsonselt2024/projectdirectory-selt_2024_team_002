@@ -1,6 +1,34 @@
+<%= stylesheet_link_tag 'login-logout', media: 'all', 'data-turbolinks-track' => true %>
 <div class="container">
   <div class="center_container">
-    <%= form_tag "/users", method: :post do %>
-
+    <%= form_tag "/users/", class: "form", method: :post do %>
+      <h1 class="signup_text">Sign up</h1>
+      <div class="names_container">
+        <div class="form_element_container">
+          <label for="user_first_name">First name:</label>
+          <input type="text" name="user[first_name]" id="user_first_name">
+        </div>
+        <div class="form_element_container">
+          <label for="user_last_name">Last name:</label>
+          <input type="text" name="user[last_name]" id="user_last_name">
+        </div>
+      </div>
+      <div class="form_element_container full_width_respect_padding">
+        <label for="user_user_name">User name:</label>
+        <input type="text" name="user[user_name]" id="user_user_name" class="full_width_respect_padding">
+      </div>
+      <div class="form_element_container full_width_respect_padding">
+        <label for="user_password">Password:</label>
+        <input type="password" name="user[password]" id="user_password" class="full_width_respect_padding">
+      </div>
+      <div class="form_element_container full_width_respect_padding">
+        <label for="user_password_confirmation">Confirm password:</label>
+        <input type="password" name="user[password_confirmation]" id="user_password_confirmation" class="full_width_respect_padding">
+      </div>
+      <div class="buttons_container">
+        <a href="/users/login" class="fake_a_button login">Log In</a>
+        <button class="create_user">Create User</button>
+      </div>
+    <% end %>
   </div>
 </div>
