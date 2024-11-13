@@ -5,8 +5,11 @@
     align-items: center;
     height: 100vh; /* Full viewport height */
 }
+body {
+    background-color: #2D3748;
+}
 .center_container {
-    background-color:red;
+    background-color: #A7BCC7;
     border-radius: 25px;
     padding: 10px;
 }
@@ -40,4 +43,8 @@
 .full_width_respect_padding {
     box-sizing: border-box;
     width: 100%;
+}
+
+.create_user {
+    width: 130px;
 }
