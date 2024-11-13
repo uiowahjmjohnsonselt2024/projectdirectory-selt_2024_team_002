@@ -1,6 +1,6 @@
 class WorldsController < ApplicationController
   def world_params
-    params.require(:world).permit(:world_code, :world_name, :user_id, :is_public, :max_player)
+    params.permit(:world_code, :world_name, :user_id, :is_public, :max_player)
   end
 
   def show
@@ -9,8 +9,8 @@ class WorldsController < ApplicationController
   end
 
   def index
-    @public_worlds = World.where(:is_public => true)
-    @private_worlds = World.where(:is_public => false)
+    @public_worlds = World.where(is_public: true)
+    @private_worlds = World.where(is_public: false)
   end
 
   def new
@@ -38,8 +38,7 @@ class WorldsController < ApplicationController
   end
 
   def add_world
-    @test_params = {:world_code => "12312", :world_name => "Test World 3", :user_id => "0", :is_public => true, :max_player => "6"}
-    @world = World.create!(@test_params)
+    @world = World.create!(world_params)
     redirect_to worlds_path
   end
 end
