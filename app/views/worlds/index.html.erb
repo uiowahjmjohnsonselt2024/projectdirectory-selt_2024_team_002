@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Worlds</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <h1>List of Worlds</h1>
+  <div class="tab">
+  </div>
+
+
+  <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Host</th>
+        <th>Public</th>
+        <th>Max player</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @worlds.each do |world| %>
+        <tr>
+          <th><%= world[:world_code] %></th>
+          <th><%= world[:world_name] %></th>
+          <th><%= world[:user_id] %></th>
+          <th><%= world[:is_public] %></th>
+          <th><%= world[:max_player] %></th>
+          <th>
+            <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}"%>
+          </th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= form_tag new_world_path, :method => :post, :id => 'create_form' do %>
+    <%= submit_tag '+', :id => 'create_button'%>
+  <% end %>
+<%= yield %>
+
+</body>
+</html>

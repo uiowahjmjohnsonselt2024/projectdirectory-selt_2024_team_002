@@ -14,6 +14,17 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
+  # routes for users
+  resources :users
+  root :to => redirect('/worlds')
+  get "users/0_display_name"
+
+  # routes for worlds
+  resources :worlds
+  post "worlds/join_world", to: "worlds#join_world"
+  post "worlds/new", to: "worlds#new"
+  post "worlds/add_world"
+
   # Example resource route with options:
   #   resources :products do
   #     member do
