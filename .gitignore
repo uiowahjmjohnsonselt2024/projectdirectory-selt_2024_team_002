@@ -21,3 +21,5 @@
 
 # symlinks from Windows machine
 \\wsl.*
+
+.ruby-version

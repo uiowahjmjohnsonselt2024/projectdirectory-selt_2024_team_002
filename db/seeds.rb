@@ -11,4 +11,5 @@ worlds = [{:world_code => "12321", :world_name => "Test World 1", :user_id => "0
 
 worlds.each do |world|
   World.create!(world)
+
 end

@@ -9,7 +9,8 @@ class WorldsController < ApplicationController
   end
 
   def index
-    @worlds = World.all
+    @public_worlds = World.where(:is_public => true)
+    @private_worlds = World.where(:is_public => false)
   end
 
   def new

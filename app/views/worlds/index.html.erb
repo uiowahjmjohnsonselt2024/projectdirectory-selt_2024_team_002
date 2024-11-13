@@ -1,47 +1,101 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 <head>
-  <title>Worlds</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  <style>
+      .tab {
+          overflow: hidden;
+          border-bottom: 1px solid #ccc;
+          display: flex;
+          justify-content: center;
+      }
+
+      .tab button {
+          background-color: inherit;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+      }
+
+      .tab button:hover {
+          background-color: #ddd;
+      }
+
+      .tab button.active {
+          background-color: #ccc;
+      }
+
+      .tabcontent {
+          display: none;
+          padding: 6px 12px;
+          border-top: none;
+      }
+
+      .tabcontent.active {
+          display: block;
+      }
+
+      .world-box {
+          border: 1px solid #000;
+          padding: 10px;
+          margin: 10px;
+          width: 80%;
+          text-align: center;
+      }
+  </style>
 </head>
 <body>
-  <h1>List of Worlds</h1>
-  <div class="tab">
+
+<h1 style="text-align: center;">Worlds</h1>
+
+<div class="tab">
+  <button class="tablinks active" onclick="openTab(event, 'Public')">Public Worlds</button>
+  <button class="tablinks" onclick="openTab(event, 'Private')">Private Worlds</button>
+</div>
+
+<div id="Public" class="tabcontent active">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <% @public_worlds.each do |world| %>
+      <div class="world-box">
+        <h3><%= world.world_name %></h3>
+        <p>Code: <%= world.world_code %></p>
+        <p>Max Players: <%= world.max_player %></p>
+        <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}" %>
+      </div>
+    <% end %>
   </div>
+</div>
 
+<div id="Private" class="tabcontent">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <% @private_worlds.each do |world| %>
+      <div class="world-box">
+        <h3><%= world.world_name %></h3>
+        <p>Code: <%= world.world_code %></p>
+        <p>Max Players: <%= world.max_player %></p>
+        <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}" %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-  <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Host</th>
-        <th>Public</th>
-        <th>Max player</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @worlds.each do |world| %>
-        <tr>
-          <th><%= world[:world_code] %></th>
-          <th><%= world[:world_name] %></th>
-          <th><%= world[:user_id] %></th>
-          <th><%= world[:is_public] %></th>
-          <th><%= world[:max_player] %></th>
-          <th>
-            <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}"%>
-          </th>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <%= form_tag new_world_path, :method => :post, :id => 'create_form' do %>
-    <%= submit_tag '+', :id => 'create_button'%>
-  <% end %>
-<%= yield %>
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
 
 </body>
 </html>
