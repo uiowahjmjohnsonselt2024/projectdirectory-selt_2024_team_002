@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  def index
-
-  end
 
   def new
 
@@ -24,6 +21,18 @@ class UsersController < ApplicationController
   end
 
   def des
+
+  end
+
+  def login
+
+  end
+
+  def get_session
+  
+  end
+
+  def logout
 
   end
 end
