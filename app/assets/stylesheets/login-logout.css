@@ -53,3 +53,11 @@
 .login {
     width: 120px;
 }
+.login_alert_box {
+    position: relative;
+    bottom: 20vh;
+}
+.signup_alert_box {
+    position: relative;
+    bottom: 10vh;
+}

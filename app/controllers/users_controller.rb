@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def login
-    
+    flash[:alert] = "Wrong username and password combination"
   end
 
   def get_session
