@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def login
-
+    puts "htttjthjtht"
   end
 
   def get_session
