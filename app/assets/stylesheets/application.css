@@ -28,3 +28,6 @@ button {
   button:focus {
     background-color: #718096;
 }
+body {
+  background-color: #2D3748;
+}

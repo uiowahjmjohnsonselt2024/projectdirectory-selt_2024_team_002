@@ -1,0 +1,17 @@
+= stylesheet_link_tag asset_path("login-logout.css")
+= stylesheet_link_tag asset_path("login-logout.css")
+
+
+%div{class: "container"}
+    %div{class: "center_container"}
+        = form_for :user,  :html => {class: "new_user_form"},url: new_user_path, method: :post do |f|
+            %h1{class: "signup_text"} Log in
+            %div{class: "form_element_container full_width_respect_padding"}
+                = f.label :user_name, "User name:"
+                = f.text_field :user_name, class: "full_width_respect_padding"
+            %div{class: "form_element_container full_width_respect_padding"}
+                = f.label :password, "Password:"
+                = f.text_field :password, class: "full_width_respect_padding"
+            %div{class: "buttons_container"}
+                = f.button "Sign up", class: "signup"
+                = f.button "Log In"
