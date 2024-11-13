@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
 
   def new
-
+    flash[:alert] = "The username sally already exists"
   end
 
   def create
-    puts 'sAEFfseseaFD'
+
   end
 
   def show

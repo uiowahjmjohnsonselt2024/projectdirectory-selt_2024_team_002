@@ -2,6 +2,9 @@
 
 
 %div{class: "container"}
+    - if flash[:alert].present?
+        .alert
+        = flash[:alert]
     %div{class: "center_container"}
         =form_for :user,url: '/users', method: :post, :html => {class: "form"} do |f|
             %h1{class: "signup_text"} Sign up
