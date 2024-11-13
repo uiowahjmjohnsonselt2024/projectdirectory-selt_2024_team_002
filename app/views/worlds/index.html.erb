@@ -50,6 +50,10 @@
 
 <h1 style="text-align: center;">Worlds</h1>
 
+<div style="text-align: center; margin-bottom: 20px;">
+  <%= button_to 'Create New World', new_world_path, method: :get, id: "create_button" %>
+</div>
+
 <div class="tab">
   <button class="tablinks active" onclick="openTab(event, 'Public')">Public Worlds</button>
   <button class="tablinks" onclick="openTab(event, 'Private')">Private Worlds</button>
