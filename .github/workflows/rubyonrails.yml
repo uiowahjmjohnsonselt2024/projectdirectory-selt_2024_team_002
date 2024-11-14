@@ -38,6 +38,7 @@ jobs:
       - name: check branch
         run: git --no-pager rev-parse --abbrev-ref HEAD
       # Add or replace database setup steps here - name: Set up database schema
+      - name: load db
         run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: Run tests
