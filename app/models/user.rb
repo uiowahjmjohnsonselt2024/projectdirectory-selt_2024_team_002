@@ -1,7 +1,7 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  validates :email, presence: { message: " is required." }
+  validates :email, presence: { message: " is required." }, 'valid_email_2/email': true
   validates :display_name, presence: { message: " is required." }, uniqueness: { message: " %{value} is taken" }
   has_secure_password 
   validate :password_complexity
