@@ -1,0 +1,41 @@
+<%= stylesheet_link_tag 'login-logout', media: 'all', 'data-turbolinks-track' => true %>
+<div class="container">
+  <% if flash[:alert] %>
+      <div class="alert signup_alert_box">
+        <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg></div>
+        <div class="alert_spacer"></div>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+  <div class="center_container">
+    <%= form_tag "/users/", class: "form", method: :post do %>
+      <h1 class="signup_text">Sign up</h1>
+      <div class="names_container">
+        <div class="form_element_container">
+          <label for="user_first_name">First name:</label>
+          <input type="text" name="user[first_name]" id="user_first_name">
+        </div>
+        <div class="form_element_container">
+          <label for="user_last_name">Last name:</label>
+          <input type="text" name="user[last_name]" id="user_last_name">
+        </div>
+      </div>
+      <div class="form_element_container full_width_respect_padding">
+        <label for="user_user_name">User name:</label>
+        <input type="text" name="user[user_name]" id="user_user_name" class="full_width_respect_padding">
+      </div>
+      <div class="form_element_container full_width_respect_padding">
+        <label for="user_password">Password:</label>
+        <input type="password" name="user[password]" id="user_password" class="full_width_respect_padding">
+      </div>
+      <div class="form_element_container full_width_respect_padding">
+        <label for="user_password_confirmation">Confirm password:</label>
+        <input type="password" name="user[password_confirmation]" id="user_password_confirmation" class="full_width_respect_padding">
+      </div>
+      <div class="buttons_container">
+        <a href="/users/login" class="fake_a_button login">Log In</a>
+        <button class="create_user">Create User</button>
+      </div>
+    <% end %>
+  </div>
+</div>
