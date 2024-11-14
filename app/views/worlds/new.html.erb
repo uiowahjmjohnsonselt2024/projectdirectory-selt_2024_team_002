@@ -56,37 +56,39 @@
   </style>
 </head>
 <body>
-<h1>Create world</h1>
-<%= form_tag "/worlds/add_world", method: :post, id: 'add_form' do %>
-  <div>
-    <label for="world_code">World Code:</label>
-    <%= text_field_tag :world_code, nil, id: 'world_code' %>
-  </div>
-  <div>
-    <label for="world_name">World Name:</label>
-    <%= text_field_tag :world_name, nil, id: 'world_name' %>
-  </div>
-  <div>
-    <label for="user_id">User ID:</label>
-    <%= text_field_tag :user_id, nil, id: 'user_id' %>
-  </div>
-  <div>
-    <label>Visibility:</label>
+<div>
+  <%= form_tag "/worlds/add_world", method: :post, id: 'add_form' do %>
     <div>
-      <label for="is_public">Public</label>
-      <%= radio_button_tag :is_public, '1', true, id: 'is_public' %>
-      <label for="is_private">Private</label>
-      <%= radio_button_tag :is_public, '0', false, id: 'is_private' %>
+      <label for="world_code">World Code:</label>
+      <%= text_field_tag :world_code, nil, id: 'world_code' %>
     </div>
-  </div>
-  <div>
-    <label for="max_player">Max Players:</label>
-    <%= number_field_tag :max_player, nil, id: 'max_player' %>
-  </div>
-  <%= submit_tag 'CREATE', id: 'add_button' %>
-<% end %>
-
+    <div>
+      <label for="world_name">World Name:</label>
+      <%= text_field_tag :world_name, nil, id: 'world_name' %>
+    </div>
+    <div>
+      <label for="user_id">User ID:</label>
+      <%= text_field_tag :user_id, nil, id: 'user_id' %>
+    </div>
+    <div>
+      <label>Visibility:</label>
+      <div>
+        <label for="is_public">Public </label>
+        <%= radio_button_tag :is_public, '1', true, id: 'is_public' %>
+        <label for="is_private">Private</label>
+        <%= radio_button_tag :is_public, '0', false, id: 'is_private' %>
+      </div>
+    </div>
+    <div>
+      <label for="max_player">Max Players:</label>
+      <%= number_field_tag :max_player, nil, id: 'max_player' %>
+    </div>
+    <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px;"%>
+    <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
+      <%= submit_tag 'Return to Home', id: 'return_button' %>
+    <% end %>
+  <% end %>
+</div>
 <%= yield %>
-
 </body>
 </html>
