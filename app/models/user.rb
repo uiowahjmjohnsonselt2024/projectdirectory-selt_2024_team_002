@@ -1,18 +1,36 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  validates :email, presence: { message: "Email is required." }
-  validates :password_digest, presence: { message: "Password is required." }
-  validates :display_name, presence: true, uniqueness: { message: "Username %{value} is taken" }
-  has_secure_password # adds password_confirmation field 
-
+  validates :email, presence: { message: " is required." }
+  validates :display_name, presence: { message: " is required." }, uniqueness: { message: " %{value} is taken" }
+  has_secure_password 
+  validate :password_complexity
   # verifies if login info is valid
   
   # updates the user's session token
-  # throws an exception if the save is unsuccessful
   def update_session_token
     self.session_token = SecureRandom.hex(16)
     self.save
+  end
+
+  private
+  def password_complexity
+    unless password_digest.match?(/\d/)
+      errors.add(:password, " must include a digit")
+      return
+    end
+    unless password_digest.match?(/[A-Z]/)
+      errors.add(:password, " must include one uppercase letter.")
+      return
+    end
+    unless password_digest.match?(/[a-z]/)
+      errors.add(:password, " must include one lowercase letter.")
+      return
+    end
+    unless password_digest.match?(/[\W_]/)
+      errors.add(:password, " must include one special character.")
+      return
+    end
   end
 
   # https://api.rubyonrails.org/v7.1/classes/ActiveModel/SecurePassword/ClassMethods.html

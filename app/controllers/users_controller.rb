@@ -1,10 +1,22 @@
 class UsersController < ApplicationController
-
   def new
+    # render default template
   end
 
   def create
-
+    form = params[:user]
+    if form[:password_confirmation] != form[:password]
+      flash[:alert] = "Passwords confirmation must match"
+      return redirect_to new_user_path
+    end
+    usr = User.new(email: form[:email], display_name: form[:user_name], password_digest: form[:password])
+    if usr.valid?
+      flash[:notice] = "Account created successfully"
+      return redirect_to users_login_path
+    end
+    first_error = usr.errors.full_messages.first
+    flash[:alert] = first_error
+    redirect_to new_user_path
   end
 
   def show
