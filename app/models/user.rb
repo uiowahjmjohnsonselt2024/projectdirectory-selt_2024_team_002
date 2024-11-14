@@ -4,12 +4,17 @@ class User < ActiveRecord::Base
   class NonUniqueDisplayNameError < ArgumentError
   end
 
-  validates :email, presence: true
-  validates :password_hash, presence: true
+  validates :email, presence: { message: "Email is required." }
+  validates :password_digest, presence: { message: "Password is required." }
   validates :session_token, presence: true
   validates :display_name, presence: true
   validates :created_at, presence: true
   validates :updated_at, presence: true
+  before_create :set_defaults
+
+  def set_defaults
+    self.session_token ||= SecureRandom.hex(16)
+  end
 
   # creates a new user and enforces unique display name
   # returns User object if successful, nil otherwise

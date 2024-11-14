@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20241112215801) do
     t.string   "email"
     t.text     "password_hash"
     t.text     "session_token"
+    t.datetime "session_TTL"
     t.integer  "available_credits"
     t.string   "display_name"
     t.datetime "created_at",        null: false
@@ -25,6 +26,6 @@ ActiveRecord::Schema.define(version: 20241112215801) do
   end
 
   add_index "users", ["display_name"], name: "index_users_on_display_name", unique: true
-  add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true
+  add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true, where: "session_token IS NOT NULL"
 
 end
