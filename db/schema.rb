@@ -14,8 +14,9 @@
 ActiveRecord::Schema.define(version: 20241112215801) do
 
   create_table "users", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "email"
-    t.text     "password_digest"
+    t.text     "password_hash"
     t.text     "session_token"
     t.integer  "available_credits"
     t.string   "display_name"
