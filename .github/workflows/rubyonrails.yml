@@ -55,4 +55,4 @@ jobs:
           ruby-version: '2.6.10'
           bundler-cache: true
       - name: Lint Ruby files
-        run: bin/rubocop --parallel
+        run: bin/bundle exec rubocop --parallel
