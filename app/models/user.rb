@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   # throws an exception if the save is unsuccessful
   def update_session_token
     self.session_token = SecureRandom.hex(16)
-    self.save!
+    self.save
   end
 
   # https://api.rubyonrails.org/v7.1/classes/ActiveModel/SecurePassword/ClassMethods.html
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   # finds user by username
   # returns User object if found, nil otherwise
   def self.find_user_by_display_name(display_name)
-    User.where("display_name = ?", display_name).first
+    User.where(["display_name = ?", display_name]).first
   end
 
   # finds user by session token

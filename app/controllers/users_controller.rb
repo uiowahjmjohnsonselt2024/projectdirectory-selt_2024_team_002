@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   def new
-    flash[:alert] = "The username sally already exists"
   end
 
   def create
@@ -25,11 +24,22 @@ class UsersController < ApplicationController
   end
 
   def login
-    flash[:alert] = "Wrong username and password combination"
+    #renders default view
   end
 
   def get_session
-  
+    user = User.find_user_by_display_name(params[:user_name])
+    puts "got user #{user}"
+    if user && user.authenticate(params[:password]) && user.update_session_token()
+      flash[:alert] = "Login successfull"
+      cookies[:session] = {
+        value: user.session_token,
+        expires: 1.week.from_now
+      }
+      return redirect_to users_login_path
+    end
+    flash[:alert] = "Incorrect username and password"
+    redirect_to users_login_path
   end
 
   def logout
