@@ -32,11 +32,6 @@ class User < ActiveRecord::Base
   def self.find_user_by_session_token(session_token)
     time_now = Time.now
     usr = User.where("session_token = ?", session_token).first
-    if (usr && usr.session_TTL) && (time_now > usr.session_TTL)
-        usr.session_TTL = nil
-        usr.save!
-        return nil
-    end
     usr
   end
 

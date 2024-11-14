@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20241112215801) do
     t.string   "email"
     t.text     "password_hash"
     t.text     "session_token"
-    t.datetime "session_TTL"
     t.integer  "available_credits"
     t.string   "display_name"
     t.datetime "created_at",        null: false
