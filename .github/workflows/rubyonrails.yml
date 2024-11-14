@@ -32,7 +32,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
-          ruby-version: '3.3'
+          ruby-version: '2.6.10'
           bundler-cache: true
       #check the branch this is running on to verify correctness #TODO, delete later
       - name: check branch
@@ -52,6 +52,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
+          ruby-version: '2.6.10'
           bundler-cache: true
       - name: Generate binstubs
         run: bundle binstubs bundler-audit brakeman rubocop
