@@ -13,6 +13,7 @@ worlds = [{ world_code: '12321', world_name: 'Test World 1', user_id: '0', is_pu
 
 worlds.each do |world|
   World.create!(world)
+end
 
 users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin' }]
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# creates the worlds table
 class CreateWorlds < ActiveRecord::Migration
   def change
     create_table :worlds do |t|

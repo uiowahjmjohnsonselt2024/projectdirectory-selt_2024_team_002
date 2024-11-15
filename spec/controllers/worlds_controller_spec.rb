@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe WorldsController do
   describe 'world page' do
     it 'should render the world page' do
@@ -36,3 +37,4 @@ describe WorldsController do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

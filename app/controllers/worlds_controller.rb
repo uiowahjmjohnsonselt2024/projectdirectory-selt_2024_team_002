@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# the controler for worlds entities
 class WorldsController < ApplicationController
   def world_params
     params.permit(:world_code, :world_name, :user_id, :is_public, :max_player)
