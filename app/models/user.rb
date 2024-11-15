@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   # updates the user's session token
   def update_session_token
-    self.session_token = SecureRandom.hex(16)
+    self.session_token = SecureRandom.hex(32)
     self.save
   end
 
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   # finds user by session token
   # returns User object if found, nil otherwise
   def self.find_user_by_session_token(session_token)
-    usr = User.where("session_token = ?", session_token).first
+    usr = User.where(["session_token = ?", session_token]).first
     usr
   end
 
