@@ -4,7 +4,7 @@ class WorldsController < ApplicationController
   end
 
   def show
-    id = params[:id] # retrieve movie ID from URI route
+    id = params[:id]
     @world = World.find(id)
   end
 
@@ -14,11 +14,11 @@ class WorldsController < ApplicationController
   end
 
   def new
-    # default: render 'new' template
   end
 
   def create
     @world = World.create!(world_params)
+    @world.initialize_grid(6,6,"0")
     flash[:notice] = "World was successfully created."
     redirect_to worlds_path
   end
@@ -35,10 +35,5 @@ class WorldsController < ApplicationController
   def join_world
     @selected_world = params[:id]
     redirect_to world_path(@selected_world.split("_")[1])
-  end
-
-  def add_world
-    @world = World.create!(world_params)
-    redirect_to worlds_path
   end
 end
