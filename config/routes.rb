@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   # routes for worlds
   resources :worlds
   post "worlds/join_world", to: "worlds#join_world"
-  post "worlds/new", to: "worlds#new"
-  post "worlds/add_world"
 
   # Example resource route with options:
   #   resources :products do
