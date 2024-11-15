@@ -18,6 +18,7 @@
 
 # Ignore IDEA folders for RubyMine users
 /.idea
+/coverage/*
 
 # symlinks from Windows machine
 \\wsl.*
