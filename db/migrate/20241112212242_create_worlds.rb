@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Basic migration for creating the world table in the database.
 class CreateWorlds < ActiveRecord::Migration
   def change
     create_table :worlds do |t|

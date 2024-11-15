@@ -1,10 +1,11 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
+source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', "~> 1.3.6"
+gem 'sqlite3', '~> 1.3.6'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -23,7 +24,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem "ffi", "< 1.17.0"
+gem 'ffi', '< 1.17.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -38,10 +39,10 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'capybara'
+  gem 'guard-rspec'
   gem 'launchy'
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
-  gem 'guard-rspec'
 end
 
 group :development do
@@ -53,13 +54,12 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-expectations'
-  gem 'cucumber-rails', :require=>false
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'rspec-expectations'
 end
 
 group :production do
   gem 'pg', '~> 0.20.0' # for Heroku deployment
   gem 'rails_12factor'
 end
-
