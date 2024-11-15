@@ -6,7 +6,7 @@ class CreateWorlds < ActiveRecord::Migration
       t.string :user_id
       t.boolean :is_public
       t.string :max_player
-
+      t.text :data
       t.timestamps null: false
     end
   end
