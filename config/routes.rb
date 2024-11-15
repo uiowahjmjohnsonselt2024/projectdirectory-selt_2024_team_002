@@ -17,9 +17,10 @@ Rails.application.routes.draw do
   #   resources :products
 
   # routes for users
+  get 'users/login', to: 'users#login'
+  post 'users/get-session', to: 'users#get_session'
+  get 'users/logout'
   resources :users
-  root to: redirect('/worlds')
-  get 'users/0_display_name'
 
   # routes for worlds
   resources :worlds

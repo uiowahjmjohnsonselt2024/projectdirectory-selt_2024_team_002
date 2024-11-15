@@ -22,4 +22,19 @@ ActiveRecord::Schema.define(version: 20_241_112_212_242) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
+
+ActiveRecord::Schema.define(version: 20_241_114_163_901) do
+  create_table 'users', force: :cascade do |t|
+    t.string   'email'
+    t.text     'password_digest'
+    t.text     'session_token'
+    t.integer  'available_credits'
+    t.string   'display_name'
+    t.datetime 'created_at',        null: false
+    t.datetime 'updated_at',        null: false
+  end
+
+  add_index 'users', ['display_name'], name: 'index_users_on_display_name', unique: true
+  add_index 'users', ['session_token'], name: 'index_users_on_session_token', unique: true,
+                                        where: 'session_token IS NOT NULL'
 end
