@@ -29,8 +29,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 # verifys email formating. Can also verify that the mail server exists thru dns
-gem 'valid_email2'
 gem 'rubocop-rake'
+gem 'valid_email2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
