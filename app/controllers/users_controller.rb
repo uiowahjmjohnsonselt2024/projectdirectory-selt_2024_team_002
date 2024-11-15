@@ -15,12 +15,11 @@ class UsersController < ApplicationController
       return redirect_to new_user_path
     end
     usr = User.new(email: form[:email], display_name: form[:user_name], password_digest: form[:password])
-    if usr.valid?
+    if usr.valid? && usr.save
       flash[:notice] = 'Account created successfully'
       return redirect_to users_login_path
     end
-    first_error = 
-    flash[:alert] = usr.errors.full_messages.first
+    flash[:alert] = usr.errors.empty? ? 'Something went wrong' : usr.errors.full_messages.first
     redirect_to new_user_path
   end
 
@@ -38,7 +37,6 @@ class UsersController < ApplicationController
 
   def get_session
     user = User.find_user_by_display_name(params[:user_name])
-    puts "got user #{user}"
     if user && user.authenticate(params[:password]) && user.update_session_token
       flash[:alert] = 'Login successfull'
       cookies[:session] = {
