@@ -43,5 +43,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.assets.check_precompiled_asset = false # without this here, our css won't load correctly in the tests
-
 end
