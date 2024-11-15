@@ -1,3 +1,6 @@
+inherit_gem:
+  panolint-ruby: panolint-ruby-rubocop.yml
+
 AllCops:
   Exclude:
     - 'bin/*'

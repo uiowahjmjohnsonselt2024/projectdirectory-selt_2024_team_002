@@ -29,7 +29,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 # verifys email formating. Can also verify that the mail server exists thru dns
-gem 'panolint'
 gem 'rubocop-rake'
 gem 'valid_email2'
 
