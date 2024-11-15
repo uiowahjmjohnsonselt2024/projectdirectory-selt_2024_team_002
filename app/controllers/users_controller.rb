@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       flash[:alert] = 'Passwords confirmation must match'
       return redirect_to new_user_path
     end
-    usr = User.new(email: form[:email], display_name: form[:user_name], password_digest: form[:password])
+    usr = User.new(email: form[:email], display_name: form[:user_name], password: form[:password])
     if usr.valid? && usr.save
       flash[:notice] = 'Account created successfully'
       return redirect_to users_login_path
