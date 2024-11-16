@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates :display_name, presence: { message: 'is required.' }, uniqueness: { message: ' %<value>s is taken' }
   has_secure_password
   validate :password_complexity
+
   def update_session_token
     self.session_token = SecureRandom.hex(32)
     save

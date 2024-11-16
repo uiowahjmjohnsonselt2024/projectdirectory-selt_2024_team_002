@@ -81,11 +81,11 @@
     </div>
       <label for="max_player">Max Players:</label>
       <%= number_field_tag :max_player, nil, id: 'max_player' %>
-    <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px;"%>
-    <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
+    <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px;"%> 
+  <% end %>
+  <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
       <%= submit_tag 'Return to Home', id: 'return_button' %>
     <% end %>
-  <% end %>
 </div>
 <%= yield %>
 </body>
