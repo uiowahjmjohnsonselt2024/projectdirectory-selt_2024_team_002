@@ -1,0 +1,8 @@
+{
+  "GROUP" : "G2",
+  "ALL_SPRINTS" : {
+    "SPRING1_URL" : http://blah.blee.boo/myapp,
+    "SPRING2_URL" : http://blah.blee.boo/myapp,
+    "FINAL_URL" : http://blah.blee.boo/myapp,
+  }
+}
