@@ -12,6 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20_241_112_212_242) do
+  create_table 'worlds', force: :cascade do |t|
+    t.string   'world_code'
+    t.string   'world_name'
+    t.string   'user_id'
+    t.boolean  'is_public'
+    t.string   'max_player'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+end
+
 ActiveRecord::Schema.define(version: 20_241_114_163_901) do
   create_table 'users', force: :cascade do |t|
     t.string   'email'

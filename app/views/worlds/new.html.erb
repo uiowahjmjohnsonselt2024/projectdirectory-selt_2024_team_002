@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Worlds</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <style>
+      body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          flex-direction: column;
+      }
+      h1 {
+          position: absolute;
+          top: 20px;
+      }
+      #add_form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 300px;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          margin-top: 60px; /* Add margin to avoid overlap with the heading */
+      }
+      #add_form div {
+          margin-bottom: 15px;
+          width: 100%;
+      }
+      #add_form label {
+          display: block;
+          margin-bottom: 5px;
+      }
+      #add_form input {
+          width: 100%;
+          padding: 8px;
+          box-sizing: border-box;
+      }
+      #add_button {
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+      #add_button:hover {
+          background-color: #0056b3;
+      }
+  </style>
+</head>
+<body>
+<div>
+  <%= form_tag "/worlds/add_world", method: :post, id: 'add_form' do %>
+    <div>
+      <label for="world_code">World Code:</label>
+      <%= text_field_tag :world_code, nil, id: 'world_code' %>
+    </div>
+    <div>
+      <label for="world_name">World Name:</label>
+      <%= text_field_tag :world_name, nil, id: 'world_name' %>
+    </div>
+    <div>
+      <label for="user_id">User ID:</label>
+      <%= text_field_tag :user_id, nil, id: 'user_id' %>
+    </div>
+    <div>
+      <label>Visibility:</label>
+      <div>
+        <label for="is_public">Public </label>
+        <%= radio_button_tag :is_public, '1', true, id: 'is_public' %>
+        <label for="is_private">Private</label>
+        <%= radio_button_tag :is_public, '0', false, id: 'is_private' %>
+      </div>
+    </div>
+    <div>
+      <label for="max_player">Max Players:</label>
+      <%= number_field_tag :max_player, nil, id: 'max_player' %>
+    </div>
+    <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px;"%>
+    <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
+      <%= submit_tag 'Return to Home', id: 'return_button' %>
+    <% end %>
+  <% end %>
+</div>
+<%= yield %>
+</body>
+</html>
