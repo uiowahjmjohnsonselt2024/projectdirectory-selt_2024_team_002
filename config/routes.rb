@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :users
   root to: redirect('/worlds')
 
-
   # routes for worlds
   resources :worlds
   post 'worlds/join_world', to: 'worlds#join_world'
