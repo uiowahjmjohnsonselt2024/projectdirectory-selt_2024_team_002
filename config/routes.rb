@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'users/get-session', to: 'users#get_session'
   get 'users/logout'
   resources :users
+  root to: redirect('/worlds')
 
   # routes for worlds
   resources :worlds

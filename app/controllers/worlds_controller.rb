@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# the controler for worlds entities
+# WorldController performs basic operations for world generation and state storage.
 class WorldsController < ApplicationController
   def world_params
     params.permit(:world_code, :world_name, :user_id, :is_public, :max_player)
   end
 
   def show
-    id = params[:id] # retrieve movie ID from URI route
+    id = params[:id] # retrieve world ID from URI route
     @world = World.find(id)
   end
 
@@ -22,6 +22,7 @@ class WorldsController < ApplicationController
 
   def create
     @world = World.create!(world_params)
+    @world.initialize_grid(6, 6, '0')
     flash[:notice] = 'World was successfully created.'
     redirect_to worlds_path
   end

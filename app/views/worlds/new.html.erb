@@ -57,7 +57,7 @@
 </head>
 <body>
 <div>
-  <%= form_tag "/worlds/add_world", method: :post, id: 'add_form' do %>
+  <%= form_tag "/worlds", method: :post, id: 'add_form' do %>
     <div>
       <label for="world_code">World Code:</label>
       <%= text_field_tag :world_code, nil, id: 'world_code' %>
@@ -79,10 +79,8 @@
         <%= radio_button_tag :is_public, '0', false, id: 'is_private' %>
       </div>
     </div>
-    <div>
       <label for="max_player">Max Players:</label>
       <%= number_field_tag :max_player, nil, id: 'max_player' %>
-    </div>
     <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px;"%>
     <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
       <%= submit_tag 'Return to Home', id: 'return_button' %>
