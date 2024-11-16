@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
+  # landing page
+
   # routes for users
   get 'users/login', to: 'users#login'
   post 'users/get-session', to: 'users#get_session'
