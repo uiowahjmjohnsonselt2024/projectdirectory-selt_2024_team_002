@@ -15,11 +15,10 @@
 /log/*
 !/log/.keep
 /tmp
-
 # Ignore IDEA folders for RubyMine users
 /.idea
-
+#ignore the code coverage report
+/coverage/*
 # symlinks from Windows machine
 \\wsl.*
-
 .ruby-version
