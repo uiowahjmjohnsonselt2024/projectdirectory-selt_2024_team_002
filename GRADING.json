@@ -1,0 +1,8 @@
+{
+  "GROUP" : "G2",
+  "ALL_SPRINTS" : {
+    "SPRINT1_URL" : https://team2sprint1-86699fab2dc7.herokuapp.com,
+    "SPRINT2_URL" : http://blah.blee.boo/myapp,
+    "FINAL_URL" : http://blah.blee.boo/myapp,
+  }
+}

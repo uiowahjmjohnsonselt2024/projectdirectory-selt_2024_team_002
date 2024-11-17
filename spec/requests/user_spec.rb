@@ -59,13 +59,14 @@ RSpec.describe 'Users', type: :request do
     end
   end
   describe 'get-session' do
-    it 'should do something when correct credentials are entered and the session is correcly saved' do
+    it 'should redirect to the worlds page when correct credentials are entered and the session is correcly saved' do
       usr = double('usr')
       allow(User).to receive(:find_user_by_display_name).and_return(usr)
       allow(usr).to receive(:authenticate).and_return(true)
       allow(usr).to receive(:update_session_token).and_return(true)
       allow(usr).to receive(:session_token).and_return('asdasdasd')
       post users_get_session_path, { password: 'valid', username: 'valid' }
+      expect(response).to redirect_to worlds_path
     end
     it 'redirect to the login page when wrong credentials are entered' do
       usr = double('usr')

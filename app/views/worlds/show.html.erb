@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Worlds</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="toolbar">
+  <span class="world-id">World ID: <%= @world[:world_code] %></span>
+  <span class="world-name">World Name: <%= @world[:world_name] %></span>
+</div>
+<%= yield %>
+
+<table class="grid-table">
+  <% @world.data.each_with_index do |row, row_index| %>
+    <tr>
+      <% row.each_with_index do |cell, col_index| %>
+        <td class="grid-cell" data-row="<%= row_index %>" data-col="<%= col_index %>">
+          <% if cell == "0" %>
+            <div class="empty-cell"></div>
+          <% else %>
+            <div class="filled-cell"><%= cell %></div>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+</body>
+</html>
