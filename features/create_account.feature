@@ -5,17 +5,17 @@ Feature: Create account with user information
 
 Scenario: Create account with non-unique display name
   When I am on the Create Account page
-  And I fill in "Email" with "test@test.com"
-  And I fill in "Password" with "test"
-  And I fill in "Confirm password" with "test"
-  And I press "Create User"
-  Then I should see "The username test already exists"
+  And I fill in "Email:" with "test@test.com"
+  And I fill in "Password:" with "admin"
+  And I fill in "Confirm password:" with "FFFFaaasf@@#11"
+  And I press the button "Create User"
+  Then I should see "Username admin is taken"
 
 
-Scenario: Create account with unique username
-  When I am on the Create Account page
-  And I fill in "Email" with "test@test.com"
-  And I fill in "Password" with "test"
-  And I fill in "Confirm password" with "test"
-  And I press "Create User"
-  Then I should see "Account created successfully"
+Scenario: Create account with non matching password
+  
+Scenario: Create account with weak password
+
+Scenario: Create account with invalid Email
+
+Scenario: Create account with correct details

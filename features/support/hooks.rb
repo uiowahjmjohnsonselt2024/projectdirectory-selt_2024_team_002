@@ -1,5 +1,4 @@
-# features/support/hooks.rb
+# this seeds our database for the int tests
 Before do
-  puts "Seeding test data..."
   Rails.application.load_seed
 end

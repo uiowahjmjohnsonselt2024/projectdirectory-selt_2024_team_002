@@ -13,6 +13,7 @@ end
 
 # CAREFULL! some links look like buttons, make sure to inspect element
 And(/^I press the link "([^"]*)"$/) do |arg|
+  puts 'aeryaeryeraertah'
   click_link arg
 end
 
