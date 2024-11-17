@@ -7,14 +7,25 @@ When(/^I am on the Login page$/) do
 end
 
 # change to match the form fields
-And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |arg1, arg2|
-  pending
+And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, value|
+  fill_in field_name, with: value
 end
 
-And(/^I press "([^"]*)"$/) do |arg|
+# CAREFULL! some links look like buttons, make sure to inspect element
+And(/^I press the link "([^"]*)"$/) do |arg|
+  click_link arg
+end
+
+And(/^I press the button "([^"]*)"$/) do |arg|
   click_button arg
 end
 
 Then(/^I should see "([^"]*)"$/) do |arg|
   expect(page).to have_content(arg)
+end
+
+Then(/^I should be redirected to "([^"]*)"$/) do |arg|
+  current_url_path = URI.parse(current_url).path
+  expect(current_url_path).to eq(arg)
+  expect(current_path).to eq(arg)  # assuming your dashboard path is called dashboard_path
 end
