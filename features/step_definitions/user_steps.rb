@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When(/^I am on the Create Account page$/) do
   visit new_user_path
 end
