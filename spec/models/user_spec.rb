@@ -29,38 +29,38 @@ RSpec.describe User, type: :model do
     # see the justification in the validation function
     describe 'password' do
       it 'dosent validate when the password is empty' do
-        user = User.new(password_digest: '')
+        user = User.new(password: '')
         expect(user).not_to be_valid
         expect(user.errors.full_messages).to include("Password can't be blank")
       end
       it 'dosen\'t validate with length < 12' do
-        user = User.new(password_digest: '1aA#')
+        user = User.new(password: '1aA#')
         expect(user).not_to be_valid
         expect(user.errors.full_messages).to include('Password must be longer than 12 characters')
       end
       it 'dosen\'t validate without a digit' do
-        user = User.new(password_digest: "asdASD!@\#$!\#")
+        user = User.new(password: "asdASD!@\#$!\#")
         expect(user).not_to be_valid
         expect(user.errors.full_messages).to include('Password must include a digit')
       end
       it 'dosen\'t validate without an upper case letter' do
-        user = User.new(password_digest: "asdasd7!@\#$!\#")
+        user = User.new(password: "asdasd7!@\#$!\#")
         expect(user).not_to be_valid
         expect(user.errors.full_messages).to include('Password must include one uppercase letter')
       end
       it 'dosen\'t validate without a lower case letter' do
-        user = User.new(password_digest: "asdas2d!@\#$!\#")
+        user = User.new(password: "asdas2d!@\#$!\#")
         expect(user).not_to be_valid
         expect(user.errors.full_messages).to include('Password must include one uppercase letter')
       end
       it 'dosen\'t validate without a special character' do
-        user = User.new(password_digest: 'asdASD1234aads')
+        user = User.new(password: 'asdASD1234aads')
         expect(user).not_to be_valid
         expect(user.errors.full_messages).to include('Password must include one special character')
       end
       it 'should be a valid password when all cases are met' do
-        user = User.new(password_digest: 'AlexGuo1234$')
-        expect(user.errors[:password_digest]).to eq []
+        user = User.new(password: 'AlexGuo1234$')
+        expect(user.errors[:password]).to eq []
       end
     end
     # display name and email validation are using prebuilt solutions
