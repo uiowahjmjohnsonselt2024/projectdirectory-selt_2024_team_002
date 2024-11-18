@@ -15,7 +15,6 @@ class UsersController < ApplicationController
       return redirect_to new_user_path
     end
     usr = User.new(email: form[:email], display_name: form[:user_name], password: form[:password])
-    puts "valid? #{usr.valid?}"
     if usr.valid? && usr.save
       flash[:notice] = 'Account created successfully'
       return redirect_to users_login_path

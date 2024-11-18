@@ -30,7 +30,6 @@ Scenario: Create account with weak password
   Then I should see a string that starts with "Password must include"
 
 Scenario: Create account with invalid Email
-  Scenario: Create account with weak password
   When I am on the Create Account page
   And I fill in "Email:" with "bad email"
   And I fill in "Display name:" with "SKT T1 Faker"
