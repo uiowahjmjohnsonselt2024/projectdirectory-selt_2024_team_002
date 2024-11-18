@@ -11,10 +11,11 @@ class UsersController < ApplicationController
   def create
     form = params[:user]
     if form[:password_confirmation] != form[:password]
-      flash[:alert] = 'Passwords confirmation must match'
+      flash[:alert] = 'Password confirmation must match'
       return redirect_to new_user_path
     end
     usr = User.new(email: form[:email], display_name: form[:user_name], password: form[:password])
+    puts "valid? #{usr.valid?}"
     if usr.valid? && usr.save
       flash[:notice] = 'Account created successfully'
       return redirect_to users_login_path

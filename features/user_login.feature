@@ -7,14 +7,14 @@ Feature: Login in with user information
     And I fill in "Username:" with "test"
     And I fill in "Password:" with "test"
     And I press the button "Log In"
-    Then I should see "Incorrect username and password"
+    Then I should see the exact phrase "Incorrect username and password"
 
   Scenario: Login with incorrect password
     When I am on the Login page
     And I fill in "Username:" with "test"
     And I fill in "Password:" with "test"
     And I press the button "Log In"
-    Then I should see "Incorrect username and password"
+    Then I should see the exact phrase "Incorrect username and password"
 
   Scenario: Login with correct information
     When I am on the Login page

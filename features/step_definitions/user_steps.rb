@@ -13,7 +13,6 @@ end
 
 # CAREFULL! some links look like buttons, make sure to inspect element
 And(/^I press the link "([^"]*)"$/) do |arg|
-  puts 'aeryaeryeraertah'
   click_link arg
 end
 
@@ -21,8 +20,12 @@ And(/^I press the button "([^"]*)"$/) do |arg|
   click_button arg
 end
 
-Then(/^I should see "([^"]*)"$/) do |arg|
+Then(/^I should see the exact phrase "([^"]*)"$/) do |arg|
   expect(page).to have_content(arg)
+end
+
+Then(/^I should see a string that starts with "([^"]*)"$/) do |arg|
+  expect(page).to have_content(/^#{Regexp.escape(arg)}/)
 end
 
 Then(/^I should be redirected to "([^"]*)"$/) do |arg|
