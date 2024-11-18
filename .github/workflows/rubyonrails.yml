@@ -13,11 +13,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    uses: actions/setup-sqlite@v1
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
+      - name: Install sqlite
+      uses: actions/setup-sqlite@v1
       - name: Checkout code
         uses: actions/checkout@v4
       # Add or replace dependency steps here
