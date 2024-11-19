@@ -37,6 +37,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'rspec', '~>3.5'
@@ -54,8 +56,6 @@ group :development do
 end
 
 group :test do
-  gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
   gem 'rspec-expectations'
 end
 

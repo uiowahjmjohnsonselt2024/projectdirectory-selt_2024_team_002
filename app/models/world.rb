@@ -27,7 +27,6 @@ class World < ActiveRecord::Base
 
   def display
     data.each do |row|
-      puts row.join(' ')
     end
   end
 end

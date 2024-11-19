@@ -5,7 +5,7 @@ require 'bcrypt'
 # Model dealing with user accounts
 class User < ActiveRecord::Base
   validates :email, presence: { message: 'is required.' }, 'valid_email_2/email': true
-  validates :display_name, presence: { message: 'is required.' }, uniqueness: { message: ' %<value>s is taken' }
+  validates :display_name, presence: { message: 'is required.' }, uniqueness: { message: '%<value>s is taken' }
   has_secure_password
   validate :password_complexity
 
@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   # rubo cop complains that it's too long. and too many conditionals. The alternative is to have all
   # these as oneliner functions which is also bad....
   def password_complexity #thanks chatGPT :) 
-    return if password_digest.blank?
+    return if password.blank?
     password_rules = {
       length: { condition: ->(pwd) { pwd.length >= 12 }, message: 'must be longer than 12 characters' },
       digit: { condition: ->(pwd) { pwd.match?(/\d/) }, message: 'must include a digit' },
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
       special_char: { condition: ->(pwd) { pwd.match?(/[\W_]/) }, message: 'must include one special character' }
     }
     password_rules.each do |key, rule|
-      unless rule[:condition].call(password_digest)
+      unless (rule[:condition].call(password))
         errors.add(:password, rule[:message])
         break
       end

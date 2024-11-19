@@ -2,9 +2,9 @@
 
 # WorldController performs basic operations for world generation and state storage.
 class WorldsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
 
-  def authenticate_user!
+  def authenticate_user
     @cur_user = User.find_user_by_session_token(cookies[:session])
     return if @cur_user
 

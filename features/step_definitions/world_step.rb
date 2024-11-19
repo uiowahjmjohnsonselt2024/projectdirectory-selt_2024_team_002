@@ -7,8 +7,8 @@ end
 # rubocop:disable Layout/LineLength
 When(/^I enter the fields with world name "([^"]*)", world code "([^"]*)", public is "([^"]*)", and max player to be "([^"]*)"$/) do |arg1, arg2, arg3, arg4|
   # rubocop:enable Layout/LineLength
-  fill_in 'world_name', with: arg1
-  fill_in 'world_code', with: arg2
+  fill_in 'World Name:', with: arg1
+  fill_in 'World Code:', with: arg2
   case arg3
   when 'public'
     choose 'is_public'
@@ -51,4 +51,12 @@ Then(/^I should see either the text "([^"]*)" or a list entry with "([^"]*)" and
     expect(page).to have_content(uid)
     expect(page).to have_content(name)
   end
+end
+
+When(/^I log in with valid credentials$/) do
+  visit users_login_path
+  steps 'And I fill in "Username:" with "admin"'
+  steps 'And I fill in "Password:" with "AdminsAreTheBest1$"'
+  steps 'And I press the button "Log In"'
+  steps 'Then I should be redirected to "/worlds"'
 end
