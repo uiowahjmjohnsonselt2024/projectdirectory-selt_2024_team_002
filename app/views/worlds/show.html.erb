@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class="toolbar">
+  <%= button_to 'Back to Worlds', worlds_path, method: :get, id: "back_button", class: "button"%>
   <span class="world_id">World ID: <%= @world[:world_code] %></span>
   <span class="world_name">World Name: <%= @world[:world_name] %></span>
 </div>
