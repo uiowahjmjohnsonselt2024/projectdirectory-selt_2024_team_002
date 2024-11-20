@@ -5,10 +5,15 @@
 </head>
 <body>
 
-<h1 style="text-align: center;">Worlds</h1>
-
-<div style="text-align: center; margin-bottom: 20px;">
-  <%= button_to 'Create New World', new_world_path, method: :get, id: "create_button", class:"button"%>
+<div class="profile_toolbar">
+  <%= button_to 'Log Out', users_login_path, method: :get, id: "logout_button", class:"button"%>
+  <div class="center-stack">
+    <h1>Worlds</h1>
+    <div>
+      <%= button_to 'Create New World', new_world_path, method: :get, id: "create_button", class:"secondary_button"%>
+    </div>
+  </div>
+  <h1 style="font-size: 25px; margin: 0;">Welcome, <%= @cur_user.display_name %></h1>
 </div>
 
 <div class="tab">
