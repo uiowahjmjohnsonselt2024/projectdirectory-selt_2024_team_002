@@ -9,18 +9,18 @@
     margin-bottom: 10px;
 }
 
-.grid-container {
+.grid_container {
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-columns: repeat(6, 115px);
 }
 
-.grid-row {
+.grid_row {
     display: flex;
 }
 
-.grid-cell {
+.grid_cell {
     width: 115px;
     height: 115px;
     border: 1px solid;
@@ -31,13 +31,13 @@
     }
 }
 
-.empty-cell {
+.empty_cell {
     background-color: #f0f0f0;
     width: 100%;
     height: 100%;
 }
 
-.filled-cell {
+.filled_cell {
     display: flex;
     justify-content: center;
     align-items: center;

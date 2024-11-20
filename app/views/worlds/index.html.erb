@@ -8,44 +8,44 @@
 <h1 style="text-align: center;">Worlds</h1>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <%= button_to 'Create New World', new_world_path, method: :get, id: "create_button" %>
+  <%= button_to 'Create New World', new_world_path, method: :get, id: "create_button", class:"button"%>
 </div>
 
 <div class="tab">
-  <button class="tab-links active" onclick="openTab(event, 'public-worlds')">Public Worlds</button>
-  <button class="tab-links" onclick="openTab(event, 'private-worlds')">Private Worlds</button>
-  <button class="tab-links" onclick="openTab(event, 'friend-list')">Friends</button>
+  <button class="tab_links active" onclick="openTab(event, 'public_worlds')">Public Worlds</button>
+  <button class="tab_links" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
+  <button class="tab_links" onclick="openTab(event, 'friend_list')">Friends</button>
 </div>
 
-<div id="public-worlds" class="tab-content active">
+<div id="public_worlds" class="tab_content active">
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
-      <div class="world-box">
+      <div class="world_box">
         <h3><%= world.world_name %></h3>
         <p>Code: <%= world.world_code %></p>
         <p>Max Players: <%= world.max_player %></p>
-        <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}" %>
+        <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}", class:"button"%>
       </div>
     <% end %>
   </div>
 </div>
 
-<div id="private-worlds" class="tab-content">
+<div id="private_worlds" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @private_worlds.each do |world| %>
-      <div class="world-box">
+      <div class="world_box">
         <h3><%= world.world_name %></h3>
         <p>Code: <%= world.world_code %></p>
         <p>Max Players: <%= world.max_player %></p>
-        <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}" %>
+        <%= button_to "Join", action: "join_world", id: "world_#{world[:id]}", class:"button"%>
       </div>
     <% end %>
   </div>
 </div>
 
-<div id="friend-list" class="tab-content">
+<div id="friend_list" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <div class="world-box">
+    <div class="world_box">
       <p>Sorry, you currently have no friend</p>
       <%= form_tag "/worlds", method: :get, id: 'add_friend_form' do %>
         <%= submit_tag 'Add friend', id: 'add_friend_button' %>
@@ -57,11 +57,11 @@
 <script>
     function openTab(evt, tabName) {
         let i, tab_content, tab_links;
-        tab_content = document.getElementsByClassName("tab-content");
+        tab_content = document.getElementsByClassName("tab_content");
         for (i = 0; i < tab_content.length; i++) {
             tab_content[i].classList.remove("active");
         }
-        tab_links = document.getElementsByClassName("tab-links");
+        tab_links = document.getElementsByClassName("tab_links");
         for (i = 0; i < tab_links.length; i++) {
             tab_links[i].classList.remove("active");
         }

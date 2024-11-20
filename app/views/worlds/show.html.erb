@@ -8,25 +8,23 @@
 </head>
 <body>
 <div class="toolbar">
- <span class="world-id">World ID: <%= @world[:world_code] %></span>
-  <span class="world-name">World Name: <%= @world[:world_name] %></span>
+  <span class="world_id">World ID: <%= @world[:world_code] %></span>
+  <span class="world_name">World Name: <%= @world[:world_name] %></span>
 </div>
 <%= yield %>
 
-<div class="grid-container">
+<div class="grid_container">
   <% @world.data.each_with_index do |row, row_index| %>
     <% row.each_with_index do |cell, col_index| %>
-      <div class="grid-cell" data-row="<%= row_index %>" data-col="<%= col_index %>">
+      <div class="grid_cell" data-row="<%= row_index %>" data-col="<%= col_index %>">
         <% if cell == "0" %>
-          <div class="empty-cell"></div>
+          <div class="empty_cell"></div>
         <% else %>
-          <div class="filled-cell"><%= cell %></div>
+          <div class="filled_cell"><%= cell %></div>
         <% end %>
       </div>
     <% end %>
   <% end %>
 </div>
-
-</table>
 </body>
 </html>
