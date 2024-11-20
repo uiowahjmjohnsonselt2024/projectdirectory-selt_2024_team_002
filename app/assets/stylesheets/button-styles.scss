@@ -1,32 +1,24 @@
-button {
-  background-color: #2D3748;
-  border-radius: 8px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #FFFFFF;
+.button {
+  padding: 10px 20px;
+  background-color: #8cd0e6;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid #31788e;
+  border-radius: 5px;
   cursor: pointer;
-  display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  height: 40px;
-  line-height: 20px;
-  list-style: none;
-  margin: 0;
-  outline: none;
-  padding: 10px 16px;
-  position: relative;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   text-align: center;
-  text-decoration: none;
-  transition: color 100ms;
-  vertical-align: baseline;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-button:hover,
-button:focus {
-  background-color: #718096;
+
+  &:hover {
+  background-color: #a4daea;
+  transform: scale(1.05);
+  }
+
+  &:active {
+  background-color: #d5f2fa;
+  transform: scale(0.98);
+  }
 }
 
 .fake_a_button {
@@ -54,29 +46,21 @@ button:focus {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-}
-.fake_a_button:hover,
-.fake_a_button:focus {
+
+  &:hover {
   background-color: #718096;
+  }
 }
 
-.back-button {
+.world_add_button {
   padding: 10px 20px;
-  background-color: #8cd0e6;
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
-  border: 2px solid #31788e;
+  background-color: #007bff;
+  color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  text-align: center;
+
+  &:hover {
+    background-color: #0056b3;
   }
-  .back-button:hover {
-  background-color: #a4daea;
-  transform: scale(1.05);
-  }
-  .back-button:active {
-  background-color: #d5f2fa;
-  transform: scale(0.98);
 }
