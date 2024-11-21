@@ -1,23 +1,46 @@
 .button {
   padding: 10px 20px;
-  background-color: #8cd0e6;
+  background-color: #718CA5;
   color: black;
   font-size: 16px;
   font-weight: bold;
-  border: 2px solid #31788e;
+  border: 2px solid #4e7481;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   text-align: center;
 
   &:hover {
-  background-color: #a4daea;
+  background-color: #7ebacf;
   transform: scale(1.05);
   }
 
   &:active {
-  background-color: #d5f2fa;
+  background-color: #6a9dae;
   transform: scale(0.98);
+  }
+}
+
+.secondary_button {
+  padding: 10px 20px;
+  background-color: #566a7e;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #1d465d;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+
+  &:hover {
+    background-color: #2e7195;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: #27607e;
+    transform: scale(0.98);
   }
 }
 
@@ -54,13 +77,22 @@
 
 .world_add_button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  background-color: #718CA5;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #1d465d;
+  margin-bottom: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #2e7195;
+  }
+
+  &:active {
+    background-color: #27607e;
   }
 }

@@ -32,10 +32,10 @@
     </div>
       <label for="max_player">Max Players:</label>
       <%= number_field_tag :max_player, nil, id: 'max_player' %>
-    <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px;", class: "world_add_button"%>
+    <%= submit_tag 'Create World', id: 'add_button', class: "world_add_button"%>
   <% end %>
   <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
-      <%= submit_tag 'Return to Home', id: 'return_button' %>
+      <%= submit_tag 'Return to Home', id: 'return_button', class: 'button'%>
     <% end %>
 </div>
 <%= yield %>

@@ -6,7 +6,7 @@
     height: 100vh; /* Full viewport height */
 }
 .center_container {
-    background-color: #A7BCC7;
+    background-color: #718ca5;
     border-radius: 25px;
     padding: 10px;
 }
@@ -37,9 +37,9 @@
     box-sizing: border-box;
     width: 100%;
 }
-.create_user {
-    width: 120px;
-}
+//.create_user {
+//    width: 120px;
+//}
 .signup {
     width: 100px;
 }
@@ -48,12 +48,4 @@
 }
 .login {
     width: 120px;
-}
-.login_alert_box {
-    position: relative;
-    bottom: 20vh;
-}
-.signup_alert_box {
-    position: relative;
-    bottom: 10vh;
 }
