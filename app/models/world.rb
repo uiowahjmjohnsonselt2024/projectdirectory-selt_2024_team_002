@@ -3,6 +3,10 @@
 # The world that a user can join, including functions to initialize and
 # update/retrieve information from a displayed grid.
 class World < ActiveRecord::Base
+  validates :world_code, presence: { message: 'is required.' }
+  validates :world_name, presence: { message: 'is required.' }
+  validates :user_id, presence: { message: 'is required.' }
+  validates :max_player, presence: { message: 'is required.' }
   has_one :grid, dependent: :destroy
   has_many :users
 

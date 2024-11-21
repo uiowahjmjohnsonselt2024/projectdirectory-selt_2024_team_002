@@ -32,10 +32,15 @@ class WorldsController < ApplicationController
   end
 
   def create
-    @world = World.create!(world_params)
-    @world.initialize_grid(6, 6, '0')
-    flash[:notice] = 'World was successfully created.'
-    redirect_to worlds_path
+    world = World.new(world_params)
+    if world.valid? && world.save
+      @world = world
+      @world.initialize_grid(6, 6, '0')
+      flash[:notice] = 'World was successfully created.'
+      return redirect_to worlds_path
+    end
+    flash[:notice] = world.errors.empty? ? 'Something went wrong' : world.errors.full_messages.first
+    redirect_to new_world_path
   end
 
   def edit; end
@@ -50,7 +55,15 @@ class WorldsController < ApplicationController
   end
 
   def add_world
-    @world = World.create!(world_params)
-    redirect_to worlds_path
+    world = World.new(world_params)
+    if world.valid? && world.save
+      @world = world
+      @world.initialize_grid(6, 6, '0')
+      flash[:notice] = 'World was successfully created.'
+      return redirect_to worlds_path
+    end
+    puts(world)
+    flash[:notice] = world.errors.empty? ? 'Something went wrong' : world.errors.full_messages.first
+    redirect_to new_world_path
   end
 end
