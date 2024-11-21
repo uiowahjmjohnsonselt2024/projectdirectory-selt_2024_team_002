@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       flash[:alert] = 'Password confirmation must match'
       return redirect_to new_user_path
     end
-    usr = User.new(email: form[:email], display_name: form[:user_name], password: form[:password])
+    usr = User.new(email: form[:email], display_name: form[:user_name], password: form[:password], available_credits: 0)
     if usr.valid? && usr.save
       flash[:notice] = 'Account created successfully'
       return redirect_to users_login_path
@@ -43,10 +43,15 @@ class UsersController < ApplicationController
         value: user.session_token,
         expires: 1.week.from_now
       }
+      @user = user
       return redirect_to worlds_path
     end
     flash[:alert] = 'Incorrect username and password'
     redirect_to users_login_path
+  end
+
+  def purchase
+    @user = User.find_user_by_session_token(cookies[:session])
   end
 
   def logout; end

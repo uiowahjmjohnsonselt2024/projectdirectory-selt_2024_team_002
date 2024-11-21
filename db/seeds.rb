@@ -15,7 +15,7 @@ worlds.each do |world|
   World.create!(world)
 end
 
-users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin' }]
+users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin', available_credits: 0}]
 
 users.each do |user|
   User.create!(user)

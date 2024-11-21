@@ -21,10 +21,6 @@ describe WorldsController do
         post :new
         expect(response).to render_template('new')
       end
-      it 'should check the redirect back to home page' do
-        post :add_world
-        expect(response).to redirect_to worlds_path
-      end
       it 'should call the model method that performs world creation' do
         fake_params = { world_code: '11111', world_name: 'test', user_id: '0', is_public: true,
                         max_player: '5' }

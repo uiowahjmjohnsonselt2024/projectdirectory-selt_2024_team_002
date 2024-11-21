@@ -57,6 +57,9 @@
 </head>
 <body>
 <div class="container">
+  <div class="scroll-independent-div-tl">
+    <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+  </div>
   <div class="center_container">
     <% if flash[:notice] %>
       <div class="alert world-creation-alert-box">
@@ -67,6 +70,7 @@
       </div>
     <% end %>
     <%= form_tag "/worlds", method: :post, id: 'add_form' do %>
+      <b style="display: inherit; font-size: 25px; margin-bottom: 20px">Create New World</b>
       <div>
         <label for="world_code">World Code:</label>
         <%= text_field_tag :world_code, nil, id: 'world_code' %>
@@ -80,15 +84,17 @@
         <%= text_field_tag :user_id, nil, id: 'user_id' %>
       </div>
       <div>
-        <div class="horizontal-stack">
+        <div>
           <label>Visibility:</label>
           <label class="radio-text" for="is_public">Public<%= radio_button_tag :is_public, '1', true, id: 'is_public' %></label>
           <label class="radio-text" for="is_private">Private<%= radio_button_tag :is_public, '0', false, id: 'is_private' %></label>
         </div>
       </div>
+      <div>
         <label for="max_player">Max Players:</label>
         <%= number_field_tag :max_player, nil, id: 'max_player' %>
-      <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px;"%>
+      </div>
+      <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px; background-color: #6592a3"%>
     <% end %>
   </div>
 </div>

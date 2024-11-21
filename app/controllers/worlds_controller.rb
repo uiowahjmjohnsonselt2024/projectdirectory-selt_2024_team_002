@@ -23,8 +23,10 @@ class WorldsController < ApplicationController
   end
 
   def index
+    flash.discard
     @public_worlds = World.where(is_public: true)
     @private_worlds = World.where(is_public: false)
+    @user = User.find_user_by_session_token(cookies[:session])
   end
 
   def new
