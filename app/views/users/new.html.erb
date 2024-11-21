@@ -9,9 +9,9 @@
     <% end %>
   <div class="center_container">
     <%= form_tag "/users/", class: "form", method: :post do %>
-      <h1 class="signup_text">Sign up</h1>
+      <h1 class="signup_text">Sign Up</h1>
       <div class="form_element_container full_width_respect_padding">
-        <label for="user_user_name">Display name:</label>
+        <label for="user_user_name">Display Name:</label>
         <input type="text" name="user[user_name]" id="user_user_name" class="full_width_respect_padding">
       </div>
       <div class="form_element_container full_width_respect_padding">
@@ -23,13 +23,13 @@
         <input type="password" name="user[password]" id="user_password" class="full_width_respect_padding">
       </div>
       <div class="form_element_container full_width_respect_padding">
-        <label for="user_password_confirmation">Confirm password:</label>
+        <label for="user_password_confirmation">Confirm Password:</label>
         <input type="password" name="user[password_confirmation]" id="user_password_confirmation" class="full_width_respect_padding">
       </div>
-      <div class="buttons_container">
-        <a href="/users/login" class="fake_a_button login">Log In</a>
-        <button class="button">Create User</button>
-      </div>
+      <div class="spacer"></div>
+      <button class="highlight_button login">Sign Up</button>
+      <div class="spacer"></div>
+      <a href="/users/login" class="secondary_button login"><button class="secondary_button login">Back to Log In</button></a>
     <% end %>
   </div>
 </div>

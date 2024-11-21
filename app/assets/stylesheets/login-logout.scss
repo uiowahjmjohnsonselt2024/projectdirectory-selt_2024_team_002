@@ -9,6 +9,8 @@
     background-color: #718ca5;
     border-radius: 25px;
     padding: 10px;
+    width: 300px;
+    //height: 400px;
 }
 .form {
     display: flex;
@@ -30,22 +32,10 @@
     padding: 5px;
     justify-content: space-around;
 }
-.buttons {
-    width: 100px;
-}
 .full_width_respect_padding {
     box-sizing: border-box;
     width: 100%;
 }
-//.create_user {
-//    width: 120px;
-//}
-.signup {
-    width: 100px;
-}
 .spacer {
-    width: 50px;
-}
-.login {
-    width: 120px;
+    height: 10px;
 }
