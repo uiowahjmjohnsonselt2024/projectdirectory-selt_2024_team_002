@@ -8,6 +8,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load if defined?(Dotenv::Railtie)
+
 module ProjectdirectorySelt2024Team002
   # The rails application for Team 2's game.
   class Application < Rails::Application
