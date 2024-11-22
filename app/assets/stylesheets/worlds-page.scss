@@ -1,0 +1,27 @@
+.tab {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.tab_content {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.world_box {
+  background-color: #3e4a5d;
+  color: white;
+  border: 1px solid #000;
+  padding: 10px;
+  margin: 10px;
+  width: 80%;
+  text-align: center;
+}
