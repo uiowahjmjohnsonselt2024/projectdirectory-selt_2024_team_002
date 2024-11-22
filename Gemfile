@@ -26,6 +26,8 @@ gem 'ffi', '< 1.17.0'
 gem 'rubocop'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'active_directory'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 

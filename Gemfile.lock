@@ -20,6 +20,9 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_directory (1.6.1.1)
+      bindata (~> 2)
+      net-ldap (~> 0)
     activejob (4.2.10)
       activesupport (= 4.2.10)
       globalid (>= 0.3.0)
@@ -40,7 +43,7 @@ GEM
     arel (6.0.4)
     ast (2.4.2)
     aws-eventstream (1.3.0)
-    aws-partitions (1.1011.0)
+    aws-partitions (1.1013.0)
     aws-sdk-core (3.213.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
@@ -49,7 +52,7 @@ GEM
     aws-sdk-kms (1.96.0)
       aws-sdk-core (~> 3, >= 3.210.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.172.0)
+    aws-sdk-s3 (1.173.0)
       aws-sdk-core (~> 3, >= 3.210.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -57,6 +60,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
+    bindata (2.5.0)
     binding_of_caller (1.0.1)
       debug_inspector (>= 1.2.0)
     builder (3.3.0)
@@ -183,12 +187,13 @@ GEM
     mime-types-data (3.2024.1105)
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
-    minitest (5.25.1)
+    minitest (5.25.2)
     multi_test (0.1.2)
     nenv (0.3.0)
     net-imap (0.3.7)
       date
       net-protocol
+    net-ldap (0.19.0)
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.2)
@@ -322,7 +327,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13)
-    sys-uname (1.3.0)
+    sys-uname (1.3.1)
       ffi (~> 1.1)
     thor (1.3.2)
     thread_safe (0.3.6)
@@ -351,6 +356,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_directory
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   byebug
@@ -386,4 +392,4 @@ RUBY VERSION
    ruby 2.6.10p210
 
 BUNDLED WITH
-   1.17.3
+   1.17.2
