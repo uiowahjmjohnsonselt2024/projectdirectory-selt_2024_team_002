@@ -23,3 +23,5 @@
 # symlinks from Windows machine
 \\wsl.*
 .ruby-version
+
+/storage/*
