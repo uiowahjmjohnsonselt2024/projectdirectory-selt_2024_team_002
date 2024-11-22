@@ -2,6 +2,9 @@ Feature: Purchase shards with any currency
   As a user
   So that I can spend them in game
 
+  Background:
+    Given I am on the purchase shards page
+
   # US Dollar
   Scenario: Purchase shards with USD
     When I purchase shards with 75 USD

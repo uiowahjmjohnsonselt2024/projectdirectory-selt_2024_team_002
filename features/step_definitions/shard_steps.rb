@@ -1,3 +1,7 @@
+Given(/^I am on the purchase shards page$/) do
+  pending
+end
+
 When(/^I purchase shards with (\d+) USD$/) do |arg|
   pending
 end

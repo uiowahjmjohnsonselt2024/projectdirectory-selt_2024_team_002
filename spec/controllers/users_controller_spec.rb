@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 require 'rails_helper'
+require 'app/helpers/shards_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe UsersController do
