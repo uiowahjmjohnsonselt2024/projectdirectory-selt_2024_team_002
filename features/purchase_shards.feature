@@ -4,7 +4,7 @@ Feature: Purchase shards with any currency
 
   # US Dollar
   Scenario: Purchase shards with USD
-    When I purchase shards with 10 USD
+    When I purchase shards with 75 USD
     And I press the button "Proceed to Checkout"
     And I fill in "Card Number" with "1234567890123456"
     And I fill in "Expiration Date" with "12/20"
@@ -20,7 +20,7 @@ Feature: Purchase shards with any currency
     And I fill in "Expiration Date" with "12/20"
     And I fill in "CVV" with "123"
     And I press the button "Purchase"
-    Then I should have X shards
+    Then I should have the correct amount of shards
 
   # British Pound
   Scenario: Purchase shards with GBP
@@ -30,7 +30,7 @@ Feature: Purchase shards with any currency
     And I fill in "Expiration Date" with "12/20"
     And I fill in "CVV" with "123"
     And I press the button "Purchase"
-    Then I should have X shards
+    Then I should have the correct amount of shards
 
   # Euro
   Scenario: Purchase shards with EUR
@@ -40,7 +40,7 @@ Feature: Purchase shards with any currency
     And I fill in "Expiration Date" with "12/20"
     And I fill in "CVV" with "123"
     And I press the button "Purchase"
-    Then I should have X shards
+    Then I should have the correct amount of shards
 
   # Japanese Yen
   Scenario: Purchase shards with JPY
@@ -50,4 +50,4 @@ Feature: Purchase shards with any currency
     And I fill in "Expiration Date" with "12/20"
     And I fill in "CVV" with "123"
     And I press the button "Purchase"
-    Then I should have X shards
+    Then I should have the correct amount of shards

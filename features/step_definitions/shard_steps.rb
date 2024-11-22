@@ -18,6 +18,10 @@ When(/^I purchase shards with (\d+) JPY$/) do |arg|
   pending
 end
 
-Then(/^I should have X shards$/) do
+Then(/^I should have (\d+) shards$/) do |arg|
+  pending
+end
+
+Then(/^I should have the correct amount of shards$/) do
   pending
 end
