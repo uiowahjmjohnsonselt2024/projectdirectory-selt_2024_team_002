@@ -33,13 +33,13 @@ class World < ActiveRecord::Base
     end
   end
 
-  def load_from_s3
-    s3 = Aws::S3::Client.new
-    obj = s3.get_object(bucket: ENV['S3_BUCKET_NAME'], key: "worlds/#{id}.json")
-    JSON.parse(obj.body.read)
-  rescue Aws::S3::Errors::NoSuchKey
-    nil
-  end
+  # def load_from_s3
+  #   s3 = Aws::S3::Client.new
+  #   obj = s3.get_object(bucket: ENV['S3_BUCKET_NAME'], key: "worlds/#{id}.json")
+  #   JSON.parse(obj.body.read)
+  # rescue Aws::S3::Errors::NoSuchKey
+  #   nil
+  # end
 
   def enter_cell(row, col)
     uri = URI('https://api.openai.com/v1/chat/completions')
