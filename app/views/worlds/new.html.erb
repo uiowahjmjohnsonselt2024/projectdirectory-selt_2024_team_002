@@ -5,98 +5,49 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <style>
-      body {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          margin: 0;
-          flex-direction: column;
-      }
-      h1 {
-          position: absolute;
-          top: 20px;
-      }
-      #add_form {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 300px;
-          padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          margin-top: 60px; /* Add margin to avoid overlap with the heading */
-      }
-      #add_form div {
-          margin-bottom: 15px;
-          width: 100%;
-      }
-      #add_form label {
-          display: block;
-          margin-bottom: 5px;
-      }
-      #add_form input {
-          width: 100%;
-          padding: 8px;
-          box-sizing: border-box;
-      }
-      #add_button {
-          padding: 10px 20px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-      }
-      #add_button:hover {
-          background-color: #0056b3;
-      }
-  </style>
 </head>
-<body>
-<div class="container">
-  <div class="scroll-independent-div-tl">
-    <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
-  </div>
-  <div class="center_container">
-    <% if flash[:notice] %>
-      <div class="alert world-creation-alert-box">
-        <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
-          <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
-        </svg></div>
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-    <%= form_tag "/worlds", method: :post, id: 'add_form' do %>
-      <b style="display: inherit; font-size: 25px; margin-bottom: 20px">Create New World</b>
+<body class="world_body">
+<div class="scroll-independent-div-tl">
+  <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+</div>
+<div class="world_add_form">
+  <% if flash[:notice] %>
+    <div class="alert world-creation-alert-box">
+      <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+      </svg></div>
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  <%= form_tag "/worlds", method: :post, id: 'world_add_form' do %>
+    <div>
+      <label for="world_code">World Code:</label>
+      <%= text_field_tag :world_code, nil, id: 'world_code', style: 'background-color: #a3b7c9';%>
+    </div>
+    <div>
+      <label for="world_name">World Name:</label>
+      <%= text_field_tag :world_name, nil, id: 'world_name', class: "textbox"%>
+    </div>
+    <div>
+      <label for="user_id">User ID:</label>
+      <%= text_field_tag :user_id, nil, id: 'user_id', class: "textbox"%>
+    </div>
+    <div>
+      <label for="max_player">Max Players:</label>
+      <%= number_field_tag :max_player, nil, id: 'max_player', class: "textbox"%>
+    </div>
+    <div>
+      <label>Visibility:</label>
       <div>
-        <label for="world_code">World Code:</label>
-        <%= text_field_tag :world_code, nil, id: 'world_code' %>
+        <label class="radio-text" for="is_public">Public <%= radio_button_tag :is_public, '1', true, id: 'is_public' %></label>
+        <label class="radio-text" for="is_private">Private <%= radio_button_tag :is_public, '0', false, id: 'is_private' %></label>
       </div>
-      <div>
-        <label for="world_name">World Name:</label>
-        <%= text_field_tag :world_name, nil, id: 'world_name' %>
-      </div>
-      <div>
-        <label for="user_id">User ID:</label>
-        <%= text_field_tag :user_id, nil, id: 'user_id' %>
-      </div>
-      <div>
-        <div>
-          <label>Visibility:</label>
-          <label class="radio-text" for="is_public">Public<%= radio_button_tag :is_public, '1', true, id: 'is_public' %></label>
-          <label class="radio-text" for="is_private">Private<%= radio_button_tag :is_public, '0', false, id: 'is_private' %></label>
-        </div>
-      </div>
-      <div>
-        <label for="max_player">Max Players:</label>
-        <%= number_field_tag :max_player, nil, id: 'max_player' %>
-      </div>
-      <%= submit_tag 'CREATE', id: 'add_button', style: "margin-bottom: 10px; background-color: #6592a3"%>
-    <% end %>
-  </div>
+    </div>
+    <%= submit_tag 'Create World', id: 'add_button', class: "world_add_button"%>
+  <% end %>
+  <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
+    <%= submit_tag 'Return to Home', id: 'return_button', class: 'button'%>
+  <% end %>
 </div>
 <%= yield %>
 </body>

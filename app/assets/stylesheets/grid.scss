@@ -1,49 +1,42 @@
-// Place all the styles related to the Grids controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-.toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #4199b1;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.grid-container {
+.grid_container {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(6, 115px);
 }
 
-.grid-row {
+.grid_row {
     display: flex;
 }
 
-.grid-cell {
+.grid_cell {
     width: 115px;
     height: 115px;
-    border: 1px solid #ccc;
+    border: 1px solid;
+    position: relative;
 }
 
-.empty-cell {
-    color: #f0f0f0;
+.empty_cell {
+    background-color: #f0f0f0;
     width: 100%;
     height: 100%;
+
+    &:hover {
+        background-color: #c8c8c8;
+        cursor: pointer;
+    }
 }
 
-.filled-cell {
+.filled_cell {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #909090;
     width: 100%;
     height: 100%;
-}
 
-.grid-cell:hover {
-    background-color: #ddd;
-    cursor: pointer;
+    &:hover {
+        background-color: #686868;
+        cursor: pointer;
+    }
 }

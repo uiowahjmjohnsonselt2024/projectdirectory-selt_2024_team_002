@@ -1,0 +1,28 @@
+.alert {
+  background-color: #f97316;
+  border-radius: 25px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.alert_spacer {
+  width: 20px;
+}
+.alert_icon {
+  width: auto;
+  height: auto;
+}
+
+.login_alert_box {
+  position: relative;
+  bottom: 20vh;
+}
+.signup_alert_box {
+  position: relative;
+  bottom: 10vh;
+}
+
+.world-creation-alert-box {
+  position: relative;
+  padding: 10px;
+}

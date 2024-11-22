@@ -6,8 +6,32 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<h1>Purchases for <%= @user.display_name %></h1>
-<h1>Available Shards: <%= @user.available_credits %></h1>
-<%= yield %>
+<body class="world_body">
+  <div class="scroll-independent-div-tl">
+    <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+  </div>
+  <div class="purchase-box">
+    <%= form_tag "/users/convert", method: :post, id: 'conversion_form' do %>
+      <div>
+        <label for="shard_input" style="font-size: 35px">Enter the amount of shards:</label>
+        <div style="display: flex; width: 100%">
+          <%= text_field_tag :shard_input_field, nil, id: 'shard_input_field', class: "textbox", style: "display: flex"%>
+          <div class="dropdown">
+            <button class="drop-button" id="currency" disabled>
+              USD
+            </button>
+            <div class="dropdown-content">
+              <a href="#cad">CAD</a>
+              <a href="#gbp">GBP</a>
+              <a href="#jyp">JYP</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= submit_tag 'Convert', id: 'convert_button', class: "world_add_button"%>
+    <% end %>
+  </div>
 </body>
+
+<script>
+</script>
