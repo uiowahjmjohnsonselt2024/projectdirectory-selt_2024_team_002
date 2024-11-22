@@ -1,31 +1,16 @@
+require 'app/helpers/shards_helper'
+
 Given(/^I am on the purchase shards page$/) do
-  pending
+  visit users_purchase_path
 end
 
-When(/^I purchase shards with (\d+) USD$/) do |arg|
-  pending
+When(/^I purchase shards with (\d+) "([^"]*)"$/) do |amount, currency|
+  @user_shards = @user.available_credits
+  @shard_price = get_shard_conversion(currency)
+  @shards_bought = amount * @shard_price
 end
 
-When(/^I purchase shards with (\d+) CAD$/) do |arg|
-  pending
-end
-
-When(/^I purchase shards with (\d+) GBP$/) do |arg|
-  pending
-end
-
-When(/^I purchase shards with (\d+) EUR$/) do |arg|
-  pending
-end
-
-When(/^I purchase shards with (\d+) JPY$/) do |arg|
-  pending
-end
-
-Then(/^I should have (\d+) shards$/) do |arg|
-  pending
-end
-
+# check if the users shards has increased by @total_shards
 Then(/^I should have the correct amount of shards$/) do
-  pending
+  expect(page).to have_content(@user_shards + @shards_bought)
 end
