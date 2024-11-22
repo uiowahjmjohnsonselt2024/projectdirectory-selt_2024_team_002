@@ -42,6 +42,7 @@ class World < ActiveRecord::Base
   # end
 
   def enter_cell(row, col)
+    return #skipping this
     uri = URI('https://api.openai.com/v1/chat/completions')
     headers = {
       'Content-Type' => 'application/json',
@@ -64,7 +65,7 @@ class World < ActiveRecord::Base
     response = http.request(request)
 
     if response.code.to_i != 200
-      puts "API Error: #{response.body}"
+      puts "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}"
       return
     end
 
@@ -74,7 +75,7 @@ class World < ActiveRecord::Base
       #set(row, col, text)
       puts(text)
     else
-      puts("Unexpected response: #{response.body}")
+      puts("Unexpected response from OpenAI: #{response.body}")
     end
   end
 end
