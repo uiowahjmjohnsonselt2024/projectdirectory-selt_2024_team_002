@@ -1,6 +1,6 @@
 Feature: Allow Application user to view the friend list
   As a user
-  so that I can see my in game friends
+  So that I can see my in game friends
 
 Scenario:  View a Friend list
   When I log in with valid credentials

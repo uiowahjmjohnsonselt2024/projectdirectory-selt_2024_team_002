@@ -1,6 +1,6 @@
 Feature: Login in with user information
   As a user
-  so that I can access the game home page
+  So that I can access the game home page
 
   Scenario: Login with nonexistent username
     When I am on the Login page

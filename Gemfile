@@ -33,6 +33,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rubocop-rake'
 gem 'valid_email2'
 
+gem 'money'
+gem 'money-open-exchange-rates'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
