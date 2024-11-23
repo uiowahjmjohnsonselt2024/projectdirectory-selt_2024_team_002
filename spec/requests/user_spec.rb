@@ -37,8 +37,8 @@ RSpec.describe 'Users', type: :request do
       allow(usr).to receive(:errors).and_return(errors)
       allow(errors).to receive(:empty?).and_return(true)
       post users_path,
-           params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo', user_name: 'alex',
-                             email: 'aguo2@uiowa.edu' } }
+           params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo',
+                             user_name: 'alex', email: 'aguo2@uiowa.edu' } }
       expect(response).to redirect_to new_user_path
     end
     it 'redirect to the login page if the user is created successfully' do
@@ -47,8 +47,8 @@ RSpec.describe 'Users', type: :request do
       expect(usr).to receive(:valid?).and_return(true)
       expect(usr).to receive(:save).and_return(true)
       post users_path,
-           params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo', user_name: 'alex',
-                             email: 'aguo2@uiowa.edu' } }
+           params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo',
+                             user_name: 'alex',             email: 'aguo2@uiowa.edu' } }
       expect(response).to redirect_to users_login_path
     end
   end
