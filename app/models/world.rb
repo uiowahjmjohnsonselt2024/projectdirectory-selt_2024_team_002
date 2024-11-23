@@ -42,7 +42,7 @@ class World < ActiveRecord::Base
   # end
 
   def enter_cell(row, col)
-    return #skipping this
+    return # skipping this
     uri = URI('https://api.openai.com/v1/chat/completions')
     headers = {
       'Content-Type' => 'application/json',
@@ -72,7 +72,7 @@ class World < ActiveRecord::Base
     result = JSON.parse(response.body)
     if result['choices'] && result['choices'][0]
       text = result['choices'][0]['message']['content']
-      #set(row, col, text)
+      # set(row, col, text)
       puts(text)
     else
       puts("Unexpected response from OpenAI: #{response.body}")

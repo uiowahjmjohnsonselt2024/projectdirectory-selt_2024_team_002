@@ -25,7 +25,7 @@ RSpec.describe 'Users', type: :request do
       allow(errors).to receive(:empty?).and_return(false)
       allow(errors).to receive(:full_messages).and_return(['Password can\'t be blank'])
       # no display name or email
-      post users_path, params:{ user: { password: 'hello', password_confirmation: 'password_confirmation' } }
+      post users_path, params: { user: { password: 'hello', password_confirmation: 'password_confirmation' } }
       expect(response).to redirect_to new_user_path
     end
     it 'should redirect to new_user_path if the save fails' do
@@ -38,7 +38,7 @@ RSpec.describe 'Users', type: :request do
       allow(errors).to receive(:empty?).and_return(true)
       post users_path,
            params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo', user_name: 'alex',
-                     email: 'aguo2@uiowa.edu' } }
+                             email: 'aguo2@uiowa.edu' } }
       expect(response).to redirect_to new_user_path
     end
     it 'redirect to the login page if the user is created successfully' do
@@ -48,7 +48,7 @@ RSpec.describe 'Users', type: :request do
       expect(usr).to receive(:save).and_return(true)
       post users_path,
            params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo', user_name: 'alex',
-                     email: 'aguo2@uiowa.edu' } }
+                             email: 'aguo2@uiowa.edu' } }
       expect(response).to redirect_to users_login_path
     end
   end

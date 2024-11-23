@@ -13,7 +13,7 @@ gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 
-gem "puma"
+gem 'puma'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -48,9 +48,9 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3', '2.0.4'
-  gem 'rails-controller-testing'
   gem 'dotenv-rails'
+  gem 'rails-controller-testing'
+  gem 'sqlite3', '2.0.4'
 end
 
 group :development do
