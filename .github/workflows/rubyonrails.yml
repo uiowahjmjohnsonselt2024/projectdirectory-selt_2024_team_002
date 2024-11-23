@@ -26,9 +26,9 @@ jobs:
         with:
           ruby-version: '3.0.0'
           bundler-cache: true
-      #check the branch this is running on to verify correctness #TODO, delete later
-      - name: check branch
-        run: git --no-pager rev-parse --abbrev-ref HEAD
+      # DO NOT REMOVE OR WORKFLOW WILL FAIL
+      - name: update rubygems
+        run: gem update --system 3.5.23 
       # Add or replace database setup steps here - name: Set up database schema
       - name: load db
         run: bin/rake db:schema:load
@@ -48,5 +48,8 @@ jobs:
         with:
           ruby-version: '3.0.0'
           bundler-cache: true
+      # DO NOT REMOVE OR WORKFLOW WILL FAIL
+      - name: update rubygems
+        run: gem update --system 3.5.23 
       - name: Lint Ruby files
         run: bin/bundle exec rubocop --parallel
