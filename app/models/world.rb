@@ -11,6 +11,7 @@ class World < ActiveRecord::Base
   has_many :users
 
   serialize :data, Array
+  before_create :initialize_grid
 
   def initialize_grid(rows = 6, cols = 6, default_value = '0')
     self.data = Array.new(rows) { Array.new(cols, default_value) }
