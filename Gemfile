@@ -49,7 +49,7 @@ group :development, :test do
   gem 'rspec-rails'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '2.0.4'
-
+  gem 'rails-controller-testing'
   gem 'dotenv-rails'
 end
 
