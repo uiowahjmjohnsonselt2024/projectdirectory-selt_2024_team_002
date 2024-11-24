@@ -19,7 +19,7 @@ class World < ActiveRecord::Base
         self.gridsquares.create!(row:row, col:col)
         puts "attatching #{row}, #{col}"
         path = Rails.root.join('db', 'shreck.png') # good
-        self.gridsquares.where(row: 1, col: 1).first.image.attach(path)
+        self.gridsquares.where(row: row, col: col).first.image.attach(path)
       end
     end
 
