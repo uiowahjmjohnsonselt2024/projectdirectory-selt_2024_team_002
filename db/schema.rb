@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_11_24_021748) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,7 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_24_021748) do
   end
 
   create_table "gridsquares", force: :cascade do |t|
-    t.integer "world_id"
+    t.bigint "world_id"
     t.integer "row"
     t.integer "col"
     t.boolean "filled"
@@ -58,7 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_24_021748) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["display_name"], name: "index_users_on_display_name", unique: true
-    t.index ["session_token"], name: "index_users_on_session_token", unique: true, where: "session_token IS NOT NULL"
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true, where: "(session_token IS NOT NULL)"
   end
 
   create_table "worlds", force: :cascade do |t|

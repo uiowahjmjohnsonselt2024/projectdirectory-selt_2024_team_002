@@ -267,7 +267,7 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
-    pg (0.20.0)
+    pg (1.5.9)
     pry (0.15.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -466,7 +466,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   launchy
-  pg (~> 0.20.0)
+  pg (~> 1.1)
   puma
   rails
   rails-controller-testing
@@ -477,6 +477,7 @@ DEPENDENCIES
   rubocop
   rubocop-rake
   sass-rails
+  sassc-rails
   sdoc
   simplecov
   spring

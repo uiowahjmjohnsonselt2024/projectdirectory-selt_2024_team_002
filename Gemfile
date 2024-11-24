@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+ # frozen_string_literal: true
 
 source 'https://rubygems.org'
 
@@ -32,6 +32,8 @@ gem 'activestorage'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+gem 'pg', '~> 1.1'
+gem 'sassc-rails'
 
 # verifys email formating. Can also verify that the mail server exists thru dns
 gem 'rubocop-rake'
@@ -67,7 +69,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '~> 0.20.0' # for Heroku deployment
   gem "aws-sdk-s3", require: false
   gem 'rails_12factor'
 end
