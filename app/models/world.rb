@@ -9,13 +9,20 @@ require 'json'
 class World < ActiveRecord::Base
   has_one :grid, dependent: :destroy
   has_many :users
-
-  serialize :data, Array
+  has_many :gridsquares
+  after_save :initialize_grid
+  @@dim = 6
 
   def initialize_grid(rows = 6, cols = 6, default_value = '0')
-    self.data = Array.new(rows) { Array.new(cols, default_value) }
-    set(2, 3, '1') # Temporarily fill a grid tile
-    save
+    (1..@@dim).each do |row|
+      (1..@@dim).each do |col|
+        self.gridsquares.create!(row:row, col:col)
+      end
+    end
+  end
+
+  def get_grids()
+    self.gridsquares
   end
 
   def set(row, col, value)

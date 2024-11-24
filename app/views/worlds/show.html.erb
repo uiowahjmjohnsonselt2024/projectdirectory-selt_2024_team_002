@@ -15,15 +15,13 @@
 <%= yield %>
 
 <div class="grid_container">
-  <% @world.data.each_with_index do |row, row_index| %>
-    <% row.each_with_index do |cell, col_index| %>
-      <div class="grid_cell" data-row="<%= row_index %>" data-col="<%= col_index %>">
-        <% if cell == "0" %>
-          <div class="empty_cell"></div>
+  <% @data.each do |row, value| %>
+    <% @data[row].each do |col, cell| %>
+      <% if cell.filled %>
+          <div class="grid_cell empty_cell"></div>
         <% else %>
-          <div class="filled_cell"><%= cell %></div>
+          <div class="grid_cell filled_cell"></div>
         <% end %>
-      </div>
     <% end %>
   <% end %>
 </div>

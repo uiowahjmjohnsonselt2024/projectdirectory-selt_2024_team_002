@@ -68,5 +68,6 @@ end
 
 group :production do
   gem 'pg', '~> 0.20.0' # for Heroku deployment
+  gem "aws-sdk-s3", require: false
   gem 'rails_12factor'
 end
