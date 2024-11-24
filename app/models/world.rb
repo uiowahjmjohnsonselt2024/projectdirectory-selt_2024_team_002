@@ -10,20 +10,7 @@ class World < ActiveRecord::Base
   has_one :grid, dependent: :destroy
   has_many :users
   has_many :gridsquares
-  after_create :initialize_grid
   @@dim = 6
-
-  def initialize_grid(rows = 6, cols = 6, default_value = '0')
-    (1..@@dim).each do |row|
-      (1..@@dim).each do |col|
-        self.gridsquares.create!(row:row, col:col)
-        puts "attatching #{row}, #{col}"
-        path = Rails.root.join('db', 'shreck.png') # good
-        self.gridsquares.where(row: row, col: col).first.image.attach(path)
-      end
-    end
-
-  end
 
   def get_grids()
     self.gridsquares
@@ -33,6 +20,18 @@ class World < ActiveRecord::Base
     data[row][col] = value
     save
   end
+
+  def init_if_not_inited 
+    puts "self.gridsquares.empty? #{self.gridsquares.empty?}"
+    if self.gridsquares.empty?
+      self.initialize_grid()
+    end
+  end
+
+  def self.dim
+    @@dim
+  end
+
 
   def get(row, col)
     data[row][col]
@@ -89,5 +88,17 @@ class World < ActiveRecord::Base
     # else
     #   puts("Unexpected response from OpenAI: #{response.body}")
     # end
+  end
+
+  private
+  def initialize_grid()
+    puts "fkfgkfkff"
+    (1..@@dim).each do |row|
+      (1..@@dim).each do |col|
+        self.gridsquares.create!(row:row, col:col)
+        path = Rails.root.join('db', 'shreck.png') # good
+        self.gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: "face.jpg", content_type: "image/png")
+      end
+    end
   end
 end

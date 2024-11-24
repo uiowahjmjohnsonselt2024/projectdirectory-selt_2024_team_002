@@ -15,12 +15,18 @@
 <%= yield %>
 
 <div class="grid_container">
-  <% @data.each do |row, value| %>
-    <% @data[row].each do |col, cell| %>
-      <% if cell.filled %>
-          <div class="grid_cell empty_cell"></div>
+  <% (1..World.dim).each do |row| %>
+    <% (1..World.dim).each do |col| %>
+      <% if row == 1 && col == 1 %>
+          <div class="grid_cell empty_cell" >
+            <%=image_tag(url_for(@data[row][col].image),class: "grid_image") %>
+            <div class="hidden"><%=row%>-<%=col%></div>
+          </div>
         <% else %>
-          <div class="grid_cell filled_cell"></div>
+          <div class="grid_cell filled_cell">
+          <div class="hidden"><%=row%>-<%=col%></div>
+            aaa
+          </div>
         <% end %>
     <% end %>
   <% end %>
