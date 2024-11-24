@@ -14,16 +14,15 @@ class World < ActiveRecord::Base
   @@dim = 6
 
   def initialize_grid(rows = 6, cols = 6, default_value = '0')
-    puts "called ig"
     (1..@@dim).each do |row|
       (1..@@dim).each do |col|
         self.gridsquares.create!(row:row, col:col)
+        puts "attatching #{row}, #{col}"
+        path = Rails.root.join('db', 'shreck.png') # good
+        self.gridsquares.where(row: 1, col: 1).first.image.attach(path)
       end
     end
-    puts "end loop"
-    path = Rails.root.join('db', 'shreck.png') # good
-    self.gridsquares.where(row: 1, col: 1).first.image.attach(path)
-    puts "end ig"
+
   end
 
   def get_grids()
