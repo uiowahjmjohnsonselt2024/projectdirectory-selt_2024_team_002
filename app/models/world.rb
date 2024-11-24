@@ -19,6 +19,8 @@ class World < ActiveRecord::Base
         self.gridsquares.create!(row:row, col:col)
       end
     end
+    # path = Rails.root.join('db', 'shreck.png') # good
+    # self.gridsquares.where(row: 1, col: 1).first.image.attach(path)
   end
 
   def get_grids()
