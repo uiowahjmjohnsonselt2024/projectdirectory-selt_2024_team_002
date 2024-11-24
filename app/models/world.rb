@@ -20,7 +20,7 @@ class World < ActiveRecord::Base
       end
     end
     # path = Rails.root.join('db', 'shreck.png') # good
-    # self.gridsquares.where(row: 1, col: 1).first.image.attach(path)
+    # self.gridsquares.where(row: 1, col: 1).first.image.attach(path) //causes db busy error
   end
 
   def get_grids()
