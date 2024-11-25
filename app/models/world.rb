@@ -18,7 +18,6 @@ class World < ActiveRecord::Base
 
 
   def init_if_not_inited 
-    puts "self.gridsquares.empty? #{self.gridsquares.empty?}"
     if self.gridsquares.empty?
       self.initialize_grid()
     end
@@ -79,7 +78,7 @@ class World < ActiveRecord::Base
     (1..@@dim).each do |row|
       (1..@@dim).each do |col|
         self.gridsquares.create!(row:row, col:col)
-        path = Rails.root.join('db', 'shreck.png') # good
+        path = Rails.root.join('db', 'shreck.png')
         self.gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: "face.jpg", content_type: "image/png")
       end
     end

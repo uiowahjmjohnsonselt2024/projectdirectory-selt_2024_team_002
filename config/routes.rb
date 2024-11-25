@@ -23,13 +23,11 @@ Rails.application.routes.draw do
   post 'users/get-session', to: 'users#get_session'
   get 'users/logout'
   resources :users
-  root to: redirect('/worlds')
 
   # routes for worlds
-  resources :worlds
   post 'worlds/join_world', to: 'worlds#join_world'
-  post 'worlds/new', to: 'worlds#new'
-  post 'worlds/add_world'
+  resources :worlds
+  root to: redirect('/worlds')
 
   # Example resource route with options:
   #   resources :products do

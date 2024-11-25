@@ -9,20 +9,22 @@ describe WorldsController do
     before(:each) do
       usr = double('User')
       expect(User).to receive(:find_user_by_session_token).and_return(usr)
+      allow(usr).to receive(:display_name).and_return('')
     end
     describe 'world page' do
       it 'should render the world page' do
-        get 'index'
+        get worlds_path
+
         expect(response).to render_template('index')
       end
     end
     describe 'adding world' do
       it 'should select the Creating World template for rendering' do
-        post :new
+        get new_world_path
         expect(response).to render_template('new')
       end
       it 'should check the redirect back to home page' do
-        post :add_world
+        post '/worlds'
         expect(response).to redirect_to worlds_path
       end
       it 'should call the model method that performs world creation' do
@@ -30,7 +32,7 @@ describe WorldsController do
                         max_player: '5' }
         fake_results = World.new(fake_params)
         allow(World).to receive(:create).and_return(fake_results)
-        post :add_world, params: fake_params
+        post worlds_path, params: fake_params
         expect(assigns(:world)).to have_attributes(
           world_code: '11111',
           world_name: 'test',
@@ -43,7 +45,7 @@ describe WorldsController do
   end
   describe 'When a user is not logged in' do
     it 'should redirect to the login page' do
-      get 'index'
+      get worlds_path
       expect(response).to redirect_to users_login_path
     end
   end
