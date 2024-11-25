@@ -30,8 +30,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: Check pg
-        runs:  lsof -U | grep postgres
       - name: Checkout code
         uses: actions/checkout@v4
       # Add or replace dependency steps here
@@ -42,6 +40,8 @@ jobs:
           rubygems: 3.5.23
           bundler-cache: true
       # Add or replace database setup steps here - name: Set up database schema
+      - name: Check pg
+        runs:  lsof -U | grep postgres
       - name: load db
         run: bin/rake db:schema:load
       # Add or replace test runners here
