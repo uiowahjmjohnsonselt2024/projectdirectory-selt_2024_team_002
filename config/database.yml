@@ -20,7 +20,9 @@ test:
   timeout: 5000
   host: localhost
   port: 5432
+  username: alexguo
   password: postgres
+  
 
 production:
   adapter: postgresql
