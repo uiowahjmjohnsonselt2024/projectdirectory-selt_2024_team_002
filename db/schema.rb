@@ -13,7 +13,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 # rubocop:disable Metrics/BlockLength
-# rubocop:disable Rails/CreateTableWithTimestamps
 ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
@@ -40,12 +39,13 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
     t.datetime 'created_at', null: false
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
-
+  # rubocop:disable Rails/CreateTableWithTimestamps
   create_table 'active_storage_variant_records', force: :cascade do |t|
     t.bigint 'blob_id', null: false
     t.string 'variation_digest', null: false
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
+  # rubocop:enable Rails/CreateTableWithTimestamps
 
   create_table 'gridsquares', force: :cascade do |t|
     t.bigint 'world_id'
@@ -85,4 +85,3 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
   add_foreign_key 'gridsquares', 'worlds'
 end
 # rubocop:enable Metrics/BlockLength
-# rubocop:enable Rails/CreateTableWithTimestamps

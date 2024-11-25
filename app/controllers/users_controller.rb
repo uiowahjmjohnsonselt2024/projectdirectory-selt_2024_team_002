@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def get_session
     user = User.find_user_by_display_name(params[:user_name])
     if user && user.authenticate(params[:password]) && user.update_session_token
-      flash[:notice] = 'Login successfull'
+      flash[:notice] = 'Login successful'
       cookies[:session] = {
         value: user.session_token,
         expires: 1.week.from_now
@@ -49,5 +49,11 @@ class UsersController < ApplicationController
     redirect_to users_login_path
   end
 
-  def logout; end
+  def logout
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    flash[:notice] = 'Logout successful'
+    cur_user.session_token = nil
+    cur_user.save!
+    redirect_to users_login_path
+  end
 end
