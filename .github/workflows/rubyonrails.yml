@@ -31,7 +31,7 @@ jobs:
           --health-retries 5
         ports:
           # Maps tcp port 5432 on service container to the host
-          - 5432:5432
+          bund- 5432:5432
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,8 +43,6 @@ jobs:
           rubygems: 3.5.23
           bundler-cache: true
       # Add or replace database setup steps here - name: Set up database schema
-      - name: Check pg
-        run:  psql -l
       - name: load db
         run: bin/rake db:schema:load
       # Add or replace test runners here
