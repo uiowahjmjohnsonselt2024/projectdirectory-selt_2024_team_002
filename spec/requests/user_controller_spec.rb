@@ -35,15 +35,16 @@ RSpec.describe 'Users', type: :request do
       post users_path, params: { user: { password: 'hello', password_confirmation: 'password_confirmation' } }
       expect(response).to redirect_to new_user_path
     end
-    # rubocop:enable RSpec/ExampleLength
 
     it 'redirects to new_user_path if the save fails' do
-      usr = double('user')
+      usr = instance_double(User)
       allow(User).to receive(:new).and_return(usr)
-      allow(usr).to receive(:valid?).and_return(true)
-      allow(usr).to receive(:save).and_return(false)
-      errors = double('errors')
-      allow(usr).to receive(:errors).and_return(errors)
+      errors = instance_double(ActiveModel::Errors)
+      allow(usr).to receive_messages(
+        valid?: true,
+        save: false,
+        errors: errors
+      )
       allow(errors).to receive(:empty?).and_return(true)
       post users_path,
            params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo',
@@ -52,10 +53,10 @@ RSpec.describe 'Users', type: :request do
     end
 
     it 'redirect to the login page if the user is created successfully' do
-      usr = double('user')
+      usr = instance_double(User)
       allow(User).to receive(:new).and_return(usr)
-      expect(usr).to receive(:valid?).and_return(true)
-      expect(usr).to receive(:save).and_return(true)
+      allow(usr).to receive(:valid?).and_return(true)
+      allow(usr).to receive(:save).and_return(true)
       post users_path,
            params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo',
                              user_name: 'alex',             email: 'aguo2@uiowa.edu' } }
@@ -102,3 +103,4 @@ RSpec.describe 'Users', type: :request do
   end
 end
 # rubocop:enable Metrics/BlockLength
+# rubocop:enable RSpec/ExampleLength
