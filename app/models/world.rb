@@ -16,10 +16,6 @@ class World < ActiveRecord::Base
     self.gridsquares
   end
 
-  def set(row, col, value)
-    data[row][col] = value
-    save
-  end
 
   def init_if_not_inited 
     puts "self.gridsquares.empty? #{self.gridsquares.empty?}"
@@ -30,18 +26,6 @@ class World < ActiveRecord::Base
 
   def self.dim
     @@dim
-  end
-
-
-  def get(row, col)
-    data[row][col]
-  rescue StandardError
-    nil
-  end
-
-  def display
-    data.each do |row|
-    end
   end
 
   # def load_from_s3
@@ -92,7 +76,6 @@ class World < ActiveRecord::Base
 
   private
   def initialize_grid()
-    puts "fkfgkfkff"
     (1..@@dim).each do |row|
       (1..@@dim).each do |col|
         self.gridsquares.create!(row:row, col:col)
