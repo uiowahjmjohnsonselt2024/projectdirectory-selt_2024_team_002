@@ -41,7 +41,7 @@ jobs:
           bundler-cache: true
       # Add or replace database setup steps here - name: Set up database schema
       - name: Check pg
-        run:  lsof -U | grep postgres
+        run:  psql -l
       - name: load db
         run: bin/rake db:schema:load
       # Add or replace test runners here
