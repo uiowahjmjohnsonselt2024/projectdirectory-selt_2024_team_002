@@ -18,15 +18,16 @@ RSpec.describe 'Users', type: :request do
       expect(response).to redirect_to new_user_path
     end
 
+    # rubocop:disable RSpec/ExampleLength
     it 'redirects to new_user_path if user inputs invalid data' do
-      usr = double('user')
+      usr = instance_double(User)
       allow(User).to receive(:new).and_return(usr)
-      errors = double('errors')
+      errors = instance_double(ActiveModel::Errors)
       allow(usr).to receive_messages(
         valid?: false,
         errors: errors
       )
-      allow(usr).to receive_messages(
+      allow(errors).to receive_messages(
         empty?: false,
         full_messages: ['Password can\'t be blank']
       )
@@ -34,6 +35,7 @@ RSpec.describe 'Users', type: :request do
       post users_path, params: { user: { password: 'hello', password_confirmation: 'password_confirmation' } }
       expect(response).to redirect_to new_user_path
     end
+    # rubocop:enable RSpec/ExampleLength
 
     it 'redirects to new_user_path if the save fails' do
       usr = double('user')

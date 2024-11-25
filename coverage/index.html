@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-25T12:35:30-05:00">2024-11-25T12:35:30-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-25T12:40:48-05:00">2024-11-25T12:40:48-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -380,7 +380,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#2787490bf93b349861cf1e2ce3508ab0c6f41582" class="src_link" title="spec/requests/user_controller_spec.rb">spec/requests/user_controller_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">102</td>
+            <td class="cell--number">104</td>
             <td class="cell--number">61</td>
             <td class="cell--number">61</td>
             <td class="cell--number">0</td>
@@ -10048,14 +10048,12 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="21">
-            
-              <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="21">
             
 
             
 
-            <code class="ruby">    it &#39;redirects to new_user_path if user inputs invalid data&#39; do</code>
+            <code class="ruby">    # rubocop:disable RSpec/ExampleLength</code>
           </li>
         </div>
       
@@ -10067,7 +10065,7 @@
 
             
 
-            <code class="ruby">      usr = double(&#39;user&#39;)</code>
+            <code class="ruby">    it &#39;redirects to new_user_path if user inputs invalid data&#39; do</code>
           </li>
         </div>
       
@@ -10079,7 +10077,7 @@
 
             
 
-            <code class="ruby">      allow(User).to receive(:new).and_return(usr)</code>
+            <code class="ruby">      usr = instance_double(User)</code>
           </li>
         </div>
       
@@ -10091,7 +10089,7 @@
 
             
 
-            <code class="ruby">      errors = double(&#39;errors&#39;)</code>
+            <code class="ruby">      allow(User).to receive(:new).and_return(usr)</code>
           </li>
         </div>
       
@@ -10103,17 +10101,19 @@
 
             
 
-            <code class="ruby">      allow(usr).to receive_messages(</code>
+            <code class="ruby">      errors = instance_double(ActiveModel::Errors)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="26">
+          <li class="covered" data-hits="1" data-linenumber="26">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">        valid?: false,</code>
+            <code class="ruby">      allow(usr).to receive_messages(</code>
           </li>
         </div>
       
@@ -10123,7 +10123,7 @@
 
             
 
-            <code class="ruby">        errors: errors</code>
+            <code class="ruby">        valid?: false,</code>
           </li>
         </div>
       
@@ -10133,29 +10133,29 @@
 
             
 
+            <code class="ruby">        errors: errors</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="29">
+            
+
+            
+
             <code class="ruby">      )</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="29">
+          <li class="covered" data-hits="1" data-linenumber="30">
             
               <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">      allow(usr).to receive_messages(</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="30">
-            
-
-            
-
-            <code class="ruby">        empty?: false,</code>
+            <code class="ruby">      allow(errors).to receive_messages(</code>
           </li>
         </div>
       
@@ -10165,7 +10165,7 @@
 
             
 
-            <code class="ruby">        full_messages: [&#39;Password can\&#39;t be blank&#39;]</code>
+            <code class="ruby">        empty?: false,</code>
           </li>
         </div>
       
@@ -10175,7 +10175,7 @@
 
             
 
-            <code class="ruby">      )</code>
+            <code class="ruby">        full_messages: [&#39;Password can\&#39;t be blank&#39;]</code>
           </li>
         </div>
       
@@ -10185,19 +10185,17 @@
 
             
 
-            <code class="ruby">      # no display name or email</code>
+            <code class="ruby">      )</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="34">
-            
-              <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="34">
             
 
             
 
-            <code class="ruby">      post users_path, params: { user: { password: &#39;hello&#39;, password_confirmation: &#39;password_confirmation&#39; } }</code>
+            <code class="ruby">      # no display name or email</code>
           </li>
         </div>
       
@@ -10209,17 +10207,19 @@
 
             
 
-            <code class="ruby">      expect(response).to redirect_to new_user_path</code>
+            <code class="ruby">      post users_path, params: { user: { password: &#39;hello&#39;, password_confirmation: &#39;password_confirmation&#39; } }</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="36">
+          <li class="covered" data-hits="1" data-linenumber="36">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      expect(response).to redirect_to new_user_path</code>
           </li>
         </div>
       
@@ -10229,31 +10229,27 @@
 
             
 
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="38">
+            
+
+            
+
+            <code class="ruby">    # rubocop:enable RSpec/ExampleLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="39">
+            
+
+            
+
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="38">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    it &#39;redirects to new_user_path if the save fails&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="39">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      usr = double(&#39;user&#39;)</code>
           </li>
         </div>
       
@@ -10265,7 +10261,7 @@
 
             
 
-            <code class="ruby">      allow(User).to receive(:new).and_return(usr)</code>
+            <code class="ruby">    it &#39;redirects to new_user_path if the save fails&#39; do</code>
           </li>
         </div>
       
@@ -10277,7 +10273,7 @@
 
             
 
-            <code class="ruby">      allow(usr).to receive(:valid?).and_return(true)</code>
+            <code class="ruby">      usr = double(&#39;user&#39;)</code>
           </li>
         </div>
       
@@ -10289,7 +10285,7 @@
 
             
 
-            <code class="ruby">      allow(usr).to receive(:save).and_return(false)</code>
+            <code class="ruby">      allow(User).to receive(:new).and_return(usr)</code>
           </li>
         </div>
       
@@ -10301,7 +10297,7 @@
 
             
 
-            <code class="ruby">      errors = double(&#39;errors&#39;)</code>
+            <code class="ruby">      allow(usr).to receive(:valid?).and_return(true)</code>
           </li>
         </div>
       
@@ -10313,7 +10309,7 @@
 
             
 
-            <code class="ruby">      allow(usr).to receive(:errors).and_return(errors)</code>
+            <code class="ruby">      allow(usr).to receive(:save).and_return(false)</code>
           </li>
         </div>
       
@@ -10325,7 +10321,7 @@
 
             
 
-            <code class="ruby">      allow(errors).to receive(:empty?).and_return(true)</code>
+            <code class="ruby">      errors = double(&#39;errors&#39;)</code>
           </li>
         </div>
       
@@ -10337,12 +10333,36 @@
 
             
 
+            <code class="ruby">      allow(usr).to receive(:errors).and_return(errors)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="47">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      allow(errors).to receive(:empty?).and_return(true)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="48">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">      post users_path,</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="47">
+          <li class="never" data-hits="" data-linenumber="49">
             
 
             
@@ -10352,7 +10372,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="48">
+          <li class="never" data-hits="" data-linenumber="50">
             
 
             
@@ -10362,7 +10382,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="49">
+          <li class="covered" data-hits="1" data-linenumber="51">
             
               <span class="hits">1</span>
             
@@ -10374,7 +10394,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="50">
+          <li class="never" data-hits="" data-linenumber="52">
             
 
             
@@ -10384,36 +10404,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="51">
+          <li class="never" data-hits="" data-linenumber="53">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="52">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    it &#39;redirect to the login page if the user is created successfully&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="53">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      usr = double(&#39;user&#39;)</code>
           </li>
         </div>
       
@@ -10425,7 +10421,7 @@
 
             
 
-            <code class="ruby">      allow(User).to receive(:new).and_return(usr)</code>
+            <code class="ruby">    it &#39;redirect to the login page if the user is created successfully&#39; do</code>
           </li>
         </div>
       
@@ -10437,7 +10433,7 @@
 
             
 
-            <code class="ruby">      expect(usr).to receive(:valid?).and_return(true)</code>
+            <code class="ruby">      usr = double(&#39;user&#39;)</code>
           </li>
         </div>
       
@@ -10449,7 +10445,7 @@
 
             
 
-            <code class="ruby">      expect(usr).to receive(:save).and_return(true)</code>
+            <code class="ruby">      allow(User).to receive(:new).and_return(usr)</code>
           </li>
         </div>
       
@@ -10461,12 +10457,36 @@
 
             
 
+            <code class="ruby">      expect(usr).to receive(:valid?).and_return(true)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="58">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(usr).to receive(:save).and_return(true)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="59">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">      post users_path,</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="58">
+          <li class="never" data-hits="" data-linenumber="60">
             
 
             
@@ -10476,7 +10496,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="59">
+          <li class="never" data-hits="" data-linenumber="61">
             
 
             
@@ -10486,7 +10506,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="60">
+          <li class="covered" data-hits="1" data-linenumber="62">
             
               <span class="hits">1</span>
             
@@ -10498,7 +10518,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="61">
+          <li class="never" data-hits="" data-linenumber="63">
             
 
             
@@ -10508,7 +10528,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="62">
+          <li class="never" data-hits="" data-linenumber="64">
             
 
             
@@ -10518,36 +10538,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="63">
+          <li class="never" data-hits="" data-linenumber="65">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="64">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  describe &#39;login page&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="65">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    it &#39;renders the login page&#39; do</code>
           </li>
         </div>
       
@@ -10559,7 +10555,7 @@
 
             
 
-            <code class="ruby">      get users_login_path</code>
+            <code class="ruby">  describe &#39;login page&#39; do</code>
           </li>
         </div>
       
@@ -10571,27 +10567,31 @@
 
             
 
+            <code class="ruby">    it &#39;renders the login page&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="68">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      get users_login_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="69">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">      expect(response).to render_template(&#39;login&#39;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="68">
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="69">
-            
-
-            
-
-            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -10601,31 +10601,27 @@
 
             
 
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="71">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="72">
+            
+
+            
+
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="71">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  describe &#39;get-session&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="72">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    it &#39;redirects to the worlds page when correct credentials are entered and the session is correcly saved&#39; do</code>
           </li>
         </div>
       
@@ -10637,7 +10633,7 @@
 
             
 
-            <code class="ruby">      usr = double(&#39;usr&#39;)</code>
+            <code class="ruby">  describe &#39;get-session&#39; do</code>
           </li>
         </div>
       
@@ -10649,7 +10645,7 @@
 
             
 
-            <code class="ruby">      allow(User).to receive(:find_user_by_display_name).and_return(usr)</code>
+            <code class="ruby">    it &#39;redirects to the worlds page when correct credentials are entered and the session is correcly saved&#39; do</code>
           </li>
         </div>
       
@@ -10661,7 +10657,7 @@
 
             
 
-            <code class="ruby">      allow(usr).to receive(:authenticate).and_return(true)</code>
+            <code class="ruby">      usr = double(&#39;usr&#39;)</code>
           </li>
         </div>
       
@@ -10673,7 +10669,7 @@
 
             
 
-            <code class="ruby">      allow(usr).to receive(:update_session_token).and_return(true)</code>
+            <code class="ruby">      allow(User).to receive(:find_user_by_display_name).and_return(usr)</code>
           </li>
         </div>
       
@@ -10685,7 +10681,7 @@
 
             
 
-            <code class="ruby">      allow(usr).to receive(:session_token).and_return(&#39;asdasdasd&#39;)</code>
+            <code class="ruby">      allow(usr).to receive(:authenticate).and_return(true)</code>
           </li>
         </div>
       
@@ -10697,7 +10693,7 @@
 
             
 
-            <code class="ruby">      post users_get_session_path, params: { password: &#39;valid&#39;, username: &#39;valid&#39; }</code>
+            <code class="ruby">      allow(usr).to receive(:update_session_token).and_return(true)</code>
           </li>
         </div>
       
@@ -10709,202 +10705,12 @@
 
             
 
-            <code class="ruby">      expect(response).to redirect_to worlds_path</code>
+            <code class="ruby">      allow(usr).to receive(:session_token).and_return(&#39;asdasdasd&#39;)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="80">
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="81">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="82">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    it &#39;redirect to the login page when wrong credentials are entered&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="83">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      usr = double(&#39;usr&#39;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="84">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      allow(User).to receive(:find_user_by_display_name).and_return(usr)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="85">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      allow(usr).to receive(:authenticate).and_return(false)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="86">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      post users_get_session_path, params: { password: &#39;invalid&#39;, username: &#39;invalid&#39; }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="87">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      expect(response).to redirect_to users_login_path</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="88">
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="89">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="90">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    it &#39;redirect to the login page when the session fails to save&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="91">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      usr = double(&#39;usr&#39;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="92">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      allow(User).to receive(:find_user_by_display_name).and_return(usr)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="93">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      allow(usr).to receive_messages(</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="94">
-            
-
-            
-
-            <code class="ruby">        authenticate: true,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="95">
-            
-
-            
-
-            <code class="ruby">        update_session_token: false</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="96">
-            
-
-            
-
-            <code class="ruby">      )</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="97">
+          <li class="covered" data-hits="1" data-linenumber="80">
             
               <span class="hits">1</span>
             
@@ -10916,7 +10722,99 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="98">
+          <li class="covered" data-hits="1" data-linenumber="81">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(response).to redirect_to worlds_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="82">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="83">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="84">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    it &#39;redirect to the login page when wrong credentials are entered&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="85">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      usr = double(&#39;usr&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="86">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      allow(User).to receive(:find_user_by_display_name).and_return(usr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="87">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      allow(usr).to receive(:authenticate).and_return(false)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="88">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      post users_get_session_path, params: { password: &#39;invalid&#39;, username: &#39;invalid&#39; }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="89">
             
               <span class="hits">1</span>
             
@@ -10928,7 +10826,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="99">
+          <li class="never" data-hits="" data-linenumber="90">
             
 
             
@@ -10938,12 +10836,114 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="100">
+          <li class="never" data-hits="" data-linenumber="91">
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="92">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    it &#39;redirect to the login page when the session fails to save&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="93">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      usr = double(&#39;usr&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="94">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      allow(User).to receive(:find_user_by_display_name).and_return(usr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="95">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      allow(usr).to receive_messages(</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="96">
+            
+
+            
+
+            <code class="ruby">        authenticate: true,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="97">
+            
+
+            
+
+            <code class="ruby">        update_session_token: false</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="98">
+            
+
+            
+
+            <code class="ruby">      )</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="99">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      post users_get_session_path, params: { password: &#39;valid&#39;, username: &#39;valid&#39; }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="100">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(response).to redirect_to users_login_path</code>
           </li>
         </div>
       
@@ -10953,12 +10953,32 @@
 
             
 
-            <code class="ruby">end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="102">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="103">
+            
+
+            
+
+            <code class="ruby">end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="104">
             
 
             
