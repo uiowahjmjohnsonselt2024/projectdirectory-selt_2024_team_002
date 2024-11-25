@@ -7,8 +7,8 @@ require 'rails_helper'
 describe WorldsController do
   describe 'When a user is logged in' do
     before do
-      usr = double('User')
-      expect(User).to receive(:find_user_by_session_token).and_return(usr)
+      usr = instance_double(User)
+      allow(User).to receive(:find_user_by_session_token).and_return(usr)
       allow(usr).to receive(:display_name).and_return('')
     end
 
@@ -31,6 +31,7 @@ describe WorldsController do
         expect(response).to redirect_to worlds_path
       end
 
+      # rubocop:disable RSpec/ExampleLength
       it 'calls the model method that performs world creation' do
         fake_params = { world_code: '11111', world_name: 'test', user_id: '0', is_public: true,
                         max_player: '5' }
@@ -47,6 +48,7 @@ describe WorldsController do
       end
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 
   describe 'When a user is not logged in' do
     it 'redirects to the login page' do
