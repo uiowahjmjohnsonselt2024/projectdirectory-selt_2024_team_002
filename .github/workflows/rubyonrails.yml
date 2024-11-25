@@ -30,8 +30,8 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: Install sqlite
-        run: sudo apt install sqlite3  
+      - name: Check pg
+        runs:  lsof -U | grep postgres
       - name: Checkout code
         uses: actions/checkout@v4
       # Add or replace dependency steps here
