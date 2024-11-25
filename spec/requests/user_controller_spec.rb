@@ -55,8 +55,10 @@ RSpec.describe 'Users', type: :request do
     it 'redirect to the login page if the user is created successfully' do
       usr = instance_double(User)
       allow(User).to receive(:new).and_return(usr)
-      allow(usr).to receive(:valid?).and_return(true)
-      allow(usr).to receive(:save).and_return(true)
+      allow(usr).to receive_messages(
+        valid?: true,
+        save: true
+      )
       post users_path,
            params: { user: { password: 'J&Jwuth2throsumMo', password_confirmation: 'J&Jwuth2throsumMo',
                              user_name: 'alex',             email: 'aguo2@uiowa.edu' } }
@@ -73,17 +75,19 @@ RSpec.describe 'Users', type: :request do
 
   describe 'get-session' do
     it 'redirects to the worlds page when correct credentials are entered and the session is correcly saved' do
-      usr = double('usr')
+      usr = instance_double(User)
       allow(User).to receive(:find_user_by_display_name).and_return(usr)
-      allow(usr).to receive(:authenticate).and_return(true)
-      allow(usr).to receive(:update_session_token).and_return(true)
-      allow(usr).to receive(:session_token).and_return('asdasdasd')
+      allow(usr).to receive_messages(
+        authenticate: true,
+        update_session_token: true,
+        session_token: 'asdasdasd'
+      )
       post users_get_session_path, params: { password: 'valid', username: 'valid' }
       expect(response).to redirect_to worlds_path
     end
 
     it 'redirect to the login page when wrong credentials are entered' do
-      usr = double('usr')
+      usr = instance_double(User)
       allow(User).to receive(:find_user_by_display_name).and_return(usr)
       allow(usr).to receive(:authenticate).and_return(false)
       post users_get_session_path, params: { password: 'invalid', username: 'invalid' }
@@ -91,7 +95,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     it 'redirect to the login page when the session fails to save' do
-      usr = double('usr')
+      usr = instance_double(User)
       allow(User).to receive(:find_user_by_display_name).and_return(usr)
       allow(usr).to receive_messages(
         authenticate: true,
