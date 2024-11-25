@@ -10,6 +10,8 @@ class World < ApplicationRecord
   has_many :gridsquares, dependent: :destroy
   @@dim = 6 # rubocop:disable Style/ClassVars
 
+  # this must be done this way, active stroage DOES NOT WORK
+  # with after_create call back when seeding!!!!!!!
   def init_if_not_inited
     return unless gridsquares.empty?
 
