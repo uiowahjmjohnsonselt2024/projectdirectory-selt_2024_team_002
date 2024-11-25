@@ -6,21 +6,14 @@ require 'net/http'
 require 'json'
 
 # represents the model class for the worlds object
-class World < ActiveRecord::Base
-  has_one :grid, dependent: :destroy
-  has_many :users
-  has_many :gridsquares
-  @@dim = 6
+class World < ApplicationRecord
+  has_many :gridsquares, dependent: :destroy
+  @@dim = 6 # rubocop:disable Style/ClassVars
 
-  def get_grids()
-    self.gridsquares
-  end
+  def init_if_not_inited
+    return unless gridsquares.empty?
 
-
-  def init_if_not_inited 
-    if self.gridsquares.empty?
-      self.initialize_grid()
-    end
+    initialize_grid
   end
 
   def self.dim
@@ -74,12 +67,14 @@ class World < ActiveRecord::Base
   end
 
   private
-  def initialize_grid()
+
+  def initialize_grid
     (1..@@dim).each do |row|
       (1..@@dim).each do |col|
-        self.gridsquares.create!(row:row, col:col)
-        path = Rails.root.join('db', 'shreck.png')
-        self.gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: "face.jpg", content_type: "image/png")
+        gridsquares.create!(row: row, col: col)
+        path = Rails.root.join('db/shreck.png')
+        gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: 'face.jpg',
+                                                                 content_type: 'image/png')
       end
     end
   end

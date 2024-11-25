@@ -7,6 +7,7 @@ class WorldsController < ApplicationController
   def authenticate_user
     @cur_user = User.find_user_by_session_token(cookies[:session])
     return if @cur_user
+
     flash[:alert] = 'Please login'
     redirect_to users_login_path
   end
@@ -19,11 +20,11 @@ class WorldsController < ApplicationController
     # TODO: if private world, check user access
     id = params[:id] # retrieve world ID from URI route
     @world = World.find(id)
-    @world.init_if_not_inited()
-    @data = Hash.new()
-    grid_arr = @world.get_grids().to_ary
+    @world.init_if_not_inited
+    @data = {}
+    grid_arr = @world.gridsquares.to_ary
     grid_arr.each do |cell|
-      @data[cell.row] ||= {} 
+      @data[cell.row] ||= {}
       @data[cell.row][cell.col] = cell
     end
     # @world.enter_cell(0, 0)

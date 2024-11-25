@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Model dealing with one grid
-class Gridsquare < ActiveRecord::Base
+class Gridsquare < ApplicationRecord
   belongs_to :world
   validates :row, presence: true
   validates :col, presence: true

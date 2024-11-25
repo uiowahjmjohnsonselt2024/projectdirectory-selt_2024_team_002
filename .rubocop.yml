@@ -2,3 +2,9 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - vendor/**/*
+
+require:
+  - rubocop-capybara
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails

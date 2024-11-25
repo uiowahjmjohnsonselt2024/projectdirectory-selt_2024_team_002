@@ -1,4 +1,4 @@
- # frozen_string_literal: true
+# frozen_string_literal: true
 
 source 'https://rubygems.org'
 
@@ -52,7 +52,10 @@ group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'dotenv-rails'
   gem 'rails-controller-testing'
-  gem 'sqlite3', '2.0.4'
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
 end
 
 group :development do
@@ -69,6 +72,6 @@ group :test do
 end
 
 group :production do
-  gem "aws-sdk-s3", require: false
+  gem 'aws-sdk-s3', require: false
   gem 'rails_12factor'
 end
