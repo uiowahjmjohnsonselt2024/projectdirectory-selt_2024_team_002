@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-25T16:38:16-05:00">2024-11-25T16:38:16-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-25T17:20:31-05:00">2024-11-25T17:20:31-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,14 +22,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  93.75%
+  93.92%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.2
+         1.21
        </span>
     </span> hits/line
     )
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>320</b> relevant lines,
-    <span class="green"><b>300</b> lines covered</span> and
+    <b>329</b> relevant lines,
+    <span class="green"><b>309</b> lines covered</span> and
     <span class="red"><b>20</b> lines missed. </span>
     (<span class="green">
-  93.75%
+  93.92%
 </span>
 )
   </div>
@@ -83,11 +83,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#70ebefcbb8f366a3888a2e973a220050b793dd3e" class="src_link" title="app/controllers/users_controller.rb">app/controllers/users_controller.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">59</td>
-            <td class="cell--number">32</td>
-            <td class="cell--number">32</td>
+            <td class="cell--number">63</td>
+            <td class="cell--number">35</td>
+            <td class="cell--number">35</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.50</td>
+            <td class="cell--number">1.51</td>
             
           </tr>
         
@@ -131,7 +131,7 @@
             <td class="cell--number">25</td>
             <td class="cell--number">25</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">2.84</td>
+            <td class="cell--number">2.88</td>
             
           </tr>
         
@@ -380,9 +380,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#2787490bf93b349861cf1e2ce3508ab0c6f41582" class="src_link" title="spec/requests/user_controller_spec.rb">spec/requests/user_controller_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">121</td>
-            <td class="cell--number">64</td>
-            <td class="cell--number">64</td>
+            <td class="cell--number">130</td>
+            <td class="cell--number">70</td>
+            <td class="cell--number">70</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -545,8 +545,8 @@
     
 
     <div class="t-line-summary">
-      <b>32</b> relevant lines.
-      <span class="green"><b>32</b> lines covered</span> and
+      <b>35</b> relevant lines.
+      <span class="green"><b>35</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -934,7 +934,53 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="35">
+          <li class="covered" data-hits="2" data-linenumber="35">
+            
+              <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    cur_user = User.find_user_by_session_token(cookies[:session])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="36">
+            
+              <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    if cur_user != nil </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="37">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      redirect_to worlds_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="38">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="39">
             
 
             
@@ -944,7 +990,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="36">
+          <li class="never" data-hits="" data-linenumber="40">
             
 
             
@@ -954,60 +1000,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="37">
+          <li class="never" data-hits="" data-linenumber="41">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="38">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def get_session</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="3" data-linenumber="39">
-            
-              <span class="hits">3</span>
-            
-
-            
-
-            <code class="ruby">    user = User.find_user_by_display_name(params[:user_name])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="3" data-linenumber="40">
-            
-              <span class="hits">3</span>
-            
-
-            
-
-            <code class="ruby">    if user &amp;&amp; user.authenticate(params[:password]) &amp;&amp; user.update_session_token</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="41">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      flash[:notice] = &#39;Login successful&#39;</code>
           </li>
         </div>
       
@@ -1019,37 +1017,43 @@
 
             
 
-            <code class="ruby">      cookies[:session] = {</code>
+            <code class="ruby">  def get_session</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="43">
+          <li class="covered" data-hits="3" data-linenumber="43">
+            
+              <span class="hits">3</span>
             
 
             
 
-            <code class="ruby">        value: user.session_token,</code>
+            <code class="ruby">    user = User.find_user_by_display_name(params[:user_name])</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="44">
+          <li class="covered" data-hits="3" data-linenumber="44">
+            
+              <span class="hits">3</span>
             
 
             
 
-            <code class="ruby">        expires: 1.week.from_now</code>
+            <code class="ruby">    if user &amp;&amp; user.authenticate(params[:password]) &amp;&amp; user.update_session_token</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="covered" data-hits="1" data-linenumber="45">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">      }</code>
+            <code class="ruby">      flash[:notice] = &#39;Login successful&#39;</code>
           </li>
         </div>
       
@@ -1061,7 +1065,7 @@
 
             
 
-            <code class="ruby">      return redirect_to worlds_path</code>
+            <code class="ruby">      cookies[:session] = {</code>
           </li>
         </div>
       
@@ -1071,12 +1075,54 @@
 
             
 
+            <code class="ruby">        value: user.session_token,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="48">
+            
+
+            
+
+            <code class="ruby">        expires: 1.week.from_now</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="49">
+            
+
+            
+
+            <code class="ruby">      }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="50">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      return redirect_to worlds_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="51">
+            
+
+            
+
             <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="48">
+          <li class="covered" data-hits="2" data-linenumber="52">
             
               <span class="hits">2</span>
             
@@ -1088,7 +1134,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="49">
+          <li class="covered" data-hits="2" data-linenumber="53">
             
               <span class="hits">2</span>
             
@@ -1100,7 +1146,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="50">
+          <li class="never" data-hits="" data-linenumber="54">
             
 
             
@@ -1110,60 +1156,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="51">
+          <li class="never" data-hits="" data-linenumber="55">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="52">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def logout</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="53">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    cur_user = User.find_user_by_session_token(cookies[:session])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="54">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    flash[:notice] = &#39;Logout successful&#39;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="55">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    cur_user.session_token = nil</code>
           </li>
         </div>
       
@@ -1175,7 +1173,7 @@
 
             
 
-            <code class="ruby">    cur_user.save!</code>
+            <code class="ruby">  def logout</code>
           </li>
         </div>
       
@@ -1187,12 +1185,60 @@
 
             
 
+            <code class="ruby">    cur_user = User.find_user_by_session_token(cookies[:session])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="58">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    flash[:notice] = &#39;Logout successful&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="59">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    cur_user.session_token = nil</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="60">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    cur_user.save!</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="61">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">    redirect_to users_login_path</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="58">
+          <li class="never" data-hits="" data-linenumber="62">
             
 
             
@@ -1202,7 +1248,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="59">
+          <li class="never" data-hits="" data-linenumber="63">
             
 
             
@@ -2626,9 +2672,9 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="46">
+          <li class="covered" data-hits="3" data-linenumber="46">
             
-              <span class="hits">2</span>
+              <span class="hits">3</span>
             
 
             
@@ -9892,8 +9938,8 @@
     
 
     <div class="t-line-summary">
-      <b>64</b> relevant lines.
-      <span class="green"><b>64</b> lines covered</span> and
+      <b>70</b> relevant lines.
+      <span class="green"><b>70</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -11164,7 +11210,7 @@
 
             
 
-            <code class="ruby">      expect(usr).to receive(:session_token=).with(nil)</code>
+            <code class="ruby">      allow(usr).to receive(:save!)</code>
           </li>
         </div>
       
@@ -11176,7 +11222,7 @@
 
             
 
-            <code class="ruby">      expect(usr).to receive(:save!)</code>
+            <code class="ruby">      expect(usr).to receive(:session_token=).with(nil)</code>
           </li>
         </div>
       
@@ -11218,12 +11264,114 @@
 
             
 
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="120">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  describe &#39;visiting login when logged in&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="121">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    it &#39;redirects you to the wrold page if you have a valid session&#39; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="122">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      usr = instance_double(User)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="123">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      allow(User).to receive(:find_user_by_session_token).and_return(usr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="124">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      get users_login_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="125">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      expect(response).to redirect_to worlds_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="126">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="127">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="128">
+            
+
+            
+
             <code class="ruby">end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="120">
+          <li class="never" data-hits="" data-linenumber="129">
             
 
             
@@ -11233,7 +11381,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="121">
+          <li class="never" data-hits="" data-linenumber="130">
             
 
             

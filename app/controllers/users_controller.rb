@@ -32,6 +32,10 @@ class UsersController < ApplicationController
   def des; end
 
   def login
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    if cur_user != nil 
+      redirect_to worlds_path
+    end
     # renders default view
   end
 

@@ -116,6 +116,15 @@ RSpec.describe 'Users', type: :request do
       get users_logout_path
     end
   end
+
+  describe 'visiting login when logged in' do
+    it 'redirects you to the wrold page if you have a valid session' do
+      usr = instance_double(User)
+      allow(User).to receive(:find_user_by_session_token).and_return(usr)
+      get users_login_path
+      expect(response).to redirect_to worlds_path
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
 # rubocop:enable RSpec/ExampleLength
