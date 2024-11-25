@@ -21,11 +21,15 @@ RSpec.describe 'Users', type: :request do
     it 'redirects to new_user_path if user inputs invalid data' do
       usr = double('user')
       allow(User).to receive(:new).and_return(usr)
-      allow(usr).to receive(:valid?).and_return(false)
       errors = double('errors')
-      allow(usr).to receive(:errors).and_return(errors)
-      allow(errors).to receive(:empty?).and_return(false)
-      allow(errors).to receive(:full_messages).and_return(['Password can\'t be blank'])
+      allow(usr).to receive_messages(
+        valid?: false,
+        errors: errors
+      )
+      allow(usr).to receive_messages(
+        empty?: false,
+        full_messages: ['Password can\'t be blank']
+      )
       # no display name or email
       post users_path, params: { user: { password: 'hello', password_confirmation: 'password_confirmation' } }
       expect(response).to redirect_to new_user_path
@@ -86,8 +90,10 @@ RSpec.describe 'Users', type: :request do
     it 'redirect to the login page when the session fails to save' do
       usr = double('usr')
       allow(User).to receive(:find_user_by_display_name).and_return(usr)
-      allow(usr).to receive(:authenticate).and_return(true)
-      allow(usr).to receive(:update_session_token).and_return(false)
+      allow(usr).to receive_messages(
+        authenticate: true,
+        update_session_token: false
+      )
       post users_get_session_path, params: { password: 'valid', username: 'valid' }
       expect(response).to redirect_to users_login_path
     end

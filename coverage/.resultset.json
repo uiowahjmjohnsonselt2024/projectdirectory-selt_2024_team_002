@@ -810,7 +810,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/user_spec.rb": {
+      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/user_controller_spec.rb": {
         "lines": [
           null,
           null,
@@ -837,9 +837,13 @@
           1,
           1,
           1,
+          null,
+          null,
+          null,
           1,
-          1,
-          1,
+          null,
+          null,
+          null,
           null,
           1,
           1,
@@ -901,7 +905,9 @@
           1,
           1,
           1,
-          1,
+          null,
+          null,
+          null,
           1,
           1,
           null,
@@ -910,7 +916,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/world_spec.rb": {
+      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/worlds_controller_spec.rb": {
         "lines": [
           null,
           null,
@@ -1111,6 +1117,6 @@
         ]
       }
     },
-    "timestamp": 1732555406
+    "timestamp": 1732556130
   }
 }
