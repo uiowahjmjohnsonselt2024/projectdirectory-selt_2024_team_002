@@ -12,6 +12,7 @@
   text-decoration: none;
 
   &:hover {
+<<<<<<< HEAD
     background-color: #7ebacf;
     transform: scale(1.05);
   }
@@ -19,6 +20,15 @@
   &:active {
     background-color: #6a9dae;
     transform: scale(0.98);
+=======
+  background-color: #7ebacf;
+  transform: scale(1.05);
+  }
+
+  &:active {
+  background-color: #6a9dae;
+  transform: scale(0.98);
+>>>>>>> 37c1534822b9a97f896bd05aaafd1df618bd2adb
   }
 }
 
@@ -60,7 +70,11 @@
   text-decoration: none;
 
   &:hover {
+<<<<<<< HEAD
     background-color: #718096;
+=======
+  background-color: #718096;
+>>>>>>> 37c1534822b9a97f896bd05aaafd1df618bd2adb
   }
 }
 
@@ -87,6 +101,7 @@
 }
 
 .login {
+<<<<<<< HEAD
   padding: 10px;
   text-align: center;
   width: 130px;
@@ -107,4 +122,9 @@
   align-items: center;
   position: relative;
   vertical-align: top;
+=======
+  padding: 0;
+  width: 130px;
+  height: 40px;
+>>>>>>> 37c1534822b9a97f896bd05aaafd1df618bd2adb
 }

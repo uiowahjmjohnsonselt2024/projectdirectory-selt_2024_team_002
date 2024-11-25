@@ -20,6 +20,9 @@ class WorldsController < ApplicationController
     # TODO: if private world, check user access
     id = params[:id] # retrieve world ID from URI route
     @world = World.find(id)
+    # @world.load_from_s3
+
+    @world.enter_cell(0, 0)
   end
 
   def index

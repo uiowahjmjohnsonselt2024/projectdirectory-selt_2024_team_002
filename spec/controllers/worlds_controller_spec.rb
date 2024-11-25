@@ -26,7 +26,7 @@ describe WorldsController do
                         max_player: '5' }
         fake_results = World.new(fake_params)
         allow(World).to receive(:create).and_return(fake_results)
-        post :add_world, fake_params
+        post :add_world, params: fake_params
         expect(assigns(:world)).to have_attributes(
           world_code: '11111',
           world_name: 'test',

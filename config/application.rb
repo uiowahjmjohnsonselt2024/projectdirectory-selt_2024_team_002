@@ -8,6 +8,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load if defined?(Dotenv::Railtie)
+
 module ProjectdirectorySelt2024Team002
   # The rails application for Team 2's game.
   class Application < Rails::Application
@@ -24,6 +26,6 @@ module ProjectdirectorySelt2024Team002
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # config.active_record.raise_in_transactional_callbacks = true
   end
 end
