@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# this class adds the gridsquare tables. These are used to store grid images
 class AddGridsquares < ActiveRecord::Migration[7.1]
   def change
     create_table :gridsquares do |t|

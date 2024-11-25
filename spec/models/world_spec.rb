@@ -2,22 +2,24 @@
 
 require 'rails_helper'
 
+# rubocop:disable RSpec/InstanceVariable
 RSpec.describe World, type: :model do
   describe 'init_if_not_inited' do
     before do
-      @world = World.new
+      @world = described_class.new
     end
 
     it 'calls the initialize_grid if there are no gridcells' do
-      expect(@world).to receive(:gridsquares).and_return([])
+      allow(@world).to receive(:gridsquares).and_return([])
       expect(@world).to receive(:initialize_grid)
       @world.init_if_not_inited
     end
 
     it 'does nothing if the world has been inited' do
-      expect(@world).to receive(:gridsquares).and_return([1])
+      allow(@world).to receive(:gridsquares).and_return([1])
       expect(@world).not_to receive(:initialize_grid)
       @world.init_if_not_inited
     end
   end
 end
+# rubocop:enable RSpec/InstanceVariable
