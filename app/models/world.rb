@@ -57,7 +57,7 @@ class World < ApplicationRecord
     body = {
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: 'Pick a random environment that would make sense to be in a video game. Return the environment as one word.' },
+        { role: 'system', content: 'Pick a random environment/biome/area that would make sense to be in an area in a video game. Return the environment as one word.' },
         { role: 'user', content: "Player entered cell (#{_row}, #{_col})" }
       ],
       max_tokens: 10

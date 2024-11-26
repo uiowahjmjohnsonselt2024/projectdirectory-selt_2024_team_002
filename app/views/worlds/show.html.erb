@@ -16,17 +16,20 @@
 <%= yield %>
 
 <div class="grid_container">
-  <% @world.gridsquares.each do |gridsquare| %>
-    <div class="grid_cell <%= 'filled_cell' if gridsquare.image.attached? %>">
-      <% if gridsquare.image.attached? %>
-        <%= image_tag rails_blob_path(gridsquare.image, only_path: true), alt: "Generated Image for Cell (#{gridsquare.row}, #{gridsquare.col})", class: "grid_image" %>
-      <% else %>
-        <p>No image available</p>
-      <% end %>
-      <div class="hidden"><%= gridsquare.row %>-<%= gridsquare.col %></div>
-    </div>
+  <% max_rows = World.dim %> <!-- Adjust to your grid's total rows -->
+  <% max_cols = World.dim %> <!-- Adjust to your grid's total columns -->
+
+  <% (0...max_rows).each do |row| %>
+    <% (0...max_cols).each do |col| %>
+      <% gridsquare = @world.gridsquares.find { |gs| gs.row == row && gs.col == col } %>
+      <div class="grid_cell <%= 'filled_cell' if gridsquare&.image&.attached? %>"
+           style="grid-row: <%= row + 1 %>; grid-column: <%= col + 1 %>;">
+        <% if gridsquare&.image&.attached? %>
+          <%= image_tag rails_blob_path(gridsquare.image, only_path: true), alt: "Generated Image for Cell (#{row}, #{col})", class: "grid_image" %>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
-
 </body>
 </html>
