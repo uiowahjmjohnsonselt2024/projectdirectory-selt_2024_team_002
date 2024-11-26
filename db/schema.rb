@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,27 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_241_114_163_901) do
-  create_table 'users', force: :cascade do |t|
-    t.string 'email'
-    t.text 'password_digest'
-    t.text 'session_token'
-    t.integer 'available_credits'
-    t.string 'display_name'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['display_name'], name: 'index_users_on_display_name', unique: true
-    t.index ['session_token'], name: 'index_users_on_session_token', unique: true, where: 'session_token IS NOT NULL'
+ActiveRecord::Schema[7.1].define(version: 2024_11_14_163901) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.text "password_digest"
+    t.text "session_token"
+    t.integer "available_credits"
+    t.string "display_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["display_name"], name: "index_users_on_display_name", unique: true
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true, where: "(session_token IS NOT NULL)"
   end
 
-  create_table 'worlds', force: :cascade do |t|
-    t.string 'world_code'
-    t.string 'world_name'
-    t.string 'user_id'
-    t.boolean 'is_public'
-    t.string 'max_player'
-    t.text 'data'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "worlds", force: :cascade do |t|
+    t.string "world_code"
+    t.string "world_name"
+    t.string "user_id"
+    t.boolean "is_public"
+    t.string "max_player"
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
 end

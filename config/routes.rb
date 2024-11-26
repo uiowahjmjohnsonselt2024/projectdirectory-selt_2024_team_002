@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post 'users/get-session', to: 'users#get_session'
   get 'users/logout'
   get 'users/purchase', to: 'users#purchase'
+  post 'users/convert', to: 'users#convert'
   resources :users
   root to: redirect('/worlds')
 

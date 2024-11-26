@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'uri'
+require 'cgi'
 
 # Controller for handling user-related actions.
 class UsersController < ApplicationController
@@ -51,7 +53,24 @@ class UsersController < ApplicationController
   end
 
   def purchase
+    flash.discard
     @user = User.find_user_by_session_token(cookies[:session])
+  end
+
+  def convert
+    flash.discard
+    form = params[:shard_input_field]
+    currency = params[:currency]
+
+    if form == ""
+      flash[:notice] = 'No amount of shard indicated.'
+      redirect_to users_purchase_path
+    else
+      @amount = form
+      @currency = currency.upcase
+      @rate = 0.75
+      puts(@amount, @currency, @rate)
+    end
   end
 
   def logout; end

@@ -67,7 +67,6 @@ class WorldsController < ApplicationController
       flash[:notice] = 'World was successfully created.'
       return redirect_to worlds_path
     end
-    puts(world)
     flash[:notice] = world.errors.empty? ? 'Something went wrong' : world.errors.full_messages.first
     redirect_to new_world_path
   end
