@@ -29,9 +29,7 @@ class World < ApplicationRecord
 
     @gridsquares.each do |gridsquare|
       image_url = get_image_from_s3(s3, gridsquare)
-      if image_url
-        gridsquare.update(image_url: image_url)
-      end
+      gridsquare.update(image_url: image_url) if image_url
     end
   end
 
@@ -57,7 +55,8 @@ class World < ApplicationRecord
     body = {
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: 'Pick a random environment/biome/area that would make sense to be in an area in a video game. Return the environment as one word.' },
+        { role: 'system',
+          content: 'Pick a random environment/biome/area that would make sense to be in an area in a video game. Return the environment as one word.' },
         { role: 'user', content: "Player entered cell (#{_row}, #{_col})" }
       ],
       max_tokens: 10
@@ -70,18 +69,18 @@ class World < ApplicationRecord
 
     response = http.request(request)
     if response.code.to_i != 200
-      puts "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}"
+      Rails.logger.debug "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}"
       return
     end
 
     result = JSON.parse(response.body)
     if result['choices'] && result['choices'][0]
       text = result['choices'][0]['message']['content'].strip
-      puts("Generated text: #{text}")
+      Rails.logger.debug("Generated text: #{text}")
 
       # Step 2: Generate image based on the text
       image_uri = generate_image_ai(text)
-      puts("Generated image URI: #{image_uri}")
+      Rails.logger.debug("Generated image URI: #{image_uri}")
 
       # Step 3: Download the image
       image_response = Net::HTTP.get_response(URI(image_uri))
@@ -96,14 +95,14 @@ class World < ApplicationRecord
 
         # Purge existing image and attach new one to S3
         gridsquare.image.purge if gridsquare.image.attached?
-        gridsquare.image.attach(new_image)  # ActiveStorage handles the S3 upload
+        gridsquare.image.attach(new_image) # ActiveStorage handles the S3 upload
 
-        puts "Image successfully updated for cell (#{_row}, #{_col})"
+        Rails.logger.debug "Image successfully updated for cell (#{_row}, #{_col})"
       else
-        puts "Failed to download the image: #{image_response.body}"
+        Rails.logger.debug "Failed to download the image: #{image_response.body}"
       end
     else
-      puts "Unexpected response from OpenAI: #{response.body}"
+      Rails.logger.debug "Unexpected response from OpenAI: #{response.body}"
     end
   end
 
@@ -126,16 +125,12 @@ class World < ApplicationRecord
 
     response = http.request(request)
 
-    if response.code.to_i != 200
-      raise "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}"
-    end
+    raise "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}" if response.code.to_i != 200
 
     result = JSON.parse(response.body)
-    if result['data'] && result['data'][0]
-      result['data'][0]['url']
-    else
-      raise "Unexpected response from OpenAI: #{response.body}"
-    end
+    raise "Unexpected response from OpenAI: #{response.body}" unless result['data'] && result['data'][0]
+
+    result['data'][0]['url']
   end
 
   def initialize_grid
