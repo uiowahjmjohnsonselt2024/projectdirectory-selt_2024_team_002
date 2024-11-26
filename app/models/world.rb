@@ -30,53 +30,101 @@ class World < ApplicationRecord
   #   nil
   # end
 
-  def enter_cell(_row, _col)
-    nil # skipping this
-    # URI('https://api.openai.com/v1/chat/completions')
-    # headers = {
-    #   'Content-Type' => 'application/json',
-    #   'Authorization' => "Bearer #{ENV['OPENAI_API_KEY']}"
-    # }
-    # body = {
-    #   model: 'gpt-3.5-turbo',
-    #   messages: [
-    #     { role: 'system', content: 'You are a night of the realm, seeking a dangerous beast to prove yourself.' },
-    #     { role: 'user', content: "Player entered cell (#{row}, #{col})" }
-    #   ],
-    #   max_tokens: 5
-    # }.to_json
+  def generate_cell(_row, _col)
+    # Step 1: Generate text description
+    uri = URI('https://api.openai.com/v1/chat/completions')
+    headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{ENV['OPENAI_API_KEY']}" }
+    body = {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'Pick a random environment that would make sense to be in a video game. Return the environment as one word.' },
+        { role: 'user', content: "Player entered cell (#{_row}, #{_col})" }
+      ],
+      max_tokens: 10
+    }.to_json
 
-    # http = Net::HTTP.new(uri.host, uri.port)
-    # http.use_ssl = true
-    # request = Net::HTTP::Post.new(uri.path, headers)
-    # request.body = body
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.path, headers)
+    request.body = body
 
-    # response = http.request(request)
+    response = http.request(request)
+    if response.code.to_i != 200
+      puts "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}"
+      return
+    end
 
-    # if response.code.to_i != 200
-    #   puts "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}"
-    #   return
-    # end
+    result = JSON.parse(response.body)
+    if result['choices'] && result['choices'][0]
+      text = result['choices'][0]['message']['content'].strip
+      puts("Generated text: #{text}")
 
-    # result = JSON.parse(response.body)
-    # if result['choices'] && result['choices'][0]
-    #   text = result['choices'][0]['message']['content']
-    #   # set(row, col, text)
-    #   puts(text)
-    # else
-    #   puts("Unexpected response from OpenAI: #{response.body}")
-    # end
+      # Step 2: Generate image based on the text
+      image_uri = generate_image_ai(text)
+      puts("Generated image URI: #{image_uri}")
+
+      # Step 3: Download the image
+      image_response = Net::HTTP.get_response(URI(image_uri))
+      if image_response.code.to_i == 200
+        new_image = {
+          io: StringIO.new(image_response.body),
+          filename: "#{_row}_#{_col}_generated.png",
+          content_type: 'image/png'
+        }
+
+        gridsquare = gridsquares.find_or_create_by(row: _row, col: _col)
+
+        # Purge existing image and attach new one
+        gridsquare.image.purge if gridsquare.image.attached?
+        gridsquare.update(image: new_image)
+
+        puts "Image successfully updated for cell (#{_row}, #{_col})"
+      else
+        puts "Failed to download the image: #{image_response.body}"
+      end
+    else
+      puts "Unexpected response from OpenAI: #{response.body}"
+    end
   end
 
-  private
+  def generate_image_ai(text)
+    dalle_uri = URI('https://api.openai.com/v1/images/generations')
+    headers = {
+      'Content-Type' => 'application/json',
+      'Authorization' => "Bearer #{ENV['OPENAI_API_KEY']}"
+    }
+    dalle_body = {
+      prompt: text,
+      n: 1,
+      size: '256x256'
+    }.to_json
+
+    http = Net::HTTP.new(dalle_uri.host, dalle_uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(dalle_uri.path, headers)
+    request.body = dalle_body
+
+    response = http.request(request)
+
+    if response.code.to_i != 200
+      raise "Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}"
+    end
+
+    result = JSON.parse(response.body)
+    if result['data'] && result['data'][0]
+      result['data'][0]['url']
+    else
+      raise "Unexpected response from OpenAI: #{response.body}"
+    end
+  end
 
   def initialize_grid
     (1..@@dim).each do |row|
       (1..@@dim).each do |col|
         gridsquares.create!(row: row, col: col)
-        path = Rails.root.join('db/shreck.png')
-        gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: 'face.jpg',
-                                                                 content_type: 'image/png')
+        # path = Rails.root.join('db/shreck.png')
+        # gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: 'face.jpg',
+        #                                                          content_type: 'image/png')
       end
     end
   end

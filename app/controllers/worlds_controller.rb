@@ -27,7 +27,7 @@ class WorldsController < ApplicationController
       @data[cell.row] ||= {}
       @data[cell.row][cell.col] = cell
     end
-    # @world.enter_cell(0, 0)
+    @world.generate_cell(0, 0)
   end
 
   def index
