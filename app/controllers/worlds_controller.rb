@@ -29,7 +29,7 @@ class WorldsController < ApplicationController
       @data[cell.row][cell.col] = cell
     end
     @data = @world.gridsquares
-    @world.generate_cell(0, 0)
+    #@world.generate_cell(0, 0)
   end
 
   def index
