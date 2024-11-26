@@ -13,16 +13,21 @@ class WorldsController < ApplicationController
   end
 
   def world_params
-    params.permit(:world_code, :world_name, :user_id, :is_public, :max_player)
+    params.permit(:world_code, :world_name, :is_public, :max_player)
   end
 
   def show
     # TODO: if private world, check user access
     id = params[:id] # retrieve world ID from URI route
     @world = World.find(id)
-    # @world.load_from_s3
-
-    @world.enter_cell(0, 0)
+    @world.init_if_not_inited
+    @data = {}
+    grid_arr = @world.gridsquares.to_ary
+    grid_arr.each do |cell|
+      @data[cell.row] ||= {}
+      @data[cell.row][cell.col] = cell
+    end
+    # @world.enter_cell(0, 0)
   end
 
   def index
@@ -37,15 +42,11 @@ class WorldsController < ApplicationController
   end
 
   def create
-    world = World.new(world_params)
-    if world.valid? && world.save
-      @world = world
-      @world.initialize_grid(6, 6, '0')
-      flash[:notice] = 'World was successfully created.'
-      return redirect_to worlds_path
-    end
-    flash[:notice] = world.errors.empty? ? 'Something went wrong' : world.errors.full_messages.first
-    redirect_to new_world_path
+    new_params = world_params
+    new_params[:user_id_id] = @cur_user.id
+    @world = World.create!(new_params)
+    flash[:notice] = 'World was successfully created.'
+    redirect_to worlds_path
   end
 
   def edit; end
@@ -60,14 +61,7 @@ class WorldsController < ApplicationController
   end
 
   def add_world
-    world = World.new(world_params)
-    if world.valid? && world.save
-      @world = world
-      @world.initialize_grid(6, 6, '0')
-      flash[:notice] = 'World was successfully created.'
-      return redirect_to worlds_path
-    end
-    flash[:notice] = world.errors.empty? ? 'Something went wrong' : world.errors.full_messages.first
+    @world = World.create!(new_params)
     redirect_to new_world_path
   end
 end

@@ -6,36 +6,20 @@ require 'net/http'
 require 'json'
 
 # represents the model class for the worlds object
-class World < ActiveRecord::Base
-  validates :world_code, presence: { message: 'is required.' }
-  validates :world_name, presence: { message: 'is required.' }
-  validates :user_id, presence: { message: 'is required.' }
-  validates :max_player, presence: { message: 'is required.' }
-  has_one :grid, dependent: :destroy
-  has_many :users
+class World < ApplicationRecord
+  has_many :gridsquares, dependent: :destroy
+  @@dim = 6 # rubocop:disable Style/ClassVars
 
-  serialize :data, :type => Array
+  # this must be done this way, active stroage DOES NOT WORK
+  # with after_create call back when seeding!!!!!!!
+  def init_if_not_inited
+    return unless gridsquares.empty?
 
-  def initialize_grid(rows = 6, cols = 6, default_value = '0')
-    self.data = Array.new(rows) { Array.new(cols, default_value) }
-    set(2, 3, '1') # Temporarily fill a grid tile
-    save
+    initialize_grid
   end
 
-  def set(row, col, value)
-    data[row][col] = value
-    save
-  end
-
-  def get(row, col)
-    data[row][col]
-  rescue StandardError
-    nil
-  end
-
-  def display
-    data.each do |row|
-    end
+  def self.dim
+    @@dim
   end
 
   # def load_from_s3
@@ -82,5 +66,18 @@ class World < ActiveRecord::Base
     # else
     #   puts("Unexpected response from OpenAI: #{response.body}")
     # end
+  end
+
+  private
+
+  def initialize_grid
+    (1..@@dim).each do |row|
+      (1..@@dim).each do |col|
+        gridsquares.create!(row: row, col: col)
+        path = Rails.root.join('db/shreck.png')
+        gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: 'face.jpg',
+                                                                 content_type: 'image/png')
+      end
+    end
   end
 end

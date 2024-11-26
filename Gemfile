@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.0.0'
+ruby '3.0.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
@@ -12,6 +12,8 @@ gem 'sass-rails'
 gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
+
+gem 'terser'
 
 gem 'puma'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -24,7 +26,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'ffi'
+gem 'ffi', '< 1.17.0'
 gem 'rubocop'
 gem 'sdoc', group: :doc
 
@@ -32,6 +34,8 @@ gem 'activestorage'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+gem 'pg', '~> 1.1'
+gem 'sassc-rails'
 
 # verifys email formating. Can also verify that the mail server exists thru dns
 gem 'rubocop-rake'
@@ -60,6 +64,10 @@ group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'dotenv-rails'
   gem 'rails-controller-testing'
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
 end
 
 group :development do
@@ -76,6 +84,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg' # for Heroku deployment
+  gem 'aws-sdk-s3', require: false
   gem 'rails_12factor'
 end

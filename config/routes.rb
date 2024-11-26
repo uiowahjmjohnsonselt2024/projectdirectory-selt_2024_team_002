@@ -28,13 +28,11 @@ Rails.application.routes.draw do
   post 'users/checkout', to: 'users#checkout'
   post 'users/payment', to: 'users#payment', :defaults => { :format => 'js' }
   resources :users
-  root to: redirect('/worlds')
 
   # routes for worlds
-  resources :worlds
   post 'worlds/join_world', to: 'worlds#join_world'
-  post 'worlds/new', to: 'worlds#new'
-  post 'worlds/add_world'
+  resources :worlds
+  root to: redirect('/worlds')
 
   # Example resource route with options:
   #   resources :products do
