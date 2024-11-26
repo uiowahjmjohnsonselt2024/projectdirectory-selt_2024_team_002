@@ -33,5 +33,5 @@ end
 Then(/^I should be redirected to "([^"]*)"$/) do |arg|
   current_url_path = URI.parse(current_url).path
   expect(current_url_path).to eq(arg)
-  expect(current_path).to eq(arg) # assuming your dashboard path is called dashboard_path
+  expect(page).to have_current_path(arg, ignore_query: true) # assuming your dashboard path is called dashboard_path
 end
