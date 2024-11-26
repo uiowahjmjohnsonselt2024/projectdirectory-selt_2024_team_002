@@ -4,6 +4,7 @@
 # update/retrieve information from a displayed grid.
 require 'net/http'
 require 'json'
+require 'aws-sdk-s3'
 
 # represents the model class for the worlds object
 class World < ApplicationRecord
@@ -22,13 +23,32 @@ class World < ApplicationRecord
     @@dim
   end
 
-  # def load_from_s3
-  #   s3 = Aws::S3::Client.new
-  #   obj = s3.get_object(bucket: ENV['S3_BUCKET_NAME'], key: "worlds/#{id}.json")
-  #   JSON.parse(obj.body.read)
-  # rescue Aws::S3::Errors::NoSuchKey
-  #   nil
-  # end
+  def load_images_from_s3
+    s3 = Aws::S3::Client.new(region: ENV['AWS_Region'])
+    @gridsquares = gridsquares.all
+
+    @gridsquares.each do |gridsquare|
+      image_url = get_image_from_s3(s3, gridsquare)
+      if image_url
+        gridsquare.update(image_url: image_url)
+      end
+    end
+  end
+
+  def get_image_from_s3(s3, gridsquare)
+    bucket_name = ENV['S3_BUCKET_NAME']
+    key = "worlds/#{id}/grid_#{gridsquare.row}_#{gridsquare.col}.png"
+
+    begin
+      # Check if the object exists in the bucket
+      s3.head_object(bucket: bucket_name, key: key)
+      # Return the public URL
+      "https://#{bucket_name}.s3.amazonaws.com/#{key}"
+    rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
+      Rails.logger.warn("S3 object not found: bucket=#{bucket_name}, key=#{key}")
+      nil # No image found for the grid square
+    end
+  end
 
   def generate_cell(_row, _col)
     # Step 1: Generate text description
@@ -74,9 +94,9 @@ class World < ApplicationRecord
 
         gridsquare = gridsquares.find_or_create_by(row: _row, col: _col)
 
-        # Purge existing image and attach new one
+        # Purge existing image and attach new one to S3
         gridsquare.image.purge if gridsquare.image.attached?
-        gridsquare.update(image: new_image)
+        gridsquare.image.attach(new_image)  # ActiveStorage handles the S3 upload
 
         puts "Image successfully updated for cell (#{_row}, #{_col})"
       else

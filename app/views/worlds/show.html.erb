@@ -1,38 +1,16 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <title>Worlds</title>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<div class="game_toolbar">
-  <%= button_to 'Back to Worlds', worlds_path, method: :get, id: "back_button", class: "secondary_button" %>
-  <span class="world_id">World ID: <%= @world[:world_code] %></span>
-  <span class="world_name">World Name: <%= @world[:world_name] %></span>
-</div>
+<% @world.gridsquares.each do |gridsquare| %>
+  <div class="cell">
+    <h3>Cell: (<%= gridsquare.row %>, <%= gridsquare.col %>)</h3>
 
-<%= yield %>
-
-<div class="grid_container">
-  <% (1..World.dim).each do |row| %>
-    <% (1..World.dim).each do |col| %>
-      <div class="grid_cell">
-        <% grid_square = @data[row][col] %>
-        <% if grid_square&.image&.attached? %>
-          <!-- Display the image if attached -->
-          <%= image_tag(url_for(grid_square.image), class: "grid_image") %>
-          <p>Image found for cell <%= row %>-<%= col %></p>
-        <% else %>
-          <!-- Debug output if no image -->
-          <p>No image attached for cell <%= row %>-<%= col %></p>
-        <% end %>
-        <div class="hidden"><%= row %>-<%= col %></div>
+    <% if gridsquare.image.attached? %>
+      <div class="image-container">
+        <%= image_tag rails_blob_path(gridsquare.image, only_path: true), alt: "Generated Image for Cell (#{gridsquare.row}, #{gridsquare.col})", class: "cell-image" %>
       </div>
+    <% else %>
+      <p>No image available</p>
     <% end %>
-  <% end %>
-</div>
 
-</body>
-</html>
+    <!-- Remove the description part if not needed -->
+    <p>No description available</p>
+  </div>
+<% end %>

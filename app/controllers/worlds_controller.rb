@@ -21,12 +21,14 @@ class WorldsController < ApplicationController
     id = params[:id] # retrieve world ID from URI route
     @world = World.find(id)
     @world.init_if_not_inited
+    @world.load_images_from_s3
     @data = {}
     grid_arr = @world.gridsquares.to_ary
     grid_arr.each do |cell|
       @data[cell.row] ||= {}
       @data[cell.row][cell.col] = cell
     end
+    @data = @world.gridsquares
     @world.generate_cell(0, 0)
   end
 
