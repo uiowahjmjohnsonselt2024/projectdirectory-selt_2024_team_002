@@ -34,6 +34,7 @@
   width: auto;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+
 }
 
 .dropdown-content a {
@@ -42,10 +43,14 @@
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #27607e}
+.dropdown-content a:hover {
+  background-color: #27607e
+}
 
 .dropdown:hover .dropdown-content {
   display: block;
+
+
 }
 
 .dropdown:hover .drop-button {

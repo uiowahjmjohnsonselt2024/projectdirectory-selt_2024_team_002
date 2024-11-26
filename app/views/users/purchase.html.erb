@@ -17,7 +17,8 @@
     </div>
     <div class="right-stack">
       <div class="box-numeric">
-        <%= @user.available_credits %>
+        <%= if @user.available_credits == nil
+              0 else @user.available_credits end %>
       </div>
     </div>
   </div>
@@ -34,7 +35,7 @@
     <div class="purchase-box">
       <%= form_tag "/users/conversion", id: 'world_add_form', remote: true do %>
         <div>
-          <label for="shard_input" style="font-size: 30px">Enter the amount of shards:</label>
+          <label for="shard_input_field" style="font-size: 30px">Enter the amount of shards:</label>
             <div style="display: flex; width: 100%">
               <%= text_field_tag :shard_input_field, nil, id: 'shard_input_field', class: "textbox-center-large-size"%>
               <input type="hidden" name="currency" id="currency-hidden" value="usd"/>
@@ -42,7 +43,7 @@
                 <button class="drop-button" id="currency" disabled>
                   USD
                 </button>
-                <div class="dropdown-content">
+                <div class="dropdown-content" id="dropdown-content">
                   <button id="usd" class="drop-button" onclick="change_currency(event, 'usd')">USD</button>
                   <button id="cad" class="drop-button" onclick="change_currency(event, 'cad')">CAD</button>
                   <button id="gbp" class="drop-button" onclick="change_currency(event, 'gbp')">GBP</button>

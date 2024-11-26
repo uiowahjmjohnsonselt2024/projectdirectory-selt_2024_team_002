@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-require 'credit_card_detector'
 
 # Controller for handling user-related actions.
 class UsersController < ApplicationController
+  require 'credit_card_detector'
+
   def new
     # render default template
   end
@@ -89,12 +90,12 @@ class UsersController < ApplicationController
   def payment
     card_number = params[:card_number]
     expiration_date = params[:expiration_date]
-    ccv = params[:ccv]
+    cvv = params[:cvv]
     billing_address = params[:billing_address]
-    num_of_shards = Integer(params[:total_shards])
+    num_of_shards = Integer(if params[:total_shards] == "" then 0 else params[:total_shards] end)
     @user = User.find_user_by_session_token(cookies[:session])
 
-    if card_number == "" or expiration_date == "" or ccv == "" or billing_address == ""
+    if card_number == "" or expiration_date == "" or cvv == "" or billing_address == ""
       @message = "There is an error on processing. Please check your fields are correct."
       respond_to do |format|
         format.js
@@ -120,8 +121,8 @@ class UsersController < ApplicationController
         return
       end
 
-      unless ccv =~ /\A\d\d\d\Z/
-        @message = "CCV can only be 3 digits. Please try again."
+      unless cvv =~ /\A\d\d\d\Z/
+        @message = "CVV can only be 3 digits. Please try again."
         respond_to do |format|
           format.js
         end

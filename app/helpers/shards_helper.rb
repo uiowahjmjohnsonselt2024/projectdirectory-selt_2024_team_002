@@ -2,7 +2,7 @@ require 'money'
 require 'money/bank/open_exchange_rates_bank'
 
 # Helper for shards purchase and conversion
-class ShardsHelper
+module ShardsHelper
   # returns the conversion/price for a shard given a currency
   def self.get_shard_conversion(currency)
     Money.default_bank = Money::Bank::OpenExchangeRatesBank.new

@@ -14,7 +14,7 @@ class World < ActiveRecord::Base
   has_one :grid, dependent: :destroy
   has_many :users
 
-  serialize :data, Array
+  serialize :data, :type => Array
 
   def initialize_grid(rows = 6, cols = 6, default_value = '0')
     self.data = Array.new(rows) { Array.new(cols, default_value) }
