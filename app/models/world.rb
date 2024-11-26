@@ -61,22 +61,31 @@ class World < ApplicationRecord
 
   def generate_text_description(row, col)
     uri = URI('https://api.openai.com/v1/chat/completions')
-    headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{ENV['OPENAI_API_KEY']}" }
-    body = {
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system',
-          content: 'Pick a random environment/biome/area that would make sense to be in an area in a video game. Return the environment as one word.' },
-        { role: 'user', content: "Player entered cell (#{row}, #{col})" }
-      ],
-      max_tokens: 10
-    }.to_json
+    headers = build_headers
+    body = build_body(row, col)
 
     response = make_http_request(uri, headers, body)
     return unless response.code.to_i == 200
 
     result = JSON.parse(response.body)
     result.dig('choices', 0, 'message', 'content')&.strip
+  end
+
+  def build_headers
+    { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{ENV['OPENAI_API_KEY']}" }
+  end
+
+  def build_body(row, col)
+    {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system',
+          content: 'Pick a random environment/biome/area that would make sense to be in
+                     an area in a video game. Return the environment as one word.' },
+        { role: 'user', content: "Player entered cell (#{row}, #{col})" }
+      ],
+      max_tokens: 10
+    }.to_json
   end
 
   def make_http_request(uri, headers, body)
@@ -104,21 +113,22 @@ class World < ApplicationRecord
 
   def generate_image_ai(text)
     dalle_uri = URI('https://api.openai.com/v1/images/generations')
-    headers = {
-      'Content-Type' => 'application/json',
-      'Authorization' => "Bearer #{ENV['OPENAI_API_KEY']}"
-    }
-    dalle_body = {
-      prompt: text,
-      n: 1,
-      size: '256x256'
-    }.to_json
+    headers = build_headers
+    dalle_body = build_dalle_body(text)
 
     response = make_http_request(dalle_uri, headers, dalle_body)
     return unless response.code.to_i == 200
 
     result = JSON.parse(response.body)
     result.dig('data', 0, 'url')
+  end
+
+  def build_dalle_body(text)
+    {
+      prompt: text,
+      n: 1,
+      size: '256x256'
+    }.to_json
   end
 
   def initialize_grid

@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_241_126_202_131) do
+ActiveRecord::Schema[7.1].define(version: 20_241_126_202_135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -42,6 +42,8 @@ ActiveRecord::Schema[7.1].define(version: 20_241_126_202_131) do
   create_table 'active_storage_variant_records', force: :cascade do |t|
     t.bigint 'blob_id', null: false
     t.string 'variation_digest', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
 
@@ -80,7 +82,5 @@ ActiveRecord::Schema[7.1].define(version: 20_241_126_202_131) do
     t.index ['user_id_id'], name: 'index_worlds_on_user_id_id'
   end
 
-  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'gridsquares', 'worlds'
 end

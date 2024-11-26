@@ -11,3 +11,7 @@ require:
 
 MessageSpies:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'db/schema.rb'
