@@ -37,8 +37,14 @@ gem 'bcrypt'
 gem 'rubocop-rake'
 gem 'valid_email2'
 
+# gems for moneyexchange rate
 gem 'money'
 gem 'money-open-exchange-rates'
+
+# gem for credit card validation
+gem 'credit_card_detector'
+
+# database
 gem 'pg'
 
 group :development, :test do

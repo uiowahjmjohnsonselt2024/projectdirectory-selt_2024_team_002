@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-require 'uri'
-require 'cgi'
+require 'credit_card_detector'
 
 # Controller for handling user-related actions.
 class UsersController < ApplicationController
@@ -57,19 +56,81 @@ class UsersController < ApplicationController
     @user = User.find_user_by_session_token(cookies[:session])
   end
 
-  def convert
+  def conversion
     flash.discard
-    form = params[:shard_input_field]
+    shards = params[:shard_input_field]
     currency = params[:currency]
 
-    if form == ""
+    if shards == ""
       flash[:notice] = 'No amount of shard indicated.'
       redirect_to users_purchase_path
     else
-      @amount = form
+      flash.clear
       @currency = currency.upcase
-      @rate = 0.75
-      puts(@amount, @currency, @rate)
+      shard_usd_price = 0.75 # default price in USD
+      @rate = (ShardsHelper.get_shard_conversion(@currency) * shard_usd_price).round(2)
+      @amount = (Integer(shards) * @rate).round(2)
+      @num_of_shards = Integer(shards)
+
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
+  def checkout
+    flash.discard
+    @total_amount = params[:total_amount]
+    @with_currency = params[:with_currency]
+    @num_of_shards = params[:total_shards]
+    @user = User.find_user_by_session_token(cookies[:session])
+  end
+
+  def payment
+    card_number = params[:card_number]
+    expiration_date = params[:expiration_date]
+    ccv = params[:ccv]
+    billing_address = params[:billing_address]
+    num_of_shards = Integer(params[:total_shards])
+    @user = User.find_user_by_session_token(cookies[:session])
+
+    if card_number == "" or expiration_date == "" or ccv == "" or billing_address == ""
+      @message = "There is an error on processing. Please check your fields are correct."
+      respond_to do |format|
+        format.js
+      end
+    else
+      # checking card
+      detector = CreditCardDetector::Detector.new(card_number)
+      result = detector.valid_luhn?
+
+      unless result
+        @message = "Card number is not valid. Please recheck your card number."
+        respond_to do |format|
+          format.js
+        end
+        return
+      end
+
+      unless expiration_date =~ /\A\d\d\d\d\Z/
+        @message = "Expiration date can only be 4 digits. Please try again."
+        respond_to do |format|
+          format.js
+        end
+        return
+      end
+
+      unless ccv =~ /\A\d\d\d\Z/
+        @message = "CCV can only be 3 digits. Please try again."
+        respond_to do |format|
+          format.js
+        end
+        return
+      end
+
+      @user.update(available_credits: @user.available_credits + num_of_shards)
+
+      redirect_to users_purchase_path
     end
   end
 
