@@ -9,8 +9,7 @@ gem 'rails'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 4.2.0'
-gem 'sprockets', '>= 4.0.0'
+gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 

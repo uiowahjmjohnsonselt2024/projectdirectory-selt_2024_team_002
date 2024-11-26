@@ -478,9 +478,8 @@ DEPENDENCIES
   sdoc
   simplecov
   spring
-  sprockets (>= 4.0.0)
   turbolinks
-  uglifier (>= 4.2.0)
+  uglifier
   valid_email2
   web-console
 
