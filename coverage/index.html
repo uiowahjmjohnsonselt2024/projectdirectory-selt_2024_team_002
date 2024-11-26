@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-25T17:20:31-05:00">2024-11-25T17:20:31-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-25T19:13:19-05:00">2024-11-25T19:13:19-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,7 +22,7 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  93.92%
+  94.07%
 </span>
 
      </span>
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>329</b> relevant lines,
-    <span class="green"><b>309</b> lines covered</span> and
+    <b>337</b> relevant lines,
+    <span class="green"><b>317</b> lines covered</span> and
     <span class="red"><b>20</b> lines missed. </span>
     (<span class="green">
-  93.92%
+  94.07%
 </span>
 )
   </div>
@@ -93,12 +93,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#00a7ab83538f2cc9cb68173f61f0f21de902a3e2" class="src_link" title="app/controllers/worlds_controller.rb">app/controllers/worlds_controller.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">65.71 %</td>
-            <td class="cell--number">63</td>
-            <td class="cell--number">35</td>
-            <td class="cell--number">23</td>
+            <td class="red strong cell--number t-file__coverage">67.57 %</td>
+            <td class="cell--number">65</td>
+            <td class="cell--number">37</td>
+            <td class="cell--number">25</td>
             <td class="cell--number">12</td>
-            <td class="cell--number">1.00</td>
+            <td class="cell--number">1.05</td>
             
           </tr>
         
@@ -391,11 +391,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#aa53a3192dc25e09dc29f2d6cd5e5b2acdf3559c" class="src_link" title="spec/requests/worlds_controller_spec.rb">spec/requests/worlds_controller_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">60</td>
-            <td class="cell--number">29</td>
-            <td class="cell--number">29</td>
+            <td class="cell--number">66</td>
+            <td class="cell--number">35</td>
+            <td class="cell--number">35</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.31</td>
+            <td class="cell--number">1.26</td>
             
           </tr>
         
@@ -1267,7 +1267,7 @@
     <h3>app/controllers/worlds_controller.rb</h3>
     <h4>
       <span class="red">
-  65.71%
+  67.57%
 </span>
 
       lines covered
@@ -1276,8 +1276,8 @@
     
 
     <div class="t-line-summary">
-      <b>35</b> relevant lines.
-      <span class="green"><b>23</b> lines covered</span> and
+      <b>37</b> relevant lines.
+      <span class="green"><b>25</b> lines covered</span> and
       <span class="red"><b>12</b> lines missed.</span>
     </div>
 
@@ -1462,7 +1462,7 @@
 
             
 
-            <code class="ruby">    params.permit(:world_code, :world_name, :user_id, :is_public, :max_player)</code>
+            <code class="ruby">    params.permit(:world_code, :world_name, :is_public, :max_player)</code>
           </li>
         </div>
       
@@ -1746,7 +1746,7 @@
 
             
 
-            <code class="ruby">    @world = World.create!(world_params)</code>
+            <code class="ruby">    new_params = world_params</code>
           </li>
         </div>
       
@@ -1758,7 +1758,7 @@
 
             
 
-            <code class="ruby">    flash[:notice] = &#39;World was successfully created.&#39;</code>
+            <code class="ruby">    new_params[:user_id_id] = @cur_user.id</code>
           </li>
         </div>
       
@@ -1770,39 +1770,41 @@
 
             
 
+            <code class="ruby">    @world = World.create!(new_params)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="46">
+            
+              <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    flash[:notice] = &#39;World was successfully created.&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="47">
+            
+              <span class="hits">2</span>
+            
+
+            
+
             <code class="ruby">    redirect_to worlds_path</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="46">
+          <li class="never" data-hits="" data-linenumber="48">
             
 
             
 
             <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="47">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="48">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def edit; end</code>
           </li>
         </div>
       
@@ -1824,7 +1826,7 @@
 
             
 
-            <code class="ruby">  def update; end</code>
+            <code class="ruby">  def edit; end</code>
           </li>
         </div>
       
@@ -1846,7 +1848,7 @@
 
             
 
-            <code class="ruby">  def destroy; end</code>
+            <code class="ruby">  def update; end</code>
           </li>
         </div>
       
@@ -1868,42 +1870,12 @@
 
             
 
-            <code class="ruby">  def join_world</code>
+            <code class="ruby">  def destroy; end</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="55">
-            
-
-            
-
-            <code class="ruby">    @selected_world = params[:id]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="56">
-            
-
-            
-
-            <code class="ruby">    redirect_to world_path(@selected_world.split(&#39;_&#39;)[1])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="57">
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="58">
+          <li class="never" data-hits="" data-linenumber="55">
             
 
             
@@ -1913,7 +1885,59 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="59">
+          <li class="covered" data-hits="1" data-linenumber="56">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def join_world</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="57">
+            
+
+            
+
+            <code class="ruby">    @selected_world = params[:id]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="58">
+            
+
+            
+
+            <code class="ruby">    redirect_to world_path(@selected_world.split(&#39;_&#39;)[1])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="59">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="60">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="61">
             
               <span class="hits">1</span>
             
@@ -1925,7 +1949,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="60">
+          <li class="missed" data-hits="0" data-linenumber="62">
             
 
             
@@ -1935,7 +1959,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="61">
+          <li class="missed" data-hits="0" data-linenumber="63">
             
 
             
@@ -1945,7 +1969,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="62">
+          <li class="never" data-hits="" data-linenumber="64">
             
 
             
@@ -1955,7 +1979,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="63">
+          <li class="never" data-hits="" data-linenumber="65">
             
 
             
@@ -11409,8 +11433,8 @@
     
 
     <div class="t-line-summary">
-      <b>29</b> relevant lines.
-      <span class="green"><b>29</b> lines covered</span> and
+      <b>35</b> relevant lines.
+      <span class="green"><b>35</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -11753,7 +11777,7 @@
 
             
 
-            <code class="ruby">        post &#39;/worlds&#39;</code>
+            <code class="ruby">        usr = instance_double(User)</code>
           </li>
         </div>
       
@@ -11765,12 +11789,48 @@
 
             
 
+            <code class="ruby">        allow(User).to receive(:find_user_by_session_token).and_return(usr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="32">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        allow(usr).to receive(:id).and_return(1)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="33">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        post &#39;/worlds&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="34">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">        expect(response).to redirect_to worlds_path</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="32">
+          <li class="never" data-hits="" data-linenumber="35">
             
 
             
@@ -11780,7 +11840,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="33">
+          <li class="never" data-hits="" data-linenumber="36">
             
 
             
@@ -11790,46 +11850,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="34">
-            
-
-            
-
-            <code class="ruby">      # rubocop:disable RSpec/ExampleLength</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="35">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">      it &#39;calls the model method that performs world creation&#39; do</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="36">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">        fake_params = { world_code: &#39;11111&#39;, world_name: &#39;test&#39;, user_id: &#39;0&#39;, is_public: true,</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="never" data-hits="" data-linenumber="37">
             
 
             
 
-            <code class="ruby">                        max_player: &#39;5&#39; }</code>
+            <code class="ruby">      # rubocop:disable RSpec/ExampleLength</code>
           </li>
         </div>
       
@@ -11841,7 +11867,7 @@
 
             
 
-            <code class="ruby">        fake_results = World.new(fake_params)</code>
+            <code class="ruby">      it &#39;calls the model method that performs world creation&#39; do</code>
           </li>
         </div>
       
@@ -11853,19 +11879,17 @@
 
             
 
-            <code class="ruby">        allow(World).to receive(:create).and_return(fake_results)</code>
+            <code class="ruby">        fake_params = { world_code: &#39;11111&#39;, world_name: &#39;test&#39;, is_public: true,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="40">
-            
-              <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="40">
             
 
             
 
-            <code class="ruby">        post worlds_path, params: fake_params</code>
+            <code class="ruby">                        max_player: &#39;5&#39; }</code>
           </li>
         </div>
       
@@ -11877,67 +11901,79 @@
 
             
 
+            <code class="ruby">        fake_results = World.new(fake_params)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="42">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        usr = instance_double(User)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="43">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        allow(World).to receive(:create).and_return(fake_results)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="44">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        allow(User).to receive(:find_user_by_session_token).and_return(usr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="45">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        allow(usr).to receive(:id).and_return(1)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="46">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">        post worlds_path, params: fake_params</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="47">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">        expect(assigns(:world)).to have_attributes(</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="42">
-            
-
-            
-
-            <code class="ruby">          world_code: &#39;11111&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="43">
-            
-
-            
-
-            <code class="ruby">          world_name: &#39;test&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="44">
-            
-
-            
-
-            <code class="ruby">          user_id: &#39;0&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="45">
-            
-
-            
-
-            <code class="ruby">          is_public: true,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="46">
-            
-
-            
-
-            <code class="ruby">          max_player: &#39;5&#39;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="47">
-            
-
-            
-
-            <code class="ruby">        )</code>
           </li>
         </div>
       
@@ -11947,7 +11983,7 @@
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">          world_code: &#39;11111&#39;,</code>
           </li>
         </div>
       
@@ -11957,7 +11993,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">          world_name: &#39;test&#39;,</code>
           </li>
         </div>
       
@@ -11967,7 +12003,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">          user_id_id: 1,</code>
           </li>
         </div>
       
@@ -11977,7 +12013,7 @@
 
             
 
-            <code class="ruby">  # rubocop:enable RSpec/ExampleLength</code>
+            <code class="ruby">          is_public: true,</code>
           </li>
         </div>
       
@@ -11987,12 +12023,72 @@
 
             
 
+            <code class="ruby">          max_player: &#39;5&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="53">
+            
+
+            
+
+            <code class="ruby">        )</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="54">
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="55">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="56">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="57">
+            
+
+            
+
+            <code class="ruby">  # rubocop:enable RSpec/ExampleLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="58">
+            
+
+            
+
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="53">
+          <li class="covered" data-hits="1" data-linenumber="59">
             
               <span class="hits">1</span>
             
@@ -12004,7 +12100,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="54">
+          <li class="covered" data-hits="1" data-linenumber="60">
             
               <span class="hits">1</span>
             
@@ -12016,7 +12112,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="55">
+          <li class="covered" data-hits="1" data-linenumber="61">
             
               <span class="hits">1</span>
             
@@ -12028,7 +12124,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="56">
+          <li class="covered" data-hits="1" data-linenumber="62">
             
               <span class="hits">1</span>
             
@@ -12040,7 +12136,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="57">
+          <li class="never" data-hits="" data-linenumber="63">
             
 
             
@@ -12050,7 +12146,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="58">
+          <li class="never" data-hits="" data-linenumber="64">
             
 
             
@@ -12060,7 +12156,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="59">
+          <li class="never" data-hits="" data-linenumber="65">
             
 
             
@@ -12070,7 +12166,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="60">
+          <li class="never" data-hits="" data-linenumber="66">
             
 
             

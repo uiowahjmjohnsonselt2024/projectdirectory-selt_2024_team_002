@@ -13,7 +13,7 @@ class WorldsController < ApplicationController
   end
 
   def world_params
-    params.permit(:world_code, :world_name, :user_id, :is_public, :max_player)
+    params.permit(:world_code, :world_name, :is_public, :max_player)
   end
 
   def show
@@ -40,7 +40,9 @@ class WorldsController < ApplicationController
   end
 
   def create
-    @world = World.create!(world_params)
+    new_params = world_params
+    new_params[:user_id_id] = @cur_user.id
+    @world = World.create!(new_params)
     flash[:notice] = 'World was successfully created.'
     redirect_to worlds_path
   end
