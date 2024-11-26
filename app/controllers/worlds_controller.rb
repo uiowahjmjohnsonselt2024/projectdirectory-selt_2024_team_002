@@ -22,14 +22,17 @@ class WorldsController < ApplicationController
     @world = World.find(id)
     @world.init_if_not_inited
     @world.load_images_from_s3
-    @data = {}
-    grid_arr = @world.gridsquares.to_ary
-    grid_arr.each do |cell|
-      @data[cell.row] ||= {}
-      @data[cell.row][cell.col] = cell
+    @data = build_grid_data(@world.gridsquares)
+    @world.generate_cell(2, 4)
+  end
+
+  def build_grid_data(gridsquares)
+    data = {}
+    gridsquares.each do |cell|
+      data[cell.row] ||= {}
+      data[cell.row][cell.col] = cell
     end
-    @data = @world.gridsquares
-    @world.generate_cell(3, 4)
+    data
   end
 
   def index
