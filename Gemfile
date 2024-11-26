@@ -2,9 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.0.0'
-
-gem 'rubygems-update', '~> 3.3.22'
+ruby '3.1.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'

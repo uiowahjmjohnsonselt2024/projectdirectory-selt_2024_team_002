@@ -380,7 +380,6 @@ GEM
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
-    rubygems-update (3.3.27)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -483,7 +482,6 @@ DEPENDENCIES
   rubocop-rake
   rubocop-rspec
   rubocop-rspec_rails
-  rubygems-update (~> 3.3.22)
   sass-rails
   sassc-rails
   sdoc
@@ -495,7 +493,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.1.6p260
 
 BUNDLED WITH
    2.5.23
