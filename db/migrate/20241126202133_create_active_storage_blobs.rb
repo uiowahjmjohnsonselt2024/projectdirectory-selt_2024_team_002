@@ -1,3 +1,5 @@
+# db/migrate/20241126202133_create_active_storage_blobs.rb
+
 # frozen_string_literal: true
 
 # This migration creates the active storage blobs table
@@ -24,6 +26,5 @@ class CreateActiveStorageBlobs < ActiveRecord::Migration[7.1]
     table.string 'service_name', null: false
     table.bigint 'byte_size', null: false
     table.string 'checksum'
-    table.datetime 'created_at', null: false
   end
 end
