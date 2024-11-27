@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get 'users/checkout', to: 'users#checkout'
   post 'users/checkout', to: 'users#checkout'
   post 'users/payment', to: 'users#payment', defaults: { format: 'js' }
+  post 'users/reset-password', to: 'users#reset_password_post'
+  get 'users/reset-password', to: 'users#reset_password'
   resources :users
 
   # routes for worlds
