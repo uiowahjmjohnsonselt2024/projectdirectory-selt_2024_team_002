@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :email
       t.text :password_digest
       t.text :session_token
-      t.integer :available_credits
+      t.integer :available_credits, null: false, default: 0
       t.string :display_name
 
       t.timestamps null: false
