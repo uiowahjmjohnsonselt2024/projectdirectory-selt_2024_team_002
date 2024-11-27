@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OpenaiWrapperHelper
   @@dim = World.dim
 
@@ -81,6 +83,7 @@ module OpenaiWrapperHelper
       res
     end
 
+    # rubocop: disable Metrics/MethodLength
     def download_and_attach_image(image_uri, row, col, world)
       image_response = Net::HTTP.get_response(URI(image_uri))
       unless (200..299).include?(image_response.code.to_i)
@@ -101,5 +104,6 @@ module OpenaiWrapperHelper
       gridsquare = world.gridsquares.where(row: row, col: col).first
       gridsquare.image.attach(new_image)
     end
+    # rubocop: enable Metrics/MethodLength
   end
 end

@@ -2,6 +2,8 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - vendor/**/*
+    - db/schema.rb
+    - app/helpers/**/*
 
 require:
   - rubocop-capybara
