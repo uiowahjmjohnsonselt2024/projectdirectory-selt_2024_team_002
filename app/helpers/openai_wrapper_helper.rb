@@ -1,14 +1,14 @@
-class OpenAIWrapper
+module OpenaiWrapperHelper
   @@dim = World.dim
 
   class << self
-    def create_square(row, col)
+    def create_square(row, col, world)
       # calls to openai, generates an image and attatches it.
       text_prompt = generate_text_description(row, col)
       return unless text_prompt
 
       uri = generate_image_ai(text_prompt)
-      download_and_attach_image(uri, row, col)
+      download_and_attach_image(uri, row, col, world)
     end
 
     private
@@ -49,15 +49,10 @@ class OpenAIWrapper
         return
       end
 
-      begin
-        result = JSON.parse(response.body)
-        res = result.dig('choices', 0, 'message', 'content')&.strip
-        Rails.logger.info("got 3.5 turbo response for row: #{row}, col: #{col}, response: #{res}")
-        res
-      rescue JSON::ParserError => e
-        Rails.logger.info "Failed to parse JSON: #{e.message}"
-        nil
-      end
+      result = JSON.parse(response.body)
+      res = result.dig('choices', 0, 'message', 'content')&.strip
+      Rails.logger.info("got 3.5 turbo response for row: #{row}, col: #{col}, response: #{res}")
+      res
     end
 
     def build_dalle_body(text)
@@ -80,18 +75,13 @@ class OpenAIWrapper
         return
       end
 
-      begin
-        result = JSON.parse(response.body)
-        res = result.dig('data', 0, 'url')
-        Rails.logger.info("got dalle image url, url: #{res}")
-        res
-      rescue JSON::ParserError => e
-        Rails.logger.info "Failed to parse JSON: #{e.message}"
-        nil
-      end
+      result = JSON.parse(response.body)
+      res = result.dig('data', 0, 'url')
+      Rails.logger.info("got dalle image url, url: #{res}")
+      res
     end
 
-    def download_and_attach_image(image_uri, row, col)
+    def download_and_attach_image(image_uri, row, col, world)
       image_response = Net::HTTP.get_response(URI(image_uri))
       unless (200..299).include?(image_response.code.to_i)
         logstr = "Call to DALL-E failed with HTTP status code: #{image_response.code.to_i}, error: #{image_response.body}"
@@ -108,20 +98,8 @@ class OpenAIWrapper
       Rails.logger.info("Received DALL-E image for row #{row}, col #{col}")
 
       # This will attach the image and upload it to either S3 (production) or disk (development/test)
-      gridsquare = gridsquares.where(row: row, col: col).first
+      gridsquare = world.gridsquares.where(row: row, col: col).first
       gridsquare.image.attach(new_image)
-    end
-
-    def initialize_grid
-      (1..@@dim).each do |row|
-        (1..@@dim).each do |col|
-          gridsquares.create!(row: row, col: col)
-        end
-      end
-      create_square(1, 1) # only these squares or we get rate limited.
-      create_square(2, 1)
-      create_square(2, 2)
-      create_square(1, 2)
     end
   end
 end

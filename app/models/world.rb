@@ -30,9 +30,9 @@ class World < ApplicationRecord
         gridsquares.create!(row: row, col: col)
       end
     end
-    OpenAIWrapper.create_square(1, 1) # only these squares or we get rate limited.
-    OpenAIWrapper.create_square(2, 1)
-    OpenAIWrapper.create_square(2, 2)
-    OpenAIWrapper.create_square(1, 2)
+    OpenaiWrapperHelper.create_square(1, 1, self) # only these squares or we get rate limited.
+    OpenaiWrapperHelper.create_square(2, 1, self)
+    OpenaiWrapperHelper.create_square(2, 2, self)
+    OpenaiWrapperHelper.create_square(1, 2, self)
   end
 end
