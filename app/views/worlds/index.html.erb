@@ -25,10 +25,6 @@
   <button class="tab_links" onclick="openTab(event, 'friend_list')">Friends</button>
 </div>
 
-<div class="scroll-independent-div-br">
-  <%= button_to '+', new_world_path, method: :get, id: "create_button", class: "big-circle-button"%>
-</div>
-
 <div id="public_worlds" class="tab_content active">
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
@@ -39,6 +35,10 @@
         <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
       </div>
     <% end %>
+  </div>
+
+  <div class="scroll-independent-div-br">
+    <%= button_to '+', new_world_path, method: :get, id: "create_button", class: "big-circle-button"%>
   </div>
 </div>
 
@@ -52,6 +52,10 @@
         <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
       </div>
     <% end %>
+  </div>
+
+  <div class="scroll-independent-div-br">
+    <%= button_to '+', new_world_path, method: :get, id: "create_button", class: "big-circle-button"%>
   </div>
 </div>
 
