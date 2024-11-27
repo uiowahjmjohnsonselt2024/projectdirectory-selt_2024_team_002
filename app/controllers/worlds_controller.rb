@@ -37,6 +37,7 @@ class WorldsController < ApplicationController
     @public_worlds = World.where(is_public: true)
     @private_worlds = World.where(is_public: false)
     @user = User.find_user_by_session_token(cookies[:session])
+    @friends = Friendship.where(id: @user.display_name)
   end
 
   def new
