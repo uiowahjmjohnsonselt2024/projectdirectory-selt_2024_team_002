@@ -25,3 +25,4 @@
 .ruby-version
 
 /storage/*
+/int_storage/*
