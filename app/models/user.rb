@@ -4,6 +4,12 @@ require 'bcrypt'
 
 # Model dealing with user accounts
 class User < ApplicationRecord
+  has_many :friendships
+  has_many :friends, through: :friendships
+
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :inverse_friends, through: :inverse_friendships, source: :user
+
   validates :email, presence: { message: 'is required.' }, 'valid_email_2/email': true
   validates :display_name, presence: { message: 'is required.' }, uniqueness: { message: '%<value>s is taken' }
   has_secure_password
