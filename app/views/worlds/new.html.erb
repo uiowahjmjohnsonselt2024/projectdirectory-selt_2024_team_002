@@ -7,6 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="world_body">
+<div class="scroll-independent-div-tl">
+  <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+</div>
+  <% if flash[:notice] %>
+    <div class="alert world-creation-alert-box">
+      <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+      </svg></div>
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
 <div class="world_add_form">
   <%= form_tag "/worlds", method: :post, id: 'world_add_form' do %>
     <div>
@@ -18,26 +29,18 @@
       <%= text_field_tag :world_name, nil, id: 'world_name', class: "textbox"%>
     </div>
     <div>
-      <label for="user_id">User ID:</label>
-      <%= text_field_tag :user_id, nil, id: 'user_id', class: "textbox"%>
+      <label for="max_player">Max Players:</label>
+      <%= number_field_tag :max_player, nil, id: 'max_player', class: "textbox"%>
     </div>
     <div>
       <label>Visibility:</label>
       <div>
-        <label for="is_public">Public </label>
-        <%= radio_button_tag :is_public, '1', true, id: 'is_public' %>
-        <label for="is_private">Private</label>
-        <%= radio_button_tag :is_public, '0', false, id: 'is_private' %>
+        <label class="radio-text" for="is_public">Public <%= radio_button_tag :is_public, '1', true, id: 'is_public' %></label>
+        <label class="radio-text" for="is_private">Private <%= radio_button_tag :is_public, '0', false, id: 'is_private' %></label>
       </div>
     </div>
-      <label for="max_player">Max Players:</label>
-      <%= number_field_tag :max_player, nil, id: 'max_player', class: "textbox"%>
     <%= submit_tag 'Create World', id: 'add_button', class: "world_add_button"%>
   <% end %>
-  <%= form_tag "/worlds", method: :get, id: 'return_form' do %>
-      <%= submit_tag 'Return to Home', id: 'return_button', class: 'button'%>
-    <% end %>
 </div>
-<%= yield %>
 </body>
 </html>

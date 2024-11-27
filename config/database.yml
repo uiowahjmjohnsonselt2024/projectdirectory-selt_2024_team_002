@@ -8,7 +8,6 @@ development:
   adapter: postgresql
   database: my_database_development
   pool: 5
-  timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -22,7 +21,6 @@ test:
   port: 5432
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: postgres
-  
 
 production:
   adapter: postgresql

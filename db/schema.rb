@@ -11,8 +11,8 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-
 # rubocop:disable Metrics/BlockLength
+
 ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
     t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness',
                                                     unique: true
   end
-  # rubocop:disable Rails/CreateTableWithTimestamps
+
   create_table 'active_storage_blobs', force: :cascade do |t|
     t.string 'key', null: false
     t.string 'filename', null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
     t.bigint 'blob_id', null: false
     t.string 'variation_digest', null: false
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
+    t.datetime 'created_at', null: false
   end
 
   create_table 'gridsquares', force: :cascade do |t|
@@ -84,5 +85,5 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'gridsquares', 'worlds'
 end
+
 # rubocop:enable Metrics/BlockLength
-# rubocop:enable Rails/CreateTableWithTimestamps

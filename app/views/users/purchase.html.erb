@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Worlds</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="profile_toolbar">
+    <div class="scroll-independent-div-tl">
+      <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+    </div>
+
+    <div class="center-stack">
+      <h1 style="font-size: 35px; margin: 15px 0 0;">Shop</h1>
+    </div>
+    <div class="right-stack">
+      <div class="box-numeric">
+        <%= if @user.available_credits == nil
+              0 else @user.available_credits end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="lower-div-after-nav">
+    <% if flash[:notice] %>
+      <div id="flash" class="alert shard-alert-box">
+        <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+        </svg></div>
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="purchase-box">
+      <%= form_tag "/users/conversion", id: 'world_add_form', remote: true do %>
+        <div>
+          <label for="shard_input_field" style="font-size: 30px">Enter the amount of shards:</label>
+            <div style="display: flex; width: 100%">
+              <%= text_field_tag :shard_input_field, nil, id: 'shard_input_field', class: "textbox-center-large-size"%>
+              <input type="hidden" name="currency" id="currency-hidden" value="usd"/>
+              <div class="dropdown">
+                <button class="drop-button" id="currency" disabled>
+                  USD
+                </button>
+                <div class="dropdown-content" id="dropdown-content">
+                  <button id="usd" class="drop-button" onclick="change_currency(event, 'usd')">USD</button>
+                  <button id="cad" class="drop-button" onclick="change_currency(event, 'cad')">CAD</button>
+                  <button id="gbp" class="drop-button" onclick="change_currency(event, 'gbp')">GBP</button>
+                  <button id="eur" class="drop-button" onclick="change_currency(event, 'eur')">EUR</button>
+                  <button id="jpy" class="drop-button" onclick="change_currency(event, 'jpy')">JPY</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <%= submit_tag 'Convert', id: 'convert_button', class: "world_add_button", disabled: false, data: { disable_with: false } %>
+      <% end %>
+    </div>
+    <div id="conversion">
+
+    </div>
+  </div>
+
+  <script>
+      function change_currency(event, currency) {
+          $("#currency-hidden").val(currency)
+          $("#currency").text(currency.toUpperCase())
+      }
+
+      $(document).ready(function(){
+          setTimeout(function(){
+              $('#flash').fadeOut();
+          }, 2000);
+      })
+  </script>
+</body>
+
+

@@ -8,18 +8,25 @@
 <div class="profile_toolbar">
   <%= button_to 'Log Out', users_logout_path, method: :get, id: "logout_button", class:"secondary_button"%>
   <div class="center-stack">
-    <h1>Worlds</h1>
-    <div>
-      <%= button_to 'Create New World', new_world_path, method: :get, id: "create_button", class:"secondary_button"%>
+    <h1 style="font-size: 35px; margin: 15px 0 0;">Welcome, <%= @cur_user.display_name %></h1>
+  </div>
+  <div class="box-numeric">
+    <%= if @user.available_credits == nil
+          0 else @user.available_credits end %>
+    <div class="left-stack" style="text-align: center; margin: auto">
+      <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", style: "background-color: #A7BCC7;"%>
     </div>
   </div>
-  <h1 style="font-size: 25px; margin: 0;">Welcome, <%= @cur_user.display_name %></h1>
 </div>
 
 <div class="tab">
   <button class="tab_links active" onclick="openTab(event, 'public_worlds')">Public Worlds</button>
   <button class="tab_links" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
   <button class="tab_links" onclick="openTab(event, 'friend_list')">Friends</button>
+</div>
+
+<div class="scroll-independent-div-br">
+  <%= button_to '+', new_world_path, method: :get, id: "create_button", class: "big-circle-button"%>
 </div>
 
 <div id="public_worlds" class="tab_content active">
@@ -52,7 +59,7 @@
   <div style="display: flex; flex-direction: column; align-items: center;">
     <div class="world_box">
       <p>Sorry, you currently have no friends. Add some below!</p>
-      <%= button_to "Add Friend", "#", id: "placeholder_button", class: "button", method: :post %>
+      <%= button_to "Add Friend", worlds_path, id: "placeholder_button", class: "button", method: :get %>
     </div>
   </div>
 </div>

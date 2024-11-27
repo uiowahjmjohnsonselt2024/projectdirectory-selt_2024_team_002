@@ -1,6 +1,6 @@
 Feature: Create account with user information
   As a user
-  so I have an account to access the game
+  So I have an account to access the game
 
 Scenario: Create account with non-unique display name
   When I am on the Create Account page

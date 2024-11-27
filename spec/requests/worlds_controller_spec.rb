@@ -9,7 +9,7 @@ describe WorldsController do
     before do
       usr = instance_double(User)
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
-      allow(usr).to receive(:display_name).and_return('')
+      allow(usr).to receive_messages(display_name: '', available_credits: 0)
     end
 
     describe 'world page' do

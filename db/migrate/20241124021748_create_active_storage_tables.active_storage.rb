@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
 
 # This migration comes from active_storage (originally 20170806125915)
@@ -62,5 +61,5 @@ class CreateActiveStorageTables < ActiveRecord::Migration[7.0]
     [primary_key_type, foreign_key_type]
   end
 end
-# rubocop:enable Metrics/AbcSize
+
 # rubocop:enable Metrics/MethodLength

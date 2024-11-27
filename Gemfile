@@ -41,6 +41,13 @@ gem 'sassc-rails'
 gem 'rubocop-rake'
 gem 'valid_email2'
 
+# gems for moneyexchange rate
+gem 'money'
+gem 'money-open-exchange-rates'
+
+# gem for credit card validation
+gem 'credit_card_detector'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
