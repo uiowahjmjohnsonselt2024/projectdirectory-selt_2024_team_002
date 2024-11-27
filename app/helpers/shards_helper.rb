@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'money'
 require 'money/bank/open_exchange_rates_bank'
 

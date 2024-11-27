@@ -17,7 +17,8 @@
     </div>
     <div class="right-stack">
       <div class="box-numeric">
-        <%= @user.available_credits %>
+        <%= if @user.available_credits == nil
+              0 else @user.available_credits end %>
       </div>
     </div>
   </div>

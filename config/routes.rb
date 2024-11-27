@@ -23,10 +23,10 @@ Rails.application.routes.draw do
   post 'users/get-session', to: 'users#get_session'
   get 'users/logout'
   get 'users/purchase', to: 'users#purchase'
-  post 'users/conversion', to: 'users#conversion', :defaults => { :format => 'js' }
+  post 'users/conversion', to: 'users#conversion', defaults: { format: 'js' }
   get 'users/checkout', to: 'users#checkout'
   post 'users/checkout', to: 'users#checkout'
-  post 'users/payment', to: 'users#payment', :defaults => { :format => 'js' }
+  post 'users/payment', to: 'users#payment', defaults: { format: 'js' }
   resources :users
 
   # routes for worlds

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Controller for handling user-related actions.
+# rubocop:disable all
 class UsersController < ApplicationController
   require 'credit_card_detector'
 
@@ -8,7 +9,6 @@ class UsersController < ApplicationController
     # render default template
   end
 
-  # rubocop:disable all 
   # rubo cop complains that it's too long. But password confirmation checking should not be in the model
   def create
     form = params[:user]
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       flash[:alert] = 'Password confirmation must match'
       return redirect_to new_user_path
     end
-    usr = User.new(email: form[:email], display_name: form[:user_name], password: form[:password], available_credits: 0)
+    usr = User.new(email: form[:email], display_name: form[:user_name], password: form[:password])
     if usr.valid? && usr.save
       flash[:notice] = 'Account created successfully'
       return redirect_to users_login_path
@@ -31,37 +31,29 @@ class UsersController < ApplicationController
 
   def update; end
 
-  def des; end
-
   def login
     cur_user = User.find_user_by_session_token(cookies[:session])
     if cur_user != nil 
       redirect_to worlds_path
     end
-    # renders default view
   end
 
   def get_session
-    user = User.find_user_by_display_name(params[:user_name])
-    if user && user.authenticate(params[:password]) && user.update_session_token
+    @user = User.find_user_by_display_name(params[:user_name])
+    if @user && @user.authenticate(params[:password]) && @user.update_session_token
       flash[:notice] = 'Login successful'
-      cookies[:session] = {
-        value: user.session_token,
-        expires: 1.week.from_now
-      }
-      @user = user
+      cookies[:session] = { value: @user.session_token, expires: 1.week.from_now }
       return redirect_to worlds_path
     end
     flash[:alert] = 'Incorrect username and password'
     redirect_to users_login_path
   end
+
   def purchase
-    flash.discard
     @user = User.find_user_by_session_token(cookies[:session])
   end
 
   def conversion
-    flash.discard
     shards = params[:shard_input_field]
     currency = params[:currency]
 
@@ -83,7 +75,6 @@ class UsersController < ApplicationController
   end
 
   def checkout
-    flash.discard
     @total_amount = params[:total_amount]
     @with_currency = params[:with_currency]
     @num_of_shards = params[:total_shards]
@@ -104,10 +95,8 @@ class UsersController < ApplicationController
         format.js
       end
     else
-      # checking card
       detector = CreditCardDetector::Detector.new(card_number)
       result = detector.valid_luhn?
-
       unless result
         @message = "Card number is not valid. Please recheck your card number."
         respond_to do |format|
@@ -115,7 +104,6 @@ class UsersController < ApplicationController
         end
         return
       end
-
       unless expiration_date =~ /\A\d\d\d\d\Z/
         @message = "Expiration date can only be 4 digits. Please try again."
         respond_to do |format|
@@ -123,7 +111,6 @@ class UsersController < ApplicationController
         end
         return
       end
-
       unless cvv =~ /\A\d\d\d\Z/
         @message = "CVV can only be 3 digits. Please try again."
         respond_to do |format|
@@ -131,9 +118,7 @@ class UsersController < ApplicationController
         end
         return
       end
-
       @user.update(available_credits: @user.available_credits + num_of_shards)
-
       redirect_to users_purchase_path
     end
   end
@@ -146,3 +131,4 @@ class UsersController < ApplicationController
     redirect_to users_login_path
   end
 end
+# rubocop:enable all

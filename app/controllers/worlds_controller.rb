@@ -45,8 +45,8 @@ class WorldsController < ApplicationController
     new_params = world_params
     new_params[:user_id_id] = @cur_user.id
 
-    if new_params[:world_code] == "" or new_params[:world_name] == "" or new_params[:is_public] == "" or new_params[:max_player] == "" then
-      flash[:notice] = "Fields have not been fulfilled. Please check your inputs."
+    if new_params[:world_code] == '' || new_params[:world_name] == '' || new_params[:max_player] == ''
+      flash[:notice] = 'Fields have not been fulfilled. Please check your inputs.'
       redirect_to new_world_path
     else
       @world = World.create!(new_params)
