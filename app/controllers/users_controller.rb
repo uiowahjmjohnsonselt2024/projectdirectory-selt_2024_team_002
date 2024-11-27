@@ -38,6 +38,12 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def reset_password
+    # verify user (by password, or email)
+
+  end
+
   def get_session
     @user = User.find_user_by_display_name(params[:user_name])
     if @user && @user.authenticate(params[:password]) && @user.update_session_token
