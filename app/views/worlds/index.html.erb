@@ -77,7 +77,13 @@
   <div style="display: flex; flex-direction: column; align-items: center;">
     <div class="world_box">
       <p>Sorry, you currently have no friends. Add some below!</p>
-      <%= button_to "Add Friend", worlds_path, id: "placeholder_button", class: "button", method: :get %>
+      <button class="button" id="add_friend_button" onclick="addFriend()">Add Friend</button>
+
+      <div id="add_friend_container" style="display: none;">
+        <p>Enter your friend's name:</p>
+        <%= text_field_tag :world_name, nil, id: 'friend_name', style: "height:30px", class: "textbox"%>
+        <button class="button">Submit</button>
+      </div>
     </div>
   </div>
 </div>
@@ -96,6 +102,13 @@
         document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
     }
+</script>
+
+<script>
+  function addFriend() {
+      document.getElementById('add_friend_button').style.display = 'none';
+      document.getElementById('add_friend_container').style.display = 'block';
+  }
 </script>
 
 </body>
