@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# wrapper module for all OPENAI calls
 module OpenaiWrapperHelper
   @@dim = World.dim
 

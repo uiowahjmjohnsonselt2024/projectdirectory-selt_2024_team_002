@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.13.1/application.js' type='text/javascript'></script>
     <link href='./assets/0.13.1/application.css' media='screen, projection, print' rel='stylesheet' type='text/css' />
-    <link rel="icon" type="image/png" href="./assets/0.13.1/favicon_green.png" />
+    <link rel="icon" type="image/png" href="./assets/0.13.1/favicon_yellow.png" />
   </head>
 
   <body>
@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-25T13:47:39-05:00">2024-11-25T13:47:39-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-11-27T17:28:10-05:00">2024-11-27T17:28:10-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -21,15 +21,15 @@
   <h2>
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
-      <span class="green">
-  93.49%
+      <span class="yellow">
+  81.97%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.21
+         1.05
        </span>
     </span> hits/line
     )
@@ -38,15 +38,15 @@
   <a name="AllFiles"></a>
 
   <div>
-    <b>30</b> files in total.
+    <b>31</b> files in total.
   </div>
 
   <div class="t-line-summary">
-    <b>307</b> relevant lines,
-    <span class="green"><b>287</b> lines covered</span> and
-    <span class="red"><b>20</b> lines missed. </span>
-    (<span class="green">
-  93.49%
+    <b>366</b> relevant lines,
+    <span class="green"><b>300</b> lines covered</span> and
+    <span class="red"><b>66</b> lines missed. </span>
+    (<span class="yellow">
+  81.97%
 </span>
 )
   </div>
@@ -114,6 +114,17 @@
           </tr>
         
           <tr class="t-file">
+            <td class="strong t-file__name"><a href="#0baa03c8051c247e8c535e834902605b8e3ce7d0" class="src_link" title="app/helpers/openai_wrapper_helper.rb">app/helpers/openai_wrapper_helper.rb</a></td>
+            <td class="red strong cell--number t-file__coverage">21.05 %</td>
+            <td class="cell--number">110</td>
+            <td class="cell--number">57</td>
+            <td class="cell--number">12</td>
+            <td class="cell--number">45</td>
+            <td class="cell--number">0.21</td>
+            
+          </tr>
+        
+          <tr class="t-file">
             <td class="strong t-file__name"><a href="#b79c2547c25fb8758c2a138529b618bd39b0ab39" class="src_link" title="app/models/application_record.rb">app/models/application_record.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
             <td class="cell--number">6</td>
@@ -137,12 +148,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#3ab726c7d404f9b8c15b1380e1219b5ae7da56bd" class="src_link" title="app/models/world.rb">app/models/world.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">66.67 %</td>
-            <td class="cell--number">81</td>
-            <td class="cell--number">18</td>
+            <td class="red strong cell--number t-file__coverage">63.16 %</td>
+            <td class="cell--number">38</td>
+            <td class="cell--number">19</td>
             <td class="cell--number">12</td>
-            <td class="cell--number">6</td>
-            <td class="cell--number">0.72</td>
+            <td class="cell--number">7</td>
+            <td class="cell--number">0.68</td>
             
           </tr>
         
@@ -358,11 +369,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#2583008c4e300ae24091c7514a1a881cbcc8cecb" class="src_link" title="spec/models/world_spec.rb">spec/models/world_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">25</td>
-            <td class="cell--number">13</td>
-            <td class="cell--number">13</td>
+            <td class="cell--number">26</td>
+            <td class="cell--number">14</td>
+            <td class="cell--number">14</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.08</td>
+            <td class="cell--number">1.07</td>
             
           </tr>
         
@@ -1936,6 +1947,1161 @@
 </div>
 
       
+        <div class="source_table" id="0baa03c8051c247e8c535e834902605b8e3ce7d0">
+  <div class="header">
+    <h3>app/helpers/openai_wrapper_helper.rb</h3>
+    <h4>
+      <span class="red">
+  21.05%
+</span>
+
+      lines covered
+    </h4>
+
+    
+
+    <div class="t-line-summary">
+      <b>57</b> relevant lines.
+      <span class="green"><b>12</b> lines covered</span> and
+      <span class="red"><b>45</b> lines missed.</span>
+    </div>
+
+    
+
+  </div>
+
+  <pre>
+    <ol>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="1">
+            
+
+            
+
+            <code class="ruby"># frozen_string_literal: true</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="2">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="3">
+            
+
+            
+
+            <code class="ruby"># wrapper module for all OPENAI calls</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="4">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">module OpenaiWrapperHelper</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="5">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  @@dim = World.dim</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="6">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="7">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  class &lt;&lt; self</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="8">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def create_square(row, col, world)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="9">
+            
+
+            
+
+            <code class="ruby">      # calls to openai, generates an image and attatches it.</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="10">
+            
+
+            
+
+            <code class="ruby">      text_prompt = generate_text_description(row, col)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="11">
+            
+
+            
+
+            <code class="ruby">      return unless text_prompt</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="12">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="13">
+            
+
+            
+
+            <code class="ruby">      uri = generate_image_ai(text_prompt)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="14">
+            
+
+            
+
+            <code class="ruby">      download_and_attach_image(uri, row, col, world)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="15">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="16">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="17">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    private</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="18">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="19">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def build_headers</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="20">
+            
+
+            
+
+            <code class="ruby">      { &#39;Content-Type&#39; =&gt; &#39;application/json&#39;, &#39;Authorization&#39; =&gt; &quot;Bearer #{ENV[&#39;OPENAI_API_KEY&#39;]}&quot; }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="21">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="22">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="23">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def build_body(row, col)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="24">
+            
+
+            
+
+            <code class="ruby">      {</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="25">
+            
+
+            
+
+            <code class="ruby">        model: &#39;gpt-3.5-turbo&#39;,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="26">
+            
+
+            
+
+            <code class="ruby">        messages: [</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="27">
+            
+
+            
+
+            <code class="ruby">          { role: &#39;system&#39;,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="28">
+            
+
+            
+
+            <code class="ruby">            content: &#39;Pick a random environment/biome/area that would make sense to be in an area in a video game. Return the environment as one word.&#39; },</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="29">
+            
+
+            
+
+            <code class="ruby">          { role: &#39;user&#39;, content: &quot;Player entered cell (#{row}, #{col})&quot; }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="30">
+            
+
+            
+
+            <code class="ruby">        ],</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="31">
+            
+
+            
+
+            <code class="ruby">        max_tokens: 10</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="32">
+            
+
+            
+
+            <code class="ruby">      }.to_json</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="33">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="34">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="35">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def make_http_request(uri, headers, body)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="36">
+            
+
+            
+
+            <code class="ruby">      http = Net::HTTP.new(uri.host, uri.port)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="37">
+            
+
+            
+
+            <code class="ruby">      http.use_ssl = true</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="38">
+            
+
+            
+
+            <code class="ruby">      request = Net::HTTP::Post.new(uri.path, headers)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="39">
+            
+
+            
+
+            <code class="ruby">      request.body = body</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="40">
+            
+
+            
+
+            <code class="ruby">      http.request(request)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="41">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="42">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="43">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def generate_text_description(row, col)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="44">
+            
+
+            
+
+            <code class="ruby">      uri = URI(&#39;https://api.openai.com/v1/chat/completions&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="45">
+            
+
+            
+
+            <code class="ruby">      headers = build_headers</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="46">
+            
+
+            
+
+            <code class="ruby">      body = build_body(row, col)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="47">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="48">
+            
+
+            
+
+            <code class="ruby">      response = make_http_request(uri, headers, body)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="49">
+            
+
+            
+
+            <code class="ruby">      unless (200..299).include?(response.code.to_i)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="50">
+            
+
+            
+
+            <code class="ruby">        logstr = &quot;call to GPT 3.5 failed with http status code: #{response.code.to_i}, error: #{response.body}&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="51">
+            
+
+            
+
+            <code class="ruby">        Rails.logger.error(logstr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="52">
+            
+
+            
+
+            <code class="ruby">        return</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="53">
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="54">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="55">
+            
+
+            
+
+            <code class="ruby">      result = JSON.parse(response.body)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="56">
+            
+
+            
+
+            <code class="ruby">      res = result.dig(&#39;choices&#39;, 0, &#39;message&#39;, &#39;content&#39;)&amp;.strip</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="57">
+            
+
+            
+
+            <code class="ruby">      Rails.logger.info(&quot;got 3.5 turbo response for row: #{row}, col: #{col}, response: #{res}&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="58">
+            
+
+            
+
+            <code class="ruby">      res</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="59">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="60">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="61">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def build_dalle_body(text)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="62">
+            
+
+            
+
+            <code class="ruby">      {</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="63">
+            
+
+            
+
+            <code class="ruby">        prompt: text,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="64">
+            
+
+            
+
+            <code class="ruby">        n: 1,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="65">
+            
+
+            
+
+            <code class="ruby">        size: &#39;256x256&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="66">
+            
+
+            
+
+            <code class="ruby">      }.to_json</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="67">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="68">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="69">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def generate_image_ai(prompt)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="70">
+            
+
+            
+
+            <code class="ruby">      dalle_uri = URI(&#39;https://api.openai.com/v1/images/generations&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="71">
+            
+
+            
+
+            <code class="ruby">      headers = build_headers</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="72">
+            
+
+            
+
+            <code class="ruby">      dalle_body = build_dalle_body(prompt)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="73">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="74">
+            
+
+            
+
+            <code class="ruby">      response = make_http_request(dalle_uri, headers, dalle_body)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="75">
+            
+
+            
+
+            <code class="ruby">      unless (200..299).include?(response.code.to_i)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="76">
+            
+
+            
+
+            <code class="ruby">        logstr = &quot;call to DALL-E failed with http status code: #{response.code.to_i}, error: #{response.body}&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="77">
+            
+
+            
+
+            <code class="ruby">        Rails.logger.error(logstr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="78">
+            
+
+            
+
+            <code class="ruby">        return</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="79">
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="80">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="81">
+            
+
+            
+
+            <code class="ruby">      result = JSON.parse(response.body)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="82">
+            
+
+            
+
+            <code class="ruby">      res = result.dig(&#39;data&#39;, 0, &#39;url&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="83">
+            
+
+            
+
+            <code class="ruby">      Rails.logger.info(&quot;got dalle image url, url: #{res}&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="84">
+            
+
+            
+
+            <code class="ruby">      res</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="85">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="86">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="87">
+            
+
+            
+
+            <code class="ruby">    # rubocop: disable Metrics/MethodLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="88">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    def download_and_attach_image(image_uri, row, col, world)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="89">
+            
+
+            
+
+            <code class="ruby">      image_response = Net::HTTP.get_response(URI(image_uri))</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="90">
+            
+
+            
+
+            <code class="ruby">      unless (200..299).include?(image_response.code.to_i)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="91">
+            
+
+            
+
+            <code class="ruby">        logstr = &quot;Call to DALL-E failed with HTTP status code: #{image_response.code.to_i}, error: #{image_response.body}&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="92">
+            
+
+            
+
+            <code class="ruby">        Rails.logger.error(logstr)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="93">
+            
+
+            
+
+            <code class="ruby">        return</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="94">
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="95">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="96">
+            
+
+            
+
+            <code class="ruby">      new_image = {</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="97">
+            
+
+            
+
+            <code class="ruby">        io: StringIO.new(image_response.body),</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="98">
+            
+
+            
+
+            <code class="ruby">        filename: &quot;#{row}_#{col}_generated.png&quot;,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="99">
+            
+
+            
+
+            <code class="ruby">        content_type: &#39;image/png&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="100">
+            
+
+            
+
+            <code class="ruby">      }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="101">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="102">
+            
+
+            
+
+            <code class="ruby">      Rails.logger.info(&quot;Received DALL-E image for row #{row}, col #{col}&quot;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="103">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="104">
+            
+
+            
+
+            <code class="ruby">      # This will attach the image and upload it to either S3 (production) or disk (development/test)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="105">
+            
+
+            
+
+            <code class="ruby">      gridsquare = world.gridsquares.where(row: row, col: col).first</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="106">
+            
+
+            
+
+            <code class="ruby">      gridsquare.image.attach(new_image)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="107">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="108">
+            
+
+            
+
+            <code class="ruby">    # rubocop: enable Metrics/MethodLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="109">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="110">
+            
+
+            
+
+            <code class="ruby">end</code>
+          </li>
+        </div>
+      
+    </ol>
+  </pre>
+</div>
+
+      
         <div class="source_table" id="b79c2547c25fb8758c2a138529b618bd39b0ab39">
   <div class="header">
     <h3>app/models/application_record.rb</h3>
@@ -2597,7 +3763,7 @@
     <h3>app/models/world.rb</h3>
     <h4>
       <span class="red">
-  66.67%
+  63.16%
 </span>
 
       lines covered
@@ -2606,9 +3772,9 @@
     
 
     <div class="t-line-summary">
-      <b>18</b> relevant lines.
+      <b>19</b> relevant lines.
       <span class="green"><b>12</b> lines covered</span> and
-      <span class="red"><b>6</b> lines missed.</span>
+      <span class="red"><b>7</b> lines missed.</span>
     </div>
 
     
@@ -2749,7 +3915,27 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="13">
+          <li class="never" data-hits="" data-linenumber="13">
+            
+
+            
+
+            <code class="ruby">  # this must be done this way, active stroage DOES NOT WORK</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="14">
+            
+
+            
+
+            <code class="ruby">  # with after_create call back when seeding!!!!!!!</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="15">
             
               <span class="hits">1</span>
             
@@ -2761,7 +3947,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="14">
+          <li class="covered" data-hits="2" data-linenumber="16">
             
               <span class="hits">2</span>
             
@@ -2773,7 +3959,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="15">
+          <li class="never" data-hits="" data-linenumber="17">
             
 
             
@@ -2783,7 +3969,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="16">
+          <li class="covered" data-hits="1" data-linenumber="18">
             
               <span class="hits">1</span>
             
@@ -2795,7 +3981,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="17">
+          <li class="never" data-hits="" data-linenumber="19">
             
 
             
@@ -2805,7 +3991,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="18">
+          <li class="never" data-hits="" data-linenumber="20">
             
 
             
@@ -2815,7 +4001,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="19">
+          <li class="covered" data-hits="1" data-linenumber="21">
             
               <span class="hits">1</span>
             
@@ -2827,7 +4013,9 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="20">
+          <li class="covered" data-hits="1" data-linenumber="22">
+            
+              <span class="hits">1</span>
             
 
             
@@ -2837,32 +4025,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="21">
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="22">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
           <li class="never" data-hits="" data-linenumber="23">
             
 
             
 
-            <code class="ruby">  # def load_from_s3</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -2872,454 +4040,12 @@
 
             
 
-            <code class="ruby">  #   s3 = Aws::S3::Client.new</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="25">
-            
-
-            
-
-            <code class="ruby">  #   obj = s3.get_object(bucket: ENV[&#39;S3_BUCKET_NAME&#39;], key: &quot;worlds/#{id}.json&quot;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="26">
-            
-
-            
-
-            <code class="ruby">  #   JSON.parse(obj.body.read)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="27">
-            
-
-            
-
-            <code class="ruby">  # rescue Aws::S3::Errors::NoSuchKey</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="28">
-            
-
-            
-
-            <code class="ruby">  #   nil</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="29">
-            
-
-            
-
-            <code class="ruby">  # end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="30">
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="31">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def enter_cell(_row, _col)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="32">
-            
-
-            
-
-            <code class="ruby">    nil # skipping this</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="33">
-            
-
-            
-
-            <code class="ruby">    # URI(&#39;https://api.openai.com/v1/chat/completions&#39;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="34">
-            
-
-            
-
-            <code class="ruby">    # headers = {</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="35">
-            
-
-            
-
-            <code class="ruby">    #   &#39;Content-Type&#39; =&gt; &#39;application/json&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="36">
-            
-
-            
-
-            <code class="ruby">    #   &#39;Authorization&#39; =&gt; &quot;Bearer #{ENV[&#39;OPENAI_API_KEY&#39;]}&quot;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="37">
-            
-
-            
-
-            <code class="ruby">    # }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="38">
-            
-
-            
-
-            <code class="ruby">    # body = {</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="39">
-            
-
-            
-
-            <code class="ruby">    #   model: &#39;gpt-3.5-turbo&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="40">
-            
-
-            
-
-            <code class="ruby">    #   messages: [</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="41">
-            
-
-            
-
-            <code class="ruby">    #     { role: &#39;system&#39;, content: &#39;You are a night of the realm, seeking a dangerous beast to prove yourself.&#39; },</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="42">
-            
-
-            
-
-            <code class="ruby">    #     { role: &#39;user&#39;, content: &quot;Player entered cell (#{row}, #{col})&quot; }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="43">
-            
-
-            
-
-            <code class="ruby">    #   ],</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="44">
-            
-
-            
-
-            <code class="ruby">    #   max_tokens: 5</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="45">
-            
-
-            
-
-            <code class="ruby">    # }.to_json</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="46">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="47">
-            
-
-            
-
-            <code class="ruby">    # http = Net::HTTP.new(uri.host, uri.port)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="48">
-            
-
-            
-
-            <code class="ruby">    # http.use_ssl = true</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="49">
-            
-
-            
-
-            <code class="ruby">    # request = Net::HTTP::Post.new(uri.path, headers)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="50">
-            
-
-            
-
-            <code class="ruby">    # request.body = body</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="51">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="52">
-            
-
-            
-
-            <code class="ruby">    # response = http.request(request)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="53">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="54">
-            
-
-            
-
-            <code class="ruby">    # if response.code.to_i != 200</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="55">
-            
-
-            
-
-            <code class="ruby">    #   puts &quot;Call to OpenAI failed with status code #{response.code.to_i}: #{response.body}&quot;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="56">
-            
-
-            
-
-            <code class="ruby">    #   return</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="57">
-            
-
-            
-
-            <code class="ruby">    # end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="58">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="59">
-            
-
-            
-
-            <code class="ruby">    # result = JSON.parse(response.body)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="60">
-            
-
-            
-
-            <code class="ruby">    # if result[&#39;choices&#39;] &amp;&amp; result[&#39;choices&#39;][0]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="61">
-            
-
-            
-
-            <code class="ruby">    #   text = result[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="62">
-            
-
-            
-
-            <code class="ruby">    #   # set(row, col, text)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="63">
-            
-
-            
-
-            <code class="ruby">    #   puts(text)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="64">
-            
-
-            
-
-            <code class="ruby">    # else</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="65">
-            
-
-            
-
-            <code class="ruby">    #   puts(&quot;Unexpected response from OpenAI: #{response.body}&quot;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="66">
-            
-
-            
-
-            <code class="ruby">    # end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="67">
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="68">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="69">
+          <li class="covered" data-hits="1" data-linenumber="25">
             
               <span class="hits">1</span>
             
@@ -3331,7 +4057,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="70">
+          <li class="never" data-hits="" data-linenumber="26">
             
 
             
@@ -3341,7 +4067,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="71">
+          <li class="covered" data-hits="1" data-linenumber="27">
             
               <span class="hits">1</span>
             
@@ -3353,7 +4079,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="72">
+          <li class="missed" data-hits="0" data-linenumber="28">
             
 
             
@@ -3363,7 +4089,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="73">
+          <li class="missed" data-hits="0" data-linenumber="29">
             
 
             
@@ -3373,7 +4099,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="74">
+          <li class="missed" data-hits="0" data-linenumber="30">
             
 
             
@@ -3383,37 +4109,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="75">
-            
-
-            
-
-            <code class="ruby">        path = Rails.root.join(&#39;db/shreck.png&#39;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="76">
-            
-
-            
-
-            <code class="ruby">        gridsquares.where(row: row, col: col).first.image.attach(io: File.open(path), filename: &#39;face.jpg&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="77">
-            
-
-            
-
-            <code class="ruby">                                                                 content_type: &#39;image/png&#39;)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="78">
+          <li class="never" data-hits="" data-linenumber="31">
             
 
             
@@ -3423,7 +4119,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="79">
+          <li class="never" data-hits="" data-linenumber="32">
             
 
             
@@ -3433,7 +4129,47 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="80">
+          <li class="missed" data-hits="0" data-linenumber="33">
+            
+
+            
+
+            <code class="ruby">    OpenaiWrapperHelper.create_square(1, 1, self) # only these squares or we get rate limited.</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="34">
+            
+
+            
+
+            <code class="ruby">    OpenaiWrapperHelper.create_square(2, 1, self)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="35">
+            
+
+            
+
+            <code class="ruby">    OpenaiWrapperHelper.create_square(2, 2, self)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="36">
+            
+
+            
+
+            <code class="ruby">    OpenaiWrapperHelper.create_square(1, 2, self)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="37">
             
 
             
@@ -3443,7 +4179,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="81">
+          <li class="never" data-hits="" data-linenumber="38">
             
 
             
@@ -8780,8 +9516,8 @@
     
 
     <div class="t-line-summary">
-      <b>13</b> relevant lines.
-      <span class="green"><b>13</b> lines covered</span> and
+      <b>14</b> relevant lines.
+      <span class="green"><b>14</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -8944,7 +9680,7 @@
 
             
 
-            <code class="ruby">      expect(@world).to receive(:initialize_grid)</code>
+            <code class="ruby">      allow(OpenaiWrapperHelper).to receive(:create_square)</code>
           </li>
         </div>
       
@@ -8956,17 +9692,19 @@
 
             
 
-            <code class="ruby">      @world.init_if_not_inited</code>
+            <code class="ruby">      expect(@world).to receive(:initialize_grid)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="16">
+          <li class="covered" data-hits="1" data-linenumber="16">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      @world.init_if_not_inited</code>
           </li>
         </div>
       
@@ -8976,19 +9714,17 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="18">
-            
-              <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="18">
             
 
             
 
-            <code class="ruby">    it &#39;does nothing if the world has been inited&#39; do</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -9000,7 +9736,7 @@
 
             
 
-            <code class="ruby">      allow(@world).to receive(:gridsquares).and_return([1])</code>
+            <code class="ruby">    it &#39;does nothing if the world has been inited&#39; do</code>
           </li>
         </div>
       
@@ -9012,7 +9748,7 @@
 
             
 
-            <code class="ruby">      expect(@world).not_to receive(:initialize_grid)</code>
+            <code class="ruby">      allow(@world).to receive(:gridsquares).and_return([1])</code>
           </li>
         </div>
       
@@ -9024,17 +9760,19 @@
 
             
 
-            <code class="ruby">      @world.init_if_not_inited</code>
+            <code class="ruby">      expect(@world).not_to receive(:initialize_grid)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="22">
+          <li class="covered" data-hits="1" data-linenumber="22">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      @world.init_if_not_inited</code>
           </li>
         </div>
       
@@ -9044,7 +9782,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -9054,12 +9792,22 @@
 
             
 
-            <code class="ruby">end</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="25">
+            
+
+            
+
+            <code class="ruby">end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="26">
             
 
             

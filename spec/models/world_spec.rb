@@ -11,6 +11,7 @@ RSpec.describe World, type: :model do
 
     it 'calls the initialize_grid if there are no gridcells' do
       allow(@world).to receive(:gridsquares).and_return([])
+      allow(OpenaiWrapperHelper).to receive(:create_square)
       expect(@world).to receive(:initialize_grid)
       @world.init_if_not_inited
     end
