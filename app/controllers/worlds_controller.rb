@@ -43,8 +43,6 @@ class WorldsController < ApplicationController
     @friends = User.where(id: friend_ids)
     requested_friend_ids = Friendship.where(friend_id: @user.id, status: 'pending')
                            .pluck(:user_id)
-                           .concat(Friendship.where(user_id: @user.id, status: 'pending')
-                           .pluck(:friend_id))
                            .uniq
     @requested_friends = User.where(id: requested_friend_ids)
   end
