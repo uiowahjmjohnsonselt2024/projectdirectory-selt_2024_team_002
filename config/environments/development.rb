@@ -48,11 +48,15 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.sendgrid.net',
     port: 587,
-    domain: 'seltteam2.com',
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'], # Your API key here
+    domain: 'gmail.com',            # Replace with your domain
+    user_name: 'apikey',                 # Always use "apikey" for SendGrid
+    password: ENV['SENDGRID_API_KEY'],   # Your SendGrid API key
     authentication: :plain,
     enable_starttls_auto: true
+  }
+
+  config.action_mailer.default_options = {
+    from: 'adervesh03@gmail.com'      # Your verified "from" email
   }
 
   # Raises error for missing translations

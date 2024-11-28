@@ -44,6 +44,7 @@ class UsersController < ApplicationController
 
   def forgot_password_post
     # send email to user
+    email = params[:email]
     user = User.find_by_email(email)
     if user
       UserMailer.send_reset_password_email(email).deliver_now
@@ -60,7 +61,7 @@ class UsersController < ApplicationController
 
   def reset_password_post
     # reset the password
-    if form[:password_confirmation] != form[:password]
+    if params[:password_confirmation] != params[:password]
       flash[:alert] = 'Password confirmation must match'
       return redirect_to new_user_path
     end
@@ -72,9 +73,7 @@ class UsersController < ApplicationController
     end
     flash[:alert] = user.errors.empty? ? 'Something went wrong' : user.errors.full_messages.first
     redirect_to users_login_path
-
   end
-
 
   def get_session
     @user = User.find_user_by_display_name(params[:user_name])
