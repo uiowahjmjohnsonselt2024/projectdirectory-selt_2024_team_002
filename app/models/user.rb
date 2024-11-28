@@ -18,6 +18,18 @@ class User < ApplicationRecord
     self.plus_user
   end
 
+  def purchase_plus_user
+    cost_in_shards = 100 # Define the cost in shards for plus_user access
+    if self.available_credits >= cost_in_shards
+      self.available_credits -= cost_in_shards
+      self.plus_user = true
+      save
+      true
+    else
+      false
+    end
+  end
+
   private
 
   # rubocop:disable all 

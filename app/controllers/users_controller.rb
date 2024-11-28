@@ -130,5 +130,20 @@ class UsersController < ApplicationController
     cur_user.save!
     redirect_to users_login_path
   end
+
+  def purchase_plus_user_view
+    @user = User.find_user_by_session_token(cookies[:session])
+  end
+
+  def purchase_plus_user
+    @user = User.find_user_by_session_token(cookies[:session])
+    if @user.purchase_plus_user
+      flash[:notice] = 'Plus user access purchased successfully'
+    else
+      flash[:alert] = 'Not enough shards to purchase plus user access'
+    end
+    redirect_to worlds_path
+  end
+
 end
 # rubocop:enable all

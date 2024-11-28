@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get 'users/checkout', to: 'users#checkout'
   post 'users/checkout', to: 'users#checkout'
   post 'users/payment', to: 'users#payment', defaults: { format: 'js' }
+  get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
+  post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   resources :users
 
   # routes for worlds

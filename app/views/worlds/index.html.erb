@@ -19,11 +19,16 @@
   <div class="center-stack">
     <h1 style="font-size: 35px; margin: 15px 0 0;">Welcome, <%= @cur_user.display_name %></h1>
   </div>
-  <div class="box-numeric">
-    <%= if @user.available_credits == nil
-          0 else @user.available_credits end %>
+  <div class="right-stack">
+    <div class="box-numeric">
+      <%= if @user.available_credits == nil
+            0 else @user.available_credits end %>
+      <div class="left-stack" style="text-align: center; margin: auto">
+        <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", style: "background-color: #A7BCC7;"%>
+      </div>
+    </div>
     <div class="left-stack" style="text-align: center; margin: auto">
-      <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", style: "background-color: #A7BCC7;"%>
+      <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "small_button highlight_button" %>
     </div>
   </div>
 </div>
