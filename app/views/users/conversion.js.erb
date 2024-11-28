@@ -1,0 +1,1 @@
+$('#conversion').html("<%= escape_javascript(render :partial => 'conversion', :locals => {:amount => @amount, :rate => @rate, :currency => @currency, :num_of_shards => @num_of_shards }) %>");

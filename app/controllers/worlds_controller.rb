@@ -13,7 +13,7 @@ class WorldsController < ApplicationController
   end
 
   def world_params
-    params.permit(:world_code, :world_name, :user_id, :is_public, :max_player)
+    params.permit(:world_code, :world_name, :is_public, :max_player)
   end
 
   def show
@@ -31,8 +31,10 @@ class WorldsController < ApplicationController
   end
 
   def index
+    flash.discard
     @public_worlds = World.where(is_public: true)
     @private_worlds = World.where(is_public: false)
+    @user = User.find_user_by_session_token(cookies[:session])
   end
 
   def new
@@ -40,9 +42,17 @@ class WorldsController < ApplicationController
   end
 
   def create
-    @world = World.create!(world_params)
-    flash[:notice] = 'World was successfully created.'
-    redirect_to worlds_path
+    new_params = world_params
+    new_params[:user_id_id] = @cur_user.id
+
+    if new_params[:world_code] == '' || new_params[:world_name] == '' || new_params[:max_player] == ''
+      flash[:notice] = 'Fields have not been fulfilled. Please check your inputs.'
+      redirect_to new_world_path
+    else
+      @world = World.create!(new_params)
+      flash[:notice] = 'World was successfully created.'
+      redirect_to worlds_path
+    end
   end
 
   def edit; end
@@ -57,7 +67,7 @@ class WorldsController < ApplicationController
   end
 
   def add_world
-    @world = World.create!(world_params)
-    redirect_to worlds_path
+    @world = World.create!(new_params)
+    redirect_to new_world_path
   end
 end

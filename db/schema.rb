@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
                                                     unique: true
   end
 
+  # rubocop:disable Rails/CreateTableWithTimestamps
   create_table 'active_storage_blobs', force: :cascade do |t|
     t.string 'key', null: false
     t.string 'filename', null: false
@@ -45,6 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
     t.string 'variation_digest', null: false
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
+  # rubocop:enable Rails/CreateTableWithTimestamps
 
   create_table 'gridsquares', force: :cascade do |t|
     t.bigint 'world_id'
@@ -60,7 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
     t.string 'email'
     t.text 'password_digest'
     t.text 'session_token'
-    t.integer 'available_credits'
+    t.integer 'available_credits', default: 0, null: false
     t.string 'display_name'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -71,12 +73,13 @@ ActiveRecord::Schema[7.1].define(version: 20_241_124_021_748) do
   create_table 'worlds', force: :cascade do |t|
     t.string 'world_code'
     t.string 'world_name'
-    t.string 'user_id'
+    t.bigint 'user_id_id'
     t.boolean 'is_public'
     t.string 'max_player'
     t.text 'data'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.index ['user_id_id'], name: 'index_worlds_on_user_id_id'
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'

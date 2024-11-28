@@ -5,6 +5,12 @@ AllCops:
     - db/schema.rb
     - app/helpers/**/*
 
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
 require:
   - rubocop-capybara
   - rubocop-rails

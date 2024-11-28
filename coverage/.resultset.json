@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/models/user_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/models/user_spec.rb": {
         "lines": [
           null,
           null,
@@ -82,10 +82,18 @@
           null,
           null,
           null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/rails_helper.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/rails_helper.rb": {
         "lines": [
           null,
           null,
@@ -155,7 +163,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/environment.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/environment.rb": {
         "lines": [
           null,
           null,
@@ -166,7 +174,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/application.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/application.rb": {
         "lines": [
           null,
           null,
@@ -201,7 +209,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/boot.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/boot.rb": {
         "lines": [
           null,
           null,
@@ -210,7 +218,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/environments/test.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/environments/test.rb": {
         "lines": [
           null,
           null,
@@ -263,7 +271,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/application_controller_renderer.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/application_controller_renderer.rb": {
         "lines": [
           null,
           null,
@@ -277,7 +285,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/assets.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/assets.rb": {
         "lines": [
           null,
           null,
@@ -294,7 +302,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/backtrace_silencers.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/backtrace_silencers.rb": {
         "lines": [
           null,
           null,
@@ -307,7 +315,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/content_security_policy.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/content_security_policy.rb": {
         "lines": [
           null,
           null,
@@ -341,7 +349,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/cookies_serializer.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/cookies_serializer.rb": {
         "lines": [
           null,
           null,
@@ -350,7 +358,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/filter_parameter_logging.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/filter_parameter_logging.rb": {
         "lines": [
           null,
           null,
@@ -360,7 +368,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/inflections.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/inflections.rb": {
         "lines": [
           null,
           null,
@@ -382,7 +390,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/mime_types.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/mime_types.rb": {
         "lines": [
           null,
           null,
@@ -392,7 +400,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/new_framework_defaults_6_1.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/new_framework_defaults_6_1.rb": {
         "lines": [
           null,
           null,
@@ -450,23 +458,6 @@
           null,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/permissions_policy.rb": {
-        "lines": [
           null,
           null,
           null,
@@ -482,7 +473,24 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/session_store.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/permissions_policy.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/session_store.rb": {
         "lines": [
           null,
           null,
@@ -491,7 +499,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/to_time_preserves_timezone.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/to_time_preserves_timezone.rb": {
         "lines": [
           null,
           null,
@@ -507,7 +515,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/wrap_parameters.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/wrap_parameters.rb": {
         "lines": [
           null,
           null,
@@ -527,7 +535,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/routes.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/routes.rb": {
         "lines": [
           null,
           null,
@@ -550,6 +558,11 @@
           null,
           null,
           null,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -602,7 +615,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
         "lines": [
           null,
           null,
@@ -824,7 +837,7 @@
           null,
           null,
           1,
-          2,
+          3,
           null,
           null
         ]
@@ -859,7 +872,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/user_controller_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/requests/user_controller_spec.rb": {
         "lines": [
           null,
           null,
@@ -969,11 +982,71 @@
           null,
           null,
           null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
           null,
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/worlds_controller_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/requests/worlds_controller_spec.rb": {
         "lines": [
           null,
           null,
@@ -1006,12 +1079,18 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
           null,
           null,
           null,
           1,
           1,
           null,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -1037,7 +1116,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
         "lines": [
           null,
           null,
@@ -1074,6 +1153,8 @@
           1,
           1,
           1,
+          1,
+          1,
           null,
           null,
           1,
@@ -1083,7 +1164,15 @@
           1,
           2,
           2,
+          null,
           2,
+          0,
+          0,
+          null,
+          2,
+          2,
+          2,
+          null,
           null,
           null,
           1,
@@ -1104,7 +1193,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/application_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/application_controller.rb": {
         "lines": [
           null,
           null,
@@ -1116,14 +1205,16 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
         "lines": [
           null,
           null,
           null,
+          null,
           1,
           1,
           null,
+          1,
           null,
           null,
           null,
@@ -1150,7 +1241,8 @@
           1,
           null,
           1,
-          null,
+          2,
+          2,
           1,
           null,
           null,
@@ -1160,9 +1252,6 @@
           3,
           1,
           1,
-          null,
-          null,
-          null,
           1,
           null,
           2,
@@ -1170,6 +1259,87 @@
           null,
           null,
           1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
           null
         ]
       }

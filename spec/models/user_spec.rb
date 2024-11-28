@@ -76,5 +76,13 @@ RSpec.describe User, type: :model do
     # rubocop:enable RSpec/MultipleExpectations
     # display name and email validation are using prebuilt solutions
   end
+
+  describe 'shards' do
+    it 'has available shard to be 0 when newly created' do
+      user = instance_double(described_class)
+      allow(user).to receive(:available_credits).and_return(0)
+      expect(user).to have_attributes(available_credits: 0)
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

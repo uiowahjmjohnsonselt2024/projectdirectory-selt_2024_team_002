@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Worlds</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="profile_toolbar">
+    <div class="scroll-independent-div-tl">
+      <%= button_to '<', users_purchase_path, method: :get, id: "return_button", class: "big-circle-button"%>
+    </div>
+
+    <div class="center-stack">
+      <h1 style="font-size: 35px; margin: 15px 0 0;">Checkout</h1>
+    </div>
+    <div class="right-stack">
+      <div class="box-numeric">
+        <%= if @user.available_credits == nil
+              0 else @user.available_credits end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="lower-div-after-nav">
+    <div id="flash_partial">
+
+    </div>
+    <div class="purchase-box">
+      <%= form_tag "/users/payment", id: 'payment_form', :remote => true do %>
+        <div>
+          <label for="card_number_field">Card Number:</label>
+          <%= text_field_tag :card_number, nil, id: 'card_number_field', class: "textbox", :maxlength => 16 %>
+        </div>
+        <div>
+          <label for="expiration_date_field">Expiration Date (MMYY):</label>
+          <%= text_field_tag :expiration_date, nil, id: 'expiration_date_field', class: "textbox", :maxlength => 4 %>
+        </div>
+        <div>
+          <label for="cvv_field">CVV:</label>
+          <%= text_field_tag :cvv, nil, id: 'cvv_field', class: "textbox", :maxlength => 3 %>
+        </div>
+        <div>
+          <label for="billing_address_field">Billing Address:</label>
+          <%= text_field_tag :billing_address, nil, id: 'billing_address_field', class: "textbox"%>
+        </div>
+        <label for="shard_receive" style="font-size: 30px">Receive: <%= @num_of_shards %> shards</label>
+        <label for="total_amount" style="font-size: 30px">Total: <%= @total_amount %> <%= @with_currency %></label>
+        <input type="hidden" name="total_shards" id="total_shards" value="<%= @num_of_shards %>"/>
+        <%= submit_tag 'Pay', id: 'pay_button', class: "world_add_button" %>
+      <% end %>
+    </div>
+  </div>
+
+  <script>
+      $(document).ready(function(){
+          setTimeout(function(){
+              $('#flash').fadeOut();
+          }, 2000);
+      })
+  </script>
+</body>
+
+

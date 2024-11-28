@@ -15,6 +15,10 @@ When(/^I am on the Creation World page$/) do
   visit new_world_path
 end
 
+When(/^I am on the world index page$/) do
+  visit worlds_path
+end
+
 # rubocop:disable Layout/LineLength
 When(/^I enter the fields with world name "([^"]*)", world code "([^"]*)", public is "([^"]*)", and max player to be "([^"]*)"$/) do |arg1, arg2, arg3, arg4|
   # rubocop:enable Layout/LineLength
