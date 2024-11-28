@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'concurrent'
+
 # The world that a user can join, including functions to initialize and
 # update/retrieve information from a displayed grid.
 require 'net/http'
@@ -32,10 +34,11 @@ class World < ApplicationRecord
         gridsquares.create!(row: row, col: col)
       end
     end
-    OpenaiWrapperHelper.create_square(1, 1, self) # only these squares or we get rate limited.
-    OpenaiWrapperHelper.create_square(2, 1, self)
-    OpenaiWrapperHelper.create_square(2, 2, self)
-    OpenaiWrapperHelper.create_square(1, 2, self)
+    # only these squares or we get rate limited.
+    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(1, 1, self) }
+    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(2, 1, self) }
+    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(2, 2, self) }
+    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(1, 2, self) }
   end
 
   def init_current_players
