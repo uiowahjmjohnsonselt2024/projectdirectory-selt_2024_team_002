@@ -227,4 +227,23 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def delete_friend
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    @friend = User.find_by(id: params[:friend_id])
+
+    existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: params[:friend_id])
+    inverse_friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: cur_user.id)
+
+    if existing_friendship
+      existing_friendship.destroy
+    end
+    if inverse_friendship
+      inverse_friendship.destroy
+    end
+    @message = 'Friend removed successfully.'
+    respond_to do |format|
+      format.js
+    end
+  end
 end

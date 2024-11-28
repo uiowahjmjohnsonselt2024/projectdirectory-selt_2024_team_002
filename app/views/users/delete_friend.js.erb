@@ -1,0 +1,3 @@
+$('#flash_partial').html("<%= escape_javascript(render :partial => 'flash_partial', :locals => {:message => @message}) %>");
+
+$("#friend_<%= @friend.id %>").remove();

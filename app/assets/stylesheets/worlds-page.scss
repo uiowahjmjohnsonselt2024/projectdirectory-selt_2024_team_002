@@ -38,11 +38,49 @@ body {
   background-color: #A7BCC7;
   color: white;
   border: 1px solid #000;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
   margin: 2px;
   width: 80%;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friend_left {
+  float: left;
+  margin: auto 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+  left: 0;
+}
+
+.friend_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  div {
+    margin: 5px 0;
+  }
+}
+
+.friend_right {
+  float: right;
+  margin: auto 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: center;
+  position: absolute;
+  right: 0;
 }
 
 .box-numeric {

@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
   post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   post 'users/add_friend', to: 'users#add_friend', defaults: { format: 'js' }
+  delete 'users/delete_friend', to: 'users#delete_friend', defaults: { format: 'js' }
+
   resources :users
 
   # routes for worlds
