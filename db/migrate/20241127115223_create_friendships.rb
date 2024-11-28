@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This migration adds the friendship table
 class CreateFriendships < ActiveRecord::Migration[7.1]
   def change
     create_table :friendships do |t|
@@ -7,5 +10,7 @@ class CreateFriendships < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :friendships, %i[user_id friend_id], unique: true
   end
 end
