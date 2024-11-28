@@ -5,6 +5,9 @@ class Friendship < ApplicationRecord
   validates :friend_id, presence: true
   validates :user_id, uniqueness: { scope: :friend_id, message: 'Friendship already exists' }
 
+  enum status: { pending: 'pending', accepted: 'accepted' }
+  validates :status, presence: true
+
   validate :not_self
 
   private
