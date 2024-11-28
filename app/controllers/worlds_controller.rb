@@ -37,7 +37,8 @@ class WorldsController < ApplicationController
     @public_worlds = World.where(is_public: true)
     @private_worlds = World.where(is_public: false)
     @user = User.find_user_by_session_token(cookies[:session])
-    @friends = Friendship.where(id: @user.display_name)
+    friend_ids = Friendship.where(friend_id: @user.id).pluck(:user_id).concat(Friendship.where(user_id: @user.id).pluck(:friend_id)).uniq
+    @friends = User.where(id: friend_ids)
   end
 
   def new
