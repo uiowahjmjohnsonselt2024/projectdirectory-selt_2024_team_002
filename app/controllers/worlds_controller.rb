@@ -45,7 +45,8 @@ class WorldsController < ApplicationController
     new_params = build_world_params
 
     if invalid_world_params?(new_params)
-      flash[:notice] = 'Fields have not been fulfilled. Please check your inputs.'
+      flash[:notice] =
+        'You have exceeded the worlds player limit. If you would like to upgrade from 5 to 20 purchase plus user.'
       redirect_to new_world_path
     else
       @world = World.create!(new_params)
