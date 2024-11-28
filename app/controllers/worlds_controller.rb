@@ -42,15 +42,9 @@ class WorldsController < ApplicationController
   end
 
   def create
-    new_params = world_params
-    new_params[:user_id_id] = @cur_user.id
-    new_params[:current_players] = 0 # Ensure current_players is set to 0
+    new_params = build_world_params
 
-    max_players_limit = @cur_user.plus_user? ? 20 : 5
-    if new_params[:is_public] == '0' && new_params[:max_player].to_i > max_players_limit
-      flash[:notice] = "Private worlds can have a maximum of #{max_players_limit} players."
-      redirect_to new_world_path
-    elsif new_params[:world_code].blank? || new_params[:world_name].blank? || new_params[:max_player].blank?
+    if invalid_world_params?(new_params)
       flash[:notice] = 'Fields have not been fulfilled. Please check your inputs.'
       redirect_to new_world_path
     else
@@ -73,7 +67,7 @@ class WorldsController < ApplicationController
       flash[:notice] = 'World is full. Please join another world.'
       redirect_to worlds_path
     else
-      @selected_world.increment!(:current_players)
+      @selected_world.update(current_players: @selected_world.current_players + 1)
       redirect_to world_path(@selected_world)
     end
   end
@@ -85,9 +79,24 @@ class WorldsController < ApplicationController
 
   def leave_world
     @selected_world = World.find(params[:id])
-    if @selected_world.current_players > 0
-      @selected_world.decrement!(:current_players)
+    if @selected_world.current_players.positive?
+      @selected_world.update(current_players: @selected_world.current_players - 1)
     end
     redirect_to worlds_path
+  end
+
+  private
+
+  def build_world_params
+    new_params = world_params
+    new_params[:user_id_id] = @cur_user.id
+    new_params[:current_players] = 0 # Ensure current_players is set to 0
+    new_params
+  end
+
+  def invalid_world_params?(params)
+    max_players_limit = @cur_user.plus_user? ? 20 : 5
+    params[:is_public] == '0' && params[:max_player].to_i > max_players_limit ||
+      params[:world_code].blank? || params[:world_name].blank? || params[:max_player].blank?
   end
 end
