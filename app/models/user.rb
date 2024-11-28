@@ -14,6 +14,10 @@ class User < ApplicationRecord
     save
   end
 
+  def plus_user?
+    self.plus_user
+  end
+
   private
 
   # rubocop:disable all 
