@@ -44,8 +44,9 @@ class WorldsController < ApplicationController
   def create
     new_params = world_params
     new_params[:user_id_id] = @cur_user.id
-
-    if new_params[:world_code] == '' || new_params[:world_name] == '' || new_params[:max_player] == ''
+    new_params[:current_players] = 0 # Ensure current_players is set to 0
+  
+    if new_params[:world_code].blank? || new_params[:world_name].blank? || new_params[:max_player].blank?
       flash[:notice] = 'Fields have not been fulfilled. Please check your inputs.'
       redirect_to new_world_path
     else
@@ -62,12 +63,27 @@ class WorldsController < ApplicationController
   def destroy; end
 
   def join_world
-    @selected_world = params[:id]
-    redirect_to world_path(@selected_world.split('_')[1])
+    @selected_world = World.find(params[:id].split('_')[1])
+
+    if @selected_world.current_players >= @selected_world.max_player.to_i
+      flash[:notice] = 'World is full. Please join another world.'
+      redirect_to worlds_path
+    else
+      @selected_world.increment!(:current_players)
+      redirect_to world_path(@selected_world)
+    end
   end
 
   def add_world
     @world = World.create!(new_params)
     redirect_to new_world_path
+  end
+
+  def leave_world
+    @selected_world = World.find(params[:id])
+    if @selected_world.current_players > 0
+      @selected_world.decrement!(:current_players)
+    end
+    redirect_to worlds_path
   end
 end
