@@ -5,6 +5,15 @@
 </head>
 <body>
 
+<div id="flash_messages">
+  <% if flash[:notice] %>
+    <div class="alert notice"><%= flash[:notice] %></div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="alert alert"><%= flash[:alert] %></div>
+  <% end %>
+</div>
+
 <div class="profile_toolbar">
   <%= button_to 'Log Out', users_logout_path, method: :get, id: "logout_button", class:"secondary_button"%>
   <div class="center-stack">
