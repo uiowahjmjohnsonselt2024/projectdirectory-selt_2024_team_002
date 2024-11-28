@@ -24,10 +24,10 @@
       <p>You already have Plus User access</p>
     <% else %>
       <%= form_tag "/users/purchase_plus_user", method: :post do %>
-        <button type="submit" class="highlight_button">Purchase Plus User Access</button>
+        <button type="submit" class="button">Purchase Plus User Access</button>
       <% end %>
     <% end %>
-    <%= button_to 'Back to Worlds', worlds_path, method: :get, class: "highlight_button" %>
+    <%= button_to 'Back to Worlds', worlds_path, method: :get, class: "button" %>
   </div>
 </body>
 </html>
