@@ -86,7 +86,7 @@ class UsersController < ApplicationController
       cookies[:session] = { value: @user.session_token, expires: 1.week.from_now }
       return redirect_to worlds_path
     end
-    flash[:alert] = 'Incorrect username and password'
+    flash[:alert] = 'Incorrect username or password'
     redirect_to users_login_path
   end
 
