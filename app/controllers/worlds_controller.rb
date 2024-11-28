@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'concurrent'
+
 # WorldController performs basic operations for world generation and state storage.
 class WorldsController < ApplicationController
   before_action :authenticate_user
