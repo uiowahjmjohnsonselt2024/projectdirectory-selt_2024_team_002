@@ -55,6 +55,8 @@ jobs:
       # Add or replace test runners here
       - name: Run unit tests
         run: bin/bundle exec rspec
+      - name: make storage dir
+        run: mkdir int_storage
       - name: Run integration tests
         run: bin/bundle exec cucumber
 

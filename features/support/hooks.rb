@@ -6,5 +6,7 @@ Before do
 end
 
 at_exit do
-  system('rails my:custom_feature_task') # Calls a rake task after all tests
+  path = Rails.root.join('int_storage')
+  puts 'cleaning out the integration storage test dir'
+  system("cd #{path} && rm -rf *") # only rm rf if the cd was successfull
 end

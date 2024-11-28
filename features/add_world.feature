@@ -8,6 +8,8 @@ Scenario: Add a new world (Declarative)
   And I enter the fields with world name "Test Cucumber", world code "11111", public is "true", and max player to be "10"
   And I submit the "Create World" form
   Then I should see a world list entry in the "public" tab with world name "Test Cucumber" and world code "11111"
+  And I click the button "Join" that is under the div with class name "Test_Cucumber"
+  Then I should see 36 divs with the class "grid_cell"
 
 Scenario: Can't go to worlds page without login
   When I am on the Creation World page

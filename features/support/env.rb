@@ -56,14 +56,3 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
-
-After('@run_after_all_tests') do |scenario|
-  # This will run after all tests, for the tagged scenarios
-  # You can tag your feature scenarios with @run_after_all_tests
-  # to ensure that it runs after all Cucumber tests
-
-  puts 'Cleaning the image dir'
-  dirname = Rails.root.join('int_storage')
-  system("cd #{dirname}")
-  system('rm -rf *')
-end
