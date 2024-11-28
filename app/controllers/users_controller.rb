@@ -202,19 +202,32 @@ class UsersController < ApplicationController
         format.js
       end
     else
-      existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: @friend.id)
-      inverse_friendship = Friendship.find_by(user_id: @friend.id, friend_id: cur_user.id)
+      existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: @friend.id, status: 'accepted')
+      inverse_friendship = Friendship.find_by(user_id: @friend.id, friend_id: cur_user.id, status: 'accepted')
+
+      existing_request = Friendship.find_by(user_id: cur_user.id, friend_id: @friend.id, status: 'pending')
+      inverse_request = Friendship.find_by(user_id: @friend.id, friend_id: cur_user.id, status: 'pending')
 
       if existing_friendship || inverse_friendship
         @message = "Friendship already exists!"
         respond_to do |format|
           format.js
         end
+      elsif existing_request
+        @message = "A request has already been sent!"
+        respond_to do |format|
+          format.js
+        end
+      elsif inverse_request
+        @message = "This person has sent a request to you already!"
+        respond_to do |format|
+          format.js
+        end
       else
-        friendship = Friendship.new(user_id: cur_user.id, friend_id: @friend.id)
+        friendship = Friendship.new(user_id: cur_user.id, friend_id: @friend.id, status: 'pending')
 
         if friendship.save
-          @message = "Friend added successfully!"
+          @message = "A friend request has been sent!"
           respond_to do |format|
             format.js
           end
@@ -245,5 +258,13 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def approve_request
+
+  end
+
+  def decline_request
+
   end
 end

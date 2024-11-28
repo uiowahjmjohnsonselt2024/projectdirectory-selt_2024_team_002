@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   post 'users/add_friend', to: 'users#add_friend', defaults: { format: 'js' }
   delete 'users/delete_friend', to: 'users#delete_friend', defaults: { format: 'js' }
+  post 'users/approve_request', to: 'users#approve_request', defaults: { format: 'js' }
+  delete 'users/reject_request', to: 'users#reject_request', defaults: { format: 'js' }
 
   resources :users
 
