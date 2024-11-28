@@ -64,7 +64,7 @@
 <div id="friend_list" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;">
     <div class="world_box">
-      <p>Sorry, you currently have no friends. Add some below!</p>
+      <p id="no_friends">Sorry, you currently have no friends. Add some below!</p>
       <button class="button" id="add_friend_button" onclick="addFriend()">Add Friend</button>
 
       <div id="add_friend_container" style="display: none;">
@@ -75,6 +75,11 @@
         <% end %>
       </div>
     </div>
+    <% @friends.each do |friend| %>
+      <div class="friend_box">
+        <h3><%= friend.display_name %></h3>
+      </div>
+    <% end %>
   </div>
 </div>
 
@@ -106,6 +111,16 @@
     function submitFriend() {
         document.getElementById('add_friend_container').style.display = 'none';
         document.getElementById('add_friend_button').style.display = 'inline-block';
+    }
+</script>
+
+<script>
+    var friendsLength = <%= @friends.length %>;
+    if (friendsLength > 0) {
+        document.getElementById('no_friends').style.display = 'none'
+    }
+    else {
+        document.getElementById('no_friends').style.display = 'block'
     }
 </script>
 
