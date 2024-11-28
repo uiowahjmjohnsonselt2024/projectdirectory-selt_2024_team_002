@@ -5,7 +5,7 @@ Feature: Create account with user information
 Scenario: Create account with non-unique display name
   When I am on the Create Account page
   And I fill in "Email:" with "test@test.com"
-  And I fill in "Display Name:" with "admin"
+  And I fill in "Username:" with "admin"
   And I fill in "Password:" with "FFFFaaasf@@#11"
   And I fill in "Confirm Password:" with "FFFFaaasf@@#11"
   And I press the button "Sign Up"
@@ -14,7 +14,7 @@ Scenario: Create account with non-unique display name
 Scenario: Create account with non matching password
   When I am on the Create Account page
   And I fill in "Email:" with "test@test.com"
-  And I fill in "Display Name:" with "admin"
+  And I fill in "Username:" with "admin"
   And I fill in "Password:" with "FFFFaaasf@@#11"
   And I fill in "Confirm Password:" with "ffffffff"
   And I press the button "Sign Up"
@@ -23,7 +23,7 @@ Scenario: Create account with non matching password
 Scenario: Create account with weak password
   When I am on the Create Account page
   And I fill in "Email:" with "test@test.com"
-  And I fill in "Display Name:" with "SKT T1 Faker"
+  And I fill in "Username:" with "SKT T1 Faker"
   And I fill in "Password:" with "aaaaaaaaaaaaa"
   And I fill in "Confirm Password:" with "aaaaaaaaaaaaa"
   And I press the button "Sign Up"
@@ -32,7 +32,7 @@ Scenario: Create account with weak password
 Scenario: Create account with invalid Email
   When I am on the Create Account page
   And I fill in "Email:" with "bad email"
-  And I fill in "Display Name:" with "SKT T1 Faker"
+  And I fill in "Username:" with "SKT T1 Faker"
   And I fill in "Password:" with "FFFFaaasf@@#11"
   And I fill in "Confirm Password:" with "FFFFaaasf@@#11"
   And I press the button "Sign Up"
@@ -41,7 +41,7 @@ Scenario: Create account with invalid Email
 Scenario: Create account with correct details and log in with that accout
   When I am on the Create Account page
   And I fill in "Email:" with "aguo2@uiowa.edu"
-  And I fill in "Display Name:" with "SKT T1 Faker"
+  And I fill in "Username:" with "SKT T1 Faker"
   And I fill in "Password:" with "FFFFaaasf@@#11"
   And I fill in "Confirm Password:" with "FFFFaaasf@@#11"
   And I press the button "Sign Up"

@@ -61,11 +61,15 @@ class UsersController < ApplicationController
 
   def reset_password_post
     # reset the password
-    if params[:password_confirmation] != params[:password]
+    if params[:confirm_new_password] != params[:new_password]
       flash[:alert] = 'Password confirmation must match'
-      return redirect_to new_user_path
+      return redirect_to users_login_path
     end
-    user = User.find_by_email(params[:email]) # temp solution, verify user by token in url *** NOT DONE
+    user = User.find_by_email(params[:email]) # temp solution, verify user by token in url or email *** NOT DONE
+    if user.nil?
+      flash[:alert] = 'Email is not associated with an existing user'
+      return redirect_to users_login_path
+    end
     user.password = params[:new_password]
     if user.valid? && user.save
       flash[:notice] = 'Password reset successful'
