@@ -130,5 +130,46 @@ class UsersController < ApplicationController
     cur_user.save!
     redirect_to users_login_path
   end
+
+  def add_friend
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    friend_name = params[:friend_name]
+    @friend = User.find_by(display_name: friend_name)
+
+    if @friend.nil?
+      @message = "User not found."
+      respond_to do |format|
+        format.js
+      end
+    elsif @friend == cur_user
+      @message = "Unfortunately, you cannot add yourself as a friend."
+      respond_to do |format|
+        format.js
+      end
+    else
+      existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: @friend.id)
+      inverse_friendship = Friendship.find_by(user_id: @friend.id, friend_id: cur_user.id)
+
+      if existing_friendship || inverse_friendship
+        @message = "Friendship already exists!"
+        respond_to do |format|
+          format.js
+        end
+      else
+        friendship = Friendship.new(user_id: cur_user.id, friend_id: @friend.id)
+
+        if friendship.save
+          @message = "Friend added successfully!"
+          respond_to do |format|
+            format.js
+          end
+        else
+          @message = "Failed to add friendship."
+          respond_to do |format|
+            format.js
+          end
+        end
+      end
+    end
+  end
 end
-# rubocop:enable all

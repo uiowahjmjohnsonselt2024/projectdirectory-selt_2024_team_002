@@ -9,7 +9,9 @@
   <%= button_to 'Log Out', users_logout_path, method: :get, id: "logout_button", class:"secondary_button"%>
   <div class="center-stack">
     <h1 style="font-size: 35px; margin: 15px 0 0;">Welcome, <%= @cur_user.display_name %></h1>
+    <div id="flash_partial"></div>
   </div>
+  <div id="flash_partial"></div>
   <div class="box-numeric">
     <%= if @user.available_credits == nil
           0 else @user.available_credits end %>
@@ -67,8 +69,10 @@
 
       <div id="add_friend_container" style="display: none;">
         <p>Enter your friend's name:</p>
-        <%= text_field_tag :world_name, nil, id: 'friend_name', style: "height:30px", class: "textbox"%>
-        <button class="button">Submit</button>
+        <%= form_tag "/users/add_friend", :remote => true do %>
+          <%= text_field_tag :friend_name, nil, id: 'friend_name', style: "height:30px", class: "textbox"%>
+          <%= submit_tag 'Submit', id: 'submit_friend_button', class: "button", onClick: "submitFriend()" %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -94,7 +98,15 @@
   function addFriend() {
       document.getElementById('add_friend_button').style.display = 'none';
       document.getElementById('add_friend_container').style.display = 'block';
+      document.getElementById('friend_name').value = '';
   }
+</script>
+
+<script>
+    function submitFriend() {
+        document.getElementById('add_friend_container').style.display = 'none';
+        document.getElementById('add_friend_button').style.display = 'inline-block';
+    }
 </script>
 
 </body>
