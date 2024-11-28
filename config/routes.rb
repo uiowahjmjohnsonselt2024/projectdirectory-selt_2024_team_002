@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   post 'users/forgot-password/', to: 'users#forgot_password_post'
   get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
   post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
+  post 'users/add_friend', to: 'users#add_friend', defaults: { format: 'js' }
   resources :users
 
   # routes for worlds
