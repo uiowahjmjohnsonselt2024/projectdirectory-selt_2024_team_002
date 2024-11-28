@@ -182,5 +182,15 @@
     window.noRequestMessage();
 </script>
 
+<script>
+    var requestLength = <%= @requested_friends.length %>;
+    if (requestLength > 0) {
+        document.getElementById('no_requests').style.display = 'none'
+    }
+    else {
+        document.getElementById('no_requests').style.display = 'block'
+    }
+</script>
+
 </body>
 </html>
