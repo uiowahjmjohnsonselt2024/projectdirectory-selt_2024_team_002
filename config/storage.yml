@@ -1,6 +1,10 @@
-local:
+dev:
   service: Disk
   root: <%= Rails.root.join("storage") %>
+
+int:
+  service: Disk
+  root: <%= Rails.root.join("int_storage") %>
 
 amazon: #TODO: fix it 
   service: S3
