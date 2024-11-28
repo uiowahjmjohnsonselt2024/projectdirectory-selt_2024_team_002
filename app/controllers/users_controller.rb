@@ -38,14 +38,40 @@ class UsersController < ApplicationController
     end
   end
 
+  def forgot_password
+    # renders the forgot password page
+  end
+
+  def forgot_password_post
+    # send email to user
+    user = User.find_by_email(email)
+    if user
+      UserMailer.send_reset_password_email(email).deliver_now
+      flash[:notice] = 'Password reset email sent'
+      return redirect_to users_login_path
+    end
+    flash[:alert] = 'User not found'
+    redirect_to users_login_path
+  end
 
   def reset_password
-    # verify user (by password, or email)
-
+    # renders the reset password page
   end
 
   def reset_password_post
-    # verify user (by password, or email)
+    # reset the password
+    if form[:password_confirmation] != form[:password]
+      flash[:alert] = 'Password confirmation must match'
+      return redirect_to new_user_path
+    end
+    user = User.find_by_email(params[:email]) # temp solution, verify user by token in url *** NOT DONE
+    user.password = params[:new_password]
+    if user.valid? && user.save
+      flash[:notice] = 'Password reset successful'
+      return redirect_to users_login_path
+    end
+    flash[:alert] = user.errors.empty? ? 'Something went wrong' : user.errors.full_messages.first
+    redirect_to users_login_path
 
   end
 

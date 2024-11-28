@@ -43,6 +43,18 @@ Rails.application.configure do
 
   config.assets.check_precompiled_asset = false # without this here, our css won't load on dev
 
+  # Mailing
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    domain: 'seltteam2.com',
+    user_name: 'apikey',
+    password: ENV['SENDGRID_API_KEY'], # Your API key here
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
