@@ -137,7 +137,9 @@ class UsersController < ApplicationController
 
   def purchase_plus_user
     @user = User.find_user_by_session_token(cookies[:session])
-    if @user.purchase_plus_user
+    if @user.plus_user?
+      flash[:alert] = 'You already have Plus User access'
+    elsif @user.purchase_plus_user
       flash[:notice] = 'Plus user access purchased successfully'
     else
       flash[:alert] = 'Not enough shards to purchase plus user access'
