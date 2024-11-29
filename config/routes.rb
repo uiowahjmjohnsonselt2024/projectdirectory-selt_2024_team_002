@@ -31,10 +31,13 @@ Rails.application.routes.draw do
   post 'users/reset-password', to: 'users#reset_password_post'
   get 'users/forgot-password/', to: 'users#forgot_password', as: 'forgot_password'
   post 'users/forgot-password/', to: 'users#forgot_password_post'
+  get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
+  post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   resources :users
 
   # routes for worlds
   post 'worlds/join_world', to: 'worlds#join_world'
+  post 'worlds/leave_world', to: 'worlds#leave_world'
   resources :worlds
   root to: redirect('/worlds')
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Purchase Plus User</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'purchase_plus_user', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="flash_messages">
+    <% if flash[:notice] %>
+      <div class="alert notice"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert"><%= flash[:alert] %></div>
+    <% end %>
+  </div>
+
+  <div class="purchase-plus-box">
+    <h1>Purchase Plus User Access</h1>
+    <p>Cost: 100 Shards</p>
+    <% if @user.plus_user? %>
+      <p>You already have Plus User access</p>
+    <% else %>
+      <%= form_tag "/users/purchase_plus_user", method: :post do %>
+        <button type="submit" class="button">Purchase Plus User Access</button>
+      <% end %>
+    <% end %>
+    <%= button_to 'Back to Worlds', worlds_path, method: :get, class: "button" %>
+  </div>
+</body>
+</html>

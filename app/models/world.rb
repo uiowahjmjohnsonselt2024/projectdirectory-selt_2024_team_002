@@ -10,6 +10,8 @@ require 'json'
 # represents the model class for the worlds object
 class World < ApplicationRecord
   has_many :gridsquares, dependent: :destroy
+  validates :current_players, numericality: { greater_than_or_equal_to: 0 }
+  before_create :init_current_players
   @@dim = 6 # rubocop:disable Style/ClassVars
 
   # this must be done this way, active stroage DOES NOT WORK
@@ -37,5 +39,9 @@ class World < ApplicationRecord
     Concurrent::Future.execute { OpenaiWrapperHelper.create_square(2, 1, self) }
     Concurrent::Future.execute { OpenaiWrapperHelper.create_square(2, 2, self) }
     Concurrent::Future.execute { OpenaiWrapperHelper.create_square(1, 2, self) }
+  end
+
+  def init_current_players
+    self.current_players ||= 0
   end
 end
