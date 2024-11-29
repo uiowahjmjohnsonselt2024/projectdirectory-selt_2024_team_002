@@ -37,7 +37,7 @@ Rails.application.configure do
   config.active_support.test_order = :random
 
   # use the disk for storing files
-  config.active_storage.service = :local
+  config.active_storage.service = :int
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

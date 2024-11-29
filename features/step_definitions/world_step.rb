@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+When(/^I click the button "([^"]*)" that is under the div with class name "([^"]*)"$/) do |button, divclass|
+  within("div.#{divclass}") do
+    click_button button
+  end
+end
+
+Then(/^I should see (\d+) divs with the class "([^"]*)"$/) do |count, class_name|
+  divs = page.all("div.#{class_name}")
+  expect(divs.size).to eq(count.to_i)
+end
+
 When(/^I am on the Creation World page$/) do
   visit new_world_path
 end

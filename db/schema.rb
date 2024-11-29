@@ -51,12 +51,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_24_021748) do
     t.datetime "updated_at", null: false
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.text "password_digest"
     t.text "session_token"
-    t.integer "available_credits"
+    t.integer "available_credits", default: 0, null: false
     t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

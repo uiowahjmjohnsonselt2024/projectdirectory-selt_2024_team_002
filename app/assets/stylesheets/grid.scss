@@ -21,7 +21,7 @@
     background-color: #f0f0f0;
 
     &:hover {
-        background-color: #c8c8c8;
+        filter: brightness(80%);
         cursor: pointer;
     }
 }
@@ -32,13 +32,17 @@
     align-items: center;
     background-color: #909090;
     &:hover {
-        background-color: #686868;
+        filter: brightness(80%);
         cursor: pointer;
     }
 }
 
 .grid_image {
-    height: 100%
+    height: 100%;
+    &:hover {
+        filter: brightness(80%);
+        cursor: pointer;
+    }
 }
 
 .hidden {
