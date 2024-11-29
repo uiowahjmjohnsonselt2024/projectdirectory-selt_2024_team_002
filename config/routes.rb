@@ -27,10 +27,13 @@ Rails.application.routes.draw do
   get 'users/checkout', to: 'users#checkout'
   post 'users/checkout', to: 'users#checkout'
   post 'users/payment', to: 'users#payment', defaults: { format: 'js' }
+  get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
+  post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   resources :users
 
   # routes for worlds
   post 'worlds/join_world', to: 'worlds#join_world'
+  post 'worlds/leave_world', to: 'worlds#leave_world'
   resources :worlds
   root to: redirect('/worlds')
 
