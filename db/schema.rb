@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_241_128_132_302) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_28_190926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -39,20 +39,21 @@ ActiveRecord::Schema[7.1].define(version: 20_241_128_132_302) do
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
 
-  create_table 'active_storage_variant_records', force: :cascade do |t|
-    t.bigint 'blob_id', null: false
-    t.string 'variation_digest', null: false
-    t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table 'friendships', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'friend_id', null: false
-    t.string 'status', default: 'pending', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['friend_id'], name: 'index_friendships_on_friend_id'
-    t.index ['user_id'], name: 'index_friendships_on_user_id'
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "friend_id", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id", unique: true
+    t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
   create_table 'gridsquares', force: :cascade do |t|
@@ -65,16 +66,17 @@ ActiveRecord::Schema[7.1].define(version: 20_241_128_132_302) do
     t.index ['world_id'], name: 'index_gridsquares_on_world_id'
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email'
-    t.text 'password_digest'
-    t.text 'session_token'
-    t.integer 'available_credits'
-    t.string 'display_name'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['display_name'], name: 'index_users_on_display_name', unique: true
-    t.index ['session_token'], name: 'index_users_on_session_token', unique: true, where: '(session_token IS NOT NULL)'
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.text "password_digest"
+    t.text "session_token"
+    t.integer "available_credits", default: 0, null: false
+    t.string "display_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "plus_user"
+    t.index ["display_name"], name: "index_users_on_display_name", unique: true
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true, where: "(session_token IS NOT NULL)"
   end
 
   create_table 'worlds', force: :cascade do |t|
@@ -89,9 +91,9 @@ ActiveRecord::Schema[7.1].define(version: 20_241_128_132_302) do
     t.index ['user_id_id'], name: 'index_worlds_on_user_id_id'
   end
 
-  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'friendships', 'users'
-  add_foreign_key 'friendships', 'users', column: 'friend_id'
-  add_foreign_key 'gridsquares', 'worlds'
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "gridsquares", "worlds"
 end

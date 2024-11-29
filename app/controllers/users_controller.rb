@@ -171,21 +171,7 @@ class UsersController < ApplicationController
     cur_user.save!
     redirect_to users_login_path
   end
-  def purchase_plus_user_view
-    @user = User.find_user_by_session_token(cookies[:session])
-  end
 
-  def purchase_plus_user
-    @user = User.find_user_by_session_token(cookies[:session])
-    if @user.plus_user?
-      flash[:alert] = 'You already have Plus User access'
-    elsif @user.purchase_plus_user
-      flash[:notice] = 'Plus user access purchased successfully'
-    else
-      flash[:alert] = 'Not enough shards to purchase plus user access'
-    end
-    redirect_to worlds_path
-  end
   def add_friend
     cur_user = User.find_user_by_session_token(cookies[:session])
     friend_name = params[:friend_name]
@@ -296,5 +282,21 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def purchase_plus_user_view
+    @user = User.find_user_by_session_token(cookies[:session])
+  end
+
+  def purchase_plus_user
+    @user = User.find_user_by_session_token(cookies[:session])
+    if @user.plus_user?
+      flash[:alert] = 'You already have Plus User access'
+    elsif @user.purchase_plus_user
+      flash[:notice] = 'Plus user access purchased successfully'
+    else
+      flash[:alert] = 'Not enough shards to purchase plus user access'
+    end
+    redirect_to worlds_path
   end
 end
