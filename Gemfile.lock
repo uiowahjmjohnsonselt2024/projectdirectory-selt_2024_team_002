@@ -244,6 +244,8 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.16.7-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -366,6 +368,7 @@ GEM
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
+    ruby_http_client (3.5.5)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -379,6 +382,8 @@ GEM
     sdoc (2.6.1)
       rdoc (>= 5.0)
     securerandom (0.3.2)
+    sendgrid-ruby (6.7.0)
+      ruby_http_client (~> 3.4)
     shellany (0.0.1)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -428,6 +433,7 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -437,6 +443,7 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails
+  concurrent-ruby
   credit_card_detector
   cucumber-rails
   database_cleaner
@@ -465,6 +472,7 @@ DEPENDENCIES
   sass-rails
   sassc-rails
   sdoc
+  sendgrid-ruby
   simplecov
   spring
   terser
@@ -477,4 +485,4 @@ RUBY VERSION
    ruby 3.0.7p220
 
 BUNDLED WITH
-   2.2.33
+   2.5.23

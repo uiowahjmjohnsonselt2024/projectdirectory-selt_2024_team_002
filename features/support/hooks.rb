@@ -4,3 +4,9 @@
 Before do
   Rails.application.load_seed
 end
+
+at_exit do
+  path = Rails.root.join('int_storage')
+  puts 'cleaning out the integration storage test dir'
+  system("cd #{path} && rm -rf *") # only rm rf if the cd was successfull
+end

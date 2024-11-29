@@ -31,51 +31,17 @@ Rails.application.routes.draw do
   delete 'users/delete_friend', to: 'users#delete_friend', defaults: { format: 'js' }
   post 'users/approve_request', to: 'users#approve_request', defaults: { format: 'js' }
   delete 'users/reject_request', to: 'users#reject_request', defaults: { format: 'js' }
-
+  get 'users/reset-password', to: 'users#reset_password', as: 'reset_password'
+  post 'users/reset-password', to: 'users#reset_password_post'
+  get 'users/forgot-password/', to: 'users#forgot_password', as: 'forgot_password'
+  post 'users/forgot-password/', to: 'users#forgot_password_post'
+  get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
+  post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   resources :users
 
   # routes for worlds
   post 'worlds/join_world', to: 'worlds#join_world'
+  post 'worlds/leave_world', to: 'worlds#leave_world'
   resources :worlds
   root to: redirect('/worlds')
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

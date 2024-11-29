@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="game_toolbar">
-  <%= button_to 'Back to Worlds', worlds_path, method: :get, id: "back_button", class: "secondary_button"%>
+  <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
   <span class="world_id">World ID: <%= @world[:world_code] %></span>
   <span class="world_name">World Name: <%= @world[:world_name] %></span>
 </div>
@@ -17,14 +17,14 @@
 <div class="grid_container">
   <% (1..World.dim).each do |row| %>
     <% (1..World.dim).each do |col| %>
-      <% if row == 1 && col == 1 %>
+      <% if @data[row][col].image.attached? %>
           <div class="grid_cell filled_cell" >
             <%=image_tag(url_for(@data[row][col].image),class: "grid_image") %>
             <div class="hidden"><%=row%>-<%=col%></div>
           </div>
         <% else %>
           <div class="grid_cell filled_cell">
-          <%=image_tag(url_for(@data[row][col].image),class: "grid_image") %>
+          <div>No image</div>
           <div class="hidden"><%=row%>-<%=col%></div>
           </div>
         <% end %>
