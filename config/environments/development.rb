@@ -49,8 +49,8 @@ Rails.application.configure do
     address: 'smtp.sendgrid.net',
     port: 587,
     from: 'adervesh03@gmail.com',
-    user_name: 'apikey',                 # Always use "apikey" for SendGrid
-    password: ENV['sendgrid_api_key_2']   # Your SendGrid API key
+    user_name: 'apikey', # Always use "apikey" for SendGrid
+    password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
   }
 
   # Raises error for missing translations
