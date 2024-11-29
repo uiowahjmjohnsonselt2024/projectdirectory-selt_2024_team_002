@@ -156,6 +156,8 @@ RSpec.describe 'Users', type: :request do
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
       allow(usr).to receive(:available_credits).and_return(0)
       allow(usr).to receive(:update).with(available_credits: 23).and_return(usr)
+      allow(usr).to receive(:update).with(available_credits: 23).and_return(usr)
+      allow(ShardsHelper).to receive(:currency).and_return(10)
       post users_payment_path,
            params: { card_number: '30569309025904',
                      expiration_date: '1234',
