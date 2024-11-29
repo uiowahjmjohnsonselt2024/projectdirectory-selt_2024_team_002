@@ -18,6 +18,7 @@
   <%= button_to 'Log Out', users_logout_path, method: :get, id: "logout_button", class:"secondary_button"%>
   <div class="center-stack">
     <h1 style="font-size: 35px; margin: 15px 0 0;">Welcome, <%= @cur_user.display_name %></h1>
+    <div id="flash_partial"></div>
   </div>
   <div class="right-stack">
     <div class="box-numeric">
@@ -153,32 +154,33 @@
 
 <script id="no_friend_message">
     window.noFriendMessage = function() {
-        var friendsLength = <%= @friends.length %>;
-        console.log("Friends length: " + friendsLength)
-        if (friendsLength > 0) {
-            document.getElementById('no_friends').style.display = 'none'
-        }
-        else {
-            document.getElementById('no_friends').style.display = 'block'
-        }
-    }
+      console.log("NO Friend Message triggered")
+      var friendsLength = <%= @friends.length %>;
+      console.log("Friends length: " + friendsLength)
+      if (friendsLength > 0) {
+          document.getElementById('no_friends').style.display = 'none'
+      }
+      else {
+          document.getElementById('no_friends').style.display = 'block'
+      }
+  }
 
-    window.noFriendMessage();
+  window.noFriendMessage();
 </script>
 
 <script id="no_request_message">
     window.noRequestMessage = function() {
-        console.log("NO Request Message triggered")
-        var requestLength = <%= @requested_friends.length %>;
-            console.log("Requests length: " + requestLength)
-          if (requestLength > 0) {
-            document.getElementById('no_requests').style.display = 'none'
-        } else {
-            document.getElementById('no_requests').style.display = 'block'
-        }
-    }
+      console.log("NO Request Message triggered")
+      var requestLength = <%= @requested_friends.length %>;
+        console.log("Requests length: " + requestLength)
+        if (requestLength > 0) {
+          document.getElementById('no_requests').style.display = 'none'
+      } else {
+          document.getElementById('no_requests').style.display = 'block'
+      }
+  }
 
-    window.noRequestMessage();
+  window.noRequestMessage();
 </script>
 
 </body>

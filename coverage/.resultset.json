@@ -1,6 +1,7 @@
 {
   "RSpec": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "coverage": {
       "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/models/user_spec.rb": {
         "lines": [
@@ -1495,5 +1496,9 @@
     "coverage": {},
     "timestamp": 1732708344
 >>>>>>> Create self-referential friendship relation
+=======
+    "coverage": {},
+    "timestamp": 1732708344
+>>>>>>> 83cac18f7eb253fd8d05f6361fc1b9a3cbf766cf
   }
 }
