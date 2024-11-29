@@ -63,7 +63,7 @@
 </div>
 
 <div id="friend_list" class="tab_content">
-  <div style="display: flex; flex-direction: column; align-items: center;">
+  <div style="display: flex; flex-direction: column; align-items: center;" id="friend_list_display">
     <div class="world_box">
       <p id="no_friends">Sorry, you currently have no friends. Add some below!</p>
       <button class="button" id="add_friend_button" onclick="addFriend()">Add Friend</button>
@@ -95,7 +95,7 @@
       <p>You do not have any requests at the moment.</p>
     </div>
     <% @requested_friends.each do |friend| %>
-      <div class="friend_box" id="friend_<%= friend.id %>">
+      <div class="friend_box" id="request_<%= friend.id %>">
         <div class="friend_left">
           <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button" %>
           <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
@@ -139,24 +139,35 @@
     }
 </script>
 
-<script>
-    var friendsLength = <%= @friends.length %>;
-    if (friendsLength > 0) {
-        document.getElementById('no_friends').style.display = 'none'
-    }
-    else {
-        document.getElementById('no_friends').style.display = 'block'
-    }
+<script id="no_friend_message">
+    window.noFriendMessage = function() {
+      console.log("NO Friend Message triggered")
+      var friendsLength = <%= @friends.length %>;
+      console.log("Friends length: " + friendsLength)
+      if (friendsLength > 0) {
+          document.getElementById('no_friends').style.display = 'none'
+      }
+      else {
+          document.getElementById('no_friends').style.display = 'block'
+      }
+  }
+
+  window.noFriendMessage();
 </script>
 
-<script>
-    var requestLength = <%= @requested_friends.length %>;
-    if (requestLength > 0) {
-        document.getElementById('no_requests').style.display = 'none'
-    }
-    else {
-        document.getElementById('no_requests').style.display = 'block'
-    }
+<script id="no_request_message">
+    window.noRequestMessage = function() {
+      console.log("NO Request Message triggered")
+      var requestLength = <%= @requested_friends.length %>;
+        console.log("Requests length: " + requestLength)
+        if (requestLength > 0) {
+          document.getElementById('no_requests').style.display = 'none'
+      } else {
+          document.getElementById('no_requests').style.display = 'block'
+      }
+  }
+
+  window.noRequestMessage();
 </script>
 
 </body>

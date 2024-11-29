@@ -206,10 +206,40 @@ class UsersController < ApplicationController
   end
 
   def approve_request
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    @friend = User.find_by(id: params[:friend_id])
 
+    existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: params[:friend_id])
+    inverse_friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: cur_user.id)
+
+    friendship = existing_friendship || inverse_friendship
+    if friendship&.update(status: 'accepted')
+      @message = 'Friend accepted!'
+    else
+      @message = 'Friendship not found!'
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
-  def decline_request
+  def reject_request
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    @friend = User.find_by(id: params[:friend_id])
 
+    existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: params[:friend_id])
+    inverse_friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: cur_user.id)
+
+    if existing_friendship
+      existing_friendship.destroy
+    end
+    if inverse_friendship
+      inverse_friendship.destroy
+    end
+    @message = 'Friend request declined.'
+    respond_to do |format|
+      format.js
+    end
   end
 end
