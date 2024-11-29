@@ -139,6 +139,7 @@ RSpec.describe 'Users', type: :request do
       usr = instance_double(User)
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
       allow(usr).to receive(:available_credits).and_return(0)
+      allow(ShardsHelper).to receive(:currency).and_return(10)
       post users_conversion_path, params: { shard_input_field: '34', currency: 'USD' }
       expect(response).to render_template('conversion')
     end
@@ -147,6 +148,7 @@ RSpec.describe 'Users', type: :request do
       usr = instance_double(User)
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
       allow(usr).to receive(:available_credits).and_return(0)
+      allow(ShardsHelper).to receive(:currency).and_return(10)
       post users_checkout_path, params: { total_amount: '34.55', with_currency: 'CAD', total_shards: '75' }
       expect(response).to render_template('checkout')
     end
