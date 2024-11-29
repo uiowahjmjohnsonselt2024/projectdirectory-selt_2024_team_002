@@ -153,7 +153,6 @@
 
 <script id="no_friend_message">
     window.noFriendMessage = function() {
-        console.log("NO Friend Message triggered")
         var friendsLength = <%= @friends.length %>;
         console.log("Friends length: " + friendsLength)
         if (friendsLength > 0) {
@@ -171,8 +170,8 @@
     window.noRequestMessage = function() {
         console.log("NO Request Message triggered")
         var requestLength = <%= @requested_friends.length %>;
-        console.log("Requests length: " + requestLength)
-        if (requestLength > 0) {
+            console.log("Requests length: " + requestLength)
+          if (requestLength > 0) {
             document.getElementById('no_requests').style.display = 'none'
         } else {
             document.getElementById('no_requests').style.display = 'block'
@@ -180,16 +179,6 @@
     }
 
     window.noRequestMessage();
-</script>
-
-<script>
-    var requestLength = <%= @requested_friends.length %>;
-    if (requestLength > 0) {
-        document.getElementById('no_requests').style.display = 'none'
-    }
-    else {
-        document.getElementById('no_requests').style.display = 'block'
-    }
 </script>
 
 </body>
