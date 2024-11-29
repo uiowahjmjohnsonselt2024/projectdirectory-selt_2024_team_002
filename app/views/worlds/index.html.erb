@@ -44,7 +44,7 @@
 <div id="public_worlds" class="tab_content active">
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
-      <div class="world_box">
+      <div class="world_box <%= world.world_name.split.join '_'%>">
         <h3><%= world.world_name %></h3>
         <p>Code: <%= world.world_code %></p>
         <p>Max Players: <%= world.max_player %></p>

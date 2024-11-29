@@ -14,6 +14,9 @@ describe WorldsController do
 
     describe 'world page' do
       it 'renders the world page' do
+        usr = instance_double(User)
+        allow(User).to receive(:find_user_by_session_token).and_return(usr)
+        allow(usr).to receive_messages(display_name: '', available_credits: 0, plus_user?: false, id: 1)
         get worlds_path
 
         expect(response).to render_template('index')

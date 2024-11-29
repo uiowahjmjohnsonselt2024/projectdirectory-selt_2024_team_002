@@ -1,12 +1,7 @@
 {
   "RSpec": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 33cd4c0e1934aa6dd214d039a80e0185b2af4798
     "coverage": {
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/models/friendship_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/models/friendship_spec.rb": {
         "lines": [
           null,
           null,
@@ -14,10 +9,15 @@
           null,
           1,
           1,
+          1,
+          1,
+          1,
+          null,
+          null,
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/rails_helper.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/rails_helper.rb": {
         "lines": [
           null,
           null,
@@ -87,7 +87,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/environment.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/environment.rb": {
         "lines": [
           null,
           null,
@@ -98,7 +98,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/application.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/application.rb": {
         "lines": [
           null,
           null,
@@ -133,7 +133,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/boot.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/boot.rb": {
         "lines": [
           null,
           null,
@@ -142,7 +142,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/environments/test.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/environments/test.rb": {
         "lines": [
           null,
           null,
@@ -195,7 +195,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/application_controller_renderer.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/application_controller_renderer.rb": {
         "lines": [
           null,
           null,
@@ -209,7 +209,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/assets.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/assets.rb": {
         "lines": [
           null,
           null,
@@ -226,7 +226,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/backtrace_silencers.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/backtrace_silencers.rb": {
         "lines": [
           null,
           null,
@@ -239,7 +239,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/content_security_policy.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/content_security_policy.rb": {
         "lines": [
           null,
           null,
@@ -273,7 +273,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/cookies_serializer.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/cookies_serializer.rb": {
         "lines": [
           null,
           null,
@@ -282,7 +282,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/filter_parameter_logging.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/filter_parameter_logging.rb": {
         "lines": [
           null,
           null,
@@ -292,7 +292,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/inflections.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/inflections.rb": {
         "lines": [
           null,
           null,
@@ -314,7 +314,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/mime_types.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/mime_types.rb": {
         "lines": [
           null,
           null,
@@ -324,7 +324,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/new_framework_defaults_6_1.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/new_framework_defaults_6_1.rb": {
         "lines": [
           null,
           null,
@@ -382,23 +382,6 @@
           null,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/permissions_policy.rb": {
-        "lines": [
           null,
           null,
           null,
@@ -414,7 +397,24 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/session_store.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/permissions_policy.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/session_store.rb": {
         "lines": [
           null,
           null,
@@ -423,7 +423,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/to_time_preserves_timezone.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/to_time_preserves_timezone.rb": {
         "lines": [
           null,
           null,
@@ -439,7 +439,7 @@
           1
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/initializers/wrap_parameters.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/initializers/wrap_parameters.rb": {
         "lines": [
           null,
           null,
@@ -459,7 +459,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/config/routes.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/config/routes.rb": {
         "lines": [
           null,
           null,
@@ -510,7 +510,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
         "lines": [
           null,
           null,
@@ -519,7 +519,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/helpers/openai_wrapper_helper.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/openai_wrapper_helper.rb": {
         "lines": [
           null,
           null,
@@ -633,7 +633,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/world.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/world.rb": {
         "lines": [
           null,
           null,
@@ -684,7 +684,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/application_record.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/application_record.rb": {
         "lines": [
           null,
           null,
@@ -694,7 +694,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/helpers/shards_helper.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/shards_helper.rb": {
         "lines": [
           null,
           null,
@@ -714,7 +714,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
         "lines": [
           null,
           null,
@@ -739,7 +739,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/models/user_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/models/user_spec.rb": {
         "lines": [
           null,
           null,
@@ -831,7 +831,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/user.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/user.rb": {
         "lines": [
           null,
           null,
@@ -906,7 +906,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/models/world_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/models/world_spec.rb": {
         "lines": [
           null,
           null,
@@ -936,7 +936,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/user_controller_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/requests/user_controller_spec.rb": {
         "lines": [
           null,
           null,
@@ -1114,7 +1114,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/spec/requests/worlds_controller_spec.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/spec/requests/worlds_controller_spec.rb": {
         "lines": [
           null,
           null,
@@ -1133,8 +1133,11 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
           null,
-          0,
+          1,
           null,
           null,
           null,
@@ -1183,7 +1186,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
         "lines": [
           null,
           null,
@@ -1225,7 +1228,7 @@
           1,
           1,
           1,
-          0,
+          1,
           null,
           null,
           1,
@@ -1237,7 +1240,7 @@
           null,
           null,
           1,
-          0,
+          1,
           null,
           null,
           null,
@@ -1308,7 +1311,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/application_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/application_controller.rb": {
         "lines": [
           null,
           null,
@@ -1320,7 +1323,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
         "lines": [
           null,
           null,
@@ -1622,24 +1625,11 @@
           0,
           null,
           0,
-          null,
           null,
           null
         ]
       }
     },
-<<<<<<< HEAD
-    "timestamp": 1732905368
-=======
-    "coverage": {},
-    "timestamp": 1732708344
->>>>>>> Create self-referential friendship relation
-=======
-    "coverage": {},
-    "timestamp": 1732708344
->>>>>>> 83cac18f7eb253fd8d05f6361fc1b9a3cbf766cf
-=======
-    "timestamp": 1732917070
->>>>>>> 33cd4c0e1934aa6dd214d039a80e0185b2af4798
+    "timestamp": 1732919461
   }
 }
