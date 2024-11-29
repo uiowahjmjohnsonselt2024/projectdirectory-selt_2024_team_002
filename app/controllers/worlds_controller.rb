@@ -29,30 +29,14 @@ class WorldsController < ApplicationController
       @data[cell.row] ||= {}
       @data[cell.row][cell.col] = cell
     end
-    # @world.enter_cell(0, 0)
   end
 
   def index
     flash.discard
     @public_worlds = World.where(is_public: true)
     @private_worlds = World.where(is_public: false)
-    @user = User.find_user_by_session_token(cookies[:session])
-    @friends = User.where(id: friend_ids)
-    @requested_friends = User.where(id: requested_friend_ids)
-  end
-
-  def friend_ids
-    Friendship.where(friend_id: @user.id, status: 'accepted')
-              .pluck(:user_id)
-              .concat(Friendship.where(user_id: @user.id, status: 'accepted')
-                                             .pluck(:friend_id))
-              .uniq
-  end
-
-  def requested_friend_ids
-    Friendship.where(friend_id: @user.id, status: 'pending')
-              .pluck(:user_id)
-              .uniq
+    @friends = User.where(id: Friendship.friend_ids(@cur_user))
+    @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
   end
 
   def new

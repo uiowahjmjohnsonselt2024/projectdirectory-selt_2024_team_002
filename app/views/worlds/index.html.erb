@@ -22,8 +22,8 @@
   </div>
   <div class="flash_partial">
     <div class="box-numeric">
-      <%= if @user.available_credits == nil
-            0 else @user.available_credits end %>
+      <%= if @cur_user.available_credits == nil
+            0 else @cur_user.available_credits end %>
       <div class="left-stack" style="text-align: center; margin: auto">
         <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", style: "background-color: #A7BCC7;"%>
       </div>
