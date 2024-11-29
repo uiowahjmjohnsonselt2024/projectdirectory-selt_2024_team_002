@@ -8,6 +8,10 @@ When(/^I am on the Login page$/) do
   visit users_login_path
 end
 
+When(/^I am on the Reset Password page$/) do
+  visit reset_password_path
+end
+
 # change to match the form fields
 And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, value|
   fill_in field_name, with: value

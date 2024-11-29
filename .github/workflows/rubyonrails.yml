@@ -16,6 +16,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_USERNAME: postgres
+      MONEY_APP_ID: ${{ secrets.MONEY_APP_ID }}
     services:
       # Label used to access the service container
       postgres:

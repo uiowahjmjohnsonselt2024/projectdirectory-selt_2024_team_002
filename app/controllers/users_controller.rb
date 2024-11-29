@@ -38,6 +38,47 @@ class UsersController < ApplicationController
     end
   end
 
+  def forgot_password
+    # renders the forgot password page
+  end
+
+  def forgot_password_post
+    # send email to user
+    email = params[:email]
+    user = User.find_by_email(email)
+    if user
+      UserMailer.send_reset_password_email(email).deliver_now
+      flash[:notice] = 'Password reset email sent'
+      return redirect_to users_login_path
+    end
+    flash[:alert] = 'User not found'
+    redirect_to users_login_path
+  end
+
+  def reset_password
+    # renders the reset password page
+  end
+
+  def reset_password_post
+    # reset the password
+    if params[:confirm_new_password] != params[:new_password]
+      flash[:alert] = 'Password confirmation must match'
+      return redirect_to users_login_path
+    end
+    user = User.find_by_email(params[:email]) # temp solution, verify user by token in url or email *** NOT DONE
+    if user.nil?
+      flash[:alert] = 'Email is not associated with an existing user'
+      return redirect_to users_login_path
+    end
+    user.password = params[:new_password]
+    if user.valid? && user.save
+      flash[:notice] = 'Password reset successful'
+      return redirect_to users_login_path
+    end
+    flash[:alert] = user.errors.empty? ? 'Something went wrong' : user.errors.full_messages.first
+    redirect_to users_login_path
+  end
+
   def get_session
     @user = User.find_user_by_display_name(params[:user_name])
     if @user && @user.authenticate(params[:password]) && @user.update_session_token
@@ -45,7 +86,7 @@ class UsersController < ApplicationController
       cookies[:session] = { value: @user.session_token, expires: 1.week.from_now }
       return redirect_to worlds_path
     end
-    flash[:alert] = 'Incorrect username and password'
+    flash[:alert] = 'Incorrect username or password'
     redirect_to users_login_path
   end
 

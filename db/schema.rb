@@ -51,7 +51,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_190926) do
     t.datetime "updated_at", null: false
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.text "password_digest"

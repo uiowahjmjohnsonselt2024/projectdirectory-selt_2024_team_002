@@ -39,16 +39,19 @@ gem 'bcrypt'
 gem 'pg', '~> 1.1'
 gem 'sassc-rails'
 
-# verifys email formating. Can also verify that the mail server exists thru dns
+# verifies email formating. Can also verify that the mail server exists thru dns
 gem 'rubocop-rake'
 gem 'valid_email2'
 
-# gems for moneyexchange rate
+# gems for money exchange rate
 gem 'money'
 gem 'money-open-exchange-rates'
 
 # gem for credit card validation
 gem 'credit_card_detector'
+
+# gem for sending mail
+gem 'sendgrid-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
