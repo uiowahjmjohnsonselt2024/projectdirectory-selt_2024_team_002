@@ -59,19 +59,14 @@ When(/^I click on the "([^"]*)" tab$/) do |tab_name|
   click_on tab_name
 end
 
-Then(/^I should see either the text "([^"]*)" or a list entry with "([^"]*)" and "([^"]*)"$/) do |empty, uid, name|
-  if page.has_content?(empty)
-    expect(page).to have_content(empty)
-  else
-    expect(page).to have_content(uid)
-    expect(page).to have_content(name)
-  end
-end
-
 When(/^I log in with valid credentials$/) do
   visit users_login_path
   steps 'And I fill in "Username:" with "admin"'
   steps 'And I fill in "Password:" with "AdminsAreTheBest1$"'
   steps 'And I press the button "Log In"'
   steps 'Then I should be redirected to "/worlds"'
+end
+
+And(/^I fill in the input input box with id "([^"]*)" with the text "([^"]*)"$/) do |input_id, value|
+  find("##{input_id}").set(value)
 end

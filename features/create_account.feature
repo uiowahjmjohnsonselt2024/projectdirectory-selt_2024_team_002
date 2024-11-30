@@ -40,13 +40,7 @@ Scenario: Create account with invalid Email
 
 Scenario: Create account with correct details and log in with that accout
   When I am on the Create Account page
-  And I fill in "Email:" with "aguo2@uiowa.edu"
-  And I fill in "Username:" with "SKT T1 Faker"
-  And I fill in "Password:" with "FFFFaaasf@@#11"
-  And I fill in "Confirm Password:" with "FFFFaaasf@@#11"
-  And I press the button "Sign Up"
-  Then I should be redirected to "/users/login"
-  Then I should see the exact phrase "Account created successfully"
+  And I create a user with email: "aguo2@uiowa.edu", username: "SKT T1 Faker", password: "FFFFaaasf@@#11"
   And I fill in "Username:" with "SKT T1 Faker"
   And I fill in "Password:" with "FFFFaaasf@@#11"
   And I press the button "Log In"

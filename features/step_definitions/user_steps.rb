@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+And(/^I create a user with email: "([^"]*)", username: "([^"]*)", password: "([^"]*)"$/) do |email, username, password|
+  # Fill in the form fields
+  fill_in 'Email:', with: email
+  fill_in 'Username:', with: username
+  fill_in 'Password:', with: password
+  fill_in 'Confirm Password:', with: password
+
+  # Press the Sign Up button
+  click_button 'Sign Up'
+
+  # Verify redirection and success message
+  expect(page).to have_current_path('/users/login')
+  expect(page).to have_content('Account created successfully')
+end
+
 When(/^I am on the Create Account page$/) do
   visit new_user_path
 end
@@ -10,6 +25,10 @@ end
 
 When(/^I am on the Reset Password page$/) do
   visit reset_password_path
+end
+
+When(/^I am on the home page$/) do
+  visit '/'
 end
 
 # change to match the form fields
