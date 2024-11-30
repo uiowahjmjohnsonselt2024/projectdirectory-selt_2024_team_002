@@ -79,9 +79,24 @@ RSpec.describe User, type: :model do
 
   describe 'shards' do
     it 'has available shard to be 0 when newly created' do
-      user = instance_double(described_class)
-      allow(user).to receive(:available_credits).and_return(0)
+      user = described_class.new
       expect(user).to have_attributes(available_credits: 0)
+    end
+  end
+
+  describe 'purchase plus' do
+    it 'correctly deduct balance when purchasing plus' do
+      usr = described_class.new(available_credits: 1000)
+      allow(usr).to receive(:save)
+      usr.purchase_plus_user
+      expect(usr.available_credits).to eq 900
+    end
+
+    it 'correctly upgrade the user' do
+      usr = described_class.new(available_credits: 1000)
+      allow(usr).to receive(:save)
+      usr.purchase_plus_user
+      expect(usr.plus_user).to be true
     end
   end
 end

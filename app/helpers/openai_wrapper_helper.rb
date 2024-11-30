@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# wrapper module for all OPENAI calls
+# wrapper module for all OPENAI calls. we are not unit testing this file, as 
+# all it does is orchastrate api calls to openai  
 module OpenaiWrapperHelper
   @@dim = World.dim
 

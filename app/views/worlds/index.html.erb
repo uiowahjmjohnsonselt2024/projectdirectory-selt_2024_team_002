@@ -18,17 +18,15 @@
   <%= button_to 'Log Out', users_logout_path, method: :get, id: "logout_button", class:"secondary_button"%>
   <div class="center-stack">
     <h1 style="font-size: 35px; margin: 15px 0 0;">Welcome, <%= @cur_user.display_name %></h1>
+    <div id="flash_partial"></div>
   </div>
-  <div class="right-stack">
+  <div class="flash_partial">
     <div class="box-numeric">
-      <%= if @user.available_credits == nil
-            0 else @user.available_credits end %>
+      <%= if @cur_user.available_credits == nil
+            0 else @cur_user.available_credits end %>
       <div class="left-stack" style="text-align: center; margin: auto">
         <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", style: "background-color: #A7BCC7;"%>
       </div>
-    </div>
-    <div class="left-stack" style="text-align: center; margin: auto">
-      <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "small_button highlight_button" %>
     </div>
   </div>
 </div>
@@ -37,10 +35,7 @@
   <button class="tab_links active" onclick="openTab(event, 'public_worlds')">Public Worlds</button>
   <button class="tab_links" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
   <button class="tab_links" onclick="openTab(event, 'friend_list')">Friends</button>
-</div>
-
-<div class="scroll-independent-div-br">
-  <%= button_to '+', new_world_path, method: :get, id: "create_button", class: "big-circle-button"%>
+  <button class="tab_links" onclick="openTab(event, 'friend_requests')">Friend Requests</button>
 </div>
 
 <div id="public_worlds" class="tab_content active">
@@ -53,6 +48,10 @@
         <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
       </div>
     <% end %>
+  </div>
+
+  <div class="scroll-independent-div-br">
+    <%= button_to '+', new_world_path, method: :get, id: "create_button", class: "big-circle-button"%>
   </div>
 </div>
 
@@ -67,14 +66,55 @@
       </div>
     <% end %>
   </div>
+
+  <div class="scroll-independent-div-br">
+    <%= button_to '+', new_world_path, method: :get, id: "create_button", class: "big-circle-button"%>
+  </div>
 </div>
 
 <div id="friend_list" class="tab_content">
-  <div style="display: flex; flex-direction: column; align-items: center;">
+  <div style="display: flex; flex-direction: column; align-items: center;" id="friend_list_display">
     <div class="world_box">
-      <p>Sorry, you currently have no friends. Add some below!</p>
-      <%= button_to "Add Friend", worlds_path, id: "placeholder_button", class: "button", method: :get %>
+      <p id="no_friends">Sorry, you currently have no friends. Add some below!</p>
+      <button class="button" id="add_friend_button" onclick="addFriend()">Add Friend</button>
+
+      <div id="add_friend_container" style="display: none;">
+        <p>Enter your friend's name:</p>
+        <%= form_tag "/users/add_friend", :remote => true do %>
+          <%= text_field_tag :friend_name, nil, id: 'friend_name', style: "height:30px", class: "textbox"%>
+          <%= submit_tag 'Submit', id: 'submit_friend_button', class: "button", onClick: "submitFriend()" %>
+        <% end %>
+      </div>
     </div>
+    <% @friends.each do |friend| %>
+      <div class="friend_box" id="friend_<%= friend.id %>">
+        <div class="friend_left">
+          <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
+        </div>
+        <div class="friend_center">
+          <h3><%= friend.display_name %></h3>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="friend_requests" class="tab_content">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <div id="no_requests" class="world_box">
+      <p>You do not have any requests at the moment.</p>
+    </div>
+    <% @requested_friends.each do |friend| %>
+      <div class="friend_box" id="request_<%= friend.id %>">
+        <div class="friend_left">
+          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button" %>
+          <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
+        </div>
+        <div class="friend_center">
+          <h3><%= friend.display_name %></h3>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
@@ -92,6 +132,52 @@
         document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
     }
+</script>
+
+<script>
+  function addFriend() {
+      document.getElementById('add_friend_button').style.display = 'none';
+      document.getElementById('add_friend_container').style.display = 'block';
+      document.getElementById('friend_name').value = '';
+  }
+</script>
+
+<script>
+    function submitFriend() {
+        document.getElementById('add_friend_container').style.display = 'none';
+        document.getElementById('add_friend_button').style.display = 'inline-block';
+    }
+</script>
+
+<script id="no_friend_message">
+    window.noFriendMessage = function() {
+      console.log("NO Friend Message triggered")
+      var friendsLength = <%= @friends.length %>;
+      console.log("Friends length: " + friendsLength)
+      if (friendsLength > 0) {
+          document.getElementById('no_friends').style.display = 'none'
+      }
+      else {
+          document.getElementById('no_friends').style.display = 'block'
+      }
+  }
+
+  window.noFriendMessage();
+</script>
+
+<script id="no_request_message">
+    window.noRequestMessage = function() {
+      console.log("NO Request Message triggered")
+      var requestLength = <%= @requested_friends.length %>;
+        console.log("Requests length: " + requestLength)
+        if (requestLength > 0) {
+          document.getElementById('no_requests').style.display = 'none'
+      } else {
+          document.getElementById('no_requests').style.display = 'block'
+      }
+  }
+
+  window.noRequestMessage();
 </script>
 
 </body>

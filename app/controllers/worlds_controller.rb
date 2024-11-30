@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'concurrent'
-
 # WorldController performs basic operations for world generation and state storage.
 class WorldsController < ApplicationController
   before_action :authenticate_user
@@ -29,14 +27,14 @@ class WorldsController < ApplicationController
       @data[cell.row] ||= {}
       @data[cell.row][cell.col] = cell
     end
-    # @world.enter_cell(0, 0)
   end
 
   def index
     flash.discard
     @public_worlds = World.where(is_public: true)
     @private_worlds = World.where(is_public: false)
-    @user = User.find_user_by_session_token(cookies[:session])
+    @friends = User.where(id: Friendship.friend_ids(@cur_user))
+    @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
   end
 
   def new

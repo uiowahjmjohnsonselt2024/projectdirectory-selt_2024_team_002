@@ -172,6 +172,117 @@ class UsersController < ApplicationController
     redirect_to users_login_path
   end
 
+  def add_friend
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    friend_name = params[:friend_name]
+    @friend = User.find_by(display_name: friend_name)
+
+    if @friend.nil?
+      @message = "User not found."
+      respond_to do |format|
+        format.js
+      end
+    elsif @friend == cur_user
+      @message = "Unfortunately, you cannot add yourself as a friend."
+      respond_to do |format|
+        format.js
+      end
+    else
+      existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: @friend.id, status: 'accepted')
+      inverse_friendship = Friendship.find_by(user_id: @friend.id, friend_id: cur_user.id, status: 'accepted')
+
+      existing_request = Friendship.find_by(user_id: cur_user.id, friend_id: @friend.id, status: 'pending')
+      inverse_request = Friendship.find_by(user_id: @friend.id, friend_id: cur_user.id, status: 'pending')
+
+      if existing_friendship || inverse_friendship
+        @message = "Friendship already exists!"
+        respond_to do |format|
+          format.js
+        end
+      elsif existing_request
+        @message = "A request has already been sent!"
+        respond_to do |format|
+          format.js
+        end
+      elsif inverse_request
+        @message = "This person has sent a request to you already!"
+        respond_to do |format|
+          format.js
+        end
+      else
+        friendship = Friendship.new(user_id: cur_user.id, friend_id: @friend.id, status: 'pending')
+
+        if friendship.save
+          @message = "A friend request has been sent!"
+          respond_to do |format|
+            format.js
+          end
+        else
+          @message = "Failed to add friendship."
+          respond_to do |format|
+            format.js
+          end
+        end
+      end
+    end
+  end
+
+  def delete_friend
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    @friend = User.find_by(id: params[:friend_id])
+
+    existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: params[:friend_id])
+    inverse_friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: cur_user.id)
+
+    if existing_friendship
+      existing_friendship.destroy
+    end
+    if inverse_friendship
+      inverse_friendship.destroy
+    end
+    @message = 'Friend removed successfully.'
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def approve_request
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    @friend = User.find_by(id: params[:friend_id])
+    existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: params[:friend_id])
+    inverse_friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: cur_user.id)
+
+    friendship = existing_friendship || inverse_friendship
+    if friendship&.update(status: 'accepted')
+      @message = 'Friend accepted!'
+    else
+      @message = 'Friendship not found!'
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def reject_request
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    @friend = User.find_by(id: params[:friend_id])
+
+    existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: params[:friend_id])
+    inverse_friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: cur_user.id)
+
+    if existing_friendship
+      existing_friendship.destroy
+    end
+    if inverse_friendship
+      inverse_friendship.destroy
+    end
+    @message = 'Friend request declined.'
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def purchase_plus_user_view
     @user = User.find_user_by_session_token(cookies[:session])
   end
@@ -189,4 +300,3 @@ class UsersController < ApplicationController
   end
 
 end
-# rubocop:enable all

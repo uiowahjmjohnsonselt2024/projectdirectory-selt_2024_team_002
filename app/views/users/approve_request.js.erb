@@ -1,0 +1,16 @@
+$('#flash_partial').html("<%= escape_javascript(render :partial => 'flash_partial', :locals => {:message => @message}) %>");
+
+$("#request_<%= @friend.id %>").remove();
+$('#friend_list_display').append(`
+  <div class="friend_box" id="friend_<%= @friend.id %>">
+    <div class="friend_left">
+      <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: @friend.id), method: :delete, remote: true, class: 'button' %>
+    </div>
+    <div class="friend_center">
+      <h3><%= @friend.display_name %></h3>
+    </div>
+  </div>
+`);
+//TODO: This triggers before the controller has updated the database with the correct amount of friends/requests
+window.noFriendMessage();
+window.noRequestMessage();
