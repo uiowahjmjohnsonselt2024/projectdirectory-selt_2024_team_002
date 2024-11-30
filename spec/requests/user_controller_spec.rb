@@ -192,8 +192,10 @@ RSpec.describe 'Users', type: :request do
     before do
       usr = instance_double(User)
       friend = instance_double(User)
-      allow(User).to receive(:find_by).and_return(friend)
-      allow(User).to receive(:find_user_by_session_token).and_return(usr)
+      allow(User).to receive_messages(
+        find_by: friend,
+        find_user_by_session_token: usr
+      )
       allow(friend).to receive(:id).and_return(0)
       allow(usr).to receive(:id).and_return(0)
       allow(Friendship).to receive(:find_by).and_return(nil)
@@ -248,8 +250,10 @@ RSpec.describe 'Users', type: :request do
       allow(CreditCardDetector::Detector).to receive(:new).and_return(cc_checker)
       usr = instance_double(User)
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
-      allow(usr).to receive(:available_credits).and_return(0)
-      allow(usr).to receive(:update).and_return(0)
+      allow(usr).to receive_messages(
+        available_credits: 0,
+        update: 0
+      )
       allow(cc_checker).to receive(:valid_luhn?).and_return(true)
       post users_payment_path,
            params: { card_number: 'a', expiration_date: '1111', billing_address: '1111', total_shards: 20,
@@ -281,8 +285,10 @@ RSpec.describe 'Users', type: :request do
 
     it 'has the appropriate message when the friend is found' do
       friend = instance_double(User)
-      allow(friend).to receive(:id).and_return(1)
-      allow(friend).to receive(:display_name).and_return('alex')
+      allow(friend).to receive_messages(
+        id: 1,
+        display_name: 'alex'
+      )
       allow(User).to receive(:find_by).and_return(friend)
       fs = instance_double(Friendship)
       allow(fs).to receive(:update).and_return(true)
@@ -293,8 +299,10 @@ RSpec.describe 'Users', type: :request do
 
     it 'has the appropriate message when the friend not is found' do
       friend = instance_double(User)
-      allow(friend).to receive(:id).and_return(1)
-      allow(friend).to receive(:display_name).and_return('alex')
+      allow(friend).to receive_messages(
+        id: 1,
+        display_name: 'alex'
+      )
       allow(User).to receive(:find_by).and_return(friend)
       fs = instance_double(Friendship)
       allow(fs).to receive(:update).and_return(false)
@@ -305,8 +313,10 @@ RSpec.describe 'Users', type: :request do
 
     it 'renders the correct template' do
       friend = instance_double(User)
-      allow(friend).to receive(:id).and_return(1)
-      allow(friend).to receive(:display_name).and_return('alex')
+      allow(friend).to receive_messages(
+        id: 1,
+        display_name: 'alex'
+      )
       allow(User).to receive(:find_by).and_return(friend)
       fs = instance_double(Friendship)
       allow(fs).to receive(:update).and_return(false)
@@ -345,6 +355,7 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
+  # rubocop:disable RSpec/InstanceVariable
   describe 'add friend' do
     before do
       @usr = instance_double(User)
@@ -370,8 +381,10 @@ RSpec.describe 'Users', type: :request do
         fs = instance_double(Friendship)
         allow(User).to receive(:find_by).and_return(friend)
         allow(friend).to receive(:id).and_return(1)
-        allow(Friendship).to receive(:find_by).and_return(nil)
-        allow(Friendship).to receive(:new).and_return(fs)
+        allow(Friendship).to receive_messages(
+          find_by: nil,
+          new: fs
+        )
         allow(fs).to receive(:save).and_return(true)
 
         post users_add_friend_path, params: { friend_name: 'alex' }
@@ -383,8 +396,10 @@ RSpec.describe 'Users', type: :request do
         fs = instance_double(Friendship)
         allow(User).to receive(:find_by).and_return(friend)
         allow(friend).to receive(:id).and_return(1)
-        allow(Friendship).to receive(:find_by).and_return(nil)
-        allow(Friendship).to receive(:new).and_return(fs)
+        allow(Friendship).to receive_messages(
+          find_by: nil,
+          new: fs
+        )
         allow(fs).to receive(:save).and_return(false)
 
         post users_add_friend_path, params: { friend_name: 'alex' }
@@ -393,5 +408,6 @@ RSpec.describe 'Users', type: :request do
     end
   end
 end
+# rubocop:enable RSpec/InstanceVariable
 # rubocop:enable Metrics/BlockLength
 # rubocop:enable RSpec/ExampleLength

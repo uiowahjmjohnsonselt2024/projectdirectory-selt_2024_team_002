@@ -2,7 +2,9 @@
 
 require 'rails_helper'
 
+# rubocop:disable RSpec/VerifiedDoubles
 # rubocop:disable RSpec/InstanceVariable
+# rubocop:disable RSpec/ExampleLength
 RSpec.describe World, type: :model do
   describe 'init_if_not_inited' do
     before do
@@ -33,3 +35,5 @@ RSpec.describe World, type: :model do
   end
 end
 # rubocop:enable RSpec/InstanceVariable
+# rubocop:enable RSpec/ExampleLength
+# rubocop:enable RSpec/VerifiedDoubles

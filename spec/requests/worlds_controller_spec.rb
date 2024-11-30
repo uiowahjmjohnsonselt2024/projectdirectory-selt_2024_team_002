@@ -10,8 +10,10 @@ describe WorldsController do
       usr = instance_double(User)
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
       allow(usr).to receive_messages(display_name: '', available_credits: 0, plus_user?: false)
-      allow(Friendship).to receive(:friend_ids).and_return([])
-      allow(Friendship).to receive(:requested_friend_ids).and_return([])
+      allow(Friendship).to receive_messages(
+        friend_ids: [],
+        requested_friend_ids: []
+      )
     end
 
     describe 'world page' do
@@ -54,20 +56,28 @@ describe WorldsController do
       end
     end
 
+    # rubocop:disable RSpec/VerifiedDoubles
     it 'renders the show template on show call' do
       world = double('world')
       collection = double('col')
       gridsquare = double('gs')
       image = double('image')
-      allow(World).to receive(:dim).and_return(1)
-      allow(World).to receive(:find).and_return(world)
-      allow(world).to receive(:init_if_not_inited).and_return(world)
-      allow(world).to receive(:gridsquares).and_return(collection)
-      allow(world).to receive(:id).and_return(0)
-      allow(world).to receive(:[]).and_return(0)
-      allow(gridsquare).to receive(:row).and_return(1)
-      allow(gridsquare).to receive(:col).and_return(1)
-      allow(gridsquare).to receive(:image).and_return(image)
+      allow(world).to receive_messages(
+        dim: 1,
+        init_if_not_inited: world,
+        gridsquares: collection,
+        id: 0,
+        "[]": 0
+      )
+      allow(World).to receive_messages(
+        find: world,
+        dim: 1
+      )
+      allow(gridsquare).to receive_messages(
+        row: 1,
+        col: 1,
+        image: image
+      )
       allow(image).to receive(:attached?).and_return(false)
       allow(collection).to receive(:to_ary).and_return([gridsquare])
       get '/worlds/1'
@@ -116,6 +126,7 @@ describe WorldsController do
   end
 
   # rubocop:enable RSpec/ExampleLength
+  # rubocop:enable RSpec/VerifiedDoubles
 
   describe 'When a user is not logged in' do
     it 'redirects to the login page' do
