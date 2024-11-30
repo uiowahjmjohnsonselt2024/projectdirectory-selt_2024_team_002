@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'concurrent'
-
 # WorldController performs basic operations for world generation and state storage.
 class WorldsController < ApplicationController
   before_action :authenticate_user
@@ -27,8 +25,10 @@ class WorldsController < ApplicationController
     grid_arr = @world.gridsquares.to_ary
     grid_arr.each do |cell|
       @data[cell.row] ||= {}
+      puts "#{cell} ccc"
       @data[cell.row][cell.col] = cell
     end
+    puts "#{@data} dddd"
   end
 
   def index
