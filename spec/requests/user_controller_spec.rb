@@ -344,6 +344,54 @@ RSpec.describe 'Users', type: :request do
       expect(response).to render_template('delete_friend')
     end
   end
+
+  describe 'add friend' do
+    before do
+      @usr = instance_double(User)
+      allow(User).to receive(:find_user_by_session_token).and_return(@usr)
+      allow(@usr).to receive(:id).and_return(1)
+    end
+
+    it 'has the correct message when the user isn\'t found' do
+      allow(User).to receive(:find_by).and_return(nil)
+      post users_add_friend_path, params: { friend_name: 'alex' }
+      expect(assigns(:message)).to eq('User not found.')
+    end
+
+    it 'has the correct message when you add yourself as a friend' do
+      allow(User).to receive(:find_by).and_return(@usr)
+      post users_add_friend_path, params: { friend_name: 'alex' }
+      expect(assigns(:message)).to eq('Unfortunately, you cannot add yourself as a friend.')
+    end
+
+    describe 'happy path' do
+      it 'has saved successfully' do
+        friend = instance_double(User)
+        fs = instance_double(Friendship)
+        allow(User).to receive(:find_by).and_return(friend)
+        allow(friend).to receive(:id).and_return(1)
+        allow(Friendship).to receive(:find_by).and_return(nil)
+        allow(Friendship).to receive(:new).and_return(fs)
+        allow(fs).to receive(:save).and_return(true)
+
+        post users_add_friend_path, params: { friend_name: 'alex' }
+        expect(assigns(:message)).to eq('A friend request has been sent!')
+      end
+
+      it 'has didn\'t save' do
+        friend = instance_double(User)
+        fs = instance_double(Friendship)
+        allow(User).to receive(:find_by).and_return(friend)
+        allow(friend).to receive(:id).and_return(1)
+        allow(Friendship).to receive(:find_by).and_return(nil)
+        allow(Friendship).to receive(:new).and_return(fs)
+        allow(fs).to receive(:save).and_return(false)
+
+        post users_add_friend_path, params: { friend_name: 'alex' }
+        expect(assigns(:message)).to eq('Failed to add friendship.')
+      end
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
 # rubocop:enable RSpec/ExampleLength
