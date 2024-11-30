@@ -249,7 +249,6 @@ class UsersController < ApplicationController
   def approve_request
     cur_user = User.find_user_by_session_token(cookies[:session])
     @friend = User.find_by(id: params[:friend_id])
-
     existing_friendship = Friendship.find_by(user_id: cur_user.id, friend_id: params[:friend_id])
     inverse_friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: cur_user.id)
 
