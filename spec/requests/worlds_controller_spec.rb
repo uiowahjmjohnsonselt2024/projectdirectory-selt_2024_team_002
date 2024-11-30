@@ -52,25 +52,65 @@ describe WorldsController do
           max_player: '5'
         )
       end
+    end
 
-      it 'renders the show template on show call' do
+    it 'renders the show template on show call' do
+      world = double('world')
+      collection = double('col')
+      gridsquare = double('gs')
+      image = double('image')
+      allow(World).to receive(:dim).and_return(1)
+      allow(World).to receive(:find).and_return(world)
+      allow(world).to receive(:init_if_not_inited).and_return(world)
+      allow(world).to receive(:gridsquares).and_return(collection)
+      allow(world).to receive(:id).and_return(0)
+      allow(world).to receive(:[]).and_return(0)
+      allow(gridsquare).to receive(:row).and_return(1)
+      allow(gridsquare).to receive(:col).and_return(1)
+      allow(gridsquare).to receive(:image).and_return(image)
+      allow(image).to receive(:attached?).and_return(false)
+      allow(collection).to receive(:to_ary).and_return([gridsquare])
+      get '/worlds/1'
+      expect(response).to render_template('show')
+    end
+
+    describe 'leave world' do
+      it 'leaves a world correctly' do
         world = double('world')
-        collection = double('col')
-        gridsquare = double('gs')
-        image = double('image')
-        allow(World).to receive(:dim).and_return(1)
         allow(World).to receive(:find).and_return(world)
-        allow(world).to receive(:init_if_not_inited).and_return(world)
-        allow(world).to receive(:gridsquares).and_return(collection)
-        allow(world).to receive(:id).and_return(0)
-        allow(world).to receive(:[]).and_return(0)
-        allow(gridsquare).to receive(:row).and_return(1)
-        allow(gridsquare).to receive(:col).and_return(1)
-        allow(gridsquare).to receive(:image).and_return(image)
-        allow(image).to receive(:attached?).and_return(false)
-        allow(collection).to receive(:to_ary).and_return([gridsquare])
-        get '/worlds/1'
-        expect(response).to render_template('show')
+        allow(world).to receive(:current_players).and_return(10)
+        expect(world).to receive(:update).with({ current_players: 9 }).and_return(10)
+
+        post worlds_leave_world_path
+      end
+
+      it 'redirects correctly' do
+        world = double('world')
+        allow(World).to receive(:find).and_return(world)
+        allow(world).to receive(:current_players).and_return(10)
+        allow(world).to receive(:update).with({ current_players: 9 }).and_return(10)
+        post worlds_leave_world_path
+        expect(response).to redirect_to worlds_path
+      end
+    end
+
+    describe 'join world' do
+      it 'increases the current_players count by 1' do
+        world = double('world')
+        allow(World).to receive(:find).and_return(world)
+        allow(world).to receive(:current_players).and_return(1)
+        allow(world).to receive(:max_player).and_return(2)
+        allow(world).to receive(:update).with({ current_players: 2 })
+        post worlds_join_world_path, params: { id: '1' }
+      end
+
+      it 'can\'t join a full world' do
+        world = double('world')
+        allow(World).to receive(:find).and_return(world)
+        allow(world).to receive(:current_players).and_return(2)
+        allow(world).to receive(:max_player).and_return(2)
+        post worlds_join_world_path, params: { id: '1' }
+        expect(response).to redirect_to worlds_path
       end
     end
   end
