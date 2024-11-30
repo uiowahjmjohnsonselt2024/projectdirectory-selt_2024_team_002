@@ -320,7 +320,6 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.11)
       io-console (~> 0.5)
-    rexml (3.3.9)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -370,7 +369,6 @@ GEM
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
     ruby_http_client (3.5.5)
-    rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -384,10 +382,6 @@ GEM
     sdoc (2.6.1)
       rdoc (>= 5.0)
     securerandom (0.3.2)
-    selenium-webdriver (4.10.0)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
     sendgrid-ruby (6.7.0)
       ruby_http_client (~> 3.4)
     shellany (0.0.1)
@@ -431,11 +425,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (5.3.1)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (~> 4.0, < 4.11)
-    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -483,7 +472,6 @@ DEPENDENCIES
   sass-rails
   sassc-rails
   sdoc
-  selenium-webdriver
   sendgrid-ruby
   simplecov
   spring
@@ -492,7 +480,6 @@ DEPENDENCIES
   uglifier
   valid_email2
   web-console
-  webdrivers
 
 RUBY VERSION
    ruby 3.0.7p220
