@@ -209,6 +209,68 @@ RSpec.describe 'Users', type: :request do
       expect(response).to render_template('reject_request')
     end
   end
+
+  describe 'users payment' do
+    it 'sets the correct message when a field is blank' do
+      post users_payment_path, params: { card_number: '', expiration_date: '', billing_address: '', total_shards: 0 }
+      expect(assigns(:message)).to eq('There is an error on processing. Please check your fields are correct.')
+    end
+
+    it 'sets the correct message when cc is invalid' do
+      cc_checker = instance_double(CreditCardDetector::Detector)
+      allow(CreditCardDetector::Detector).to receive(:new).and_return(cc_checker)
+      allow(cc_checker).to receive(:valid_luhn?).and_return(false)
+      post users_payment_path,
+           params: { card_number: 'a', expiration_date: '1111', billing_address: '1111', total_shards: 0 }
+      expect(assigns(:message)).to eq('Card number is not valid. Please recheck your card number.')
+    end
+
+    it 'sets the correct message when exp-date is invalid' do
+      cc_checker = instance_double(CreditCardDetector::Detector)
+      allow(CreditCardDetector::Detector).to receive(:new).and_return(cc_checker)
+      allow(cc_checker).to receive(:valid_luhn?).and_return(true)
+      post users_payment_path,
+           params: { card_number: 'a', expiration_date: 'aaaa', billing_address: '1111', total_shards: 0 }
+      expect(assigns(:message)).to eq('Expiration date can only be 4 digits. Please try again.')
+    end
+
+    it 'sets the correct message when ccv is invalid' do
+      cc_checker = instance_double(CreditCardDetector::Detector)
+      allow(CreditCardDetector::Detector).to receive(:new).and_return(cc_checker)
+      allow(cc_checker).to receive(:valid_luhn?).and_return(true)
+      post users_payment_path,
+           params: { card_number: 'a', expiration_date: '1111', billing_address: '1111', total_shards: 0, ccv: 'aaa' }
+      expect(assigns(:message)).to eq('CVV can only be 3 digits. Please try again.')
+    end
+
+    it 'redirects correctly' do
+      cc_checker = instance_double(CreditCardDetector::Detector)
+      allow(CreditCardDetector::Detector).to receive(:new).and_return(cc_checker)
+      usr = instance_double(User)
+      allow(User).to receive(:find_user_by_session_token).and_return(usr)
+      allow(usr).to receive(:available_credits).and_return(0)
+      allow(usr).to receive(:update).and_return(0)
+      allow(cc_checker).to receive(:valid_luhn?).and_return(true)
+      post users_payment_path,
+           params: { card_number: 'a', expiration_date: '1111', billing_address: '1111', total_shards: 20,
+                     cvv: '123' }
+      expect(response).to redirect_to users_purchase_path
+    end
+
+    it 'updates user credits correctly' do
+      cc_checker = instance_double(CreditCardDetector::Detector)
+      allow(CreditCardDetector::Detector).to receive(:new).and_return(cc_checker)
+      usr = instance_double(User)
+      allow(User).to receive(:find_user_by_session_token).and_return(usr)
+      allow(usr).to receive(:available_credits).and_return(0)
+      allow(usr).to receive(:update).with({ available_credits: 20 }).and_return(0)
+      allow(cc_checker).to receive(:valid_luhn?).and_return(true)
+      post users_payment_path,
+           params: { card_number: 'a', expiration_date: '1111', billing_address: '1111', total_shards: 20,
+                     cvv: '123' }
+      expect(response).to redirect_to users_purchase_path
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
 # rubocop:enable RSpec/ExampleLength
