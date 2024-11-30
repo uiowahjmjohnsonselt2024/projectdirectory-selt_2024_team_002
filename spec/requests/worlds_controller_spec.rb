@@ -89,8 +89,7 @@ describe WorldsController do
         world = double('world')
         allow(World).to receive(:find).and_return(world)
         allow(world).to receive(:current_players).and_return(10)
-        expect(world).to receive(:update).with({ current_players: 9 }).and_return(10)
-
+        expect(world).to receive(:update).with({ current_players: 9 })
         post worlds_leave_world_path
       end
 
@@ -108,17 +107,21 @@ describe WorldsController do
       it 'increases the current_players count by 1' do
         world = double('world')
         allow(World).to receive(:find).and_return(world)
-        allow(world).to receive(:current_players).and_return(1)
-        allow(world).to receive(:max_player).and_return(2)
-        allow(world).to receive(:update).with({ current_players: 2 })
+        allow(world).to receive_messages(
+          current_players: 1,
+          max_player: 2
+        )
+        expect(world).to receive(:update).with({ current_players: 2 })
         post worlds_join_world_path, params: { id: '1' }
       end
 
       it 'can\'t join a full world' do
         world = double('world')
         allow(World).to receive(:find).and_return(world)
-        allow(world).to receive(:current_players).and_return(2)
-        allow(world).to receive(:max_player).and_return(2)
+        allow(world).to receive_messages(
+          current_players: 2,
+          max_player: 2
+        )
         post worlds_join_world_path, params: { id: '1' }
         expect(response).to redirect_to worlds_path
       end
