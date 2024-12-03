@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     # renders the forgot password page
   end
 
-  def forgot_password_post
+  def send_reset_email
     # send email to user
     user = User.find_by_email(params[:email])
     if user
@@ -57,24 +57,19 @@ class UsersController < ApplicationController
 
   def reset_password
     @user = User.find_by_reset_password_token(params[:token])
-    if @user.nil? || (not @user.reset_password_token_valid?)
+    if @user.nil? || @user.invalid_reset_password_token?
       flash[:alert] = 'Invalid or expired reset link'
       redirect_to users_login_path
     end
   end
 
-  def reset_password_post
-    @user = User.find_user_by_session_token(cookies[:session])
-    if params[:confirm_new_password] != params[:new_password]
-      flash[:alert] = 'Password confirmation must match'
-      return redirect_to users_login_path
-    end
-    user.password = params[:new_password]
-    if user.valid? && user.save
+  def update_password
+    @user = User.find_by_reset_password_token(params[:token])
+    if @user.update_password(params[:new_password])
       flash[:notice] = 'Password reset successful'
       return redirect_to users_login_path
     end
-    flash[:alert] = user.errors.empty? ? 'Something went wrong' : user.errors.full_messages.first
+    flash[:alert] = @user.errors.empty? ? 'Something went wrong' : @user.errors.full_messages.first
     redirect_to users_login_path
   end
 

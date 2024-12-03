@@ -43,8 +43,13 @@ class User < ApplicationRecord
     save
   end
 
-  def reset_password_token_valid?
-    reset_password_token and reset_password_sent_at < 1.day.ago
+  def invalid_reset_password_token?
+    self.reset_password_sent_at < 1.hour.ago # before an hour ~ more than an hour ago
+  end
+
+  def update_password(new_password)
+    self.password = new_password
+    save
   end
 
   private
