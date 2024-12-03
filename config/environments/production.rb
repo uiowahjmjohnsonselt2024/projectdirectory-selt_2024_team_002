@@ -83,4 +83,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Mailing
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    from: 'adervesh03@gmail.com',
+    user_name: 'apikey', # Always use "apikey" for SendGrid
+    password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
+  }
+
+  Rails.application.routes.default_url_options[:host] = "https://team2sprint2-7bb1f940aa79.herokuapp.com" # default host in production
 end

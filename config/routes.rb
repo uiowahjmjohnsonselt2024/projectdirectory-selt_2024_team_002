@@ -31,10 +31,10 @@ Rails.application.routes.draw do
   delete 'users/delete_friend', to: 'users#delete_friend', defaults: { format: 'js' }
   post 'users/approve_request', to: 'users#approve_request', defaults: { format: 'js' }
   delete 'users/reject_request', to: 'users#reject_request', defaults: { format: 'js' }
-  get 'users/reset-password', to: 'users#reset_password', as: 'reset_password'
-  post 'users/reset-password', to: 'users#reset_password_post'
-  get 'users/forgot-password/', to: 'users#forgot_password', as: 'forgot_password'
-  post 'users/forgot-password/', to: 'users#forgot_password_post'
+  get 'users/reset-password', to: 'users#reset_password', as: 'reset_password' # displays page where the user will enter new password
+  post 'users/reset-password', to: 'users#reset_password_post' # resets password
+  get 'users/forgot-password/', to: 'users#forgot_password', as: 'forgot_password' # displays page where the user will enter reset email
+  post 'users/forgot-password/', to: 'users#forgot_password_post' # sends reset email
   get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
   post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   resources :users

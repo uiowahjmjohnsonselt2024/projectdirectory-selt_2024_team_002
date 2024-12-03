@@ -37,6 +37,16 @@ class User < ApplicationRecord
     end
   end
 
+  def generate_reset_password_token
+    self.reset_password_token = SecureRandom.hex(32)
+    self.reset_password_sent_at = Time.now.utc
+    save
+  end
+
+  def reset_password_token_valid?
+    reset_password_token and reset_password_sent_at < 1.day.ago
+  end
+
   private
 
   # rubocop:disable all 

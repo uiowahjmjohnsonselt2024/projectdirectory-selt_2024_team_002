@@ -44,30 +44,29 @@ class UsersController < ApplicationController
 
   def forgot_password_post
     # send email to user
-    email = params[:email]
-    user = User.find_by_email(email)
+    user = User.find_by_email(params[:email])
     if user
-      UserMailer.send_reset_password_email(email).deliver_now
+      user.generate_reset_password_token
+      UserMailer.send_reset_password_email(user).deliver_now
       flash[:notice] = 'Password reset email sent'
       return redirect_to users_login_path
     end
-    flash[:alert] = 'User not found'
+    flash[:alert] = 'User not found from given email'
     redirect_to users_login_path
   end
 
   def reset_password
-    # renders the reset password page
+    @user = User.find_by_reset_password_token(params[:token])
+    if @user.nil? || (not @user.reset_password_token_valid?)
+      flash[:alert] = 'Invalid or expired reset link'
+      redirect_to users_login_path
+    end
   end
 
   def reset_password_post
-    # reset the password
+    @user = User.find_user_by_session_token(cookies[:session])
     if params[:confirm_new_password] != params[:new_password]
       flash[:alert] = 'Password confirmation must match'
-      return redirect_to users_login_path
-    end
-    user = User.find_by_email(params[:email]) # temp solution, verify user by token in url or email *** NOT DONE
-    if user.nil?
-      flash[:alert] = 'Email is not associated with an existing user'
       return redirect_to users_login_path
     end
     user.password = params[:new_password]
