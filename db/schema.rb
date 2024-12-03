@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_28_190926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "gridsquares", "worlds"
-  add_foreign_key "user_worlds", "users"
-  add_foreign_key "user_worlds", "worlds"
 end
