@@ -23,8 +23,18 @@ When(/^I am on the Login page$/) do
   visit users_login_path
 end
 
+Given(/^I am on the Forgot Password page$/) do
+  visit forgot_password_path
+end
+
 When(/^I am on the Reset Password page$/) do
   visit reset_password_path
+end
+
+When(/^I am on the Reset Password page with correct credentials$/) do
+  user = User.find_by(email: 'admin@admin.com')
+  user.generate_reset_password_token
+  visit reset_password_path(token: user.reset_password_token)
 end
 
 When(/^I am on the home page$/) do
@@ -58,3 +68,4 @@ Then(/^I should be redirected to "([^"]*)"$/) do |arg|
   expect(current_url_path).to eq(arg)
   expect(page).to have_current_path(arg, ignore_query: true) # assuming your dashboard path is called dashboard_path
 end
+
