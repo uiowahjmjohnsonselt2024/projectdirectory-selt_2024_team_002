@@ -67,7 +67,7 @@ class User < ApplicationRecord
       special_char: { condition: ->(pwd) { pwd.match?(/[\W_]/) }, message: 'must include one special character' }
     }
     password_rules.each do |key, rule|
-      unless (rule[:condition].call(password))
+      unless rule[:condition].call(password)
         errors.add(:password, rule[:message])
         break
       end
