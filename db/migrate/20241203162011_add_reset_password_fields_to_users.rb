@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # adds reset password token and timestamp to users table
 class AddResetPasswordFieldsToUsers < ActiveRecord::Migration[7.1]
   def change
