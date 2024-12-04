@@ -172,7 +172,7 @@ RSpec.describe 'Users', type: :request do
 
   describe 'forgot password' do
     it 'redirects to the correct location' do
-      post send_reset_email_path, params: { email: 'admin@admin.com'}
+      post send_reset_email_path, params: { email: 'admin@admin.com' }
       expect(response).to redirect_to users_login_path
     end
     # TODO: check email seam
