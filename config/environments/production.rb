@@ -92,5 +92,6 @@ Rails.application.configure do
     password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
   }
 
-  Rails.application.routes.default_url_options[:host] = "https://team2sprint2-7bb1f940aa79.herokuapp.com" # default host in production
+  # default host in production
+  Rails.application.routes.default_url_options[:host] = 'https://team2sprint2-7bb1f940aa79.herokuapp.com'
 end
