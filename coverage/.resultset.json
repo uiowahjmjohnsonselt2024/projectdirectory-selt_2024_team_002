@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/world.rb": {
+      "/Users/adervesh03/Desktop/Iowa/2024 Fall/SELT/projectdirectory-selt_2024_team_002/app/models/world.rb": {
         "lines": [
           null,
           null,
@@ -52,7 +52,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
+      "/Users/adervesh03/Desktop/Iowa/2024 Fall/SELT/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
         "lines": [
           null,
           null,
@@ -96,7 +96,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/user.rb": {
+      "/Users/adervesh03/Desktop/Iowa/2024 Fall/SELT/projectdirectory-selt_2024_team_002/app/models/user.rb": {
         "lines": [
           null,
           null,
@@ -135,6 +135,21 @@
           null,
           0,
           null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
           null,
           null,
           1,
@@ -171,7 +186,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
+      "/Users/adervesh03/Desktop/Iowa/2024 Fall/SELT/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
         "lines": [
           null,
           null,
@@ -278,7 +293,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
+      "/Users/adervesh03/Desktop/Iowa/2024 Fall/SELT/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
         "lines": [
           null,
           null,
@@ -328,31 +343,29 @@
           null,
           1,
           1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          1,
+          1,
+          null,
+          null,
           1,
           0,
           0,
           0,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
+          0,
           null,
           null,
           null,
           1,
-          null,
-          0,
-          0,
-          0,
-          null,
           0,
           0,
           0,
           0,
           null,
-          0,
           0,
           0,
           0,
@@ -584,7 +597,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
+      "/Users/adervesh03/Desktop/Iowa/2024 Fall/SELT/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
         "lines": [
           null,
           null,
@@ -599,6 +612,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1732945009
+    "timestamp": 1733341947
   }
 }

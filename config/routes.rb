@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   delete 'users/reject_request', to: 'users#reject_request', defaults: { format: 'js' }
   # displays page where the user will enter reset email
   get 'users/forgot-password', to: 'users#forgot_password', as: 'forgot_password'
-  post 'users/send-reset-email', to: 'users#send_reset_email' # sends reset email
+  post 'users/send-reset-email', to: 'users#send_reset_email', as: 'send_reset_email' # sends reset email
   # displays page where the user will enter new password
   get 'users/reset-password', to: 'users#reset_password', as: 'reset_password'
   post 'users/update-password', to: 'users#update_password' # resets password
