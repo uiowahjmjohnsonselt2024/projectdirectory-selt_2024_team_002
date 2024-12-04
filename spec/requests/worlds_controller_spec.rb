@@ -22,9 +22,9 @@ describe WorldsController do
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
       allow(usr).to receive_messages(display_name: '', available_credits: 0, plus_user?: false)
       allow(Friendship).to receive_messages(
-                             friend_ids: [],
-                             requested_friend_ids: []
-                           )
+        friend_ids: [],
+        requested_friend_ids: []
+      )
     end
 
     describe 'world page' do
@@ -58,12 +58,12 @@ describe WorldsController do
         allow(usr).to receive_messages(id: 1, plus_user?: false)
         post worlds_path, params: fake_params
         expect(assigns(:world)).to have_attributes(
-                                     world_code: '11111',
-                                     world_name: 'test',
-                                     user_id_id: 1,
-                                     is_public: true,
-                                     max_player: '5'
-                                   )
+          world_code: '11111',
+          world_name: 'test',
+          user_id_id: 1,
+          is_public: true,
+          max_player: '5'
+        )
       end
     end
 
@@ -74,21 +74,21 @@ describe WorldsController do
       gridsquare = double('gs')
       image = double('image')
       allow(world).to receive_messages(
-                        dim: 1,
-                        init_if_not_inited: world,
-                        gridsquares: collection,
-                        id: 0,
-                        "[]": 0
-                      )
+        dim: 1,
+        init_if_not_inited: world,
+        gridsquares: collection,
+        id: 0,
+        "[]": 0
+      )
       allow(World).to receive_messages(
-                        find: world,
-                        dim: 1
-                      )
+        find: world,
+        dim: 1
+      )
       allow(gridsquare).to receive_messages(
-                             row: 1,
-                             col: 1,
-                             image: image
-                           )
+        row: 1,
+        col: 1,
+        image: image
+      )
       allow(image).to receive(:attached?).and_return(false)
       allow(collection).to receive(:to_ary).and_return([gridsquare])
       get '/worlds/1'
@@ -119,9 +119,9 @@ describe WorldsController do
         world = double('world')
         allow(World).to receive(:find).and_return(world)
         allow(world).to receive_messages(
-                          current_players: 1,
-                          max_player: 2
-                        )
+          current_players: 1,
+          max_player: 2
+        )
         expect(world).to receive(:update).with({ current_players: 2 })
         post worlds_join_world_path, params: { id: '1' }
       end
@@ -130,9 +130,9 @@ describe WorldsController do
         world = double('world')
         allow(World).to receive(:find).and_return(world)
         allow(world).to receive_messages(
-                          current_players: 2,
-                          max_player: 2
-                        )
+          current_players: 2,
+          max_player: 2
+        )
         post worlds_join_world_path, params: { id: '1' }
         expect(response).to redirect_to worlds_path
       end
