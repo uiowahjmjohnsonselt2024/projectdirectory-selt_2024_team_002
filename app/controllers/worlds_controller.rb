@@ -63,6 +63,7 @@ class WorldsController < ApplicationController
 
   def join_world
     @selected_world = World.find(params[:id].split('_')[1])
+    UserWorld.find_or_create_by(user: @cur_user, world: @selected_world)
 
     if @selected_world.current_players >= @selected_world.max_player.to_i
       flash[:notice] = 'World is full. Please join another world.'
@@ -80,6 +81,8 @@ class WorldsController < ApplicationController
 
   def leave_world
     @selected_world = World.find(params[:id])
+    UserWorld.find_by(user: @cur_user, world: @selected_world)
+
     if @selected_world.current_players.positive?
       @selected_world.update(current_players: @selected_world.current_players - 1)
     end

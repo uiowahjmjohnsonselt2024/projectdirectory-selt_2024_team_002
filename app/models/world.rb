@@ -10,6 +10,10 @@ require 'json'
 # represents the model class for the worlds object
 class World < ApplicationRecord
   has_many :gridsquares, dependent: :destroy
+
+  has_many :user_worlds, dependent: :destroy
+  has_many :users, through: :user_worlds
+
   validates :current_players, numericality: { greater_than_or_equal_to: 0 }
   before_create :init_current_players
   @@dim = 6 # rubocop:disable Style/ClassVars
