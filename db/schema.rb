@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_162011) do
     t.string "email"
     t.text "password_digest"
     t.text "session_token"
-    t.integer "available_credits"
+    t.integer "available_credits", default: 0
     t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
