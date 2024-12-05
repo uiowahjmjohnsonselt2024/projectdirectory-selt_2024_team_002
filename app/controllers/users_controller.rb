@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     if user
       user.generate_reset_password_token
       UserMailer.send_reset_password_email(user).deliver_now
-      flash[:notice] = 'Password reset email sent'
+      flash[:notice] = 'Password reset email sent!'
       return redirect_to users_login_path
     end
     flash[:alert] = 'User not found from the given email'
