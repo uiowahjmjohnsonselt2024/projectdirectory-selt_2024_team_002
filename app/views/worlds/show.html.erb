@@ -78,6 +78,13 @@
   </div>
 </div>
 
+<% if @quest && !@quest.completed %>
+  <div class="complete_quest_button_container">
+    <%= button_to 'Complete Quest', complete_quest_path(@quest.id), method: :post, class: "complete_quest_button" %>
+  </div>
+<% end %>
+
+
 <script>
     const currentXP = <%= @user_world[:xp] %>;
     const maxXP = 100; // Maximum XP
