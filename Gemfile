@@ -51,6 +51,7 @@ gem 'money-open-exchange-rates'
 gem 'credit_card_detector'
 
 # gem for sending mail
+gem 'good_job'
 gem 'sendgrid-ruby'
 
 group :development, :test do
