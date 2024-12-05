@@ -26,18 +26,25 @@
   <% (1..World.dim).each do |row| %>
     <% (1..World.dim).each do |col| %>
       <% if @data[row][col].image.attached? %>
-          <div class="grid_cell filled_cell" >
-            <%=image_tag(url_for(@data[row][col].image),class: "grid_image") %>
-            <div class="hidden"><%=row%>-<%=col%></div>
-          </div>
-        <% else %>
-          <div class="grid_cell filled_cell">
+        <div class="grid_cell filled_cell" >
+          <%= image_tag(url_for(@data[row][col].image), class: "grid_image") %>
+          <div class="hidden"><%= row %>-<%= col %></div>
+        </div>
+      <% else %>
+        <div class="grid_cell filled_cell">
           <div>No image</div>
-          <div class="hidden"><%=row%>-<%=col%></div>
-          </div>
-        <% end %>
+          <div class="hidden"><%= row %>-<%= col %></div>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>
+
+<% if @quest && !@quest.completed %>
+  <div class="complete_quest_button_container">
+    <%= button_to 'Complete Quest', complete_quest_path(@quest.id), method: :post, class: "complete_quest_button" %>
+  </div>
+<% end %>
+
 </body>
 </html>
