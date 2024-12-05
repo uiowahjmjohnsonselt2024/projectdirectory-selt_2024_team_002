@@ -2,7 +2,7 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - vendor/**/*
-    - db/**/*
+    - db/**/* 
     - app/helpers/**/*
 
 Metrics/ClassLength:

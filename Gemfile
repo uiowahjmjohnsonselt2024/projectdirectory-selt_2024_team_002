@@ -50,9 +50,8 @@ gem 'money-open-exchange-rates'
 # gem for credit card validation
 gem 'credit_card_detector'
 
-# gem for sending mail
 gem 'good_job'
-gem 'sendgrid-ruby'
+gem 'sendgrid-ruby' # gem for sending mail
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
