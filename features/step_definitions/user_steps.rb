@@ -23,8 +23,18 @@ When(/^I am on the Login page$/) do
   visit users_login_path
 end
 
+Given(/^I am on the Forgot Password page$/) do
+  visit forgot_password_path
+end
+
 When(/^I am on the Reset Password page$/) do
   visit reset_password_path
+end
+
+When(/^I am on the Reset Password page with correct credentials$/) do
+  user = User.find_by(email: 'admin@admin.com')
+  user.generate_reset_password_token
+  visit reset_password_path(token: user.reset_password_token)
 end
 
 When(/^I am on the home page$/) do

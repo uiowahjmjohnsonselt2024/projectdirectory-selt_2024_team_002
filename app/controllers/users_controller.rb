@@ -42,40 +42,38 @@ class UsersController < ApplicationController
     # renders the forgot password page
   end
 
-  def forgot_password_post
+  def send_reset_email
     # send email to user
-    email = params[:email]
-    user = User.find_by_email(email)
+    user = User.find_by_email(params[:email])
     if user
-      UserMailer.send_reset_password_email(email).deliver_now
-      flash[:notice] = 'Password reset email sent'
+      user.generate_reset_password_token
+      UserMailer.send_reset_password_email(user).deliver_now
+      flash[:notice] = 'Password reset email sent!'
       return redirect_to users_login_path
     end
-    flash[:alert] = 'User not found'
+    flash[:alert] = 'User not found from the given email'
     redirect_to users_login_path
   end
 
   def reset_password
-    # renders the reset password page
+    @user = User.find_by_reset_password_token(params[:token])
+    if @user.nil? || @user.invalid_reset_password_token?
+      flash[:alert] = 'Invalid or expired reset link'
+      redirect_to users_login_path
+    end
   end
 
-  def reset_password_post
-    # reset the password
-    if params[:confirm_new_password] != params[:new_password]
+  def update_password
+    @user = User.find_by_reset_password_token(params[:token])
+    if params[:new_password] != params[:confirm_new_password]
       flash[:alert] = 'Password confirmation must match'
-      return redirect_to users_login_path
+      return redirect_to new_user_path
     end
-    user = User.find_by_email(params[:email]) # temp solution, verify user by token in url or email *** NOT DONE
-    if user.nil?
-      flash[:alert] = 'Email is not associated with an existing user'
-      return redirect_to users_login_path
-    end
-    user.password = params[:new_password]
-    if user.valid? && user.save
+    if @user.update_password(params[:new_password])
       flash[:notice] = 'Password reset successful'
       return redirect_to users_login_path
     end
-    flash[:alert] = user.errors.empty? ? 'Something went wrong' : user.errors.full_messages.first
+    flash[:alert] = @user.errors.empty? ? 'Something went wrong' : @user.errors.full_messages.first
     redirect_to users_login_path
   end
 

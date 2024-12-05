@@ -53,6 +53,8 @@ Rails.application.configure do
     password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
   }
 
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000' # default host in development
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

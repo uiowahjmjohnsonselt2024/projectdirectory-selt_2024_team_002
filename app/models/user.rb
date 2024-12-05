@@ -40,6 +40,21 @@ class User < ApplicationRecord
     end
   end
 
+  def generate_reset_password_token
+    self.reset_password_token = SecureRandom.hex(32)
+    self.reset_password_sent_at = Time.now.utc
+    save
+  end
+
+  def invalid_reset_password_token?
+    reset_password_sent_at < 1.hour.ago # before an hour ~ more than an hour ago
+  end
+
+  def update_password(new_password)
+    self.password = new_password
+    save
+  end
+
   private
 
   # rubocop:disable all 
@@ -55,7 +70,7 @@ class User < ApplicationRecord
       special_char: { condition: ->(pwd) { pwd.match?(/[\W_]/) }, message: 'must include one special character' }
     }
     password_rules.each do |key, rule|
-      unless (rule[:condition].call(password))
+      unless rule[:condition].call(password)
         errors.add(:password, rule[:message])
         break
       end

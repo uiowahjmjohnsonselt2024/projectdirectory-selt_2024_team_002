@@ -83,6 +83,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "plus_user"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.index ["display_name"], name: "index_users_on_display_name", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true, where: "(session_token IS NOT NULL)"
   end
