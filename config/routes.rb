@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   # routes for worlds
   post 'worlds/join_world', to: 'worlds#join_world'
   post 'worlds/leave_world', to: 'worlds#leave_world'
+  post 'quests/complete', to: 'quests#complete', as: 'complete_quest'
   resources :worlds
   root to: redirect('/worlds')
 end

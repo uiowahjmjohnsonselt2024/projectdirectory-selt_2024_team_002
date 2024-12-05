@@ -14,6 +14,14 @@
 </div>
 <%= yield %>
 
+<div class="quest_container">
+  <% if @quest && !@quest.completed %>
+    <p>Quest: Go to cell (<%= @quest.cell_row %>, <%= @quest.cell_col %>)</p>
+  <% else %>
+    <p>No active quests</p>
+  <% end %>
+</div>
+
 <div class="grid_container">
   <% (1..World.dim).each do |row| %>
     <% (1..World.dim).each do |col| %>

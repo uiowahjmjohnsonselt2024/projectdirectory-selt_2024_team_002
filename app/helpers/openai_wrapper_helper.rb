@@ -61,7 +61,7 @@ module OpenaiWrapperHelper
 
     def build_dalle_body(text)
       {
-        prompt: "#{text} in minimalist, video game style. Include no text in the image",
+        prompt: "#{text} in minimalist style",
         n: 1,
         size: '256x256'
       }.to_json

@@ -30,6 +30,13 @@ class World < ApplicationRecord
     @@dim
   end
 
+  def generate_quest_for(user)
+    user_world = user.user_worlds.find_by(world: self)
+    return unless user_world
+
+    Quest.generate_for(user_world)
+  end
+
   private
 
   def initialize_grid
