@@ -28,6 +28,7 @@ class WorldsController < ApplicationController
       @data[cell.row] ||= {}
       @data[cell.row][cell.col] = cell
     end
+    @quest = @world.generate_quest_for(@cur_user)
 
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
