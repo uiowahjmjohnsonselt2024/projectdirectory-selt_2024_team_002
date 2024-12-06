@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_061808) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_06_215950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -170,6 +170,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_061808) do
     t.integer "xp", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "seen", default: [], array: true
+    t.integer "user_row", default: 1
+    t.integer "user_col", default: 1
     t.index ["user_id", "world_id"], name: "index_user_worlds_on_user_id_and_world_id", unique: true
     t.index ["user_id"], name: "index_user_worlds_on_user_id"
     t.index ["world_id"], name: "index_user_worlds_on_world_id"
