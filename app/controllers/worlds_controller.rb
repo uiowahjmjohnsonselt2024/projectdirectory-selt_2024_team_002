@@ -28,9 +28,13 @@ class WorldsController < ApplicationController
       @data[cell.row][cell.col] = cell
     end
     @quest = @world.generate_quest_for(@cur_user)
-    if @quest
-      @quest_description = @data[@quest.cell_row][@quest.cell_col][:description]
-      @random_quest_message = @quest.random_quest_message(@quest_description)
+    if @quest 
+      if @quest.trivia_question
+        @random_quest_message = 'Answer the following question to complete the quest:'
+      else
+        @quest_description = @data[@quest.cell_row][@quest.cell_col].description
+        @random_quest_message = @quest.random_quest_message(@quest_description)
+      end
     end
   end
 

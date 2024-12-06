@@ -34,7 +34,11 @@ class World < ApplicationRecord
     user_world = user.user_worlds.find_by(world: self)
     return unless user_world
 
-    Quest.generate_for(user_world)
+    if rand < 0.5
+      Quest.generate_movement_for(user_world)
+    else
+      Quest.generate_trivia_for(user_world)
+    end
   end
 
   private
