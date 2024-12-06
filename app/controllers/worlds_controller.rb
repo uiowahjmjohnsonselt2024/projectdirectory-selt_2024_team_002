@@ -34,6 +34,7 @@ class WorldsController < ApplicationController
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     if @quest
       @quest_description = @data[@quest.cell_row][@quest.cell_col][:description]
+      @random_quest_message = @quest.random_quest_message(@quest_description)
     end
   end
 
