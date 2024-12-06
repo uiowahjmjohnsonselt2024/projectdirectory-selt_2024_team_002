@@ -1,5 +1,4 @@
 # this class polls image generation requests from the openai table
-require 'concurrent'
 class OpenaiPollerJob < ApplicationJob
   queue_as :default
 
