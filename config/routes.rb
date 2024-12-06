@@ -45,9 +45,14 @@ Rails.application.routes.draw do
   # routes for worlds
   post 'worlds/join_world', to: 'worlds#join_world'
   post 'worlds/leave_world', to: 'worlds#leave_world'
-  post 'quests/:id/complete', to: 'quests#complete', as: 'complete_quest'
   resources :worlds
   root to: redirect('/worlds')
+
+  # routes for quests
+  post 'quests/:id/complete', to: 'quests#complete', as: 'complete_quest'
+  resources :quests do
+    post 'complete_trivia', on: :member
+  end
 
   # routes for game
   post '/worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'

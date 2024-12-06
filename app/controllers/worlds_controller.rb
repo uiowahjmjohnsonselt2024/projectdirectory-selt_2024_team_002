@@ -33,8 +33,12 @@ class WorldsController < ApplicationController
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     if @quest
-      @quest_description = @data[@quest.cell_row][@quest.cell_col][:description]
-      @random_quest_message = @quest.random_quest_message(@quest_description)
+      if @quest.trivia_question
+        @random_quest_message = 'Answer the following question to complete the quest:'
+      else
+        @quest_description = @data[@quest.cell_row][@quest.cell_col].description
+        @random_quest_message = @quest.random_quest_message(@quest_description)
+      end
     end
   end
 
