@@ -170,7 +170,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_215950) do
     t.integer "xp", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "seen", default: [], array: true
+    t.string "seen", default: [["0", "0"]], array: true
     t.integer "user_row", default: 1
     t.integer "user_col", default: 1
     t.index ["user_id", "world_id"], name: "index_user_worlds_on_user_id_and_world_id", unique: true
