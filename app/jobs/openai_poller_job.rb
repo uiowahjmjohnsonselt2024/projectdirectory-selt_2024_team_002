@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # this class polls image generation requests from the openai table
 class OpenaiPollerJob < ApplicationJob
   queue_as :default
-
-  def perform(*arg)
+  # rubocop:disable Metrics/MethodLength
+  def perform(*_arg)
     jobs = OpenaiEvent.where(in_progress: false).limit(1)
     Rails.logger.info(jobs)
     jobs.each do |event|
@@ -17,3 +19,4 @@ class OpenaiPollerJob < ApplicationJob
     end
   end
 end
+# rubocop:enable Metrics/MethodLength
