@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_040326) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_06_222756) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_040326) do
     t.boolean "filled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
 
