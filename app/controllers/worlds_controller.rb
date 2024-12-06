@@ -32,6 +32,9 @@ class WorldsController < ApplicationController
 
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    if @quest
+      @quest_description = @data[@quest.cell_row][@quest.cell_col][:description]
+    end
   end
 
   def index

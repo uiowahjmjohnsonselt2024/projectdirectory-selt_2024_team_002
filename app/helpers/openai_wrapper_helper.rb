@@ -12,7 +12,7 @@ module OpenaiWrapperHelper
       return unless text_prompt
 
       uri = generate_image_ai(text_prompt)
-      download_and_attach_image(uri, row, col, world)
+      download_and_attach_image(uri, row, col, world, text_prompt)
     end
 
     private
@@ -86,7 +86,7 @@ module OpenaiWrapperHelper
     end
 
     # rubocop: disable Metrics/MethodLength
-    def download_and_attach_image(image_uri, row, col, world)
+    def download_and_attach_image(image_uri, row, col, world, description)
       image_response = Net::HTTP.get_response(URI(image_uri))
       unless (200..299).include?(image_response.code.to_i)
         logstr = "Call to DALL-E failed with HTTP status code: #{image_response.code.to_i}, error: #{image_response.body}"
@@ -105,6 +105,7 @@ module OpenaiWrapperHelper
       # This will attach the image and upload it to either S3 (production) or disk (development/test)
       gridsquare = world.gridsquares.where(row: row, col: col).first
       gridsquare.image.attach(new_image)
+      gridsquare.update(description: description)
     end
     # rubocop: enable Metrics/MethodLength
   end
