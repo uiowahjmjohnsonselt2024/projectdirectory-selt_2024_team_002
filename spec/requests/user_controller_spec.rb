@@ -456,6 +456,23 @@ RSpec.describe 'Users', type: :request do
       end
     end
   end
+
+  describe 'update password' do 
+    before do 
+      @usr = instance_double(User)
+      allow(User).to receive(:find_by_reset_password_token).and_return(@usr)
+    end
+    it 'redirects to login when the confirmation does not match' do
+      post users_update_password_path, params: { new_password: 'alex', confirm_new_password: 'ahahah' }
+      expect(response).to redirect_to users_login_path
+    end
+    
+    it 'updates the password when they do' do
+      post users_update_password_path, params: { new_password: 'alex', confirm_new_password: 'alex' }
+      allow(@usr).to receive(:update_password)
+      expect(response).to redirect_to users_login_path
+    end
+  end
 end
 # rubocop:enable RSpec/InstanceVariable
 # rubocop:enable Metrics/BlockLength

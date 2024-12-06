@@ -4,6 +4,7 @@ AllCops:
     - vendor/**/*
     - db/**/* 
     - app/helpers/**/*
+    - spec/**/*
 
 Metrics/ClassLength:
   Enabled: false

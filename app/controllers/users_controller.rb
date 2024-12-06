@@ -65,9 +65,12 @@ class UsersController < ApplicationController
 
   def update_password
     @user = User.find_by_reset_password_token(params[:token])
+
+    return redirect_to users_login_path unless @user.nil?
+
     if params[:new_password] != params[:confirm_new_password]
       flash[:alert] = 'Password confirmation must match'
-      return redirect_to new_user_path
+      return redirect_to users_login_path
     end
     if @user.update_password(params[:new_password])
       flash[:notice] = 'Password reset successful'
