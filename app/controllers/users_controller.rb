@@ -70,7 +70,7 @@ class UsersController < ApplicationController
 
     if params[:new_password] != params[:confirm_new_password]
       flash[:alert] = 'Password confirmation must match'
-      return redirect_to users_login_path
+      return redirect_to new_user_path
     end
     if @user.update_password(params[:new_password])
       flash[:notice] = 'Password reset successful'
