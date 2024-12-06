@@ -16,7 +16,7 @@
 
 <div class="quest_container">
   <% if @quest && !@quest.completed %>
-    <p>Quest: Go to cell with description "<%= @quest_description %>"</p>
+    <p>Quest: <%= @random_quest_message %></p>
   <% else %>
     <p>No active quests</p>
   <% end %>

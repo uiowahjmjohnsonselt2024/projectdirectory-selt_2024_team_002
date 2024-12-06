@@ -30,6 +30,7 @@ class WorldsController < ApplicationController
     @quest = @world.generate_quest_for(@cur_user)
     if @quest
       @quest_description = @data[@quest.cell_row][@quest.cell_col][:description]
+      @random_quest_message = @quest.random_quest_message(@quest_description)
     end
   end
 

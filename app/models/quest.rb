@@ -16,6 +16,19 @@ class Quest < ApplicationRecord
         completed: false
       )
     end
+
+    def random_quest_message(description)
+      quest_messages = [
+        "Find the sword in the #{description}",
+        "Find the treasure in the #{description}",
+        "Find the key in the #{description}",
+        "Find the potion in the #{description}",
+        "I'm looking for my cat in the #{description}",
+        "I'm looking for my dog in the #{description}"
+      ]
+
+      quest_messages.sample
+    end
   
     def complete
       user_world.user.increment!(:available_credits, 5)
