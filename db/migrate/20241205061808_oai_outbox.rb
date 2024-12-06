@@ -5,6 +5,7 @@ class OaiOutbox < ActiveRecord::Migration[7.1]
       t.references :world, null: false, foreign_key: true
       t.integer :row, null: false
       t.integer :col, null: false
+      t.boolean :in_progress, null: false, default: false
       t.timestamps # created at
     end
 

@@ -6,13 +6,24 @@ module OpenaiWrapperHelper
   @@dim = World.dim
 
   class << self
-    def create_square(row, col, world)
+    def create_square(row, col, world, event)
+      Rails.logger.info("OpenAI wrapper create_square called")
       # calls to openai, generates an image and attatches it.
       text_prompt = generate_text_description(row, col)
-      return unless text_prompt
-
+      if text_prompt.blank?
+        event.in_progress = false
+        event.save!
+        return
+      end
+    
       uri = generate_image_ai(text_prompt)
-      download_and_attach_image(uri, row, col, world)
+      if uri.blank?
+        event.in_progress = false
+        event.save!
+        return
+      end
+      
+      download_and_attach_image(uri, row, col, world,event)
     end
 
     private
@@ -50,6 +61,7 @@ module OpenaiWrapperHelper
       unless (200..299).include?(response.code.to_i)
         logstr = "call to GPT 3.5 failed with http status code: #{response.code.to_i}, error: #{response.body}"
         Rails.logger.error(logstr)
+        
         return
       end
 
@@ -86,7 +98,7 @@ module OpenaiWrapperHelper
     end
 
     # rubocop: disable Metrics/MethodLength
-    def download_and_attach_image(image_uri, row, col, world)
+    def download_and_attach_image(image_uri, row, col, world,event)
       image_response = Net::HTTP.get_response(URI(image_uri))
       unless (200..299).include?(image_response.code.to_i)
         logstr = "Call to DALL-E failed with HTTP status code: #{image_response.code.to_i}, error: #{image_response.body}"
@@ -105,6 +117,8 @@ module OpenaiWrapperHelper
       # This will attach the image and upload it to either S3 (production) or disk (development/test)
       gridsquare = world.gridsquares.where(row: row, col: col).first
       gridsquare.image.attach(new_image)
+      Rails.logger.info("deleting row: #{row}, col: #{col}, world_id: #{world.id}")
+      event.destroy!
     end
     # rubocop: enable Metrics/MethodLength
   end

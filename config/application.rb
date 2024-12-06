@@ -14,7 +14,11 @@ module ProjectdirectorySelt2024Team002
   # The rails application for Team 2's game.
   class Application < Rails::Application
     config.active_job.queue_adapter = :good_job
-    config.good_job.cron = { example: { cron: '* * * * *', class: 'OpenaiPollerJob' } }
+    config.good_job.cron = { j1: { cron: '* * * * *', class: 'OpenaiPollerJob' },
+                             j2: { cron: '* * * * *', class: 'OpenaiPollerJob' },
+                             j3: { cron: '* * * * *', class: 'OpenaiPollerJob' },
+                             j4: { cron: '* * * * *', class: 'OpenaiPollerJob' } }
+    config.good_job.preserve_job_records = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

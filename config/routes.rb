@@ -46,4 +46,5 @@ Rails.application.routes.draw do
   post 'worlds/leave_world', to: 'worlds#leave_world'
   resources :worlds
   root to: redirect('/worlds')
+  mount GoodJob::Engine => 'good_job' if ENV['RAILS_ENV'] != 'production'
 end
