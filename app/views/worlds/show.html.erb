@@ -18,16 +18,23 @@
   <% (1..World.dim).each do |row| %>
     <% (1..World.dim).each do |col| %>
       <% if @data[row][col].image.attached? %>
-          <div class="grid_cell filled_cell" >
-            <%=image_tag(url_for(@data[row][col].image),class: "grid_image") %>
-            <div class="hidden"><%=row%>-<%=col%></div>
-          </div>
-        <% else %>
-          <div class="grid_cell filled_cell">
-          <div>No image</div>
+        <div class="grid_cell filled_cell" >
+          <% if row == @pos_row && col == @pos_col%>
+            <div class="here"></div>
+          <% end %>
+          <%=image_tag(url_for(@data[row][col].image),class: "grid_image") %>
           <div class="hidden"><%=row%>-<%=col%></div>
-          </div>
+        </div>
+      <% elsif !@data[row][col].image.attached? %>
+        <% if row == @pos_row && col == @pos_col%>
+          <div class="here">You are here</div>
         <% end %>
+        <div class="grid_cell filled_cell">
+        <div>No image</div>
+        <div class="hidden"><%=row%>-<%=col%></div>
+        </div>
+      <% end %>
+        
     <% end %>
   <% end %>
 </div>

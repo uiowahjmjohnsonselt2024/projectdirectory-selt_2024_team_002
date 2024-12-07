@@ -22,6 +22,8 @@ class WorldsController < ApplicationController
     @world = World.find(id)
     @world.init_if_not_inited
     @data = {}
+    @pos_row = UserWorld.where(user_id: @cur_user.id).first.user_row
+    @pos_col = UserWorld.where(user_id: @cur_user.id).first.user_col
     grid_arr = @world.gridsquares.to_ary
     grid_arr.each do |cell|
       @data[cell.row] ||= {}

@@ -31,12 +31,9 @@ class World < ApplicationRecord
     (1..@@dim).each do |row|
       (1..@@dim).each do |col|
         gridsquares.create!(row: row, col: col)
+        OpenaiEvent.new(row: row, col: col, world_id: id).save!
       end
     end
-    # only these squares or we get rate limited.
-    OpenaiEvent.new(row: 2, col: 1, world_id: id).save!
-    OpenaiEvent.new(row: 1, col: 1, world_id: id).save!
-    OpenaiEvent.new(row: 1, col: 2, world_id: id).save!
   end
 
   def init_current_players
