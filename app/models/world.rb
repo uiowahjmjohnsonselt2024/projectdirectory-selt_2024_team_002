@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
-require 'concurrent'
-
 # The world that a user can join, including functions to initialize and
 # update/retrieve information from a displayed grid.
-require 'net/http'
-require 'json'
-
 # represents the model class for the worlds object
 class World < ApplicationRecord
   has_many :gridsquares, dependent: :destroy
@@ -39,10 +34,9 @@ class World < ApplicationRecord
       end
     end
     # only these squares or we get rate limited.
-    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(1, 1, self) }
-    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(2, 1, self) }
-    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(2, 2, self) }
-    Concurrent::Future.execute { OpenaiWrapperHelper.create_square(1, 2, self) }
+    OpenaiEvent.new(row: 2, col: 1, world_id: id).save!
+    OpenaiEvent.new(row: 1, col: 1, world_id: id).save!
+    OpenaiEvent.new(row: 1, col: 2, world_id: id).save!
   end
 
   def init_current_players

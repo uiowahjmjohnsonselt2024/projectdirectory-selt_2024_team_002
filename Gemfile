@@ -13,9 +13,8 @@ gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 
-gem 'terser'
-
 gem 'concurrent-ruby', require: 'concurrent'
+gem 'terser'
 
 gem 'puma'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -50,8 +49,8 @@ gem 'money-open-exchange-rates'
 # gem for credit card validation
 gem 'credit_card_detector'
 
-# gem for sending mail
-gem 'sendgrid-ruby'
+gem 'good_job'
+gem 'sendgrid-ruby' # gem for sending mail
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
