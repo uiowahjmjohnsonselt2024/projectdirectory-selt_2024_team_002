@@ -11,15 +11,11 @@ module OpenaiWrapperHelper
       # calls to openai, generates an image and attatches it.
       text_prompt = generate_text_description(row, col)
       if text_prompt.blank?
-        event.in_progress = false
-        event.save!
         return
       end
     
       uri = generate_image_ai(text_prompt)
       if uri.blank?
-        event.in_progress = false
-        event.save!
         return
       end
       

@@ -13,6 +13,7 @@ gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 
+gem 'concurrent-ruby', require: 'concurrent'
 gem 'terser'
 
 gem 'puma'

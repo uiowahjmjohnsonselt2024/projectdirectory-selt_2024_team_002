@@ -17,7 +17,7 @@ class UserWorld < ApplicationRecord
     errors.add(attr, 'user col position must be in range') unless (1..World.dim).include?(user_row)
   end
 
-  def self.find_known_squares(userId, worldid)
-    UserWorld.where(user_id: userId, world_id: worldid)
+  def self.find_known_squares(user_id, world_id)
+    UserWorld.where(user_id: user_id, world_id: world_id)
   end
 end

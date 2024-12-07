@@ -456,6 +456,7 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails
+  concurrent-ruby
   credit_card_detector
   cucumber-rails
   database_cleaner
