@@ -7,29 +7,77 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="game_toolbar">
-  <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
-  <span class="world_id">World ID: <%= @world[:world_code] %></span>
-  <span class="world_name">World Name: <%= @world[:world_name] %></span>
-</div>
-<%= yield %>
+<div>
+  <div class="game_toolbar">
+    <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
+    <span class="world_id">World ID: <%= @world[:world_code] %></span>
+    <span class="world_name">World Name: <%= @world[:world_name] %></span>
+  </div>
 
-<div class="grid_container">
-  <% (1..World.dim).each do |row| %>
-    <% (1..World.dim).each do |col| %>
-      <% if @data[row][col].image.attached? %>
+
+  <div class="grid_container">
+    <% (1..World.dim).each do |row| %>
+      <% (1..World.dim).each do |col| %>
+        <% if @data[row][col].image.attached? %>
           <div class="grid_cell filled_cell" >
-            <%=image_tag(url_for(@data[row][col].image),class: "grid_image") %>
+            <%= image_tag(url_for(@data[row][col].image), class: "grid_image") %>
             <div class="hidden"><%=row%>-<%=col%></div>
           </div>
         <% else %>
           <div class="grid_cell filled_cell">
-          <div>No image</div>
-          <div class="hidden"><%=row%>-<%=col%></div>
+            <div>No image</div>
+            <div class="hidden"><%=row%>-<%=col%></div>
           </div>
         <% end %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+
+  <div class="game-ui">
+    <%= form_tag "/worlds/game/cell_quest", method: :post, id: 'quest_form' do %>
+      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+      <%= button_to 'Quest', "", method: :post, id: "quest_log_button", class: "game_button"%>
+    <% end %>
+    <%= form_tag "/worlds/game/cell_action", method: :post, id: 'action_form' do %>
+      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+      <%= button_to 'Action', "", method: :post, id: "action_engage_button", class: "game_button"%>
+    <% end %>
+    <%= form_tag "/worlds/game/cell_shop", method: :post, id: 'shop_form' do %>
+      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+      <%= button_to 'Shop', "", method: :post, id: "shop_log_button", class: "game_button"%>
+    <% end %>
+  </div>
+
+  <div class="scroll-independent-div-cl">
+    <div class="floating-blob">
+      <p>Level 1</p>
+      <p>Cell (<% @user_world[:user_row] %>, <% @user_world[:user_col] %>)</p>
+    </div>
+  </div>
+  <div class="scroll-independent-div-cr">
+    <div class="floating-blob">
+      <p id="xp-text"></p>
+      <div class="xp-bar-container">
+        <div class="xp-bar" id="xp-bar">
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+    const currentXP = <%= @user_world[:xp] %>; // Current XP
+    const maxXP = 100; // Maximum XP
+    const xpBar = document.getElementById('xp-bar');
+    const xpText = document.getElementById('xp-text');
+
+    // Set the width of the XP bar
+    xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
+
+    // Update the XP text
+    xpText.textContent = `XP: ${currentXP}/${maxXP}`;
+</script>
+
 </body>
 </html>

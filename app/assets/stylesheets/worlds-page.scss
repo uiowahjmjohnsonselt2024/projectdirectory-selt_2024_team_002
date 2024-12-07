@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  border-bottom: 1px solid #ccc;
+  background-color: #718ca5;
   overflow: hidden;
 }
 
@@ -100,10 +100,28 @@ body {
   right: 25px;
 }
 
+.scroll-independent-div-bl {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+}
+
 .scroll-independent-div-tl {
   position: fixed;
   top: 10px;
   left: 10px;
+}
+
+.scroll-independent-div-cl {
+  position: fixed;
+  left: 10px;
+  top: 30%;
+}
+
+.scroll-independent-div-cr {
+  position: fixed;
+  right: 10px;
+  top: 30%;
 }
 
 .lower-div-after-nav {

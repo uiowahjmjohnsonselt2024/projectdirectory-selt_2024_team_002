@@ -17,7 +17,6 @@
   height: 100px;
   padding: 10px;
   background-color: #718ca5;
-  margin-bottom: 20px;
 }
 
 .center-stack {
@@ -54,4 +53,23 @@
   align-items: center;
   position: relative;
   left: 0;
+}
+
+.game-ui {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1999ae;
+  border: 5px solid #2e7195;
+  padding: 10px;
+  margin-right: 3px;
+  font-size: 20px;
+  font-weight: bold;
+  position: fixed;
+  z-index: 10;
+  width: 75%;
+  bottom: 0;
+  left: 11%;
+  border-radius: 10px;
+  zoom: 1.25;
 }
