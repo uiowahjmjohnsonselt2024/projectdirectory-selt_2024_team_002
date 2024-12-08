@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       return redirect_to users_login_path
     end
     flash[:alert] = 'User not found from the given email'
-    redirect_to users_login_path
+    redirect_to forgot_password_path
   end
 
   def reset_password
