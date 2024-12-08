@@ -69,28 +69,26 @@ describe WorldsController do
 
     # rubocop:disable RSpec/VerifiedDoubles
     it 'renders the show template on show call' do
-      world = double('world')
+      world = instance_double('World')
       collection = double('col')
       gridsquare = double('gs')
       image = double('image')
+      allow(World).to receive(:dim).and_return(1) # Mock the class method
       allow(world).to receive_messages(
-        dim: 1,
         init_if_not_inited: world,
         gridsquares: collection,
         id: 0,
-        "[]": 0
+        "[]": 0,
+        generate_quest_for: nil
       )
-      allow(World).to receive_messages(
-        find: world,
-        dim: 1
-      )
+      allow(collection).to receive(:to_ary).and_return([gridsquare])
       allow(gridsquare).to receive_messages(
         row: 1,
         col: 1,
         image: image
       )
       allow(image).to receive(:attached?).and_return(false)
-      allow(collection).to receive(:to_ary).and_return([gridsquare])
+      allow(World).to receive(:find).and_return(world)
       get '/worlds/1'
       expect(response).to render_template('show')
     end
