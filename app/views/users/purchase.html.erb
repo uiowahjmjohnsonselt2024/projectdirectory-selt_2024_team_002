@@ -13,13 +13,15 @@
     </div>
 
     <div class="center-stack">
-      <h1 style="font-size: 35px; margin: 15px 0 0;">Shop</h1>
+      <h1 style="font-size: 35px; margin: 20px 10px 10px;">Shop</h1>
+
     </div>
     <div class="right-stack">
       <div class="box-numeric">
         <%= if @user.available_credits == nil
               0 else @user.available_credits end %>
       </div>
+      <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "small_button highlight_button"%>
     </div>
   </div>
 

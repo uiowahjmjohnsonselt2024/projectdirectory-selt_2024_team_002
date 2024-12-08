@@ -1,35 +1,62 @@
-<%= stylesheet_link_tag 'login-logout', media: 'all', 'data-turbolinks-track' => true %>
-<div class="container">
-  <% if flash[:alert] %>
-      <div class="alert signup_alert_box">
-        <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg></div>
-        <div class="alert_spacer"></div>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Path of the Chosen</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="profile_toolbar">
+  <div class="scroll-independent-div-tl">
+    <%= button_to '<', users_login_path, method: :get, id: "return_button", class: "big-circle-button"%>
+  </div>
+  <div class="center-stack">
+    <h1 style="font-size: 35px; margin: 20px 10px 10px;">Path of the Chosen</h1>
+  </div>
+</div>
+
+<div class="lower-div-after-nav">
+  <div id="flash">
+    <% if flash[:alert] %>
+      <div class="alert world-creation-alert-box">
+        <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+        </svg></div>
         <%= flash[:alert] %>
       </div>
     <% end %>
-  <div class="center_container">
+  </div>
+  <div class="world_add_form">
     <%= form_tag "/users/", class: "form", method: :post do %>
       <h1 class="signup_text">Sign Up</h1>
-      <div class="form_element_container full_width_respect_padding">
+      <div style="margin-top: 10px">
         <label for="user_user_name">Username:</label>
         <input type="text" name="user[user_name]" id="user_user_name" class="full_width_respect_padding textbox">
       </div>
-      <div class="form_element_container full_width_respect_padding">
+      <div>
         <label for="user_email">Email:</label>
         <input type="text" name="user[email]" id="user_email" class="full_width_respect_padding textbox">
       </div>
-      <div class="form_element_container full_width_respect_padding">
+      <div>
         <label for="user_password">Password:</label>
         <input type="password" name="user[password]" id="user_password" class="full_width_respect_padding textbox">
       </div>
-      <div class="form_element_container full_width_respect_padding">
+      <div>
         <label for="user_password_confirmation">Confirm Password:</label>
         <input type="password" name="user[password_confirmation]" id="user_password_confirmation" class="full_width_respect_padding textbox">
       </div>
-      <div class="spacer"></div>
       <button class="highlight_button login">Sign Up</button>
-      <div class="spacer"></div>
-      <a href="/users/login" class="secondary_button login"><button class="secondary_button login">Back to Log In</button></a>
     <% end %>
   </div>
 </div>
+
+<script>
+      $(document).ready(function(){
+            setTimeout(function(){
+                  $('#flash').fadeOut();
+            }, 2000);
+      })
+</script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # WorldController performs basic operations for world generation and state storage.
+# rubocop:disable all
 class WorldsController < ApplicationController
   before_action :authenticate_user
 
@@ -29,6 +30,9 @@ class WorldsController < ApplicationController
       @data[cell.row] ||= {}
       @data[cell.row][cell.col] = cell
     end
+
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
   end
 
   def index
@@ -40,6 +44,7 @@ class WorldsController < ApplicationController
   end
 
   def new
+    @cur_user = User.find_user_by_session_token(cookies[:session])
     # default: render 'new' template
   end
 
@@ -88,6 +93,7 @@ class WorldsController < ApplicationController
     if @selected_world.current_players.positive?
       @selected_world.update(current_players: @selected_world.current_players - 1)
     end
+
     redirect_to worlds_path
   end
 

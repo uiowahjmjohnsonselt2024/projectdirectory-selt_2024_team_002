@@ -8,6 +8,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="profile_toolbar">
+  <div class="scroll-independent-div-tl">
+    <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+  </div>
+
+  <div class="center-stack">
+    <h1 style="font-size: 35px; margin: 20px 10px 10px;">Shop</h1>
+  </div>
+  <div class="right-stack">
+    <div class="box-numeric">
+      <%= if @user.available_credits == nil
+            0 else @user.available_credits end %>
+    </div>
+  </div>
+</div>
+<div class="lower-div-after-nav">
   <div id="flash_messages">
     <% if flash[:notice] %>
       <div class="alert notice"><%= flash[:notice] %></div>
@@ -19,15 +35,18 @@
 
   <div class="purchase-plus-box">
     <h1>Purchase Plus User Access</h1>
-    <p>Cost: 100 Shards</p>
+    <p style="font-size: 20px">Cost: 100 Shards</p>
     <% if @user.plus_user? %>
-      <p>You already have Plus User access</p>
+      <p style="font-size: 20px">You already have Plus User access</p>
     <% else %>
       <%= form_tag "/users/purchase_plus_user", method: :post do %>
         <button type="submit" class="button">Purchase Plus User Access</button>
       <% end %>
     <% end %>
-    <%= button_to 'Back to Worlds', worlds_path, method: :get, class: "button" %>
+    <%= button_to 'Back to Worlds', worlds_path, method: :get, class: "small_button highlight_button" %>
   </div>
+</div>
+
+
 </body>
 </html>
