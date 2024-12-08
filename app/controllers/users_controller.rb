@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       return redirect_to users_login_path
     end
     flash[:alert] = 'User not found from the given email'
-    redirect_to users_login_path
+    redirect_to forgot_password_path
   end
 
   def reset_password
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
       return redirect_to users_login_path
     end
     flash[:alert] = @user.errors.empty? ? 'Something went wrong' : @user.errors.full_messages.first
-    redirect_to users_login_path
+    redirect_to reset_password_path
   end
 
   def get_session
@@ -84,7 +84,8 @@ class UsersController < ApplicationController
       cookies[:session] = { value: @user.session_token, expires: 1.week.from_now }
       return redirect_to worlds_path
     end
-    flash[:alert] = 'Incorrect username or password'
+    flash[:notice] = 'Incorrect username or password'
+
     redirect_to users_login_path
   end
 
@@ -100,15 +101,21 @@ class UsersController < ApplicationController
       flash[:notice] = 'No amount of shard indicated.'
       redirect_to users_purchase_path
     else
-      flash.clear
-      @currency = currency.upcase
-      shard_usd_price = 0.75 # default price in USD
-      @rate = (ShardsHelper.get_shard_conversion(@currency) * shard_usd_price).round(2)
-      @amount = (Integer(shards) * @rate).round(2)
-      @num_of_shards = Integer(shards)
+      begin
+        raise(ArgumentError) unless shards.match?(/\A\d+\z/)
+        flash.clear
+        @currency = currency.upcase
+        shard_usd_price = 0.75 # default price in USD
+        @rate = (ShardsHelper.get_shard_conversion(@currency) * shard_usd_price).round(2)
+        @amount = (Integer(shards) * @rate).round(2)
+        @num_of_shards = Integer(shards)
 
-      respond_to do |format|
-        format.js
+        respond_to do |format|
+          format.js
+        end
+      rescue ArgumentError
+        flash[:notice] = "Input is not a number. Please try again."
+        redirect_to users_purchase_path
       end
     end
   end
