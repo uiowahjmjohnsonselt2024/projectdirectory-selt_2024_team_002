@@ -111,7 +111,7 @@
           <h3><%= friend.display_name %></h3>
         </div>
         <div class="friend_right">
-          <% world = @private_worlds[1]%>
+          <% world = @private_worlds[0]%>
           <%= button_to 'Invite to world', users_world_invite_path(friend_id: friend.id, world_id: world.id), method: :post, :remote => true, :class => "secondary_button" %>
         </div>
       </div>

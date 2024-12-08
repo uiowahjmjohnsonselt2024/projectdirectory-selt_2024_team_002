@@ -298,10 +298,6 @@ class UsersController < ApplicationController
 
     existing_world = UserWorld.find_by(user_id: cur_user.id, world_id: @world.id)
     world = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
-    puts "existing"
-    puts existing_world
-    puts "world"
-    puts world
     if world.save
       flash[:notice] = "A world invite has been sent!"
       redirect_to worlds_path

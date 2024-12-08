@@ -36,7 +36,8 @@ class WorldsController < ApplicationController
   def index
     flash.discard
     @public_worlds = World.where(is_public: true)
-    @private_worlds = World.where(is_public: false)
+    @private_worlds = World.joins(:user_worlds)
+                           .where(is_public: false, user_worlds: { user: @cur_user, request: false })
     @friends = User.where(id: Friendship.friend_ids(@cur_user))
     @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
   end
@@ -55,6 +56,7 @@ class WorldsController < ApplicationController
       redirect_to new_world_path
     else
       @world = World.create!(new_params)
+      UserWorld.create(user: @cur_user, world: @world)
       flash[:notice] = 'World was successfully created.'
       redirect_to worlds_path
     end
@@ -77,11 +79,6 @@ class WorldsController < ApplicationController
       @selected_world.update(current_players: @selected_world.current_players + 1)
       redirect_to world_path(@selected_world)
     end
-  end
-
-  def add_world
-    @world = World.create!(new_params)
-    redirect_to new_world_path
   end
 
   def leave_world

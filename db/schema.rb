@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
     t.bigint "user_id", null: false
     t.bigint "world_id", null: false
     t.integer "xp", default: 0, null: false
-    t.boolean "request", null: false
+    t.boolean "request", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "world_id"], name: "index_user_worlds_on_user_id_and_world_id", unique: true

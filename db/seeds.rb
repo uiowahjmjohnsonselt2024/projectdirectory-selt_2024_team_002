@@ -22,3 +22,8 @@ users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_nam
 users.each do |user|
   User.create!(user)
 end
+
+user_worlds = [{ world: World.where(world_name: 'Test World 2').first, user: User.find_user_by_display_name('admin') }]
+user_worlds.each do |user_world|
+  UserWorld.create!(user_world)
+end
