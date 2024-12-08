@@ -74,7 +74,7 @@ class UsersController < ApplicationController
       return redirect_to users_login_path
     end
     flash[:alert] = @user.errors.empty? ? 'Something went wrong' : @user.errors.full_messages.first
-    redirect_to users_login_path
+    redirect_to reset_password_path
   end
 
   def get_session

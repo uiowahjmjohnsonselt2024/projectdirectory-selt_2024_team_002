@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for handling user-world actions.
 class UsersWorldsController < ApplicationController
   before_action :authenticate_user
 

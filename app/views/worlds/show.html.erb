@@ -51,7 +51,7 @@
   <div class="scroll-independent-div-cl">
     <div class="floating-blob">
       <p>Level 1</p>
-      <p>Cell (<% @user_world[:user_row] %>, <% @user_world[:user_col] %>)</p>
+      <p>Cell (1, 1)</p>
     </div>
   </div>
   <div class="scroll-independent-div-cr">
@@ -67,7 +67,7 @@
 </div>
 
 <script>
-    const currentXP = <%= @user_world[:xp] %>; // Current XP
+    const currentXP = <%= @user_world[:xp] %>;
     const maxXP = 100; // Maximum XP
     const xpBar = document.getElementById('xp-bar');
     const xpText = document.getElementById('xp-text');

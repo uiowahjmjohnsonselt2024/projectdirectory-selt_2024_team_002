@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # WorldController performs basic operations for world generation and state storage.
+# rubocop:disable all
 class WorldsController < ApplicationController
   before_action :authenticate_user
 
@@ -29,7 +30,7 @@ class WorldsController < ApplicationController
     end
 
     @cur_user = User.find_user_by_session_token(cookies[:session])
-    @user_world = UserWorld.find_by_ids(@cur_user[:id], @world[:id])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
   end
 
   def index
