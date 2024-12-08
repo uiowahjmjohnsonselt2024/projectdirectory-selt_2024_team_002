@@ -39,6 +39,7 @@
   <button class="tab_links" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
   <button class="tab_links" onclick="openTab(event, 'friend_list')">Friends</button>
   <button class="tab_links" onclick="openTab(event, 'friend_requests')">Friend Requests</button>
+  <button class="tab_links" onclick="openTab(event, 'world_invites')">World Invites</button>
 </div>
 
 <div id="public_worlds" class="tab_content active">
@@ -97,6 +98,10 @@
         <div class="friend_center">
           <h3><%= friend.display_name %></h3>
         </div>
+        <div class="friend_right">
+          <% world = @private_worlds[1]%>
+          <%= button_to 'Invite to world', users_world_invite_path(friend_id: friend.id, world_id: world.id), method: :post, :remote => true, :class => "secondary_button" %>
+        </div>
       </div>
     <% end %>
   </div>
@@ -110,7 +115,7 @@
     <% @requested_friends.each do |friend| %>
       <div class="friend_box" id="request_<%= friend.id %>">
         <div class="friend_left">
-          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button" %>
+          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "secondary_button" %>
           <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
         </div>
         <div class="friend_center">
@@ -120,6 +125,25 @@
     <% end %>
   </div>
 </div>
+
+<!--<div id="world_invites" class="tab_content">-->
+<!--  <div style="display: flex; flex-direction: column; align-items: center;">-->
+<!--    <div id="no_invites" class="world_box">-->
+<!--      <p>You do not have any world invites at the moment.</p>-->
+<!--    </div>-->
+    <%# @world_invites.each do |invite| %>
+<!--      <div class="friend_box" id="request_<%#= friend.id %>">-->
+<!--        <div class="friend_left">-->
+          <%#= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button" %>
+          <%#= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
+<!--        </div>-->
+<!--        <div class="friend_center">-->
+<!--          <h3><%#= friend.display_name %></h3>-->
+<!--        </div>-->
+<!--      </div>-->
+    <%# end %>
+<!--  </div>-->
+<!--</div>-->
 
 <script>
     function openTab(evt, tabName) {

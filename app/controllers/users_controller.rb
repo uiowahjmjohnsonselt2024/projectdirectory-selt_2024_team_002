@@ -281,6 +281,35 @@ class UsersController < ApplicationController
     end
   end
 
+  def world_invite
+    cur_user = User.find_user_by_session_token(cookies[:session])
+    @friend = User.find_by(id: params[:friend_id])
+    @world = World.find_by(id: params[:world_id])
+    puts cur_user.id
+    puts @world.id
+    puts @friend.id
+
+    existing_world = UserWorld.find_by(user_id: cur_user.id, world_id: @world.id)
+    world = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
+    puts "existing"
+    puts existing_world
+    puts "world"
+    puts world
+    if world.save
+      flash[:notice] = "A world invite has been sent!"
+      redirect_to worlds_path
+      # respond_to do |format|
+      #   format.js
+      # end
+    else
+      flash[:notice] = "Failed to send world invite."
+      redirect_to worlds_path
+      # respond_to do |format|
+      #   format.js
+      # end
+    end
+  end
+
   def purchase_plus_user_view
     @user = User.find_user_by_session_token(cookies[:session])
   end
