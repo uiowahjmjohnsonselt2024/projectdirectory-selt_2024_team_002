@@ -15,38 +15,38 @@ class UsersWorldsController < ApplicationController
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 
-    @user_world = UserWorld.find_by_ids(@cur_user[:id], @world[:id])
-    puts("Enter quest log")
-    puts(@user_world[:xp])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    Rails.logger.debug('Enter quest log')
+    Rails.logger.debug(@user_world.xp)
 
-    #{respond_to do |format|
+    # {respond_to do |format|
     #  format.js
-    #end}
+    # end}
   end
 
   def cell_action
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 
-    @user_world = UserWorld.find_by_ids(@cur_user[:id], @world[:id])
-    puts("Enter action")
-    puts(@user_world[:xp])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    Rails.logger.debug('Enter action')
+    Rails.logger.debug(@user_world.xp)
 
-    #{respond_to do |format|
+    # {respond_to do |format|
     #  format.js
-    #end}
+    # end}
   end
 
   def cell_shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 
-    @user_world = UserWorld.find_by_ids(@cur_user[:id], @world[:id])
-    puts("Enter shop")
-    puts(@user_world[:xp])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    Rails.logger.debug('Enter shop')
+    Rails.logger.debug(@user_world.xp)
 
-    #{respond_to do |format|
+    # {respond_to do |format|
     #  format.js
-    #end}
+    # end}
   end
 end

@@ -47,9 +47,8 @@ Rails.application.routes.draw do
   resources :worlds
   root to: redirect('/worlds')
 
-  #routes for game
+  # routes for game
   post '/worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
   post '/worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
   post '/worlds/game/cell_shop', to: 'users_worlds#cell_shop', as: 'cell_shop'
-
 end
