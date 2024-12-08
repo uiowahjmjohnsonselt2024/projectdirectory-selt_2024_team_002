@@ -6,41 +6,66 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body class="world_body">
-<div class="scroll-independent-div-tl">
-  <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+<body>
+<div class="profile_toolbar">
+  <div class="scroll-independent-div-tl">
+    <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+  </div>
+
+  <div class="center-stack">
+    <h1 style="font-size: 35px; margin: 20px 10px 10px;">Create World</h1>
+  </div>
+  <div class="right-stack">
+    <div class="box-numeric">
+      <%= if @cur_user.available_credits == nil
+            0 else @cur_user.available_credits end %>
+    </div>
+  </div>
 </div>
-  <% if flash[:notice] %>
-    <div class="alert world-creation-alert-box">
-      <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
-        <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
-      </svg></div>
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-<div class="world_add_form">
-  <%= form_tag "/worlds", method: :post, id: 'world_add_form' do %>
-    <div>
-      <label for="world_code">World Code:</label>
-      <%= text_field_tag :world_code, nil, id: 'world_code', style: 'background-color: #a3b7c9';%>
-    </div>
-    <div>
-      <label for="world_name">World Name:</label>
-      <%= text_field_tag :world_name, nil, id: 'world_name', class: "textbox"%>
-    </div>
-    <div>
-      <label for="max_player">Max Players:</label>
-      <%= number_field_tag :max_player, nil, id: 'max_player', class: "textbox"%>
-    </div>
-    <div>
-      <label>Visibility:</label>
-      <div>
-        <label class="radio-text" for="is_public">Public <%= radio_button_tag :is_public, '1', true, id: 'is_public' %></label>
-        <label class="radio-text" for="is_private">Private <%= radio_button_tag :is_public, '0', false, id: 'is_private' %></label>
+
+<div class="lower-div-after-nav">
+  <div id="flash">
+    <% if flash[:notice] %>
+      <div class="alert world-creation-alert-box">
+        <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+        </svg></div>
+        <%= flash[:notice] %>
       </div>
-    </div>
-    <%= submit_tag 'Create World', id: 'add_button', class: "world_add_button"%>
-  <% end %>
+    <% end %>
+  </div>
+  <div class="world_add_form">
+    <%= form_tag "/worlds", method: :post, id: 'world_add_form' do %>
+      <div>
+        <label for="world_code">World Code:</label>
+        <%= text_field_tag :world_code, nil, id: 'world_code', style: 'background-color: #a3b7c9';%>
+      </div>
+      <div>
+        <label for="world_name">World Name:</label>
+        <%= text_field_tag :world_name, nil, id: 'world_name', class: "textbox"%>
+      </div>
+      <div>
+        <label for="max_player">Max Players:</label>
+        <%= number_field_tag :max_player, nil, id: 'max_player', class: "textbox"%>
+      </div>
+      <div>
+        <label>Visibility:</label>
+        <div>
+          <label class="radio-text" for="is_public">Public <%= radio_button_tag :is_public, '1', true, id: 'is_public' %></label>
+          <label class="radio-text" for="is_private">Private <%= radio_button_tag :is_public, '0', false, id: 'is_private' %></label>
+        </div>
+      </div>
+      <%= submit_tag 'Create World', id: 'add_button', class: "world_add_button"%>
+    <% end %>
+  </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('#flash').fadeOut();
+        }, 2000);
+    })
+</script>
 </body>
 </html>

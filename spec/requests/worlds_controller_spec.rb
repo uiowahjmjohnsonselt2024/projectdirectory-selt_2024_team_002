@@ -73,6 +73,9 @@ describe WorldsController do
       collection = double('col')
       gridsquare = double('gs')
       image = double('image')
+      user = instance_double(User)
+      user_world = instance_double(UserWorld)
+      allow(User).to receive(:find_user_by_session_token).and_return(user)
       allow(world).to receive_messages(
         dim: 1,
         init_if_not_inited: world,
@@ -91,6 +94,13 @@ describe WorldsController do
       )
       allow(image).to receive(:attached?).and_return(false)
       allow(collection).to receive(:to_ary).and_return([gridsquare])
+      allow(User).to receive(:find_user_by_session_token).and_return(cur_user)
+      allow(World).to receive(:find).and_return(world)
+      allow(UserWorld).to receive(:find_by_ids).and_return(user_world)
+      allow(cur_user).to receive_messages(id: 1)
+      allow(world).to receive_messages(id: 1)
+      allow(user_world).to receive_messages(xp: 0, world_id: 1, user_id: 1)
+      allow(user_world).to receive(:[]).with(:xp).and_return(100)
       get '/worlds/1'
       expect(response).to render_template('show')
     end

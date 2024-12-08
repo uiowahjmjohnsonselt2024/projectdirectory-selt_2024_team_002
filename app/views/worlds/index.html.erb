@@ -4,23 +4,34 @@
   <title></title>
 </head>
 <body>
-
-<div id="flash_messages">
-  <% if flash[:notice] %>
-    <div class="alert notice"><%= flash[:notice] %></div>
-  <% end %>
-  <% if flash[:alert] %>
-    <div class="alert alert"><%= flash[:alert] %></div>
-  <% end %>
-</div>
-
 <div class="profile_toolbar">
-  <%= button_to 'Log Out', users_logout_path, method: :get, id: "logout_button", class:"secondary_button"%>
+  <div class="left-stack">
+    <%= button_to 'Logout', users_logout_path, method: :get, id: "logout_button", class:"secondary_button"%>
+  </div>
   <div class="center-stack">
     <h1 style="font-size: 35px; margin: 15px 0 0;">Welcome, <%= @cur_user.display_name %></h1>
     <div id="flash_partial"></div>
+    <div id="flash">
+      <% if flash[:notice] %>
+        <div class="alert world-creation-alert-box">
+          <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+            <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+          </svg></div>
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert world-creation-alert-box">
+          <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+            <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+          </svg></div>
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div class="flash_partial">
+
+  <div class="right-stack">
     <div class="box-numeric">
       <%= if @cur_user.available_credits == nil
             0 else @cur_user.available_credits end %>
@@ -28,21 +39,22 @@
         <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", style: "background-color: #A7BCC7;"%>
       </div>
     </div>
-    <div class="left-stack" style="text-align: center; margin: auto">
-      <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "small_button highlight_button" %>
-    </div>
   </div>
+
 </div>
 
 <div class="tab">
-  <button class="tab_links active" onclick="openTab(event, 'public_worlds')">Public Worlds</button>
-  <button class="tab_links" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
-  <button class="tab_links" onclick="openTab(event, 'friend_list')">Friends</button>
-  <button class="tab_links" onclick="openTab(event, 'friend_requests')">Friend Requests</button>
-  <button class="tab_links" onclick="openTab(event, 'world_invites')">World Invites</button>
+  <button class="small_button highlight_button active" onclick="openTab(event, 'public_worlds')">Public Worlds</button>
+  <button class="small_button highlight_button" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
+  <button class="small_button highlight_button" onclick="openTab(event, 'friend_list')">Friends</button>
+  <button class="small_button highlight_button" onclick="openTab(event, 'friend_requests')">Friend Requests</button>
+  <button class="small_button highlight_button" onclick="openTab(event, 'world_invites')">World Invites</button>
 </div>
 
+
+
 <div id="public_worlds" class="tab_content active">
+
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
       <div class="world_box <%= world.world_name.split.join '_'%>">
@@ -167,12 +179,23 @@
       document.getElementById('add_friend_container').style.display = 'block';
       document.getElementById('friend_name').value = '';
   }
+
+  $(document).ready(function(){
+      setTimeout(function(){
+          $('#flash').fadeOut();
+      }, 2000);
+  })
 </script>
 
 <script>
     function submitFriend() {
         document.getElementById('add_friend_container').style.display = 'none';
         document.getElementById('add_friend_button').style.display = 'inline-block';
+
+        $('#flash_partial').show();
+        setTimeout(function(){
+            $('#flash_partial').fadeOut();
+        }, 2000);
     }
 </script>
 
