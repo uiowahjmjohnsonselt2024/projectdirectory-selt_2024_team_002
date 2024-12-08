@@ -15,10 +15,14 @@
   </div>
 
 
-  <div class="grid_container">
-    <% (1..World.dim).each do |row| %>
-      <% (1..World.dim).each do |col| %>
-        <% if @data[row][col].image.attached? %>
+<script>
+  var worldId = <%= @world.id %>;
+</script>
+
+<div class="grid_container">
+  <% (1..World.dim).each do |row| %>
+    <% (1..World.dim).each do |col| %>
+      <% if @data[row][col].image.attached? %>
           <div class="grid_cell filled_cell" >
             <%= image_tag(url_for(@data[row][col].image), class: "grid_image") %>
             <div class="hidden"><%=row%>-<%=col%></div>
