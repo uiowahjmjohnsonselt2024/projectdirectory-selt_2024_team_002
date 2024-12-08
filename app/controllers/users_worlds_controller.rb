@@ -37,6 +37,7 @@ class UsersWorldsController < ApplicationController
       # Charge failed, return 400 status
       charge_res = @cur_user.charge_credits(0.75)
       Rails.logger.info(charge_res)
+      flash[:warning] = 'Insufficient credits!'
       return render json: { error: 'Insufficient credits!' }, status: :bad_request unless charge_res
 
       Rails.logger.info('here')
