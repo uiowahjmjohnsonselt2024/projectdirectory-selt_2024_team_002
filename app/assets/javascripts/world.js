@@ -40,13 +40,7 @@ $(function () {
                           },
                         body: JSON.stringify(params),  // Send params as JSON in the request body
                       });
-                      if (response.status === 400) {
-                        const json = await response.json()
-                        alert(json.error)
-                      }
-                      else {
-                        window.location.reload()
-                      }
+                      window.location.reload()
                       
                 })
             }
