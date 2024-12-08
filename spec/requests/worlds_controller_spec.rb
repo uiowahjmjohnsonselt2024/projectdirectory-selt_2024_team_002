@@ -99,7 +99,7 @@ describe WorldsController do
       allow(UserWorld).to receive(:find_by_ids).and_return(user_world)
       allow(cur_user).to receive_messages(id: 1)
       allow(world).to receive_messages(id: 1)
-      allow(user_world).to receive_messages(xp: 0, world_id: 1, user_id: 1)
+      allow(user_world).to receive_messages(xp: 0, world_id: 1, user_id: 1, user_row: 1, user_col: 1)
       allow(user_world).to receive(:[]).with(:xp).and_return(100)
       get '/worlds/1'
       expect(response).to render_template('show')

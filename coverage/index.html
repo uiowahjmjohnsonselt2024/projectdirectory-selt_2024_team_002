@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-08T16:31:22-06:00">2024-12-08T16:31:22-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-08T16:35:55-06:00">2024-12-08T16:35:55-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,14 +22,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  81.63%
+  83.22%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.84
+         1.86
        </span>
     </span> hits/line
     )
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>430</b> relevant lines,
-    <span class="green"><b>351</b> lines covered</span> and
-    <span class="red"><b>79</b> lines missed. </span>
+    <b>429</b> relevant lines,
+    <span class="green"><b>357</b> lines covered</span> and
+    <span class="red"><b>72</b> lines missed. </span>
     (<span class="yellow">
-  81.63%
+  83.22%
 </span>
 )
   </div>
@@ -93,12 +93,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#00a7ab83538f2cc9cb68173f61f0f21de902a3e2" class="src_link" title="app/controllers/worlds_controller.rb">app/controllers/worlds_controller.rb</a></td>
-            <td class="yellow strong cell--number t-file__coverage">86.57 %</td>
+            <td class="green strong cell--number t-file__coverage">96.97 %</td>
             <td class="cell--number">114</td>
-            <td class="cell--number">67</td>
-            <td class="cell--number">58</td>
-            <td class="cell--number">9</td>
-            <td class="cell--number">1.49</td>
+            <td class="cell--number">66</td>
+            <td class="cell--number">64</td>
+            <td class="cell--number">2</td>
+            <td class="cell--number">1.61</td>
             
           </tr>
         
@@ -180,14 +180,14 @@
     <span class="group_name">Controllers</span>
     (<span class="covered_percent">
       <span class="yellow">
-  84.05%
+  86.33%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.53
+         1.56
        </span>
     </span> hits/line
     )
@@ -200,11 +200,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>301</b> relevant lines,
-    <span class="green"><b>253</b> lines covered</span> and
-    <span class="red"><b>48</b> lines missed. </span>
+    <b>300</b> relevant lines,
+    <span class="green"><b>259</b> lines covered</span> and
+    <span class="red"><b>41</b> lines missed. </span>
     (<span class="yellow">
-  84.05%
+  86.33%
 </span>
 )
   </div>
@@ -251,12 +251,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#00a7ab83538f2cc9cb68173f61f0f21de902a3e2" class="src_link" title="app/controllers/worlds_controller.rb">app/controllers/worlds_controller.rb</a></td>
-            <td class="yellow strong cell--number t-file__coverage">86.57 %</td>
+            <td class="green strong cell--number t-file__coverage">96.97 %</td>
             <td class="cell--number">114</td>
-            <td class="cell--number">67</td>
-            <td class="cell--number">58</td>
-            <td class="cell--number">9</td>
-            <td class="cell--number">1.49</td>
+            <td class="cell--number">66</td>
+            <td class="cell--number">64</td>
+            <td class="cell--number">2</td>
+            <td class="cell--number">1.61</td>
             
           </tr>
         
@@ -4936,8 +4936,8 @@
   <div class="header">
     <h3>app/controllers/worlds_controller.rb</h3>
     <h4>
-      <span class="yellow">
-  86.57%
+      <span class="green">
+  96.97%
 </span>
 
       lines covered
@@ -4946,9 +4946,9 @@
     
 
     <div class="t-line-summary">
-      <b>67</b> relevant lines.
-      <span class="green"><b>58</b> lines covered</span> and
-      <span class="red"><b>9</b> lines missed.</span>
+      <b>66</b> relevant lines.
+      <span class="green"><b>64</b> lines covered</span> and
+      <span class="red"><b>2</b> lines missed.</span>
     </div>
 
     
@@ -5244,22 +5244,38 @@
 
             
 
-            <code class="ruby">    @pos_row = UserWorld.where(user_id: @cur_user.id).first.user_row</code>
+            <code class="ruby">    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="27">
+          <li class="covered" data-hits="1" data-linenumber="27">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    @pos_col = UserWorld.where(user_id: @cur_user.id).first.user_col</code>
+            <code class="ruby">    @pos_row = @user_world.user_row</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="28">
+          <li class="covered" data-hits="1" data-linenumber="28">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @pos_col = @user_world.user_col</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="29">
+            
+              <span class="hits">1</span>
             
 
             
@@ -5269,7 +5285,9 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="29">
+          <li class="covered" data-hits="1" data-linenumber="30">
+            
+              <span class="hits">1</span>
             
 
             
@@ -5279,7 +5297,9 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="30">
+          <li class="covered" data-hits="1" data-linenumber="31">
+            
+              <span class="hits">1</span>
             
 
             
@@ -5289,7 +5309,9 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="31">
+          <li class="covered" data-hits="1" data-linenumber="32">
+            
+              <span class="hits">1</span>
             
 
             
@@ -5299,7 +5321,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="32">
+          <li class="never" data-hits="" data-linenumber="33">
             
 
             
@@ -5309,7 +5331,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="33">
+          <li class="never" data-hits="" data-linenumber="34">
             
 
             
@@ -5319,22 +5341,12 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="34">
+          <li class="never" data-hits="" data-linenumber="35">
             
 
             
 
-            <code class="ruby">    @cur_user = User.find_user_by_session_token(cookies[:session])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="35">
-            
-
-            
-
-            <code class="ruby">    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)</code>
+            <code class="ruby">    </code>
           </li>
         </div>
       
