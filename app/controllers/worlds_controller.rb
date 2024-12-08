@@ -40,6 +40,7 @@ class WorldsController < ApplicationController
                            .where(is_public: false, user_worlds: { user: @cur_user, request: false })
     @friends = User.where(id: Friendship.friend_ids(@cur_user))
     @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
+    @world_invites = UserWorld.where( user: @cur_user, request: true )
   end
 
   def new
