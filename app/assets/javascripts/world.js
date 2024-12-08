@@ -21,7 +21,7 @@ $(function () {
 
     $(".x").click(() => {
         $(".modal").css("display", "none")
-
+        $(".modal").find('button').remove()
 
     })
 
