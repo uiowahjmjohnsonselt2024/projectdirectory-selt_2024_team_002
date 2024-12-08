@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #718ca5;
+  background-color: #000a1a; // #1b1c1c; // #718ca5; top toolbar after joining world
+  color: #d1d1d1;
   padding: 10px;
   font-size: 20px;
   font-weight: bold;
@@ -11,12 +12,13 @@
 
 .profile_toolbar {
   display: flex;
+  color: #d1d1d1;
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
   height: 100px;
   padding: 10px;
-  background-color: #718ca5;
+  background-color: #000a1a; //#1b1c1c;
 }
 
 .center-stack {

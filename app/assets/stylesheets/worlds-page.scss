@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  background-color: #718ca5;
+  background-color: #000a1a; // #1b1c1c; #718ca5;
   overflow: hidden;
 }
 
@@ -88,7 +88,7 @@ body {
   margin: 20px 20px;
   width: 100px;
   height: 35px;
-  border: solid black 2px;
+  border: #d1d1d1;
   text-align: right;
   padding: 5px;
   box-sizing: border-box;

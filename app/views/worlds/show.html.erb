@@ -10,8 +10,8 @@
 <div>
   <div class="game_toolbar">
     <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
-    <span class="world_id">World ID: <%= @world[:world_code] %></span>
     <span class="world_name">World Name: <%= @world[:world_name] %></span>
+    <span class="world_id">World ID: <%= @world[:world_code] %></span>
   </div>
 
 
