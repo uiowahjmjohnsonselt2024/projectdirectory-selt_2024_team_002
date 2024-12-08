@@ -6,8 +6,14 @@ $(function () {
             const rowCol = cellID.split('-')
             const row = rowCol[0]
             const col = rowCol[1]
-            $(".modal").css("display", "flex")
-            $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}?`)
+            if (parseInt(row) === usr_row && parseInt(col) === usr_col) {
+                $(".modal").css("display", "flex")
+                $(".modal").find('h2').html(`You already are at ${row}, ${col}!`)
+            }
+            else {
+                $(".modal").css("display", "flex")
+                $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}?`)
+            }
         });
         
 

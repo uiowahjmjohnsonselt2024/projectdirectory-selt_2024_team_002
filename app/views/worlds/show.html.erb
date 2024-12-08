@@ -81,7 +81,8 @@
     const maxXP = 100; // Maximum XP
     const xpBar = document.getElementById('xp-bar');
     const xpText = document.getElementById('xp-text');
-
+    const usr_row = <%= @pos_row%>;
+    const usr_col = <%= @pos_col%>;
     // Set the width of the XP bar
     xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
 
