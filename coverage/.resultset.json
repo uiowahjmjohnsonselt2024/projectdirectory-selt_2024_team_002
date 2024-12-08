@@ -391,13 +391,8 @@
           0,
           0,
           null,
-<<<<<<< HEAD
           null,
           null,
-=======
-          null,
-          null,
->>>>>>> da2c136166f7c28bb78c4064cea4e4d3464ce5e3
           1,
           0,
           0,
@@ -714,10 +709,6 @@
         "branches": {}
       }
     },
-<<<<<<< HEAD
-    "timestamp": 1733643457
-=======
-    "timestamp": 1733604744
->>>>>>> da2c136166f7c28bb78c4064cea4e4d3464ce5e3
+    "timestamp": 1733644385
   }
 }
