@@ -49,10 +49,13 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
-
-
 }
 
 .dropdown:hover .drop-button {
   background-color: #27607e;
+
+  &:hover {
+    background-color: #A7BCC7;
+    transform: scale(1.02);
+  }
 }

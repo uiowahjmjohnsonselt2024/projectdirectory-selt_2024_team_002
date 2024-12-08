@@ -36,7 +36,7 @@
       <%= if @cur_user.available_credits == nil
             0 else @cur_user.available_credits end %>
       <div class="left-stack" style="text-align: center; margin: auto">
-        <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", style: "background-color: #A7BCC7;"%>
+        <%= button_to '+', "users/purchase", method: :get, id: "purchase_button", class: "purchase-button"%>
       </div>
     </div>
   </div>
@@ -44,16 +44,13 @@
 </div>
 
 <div class="tab">
-  <button class="small_button highlight_button active" onclick="openTab(event, 'public_worlds')">Public Worlds</button>
-  <button class="small_button highlight_button" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
-  <button class="small_button highlight_button" onclick="openTab(event, 'friend_list')">Friends</button>
-  <button class="small_button highlight_button" onclick="openTab(event, 'friend_requests')">Friend Requests</button>
+  <button class="small_button tab_button active" onclick="openTab(event, 'public_worlds')">Public Worlds</button>
+  <button class="small_button tab_button" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
+  <button class="small_button tab_button" onclick="openTab(event, 'friend_list')">Friends</button>
+  <button class="small_button tab_button" onclick="openTab(event, 'friend_requests')">Friend Requests</button>
 </div>
 
-
-
 <div id="public_worlds" class="tab_content active">
-
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
       <div class="world_box <%= world.world_name.split.join '_'%>">

@@ -21,7 +21,7 @@
         <%= if @user.available_credits == nil
               0 else @user.available_credits end %>
       </div>
-      <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "small_button highlight_button"%>
+      <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "secondary_button"%>
     </div>
   </div>
 
@@ -42,7 +42,7 @@
               <%= text_field_tag :shard_input_field, nil, id: 'shard_input_field', class: "textbox-center-large-size"%>
               <input type="hidden" name="currency" id="currency-hidden" value="usd"/>
               <div class="dropdown">
-                <button class="drop-button" id="currency" disabled>
+                <button class="highlight_button" id="currency" disabled>
                   USD
                 </button>
                 <div class="dropdown-content" id="dropdown-content">
@@ -55,7 +55,7 @@
               </div>
             </div>
         </div>
-        <%= submit_tag 'Convert', id: 'convert_button', class: "world_add_button", disabled: false, data: { disable_with: false } %>
+        <%= submit_tag 'Convert', id: 'convert_button', class: "highlight_button", disabled: false, data: { disable_with: false } %>
       <% end %>
     </div>
     <div id="conversion">

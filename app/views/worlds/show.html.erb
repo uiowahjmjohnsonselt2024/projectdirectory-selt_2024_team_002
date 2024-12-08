@@ -25,13 +25,14 @@
           </div>
         <% else %>
           <div class="grid_cell filled_cell">
-            <div>No image</div>
+            <div>Undiscovered</div>
             <div class="hidden"><%=row%>-<%=col%></div>
           </div>
         <% end %>
       <% end %>
     <% end %>
   </div>
+  <div class="game-ui-spacer"></div>
 
   <div class="game-ui">
     <%= form_tag "/worlds/game/cell_quest", method: :post, id: 'quest_form' do %>

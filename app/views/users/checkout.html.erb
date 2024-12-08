@@ -48,7 +48,7 @@
         <label for="shard_receive" style="font-size: 30px">Receive: <%= @num_of_shards %> shards</label>
         <label for="total_amount" style="font-size: 30px">Total: <%= @total_amount %> <%= @with_currency %></label>
         <input type="hidden" name="total_shards" id="total_shards" value="<%= @num_of_shards %>"/>
-        <%= submit_tag 'Pay', id: 'pay_button', class: "world_add_button", onclick: "handle_pay()" %>
+        <%= submit_tag 'Pay', id: 'pay_button', class: "highlight_button", onclick: "handle_pay()" %>
       <% end %>
     </div>
   </div>

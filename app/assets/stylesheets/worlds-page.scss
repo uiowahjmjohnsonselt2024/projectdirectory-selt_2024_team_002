@@ -25,12 +25,13 @@ body {
 }
 
 .world_box {
-  background-color: #A7BCC7;
-  color: white;
+  background-color: #7a90bf;
+  color: black;
   border: 1px solid #000;
+  border-radius: 10px;
   padding: 10px;
   margin: 10px;
-  width: 80%;
+  width: 50%;
   text-align: center;
 }
 
@@ -88,7 +89,8 @@ body {
   margin: 20px 20px;
   width: 100px;
   height: 35px;
-  border: #d1d1d1;
+  border: 2px solid #dddcdc;
+  border-radius: 5px;
   text-align: right;
   padding: 5px;
   box-sizing: border-box;
@@ -143,7 +145,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 60px;
-  background-color: #566a7e;
+  background-color: #455a85;
 
   div {
     margin-bottom: 15px;
