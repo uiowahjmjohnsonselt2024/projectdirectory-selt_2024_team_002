@@ -24,6 +24,31 @@ $(function () {
                 $(".modal").find('h3').html(`${isFreeText}`)
 
                 $(".modal").find('button').css('display', 'flex')
+                $(".modal").find('button').click(async () => {
+                    const csrfToken = $("meta[name='csrf-token']").attr("content");
+                    const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+                    const params = {
+                        dest_row: parseInt(row), 
+                        dest_col: parseInt(col),
+                        world_id: worldId
+                      };
+                      const response = await fetch(`${url}/worlds/game/move`, {
+                        method: 'POST',  // Use POST method
+                        headers: {
+                            'Content-Type': 'application/json',  // Send as JSON
+                            'X-CSRF-Token': csrfToken            // Include CSRF token from meta tag
+                          },
+                        body: JSON.stringify(params),  // Send params as JSON in the request body
+                      });
+                      if (response.status === 400) {
+                        const json = await response.json()
+                        alert(json.error)
+                      }
+                      else {
+                        window.location.reload()
+                      }
+                      
+                })
             }
         });
         
@@ -35,7 +60,9 @@ $(function () {
         
 
     })
+
+    
     const csrfToken = $("meta[name='csrf-token']").attr("content");
-    console.log(csrfToken);
+
 
 });

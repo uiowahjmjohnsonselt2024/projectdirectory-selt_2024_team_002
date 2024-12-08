@@ -13,7 +13,6 @@ class UsersWorldsController < ApplicationController
   end
 
   def cell_quest
-    @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
@@ -25,8 +24,28 @@ class UsersWorldsController < ApplicationController
     # end}
   end
 
+  def move_user
+    @world = World.find(params[:world_id])
+    user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    row = user_world.user_row
+    col = user_world.user_col
+    dest_row = params[:dest_row]
+    dest_col = params[:dest_col]
+    isfree = UserWorld.free_move?(row, col, dest_row, dest_col)
+
+    unless isfree
+      # Charge failed, return 400 status
+      charge_res = @cur_user.charge_credits(0.75)
+      Rails.logger.info(charge_res)
+      return render json: { error: 'Insufficient credits!' }, status: :bad_request unless charge_res
+
+      Rails.logger.info('here')
+    end
+    user_world.set_position(dest_row, dest_col)
+    render text: 'ok', status: :ok
+  end
+
   def cell_action
-    @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
@@ -39,7 +58,6 @@ class UsersWorldsController < ApplicationController
   end
 
   def cell_shop
-    @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
