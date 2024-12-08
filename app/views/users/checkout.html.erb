@@ -14,6 +14,9 @@
 
     <div class="center-stack">
       <h1 style="font-size: 35px; margin: 15px 0 0;">Checkout</h1>
+      <div id="flash_partial" style="z-index: 10">
+
+      </div>
     </div>
     <div class="right-stack">
       <div class="box-numeric">
@@ -24,9 +27,6 @@
   </div>
 
   <div class="lower-div-after-nav">
-    <div id="flash_partial">
-
-    </div>
     <div class="purchase-box">
       <%= form_tag "/users/payment", id: 'payment_form', :remote => true do %>
         <div>

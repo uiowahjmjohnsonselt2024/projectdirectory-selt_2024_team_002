@@ -101,15 +101,21 @@ class UsersController < ApplicationController
       flash[:notice] = 'No amount of shard indicated.'
       redirect_to users_purchase_path
     else
-      flash.clear
-      @currency = currency.upcase
-      shard_usd_price = 0.75 # default price in USD
-      @rate = (ShardsHelper.get_shard_conversion(@currency) * shard_usd_price).round(2)
-      @amount = (Integer(shards) * @rate).round(2)
-      @num_of_shards = Integer(shards)
+      begin
+        raise(ArgumentError) unless shards.match?(/\A\d+\z/)
+        flash.clear
+        @currency = currency.upcase
+        shard_usd_price = 0.75 # default price in USD
+        @rate = (ShardsHelper.get_shard_conversion(@currency) * shard_usd_price).round(2)
+        @amount = (Integer(shards) * @rate).round(2)
+        @num_of_shards = Integer(shards)
 
-      respond_to do |format|
-        format.js
+        respond_to do |format|
+          format.js
+        end
+      rescue ArgumentError
+        flash[:notice] = "Input is not a number. Please try again."
+        redirect_to users_purchase_path
       end
     end
   end
