@@ -35,27 +35,6 @@
   var worldId = <%= @world.id %>;
 </script>
 
-<div class="quest_container">
-  <% if @quest && !@quest.completed %>
-    <% if @quest.trivia_question %>
-      <p>Trivia Question: <%= @quest.trivia_question['question'] %></p>
-      <%= form_with url: complete_trivia_quest_path(@quest.id), method: :post, local: true do %>
-        <% @quest.trivia_question['choices'].each do |choice| %>
-          <div>
-            <%= radio_button_tag :answer, choice %>
-            <%= label_tag :answer, choice %>
-          </div>
-        <% end %>
-        <%= submit_tag 'Submit Answer' %>
-      <% end %>
-    <% else %>
-      <p>Quest: <%= @random_quest_message %></p>
-    <% end %>
-  <% else %>
-    <p>No active quests</p>
-  <% end %>
-</div>
-
 <div class="grid_container">
   <% (1..World.dim).each do |row| %>
     <% (1..World.dim).each do |col| %>
@@ -89,19 +68,19 @@
     
   </div>
 
-  <div class="game-ui">
-    <%= form_tag "/worlds/game/cell_quest", method: :post, id: 'quest_form' do %>
-      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Quest', "", method: :post, id: "quest_log_button", class: "game_button"%>
-    <% end %>
-    <%= form_tag "/worlds/game/cell_action", method: :post, id: 'action_form' do %>
-      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Action', "", method: :post, id: "action_engage_button", class: "game_button"%>
-    <% end %>
-    <%= form_tag "/worlds/game/cell_shop", method: :post, id: 'shop_form' do %>
-      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Shop', "", method: :post, id: "shop_log_button", class: "game_button"%>
-    <% end %>
+    <div class="game-ui">
+      <%= form_tag generate_quests_path, method: :post, id: 'quest_form' do %>
+        <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+        <%= button_to 'Quest', generate_quests_path, method: :post, id: "quest_log_button", class: "game_button"%>
+      <% end %>
+      <%= form_tag "/worlds/game/cell_action", method: :post, id: 'action_form' do %>
+        <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+        <%= button_to 'Action', "", method: :post, id: "action_engage_button", class: "game_button"%>
+      <% end %>
+      <%= form_tag "/worlds/game/cell_shop", method: :post, id: 'shop_form' do %>
+        <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+        <%= button_to 'Shop', "", method: :post, id: "shop_log_button", class: "game_button"%>
+      <% end %>
   </div>
 
   <div class="scroll-independent-div-cl">
@@ -121,13 +100,6 @@
     </div>
   </div>
 </div>
-
-<% if @quest && !@quest.completed %>
-  <div class="complete_quest_button_container">
-    <%= button_to 'Complete Quest', complete_quest_path(@quest.id), method: :post, class: "complete_quest_button" %>
-  </div>
-<% end %>
-
 
 <script>
     const currentXP = <%= @user_world[:xp] %>;

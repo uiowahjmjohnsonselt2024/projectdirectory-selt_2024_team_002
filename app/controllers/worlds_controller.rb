@@ -34,8 +34,6 @@ class WorldsController < ApplicationController
       
       @data[cell.row][cell.col] = allowed.include?([cell.row.to_s, cell.col.to_s]) ? cell : :none
     end
-
-    
   end
 
   def index
