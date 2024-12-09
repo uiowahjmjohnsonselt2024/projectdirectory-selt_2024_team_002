@@ -27,6 +27,7 @@ class UserWorld < ApplicationRecord
     UserWorld.where(user_id: user_id, world_id: world_id).first.seen
   end
 
+  # rubocop:disable Metrics/MethodLength
   def set_position(row, col)
     self.user_row = row
     self.user_col = col
@@ -42,6 +43,7 @@ class UserWorld < ApplicationRecord
     Rails.logger.info('about to save')
     save!
   end
+  # rubocop:enable Metrics/MethodLength
 
   def self.find_by_ids(user_id, world_id)
     UserWorld.where(user_id: user_id, world_id: world_id).first

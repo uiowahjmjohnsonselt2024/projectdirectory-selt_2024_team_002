@@ -22,6 +22,7 @@ class UsersWorldsController < ApplicationController
     # end}
   end
 
+  # rubocop:disable Metrics/MethodLength
   def move_user
     world = params[:world_id]
     user_world = UserWorld.find_by_ids(@cur_user.id, world)
@@ -44,6 +45,7 @@ class UsersWorldsController < ApplicationController
     user_world.set_position(dest_row, dest_col)
     render json: { error: 'none' }, status: :ok
   end
+  # rubocop:enable Metrics/MethodLength
 
   def cell_action
     world = params[:world_id]
