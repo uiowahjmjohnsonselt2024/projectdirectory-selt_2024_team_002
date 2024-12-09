@@ -59,6 +59,14 @@ RSpec.describe UserWorld, type: :model do
       uw = described_class.new(user_row: 1, user_col: 100 )
       expect(uw).not_to be_valid
     end
+  end
 
+  describe 'move' do
+    it 'calls the save method' do
+      new = described_class.new
+      allow(new).to receive(:save!)
+      new.set_position(1,3)
+
+    end
   end
 end
