@@ -45,8 +45,18 @@ jobs:
           rubygems: 3.5.23
           bundler-cache: true
       # Add or replace database setup steps here - name: Set up database schema
-      - name: install chrome
-        uses: browser-actions/setup-chrome@v1
+      - name: Set up Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Install ChromeDriver
+        run: |
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+' | head -1)
+          DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          wget "https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip -d /usr/local/bin/
+          rm chromedriver_linux64.zip
       - name: create db
         run: bin/rake db:create
       - name: migrate db
