@@ -55,6 +55,13 @@ class User < ApplicationRecord
     save
   end
 
+  def charge_credits(num)
+    return false unless available_credits >= num
+
+    self.available_credits -= num
+    save
+  end
+
   private
 
   # rubocop:disable all 

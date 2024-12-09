@@ -47,9 +47,10 @@ Rails.application.routes.draw do
   post 'worlds/leave_world', to: 'worlds#leave_world'
   resources :worlds
   root to: redirect('/worlds')
-
+  mount GoodJob::Engine => 'good_job' if ENV['RAILS_ENV'] != 'production'
   # routes for game
   post '/worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
   post '/worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
-  post 'worlds/:id/shop', to: 'users_worlds#shop', as: 'cell_shop', defaults: { format: 'js' }
+  post '/worlds/game/cell_shop', to: 'users_worlds#cell_shop', as: 'cell_shop'
+  post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
 end

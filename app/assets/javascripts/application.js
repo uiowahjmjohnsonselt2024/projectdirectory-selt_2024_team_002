@@ -22,3 +22,8 @@ window.addEventListener('unload', function (event) {
     xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
     xhr.send();
 });
+
+$(function () {
+    $('.flash_msg').fadeOut(5000);
+
+})

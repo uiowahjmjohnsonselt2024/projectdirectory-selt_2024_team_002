@@ -13,17 +13,39 @@ class UsersWorldsController < ApplicationController
   end
 
   def cell_quest
-    @cur_user = User.find_user_by_session_token(cookies[:session])
-    @world = World.find(params[:world_id])
+    world = params[:world_id]
 
-    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-    Rails.logger.debug('Enter quest log')
-    Rails.logger.debug(@user_world.xp)
+    @user_world = UserWorld.find_by_ids(@cur_user.id, world)
 
     # {respond_to do |format|
     #  format.js
     # end}
   end
+
+  # rubocop:disable Metrics/MethodLength
+  def move_user
+    world = params[:world_id]
+    user_world = UserWorld.find_by_ids(@cur_user.id, world)
+    row = user_world.user_row
+    col = user_world.user_col
+    dest_row = params[:dest_row]
+    dest_col = params[:dest_col]
+
+    isfree = UserWorld.free_move?(row, col, dest_row, dest_col)
+
+    unless isfree
+      # Charge failed, return 400 status
+      charge_res = @cur_user.charge_credits(0.75)
+      unless charge_res
+        flash[:warning] = 'Insufficient credits!'
+        return render json: { error: 'Insufficient credits!' }, status: :bad_request unless charge_res
+      end
+
+    end
+    user_world.set_position(dest_row, dest_col)
+    render json: { error: 'none' }, status: :ok
+  end
+  # rubocop:enable Metrics/MethodLength
 
   def cell_action
     @cur_user = User.find_user_by_session_token(cookies[:session])
@@ -38,7 +60,7 @@ class UsersWorldsController < ApplicationController
     # end}
   end
 
-  def shop
+  def cell_shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 

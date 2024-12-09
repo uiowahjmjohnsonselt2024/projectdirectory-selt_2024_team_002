@@ -23,14 +23,19 @@ class WorldsController < ApplicationController
     @world = World.find(id)
     @world.init_if_not_inited
     @data = {}
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @pos_row = @user_world.user_row
+    @pos_col = @user_world.user_col
     grid_arr = @world.gridsquares.to_ary
+    allowed = UserWorld.find_known_squares(@cur_user.id, @world.id)
+    Rails.logger.info("#{allowed}, pefwefweji")
     grid_arr.each do |cell|
       @data[cell.row] ||= {}
-      @data[cell.row][cell.col] = cell
+      
+      @data[cell.row][cell.col] = allowed.include?([cell.row.to_s, cell.col.to_s]) ? cell : :none
     end
 
-    @cur_user = User.find_user_by_session_token(cookies[:session])
-    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    
   end
 
   def index
