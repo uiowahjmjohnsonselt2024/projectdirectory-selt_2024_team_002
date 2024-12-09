@@ -110,14 +110,14 @@
           <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
             <% quest.trivia_question['choices'].each do |choice| %>
               <div>
-                <%= radio_button_tag :answer, choice, false, { name: 'answer' } %>
-                <%= label_tag :answer, choice %>
+                <%= radio_button_tag "answer_#{quest.id}", choice, false, { name: "answer_#{quest.id}" } %>
+                <%= label_tag "answer_#{quest.id}_#{choice}", choice %>
               </div>
             <% end %>
             <%= submit_tag 'Submit Answer' %>
           <% end %>
         <% else %>
-          <p>Quest: <%= quest.description %></p>
+          <p>Quest: <%= @random_quest_message %></p>
         <% end %>
       <% end %>
     <% end %>
