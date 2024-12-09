@@ -22,3 +22,13 @@ users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_nam
 users.each do |user|
   User.create!(user)
 end
+
+# Create all items
+items = [{ item_name: 'Gem', description: 'A shiny collectible', price: 5, is_interactable: false },
+         { item_name: 'Sword', description: 'Increases your attack power', price: 10, is_interactable: true },
+         { item_name: 'Armor', description: 'Increases your health/decreases damage', price: 15, is_interactable: true }]
+
+
+items.each do |item|
+  Item.create!(item)
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_09_214728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,42 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
 
+  create_table "inventory_items", force: :cascade do |t|
+    t.bigint "user_world_id"
+    t.bigint "item_id"
+    t.integer "amount_available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_inventory_items_on_item_id"
+    t.index ["user_world_id"], name: "index_inventory_items_on_user_world_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "item_name"
+    t.string "description"
+    t.float "price"
+    t.boolean "is_interactable"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shop_items", force: :cascade do |t|
+    t.bigint "shop_id"
+    t.bigint "item_id"
+    t.integer "amount_available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_shop_items_on_item_id"
+    t.index ["shop_id"], name: "index_shop_items_on_shop_id"
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "shop_name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_worlds", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "world_id", null: false
@@ -78,7 +114,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
     t.string "email"
     t.text "password_digest"
     t.text "session_token"
-    t.integer "available_credits", default: 0, null: false
+    t.integer "available_credits"
     t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -107,6 +143,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "gridsquares", "worlds"
+  add_foreign_key "inventory_items", "items"
+  add_foreign_key "inventory_items", "user_worlds"
+  add_foreign_key "shop_items", "items"
+  add_foreign_key "shop_items", "shops"
   add_foreign_key "user_worlds", "users"
   add_foreign_key "user_worlds", "worlds"
 end
