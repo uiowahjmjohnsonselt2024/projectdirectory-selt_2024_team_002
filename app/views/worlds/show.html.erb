@@ -101,25 +101,28 @@
   </div>
 </div>
 
-<div class="quest-info" style="color: white;">
-  <h2>Current Quest</h2>
+<div class="quest_container" style="color: white;">
   <% if @quests.any? %>
     <% @quests.each do |quest| %>
-      <% if quest.trivia_question.present? %>
-        <p>Question: <%= quest.trivia_question["question"] %></p>
-        <p>Choices:</p>
-        <ul>
-          <% quest.trivia_question["choices"].each do |choice| %>
-            <li><%= choice %></li>
+      <% if !quest.completed %>
+        <% if quest.trivia_question.present? %>
+          <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
+          <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
+            <% quest.trivia_question['choices'].each do |choice| %>
+              <div>
+                <%= radio_button_tag :answer, choice, false, { name: 'answer' } %>
+                <%= label_tag :answer, choice %>
+              </div>
+            <% end %>
+            <%= submit_tag 'Submit Answer' %>
           <% end %>
-        </ul>
-        <p>Answer: <%= quest.trivia_question["answer"] %></p>
-      <% else %>
-        <p>Description: <%= quest.description %></p>
+        <% else %>
+          <p>Quest: <%= quest.description %></p>
+        <% end %>
       <% end %>
     <% end %>
   <% else %>
-    <p>No Quests Available</p>
+    <p>No active quests</p>
   <% end %>
 </div>
 

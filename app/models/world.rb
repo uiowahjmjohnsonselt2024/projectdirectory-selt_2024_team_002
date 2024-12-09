@@ -29,10 +29,14 @@ class World < ApplicationRecord
     user_world = user.user_worlds.find_by(world: self)
     return unless user_world
 
+    return if user_world.quests.where(completed: false).exists?
+
     if rand < 0.5
       Quest.generate_movement_for(user_world)
+      puts 'movement quest'
     else
       Quest.generate_trivia_for(user_world)
+      puts 'trivia quest'
     end
   end
 

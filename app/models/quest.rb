@@ -29,10 +29,10 @@ class Quest < ApplicationRecord
 
     def self.random_trivia_question
       questions = [
-        { question: 'What is the capital of France?', choices: ['Paris', 'London', 'Berlin', 'Madrid'], answer: 'Paris' },
-        { question: 'What is the capital of Germany?', choices: ['Berlin', 'Mumbai', 'Pyongyang', 'Seol'], answer: 'Berlin' },
-        { question: "What is 2+2?", choices: ['3', '4', '5', '6'], answer: '4' },
-        { question: "Who wrote 'Romeo and Juliet'?", choices: ['Shakespeare', 'Hemingway', 'Tolstoy', 'Dickens'], answer: 'Shakespeare' }
+        { question: 'What is the capital of France?', choices: %w[Paris London Berlin Madrid], answer: 'Paris' },
+        { question: 'What is the capital of Germany?', choices: %w[Berlin Mumbai Pyongyang Seol], answer: 'Berlin' },
+        { question: "What is 2+2?", choices: %w[3 4 5 6], answer: '4' },
+        { question: "Who wrote 'Romeo and Juliet'?", choices: %w[Shakespeare Hemingway Tolstoy Dickens], answer: 'Shakespeare' }
       ]
 
       questions.sample
