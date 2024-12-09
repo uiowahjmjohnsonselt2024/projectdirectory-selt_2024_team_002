@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe UserWorld, type: :request do
-  let(:cur_user) { instance_double(User, id: 1) }
+  let(:cur_user) { double('usr') }
   let(:world) { instance_double(World, id: 1, current_players: 1, max_player: 2) }
   let(:user_world) { instance_double(described_class, xp: 1) }
 
@@ -53,7 +53,40 @@ RSpec.describe UserWorld, type: :request do
         post move_user_path, params: {world_id: 1, dest_row: 3, dest_col:3}
         expect(response).to have_http_status(:ok)
       end
-      
+    end
+
+    describe 'paid move' do
+      it 'should render 200 ok when sufficient credits' do
+        usrwrld = double('association')
+        allow(usrwrld).to receive(:user_row).and_return(2)
+        allow(usrwrld).to receive(:user_col).and_return(3)
+        allow(cur_user).to receive_messages(charge_credits: true)
+        allow(usrwrld).to receive(:set_position).and_return(true)
+        allow(UserWorld).to receive(:find_by_ids).and_return(usrwrld)
+        post move_user_path, params: {world_id: 1, dest_row: 6, dest_col:6}
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'should charge user 0.75 credits' do
+        usrwrld = double('association')
+        allow(usrwrld).to receive(:user_row).and_return(2)
+        allow(usrwrld).to receive(:user_col).and_return(3)
+        expect(cur_user).to receive_messages(charge_credits: true)
+        allow(usrwrld).to receive(:set_position).and_return(true)
+        allow(UserWorld).to receive(:find_by_ids).and_return(usrwrld)
+        post move_user_path, params: {world_id: 1, dest_row: 6, dest_col:6}
+      end
+
+      it 'should render 400 bad_request when insufficient credits' do
+        usrwrld = double('association')
+        allow(usrwrld).to receive(:user_row).and_return(2)
+        allow(usrwrld).to receive(:user_col).and_return(3)
+        allow(cur_user).to receive_messages(charge_credits: false)
+        allow(usrwrld).to receive(:set_position).and_return(true)
+        allow(UserWorld).to receive(:find_by_ids).and_return(usrwrld)
+        post move_user_path, params: {world_id: 1, dest_row: 6, dest_col:6}
+        expect(response).to have_http_status(:bad_request)
+      end
     end
   end
 end
