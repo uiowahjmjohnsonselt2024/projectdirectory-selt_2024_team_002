@@ -13,11 +13,9 @@ class UsersWorldsController < ApplicationController
   end
 
   def cell_quest
-    params[:world_id]
+    world = params[:world_id]
 
     @user_world = UserWorld.find_by_ids(@cur_user.id, world)
-    Rails.logger.debug('Enter quest log')
-    Rails.logger.debug(@user_world.xp)
 
     # {respond_to do |format|
     #  format.js

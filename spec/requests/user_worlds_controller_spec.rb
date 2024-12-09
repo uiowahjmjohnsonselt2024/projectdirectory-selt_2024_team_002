@@ -26,7 +26,8 @@ RSpec.describe UserWorld, type: :request do
 
   describe 'user_world actions' do
     it 'accesses quests' do
-      post cell_quest_path(world.id)
+      allow(UserWorld).to receive(:find_by_ids)
+      post cell_quest_path(world.id), params: {world_id: 1}
       expect(response).to have_http_status(:no_content)
     end
 
