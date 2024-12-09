@@ -24,12 +24,22 @@ class UserWorld < ApplicationRecord
   end
 
   def self.find_known_squares(user_id, world_id)
-    UserWorld.where(user_id: user_id, world_id: world_id)
+    UserWorld.where(user_id: user_id, world_id: world_id).first.seen
   end
 
   def set_position(row, col)
     self.user_row = row
     self.user_col = col
+    # update row col
+    tiles = [[row.to_int - 1, col], [row.to_int + 1, col], [row, col.to_int + 1],
+             [row, col.to_int - 1], [row, col]].filter do |el|
+      (1..World.dim).include?(el[0]) && (1..World.dim).include?(el[1])
+    end
+
+    tiles.each do |tile|
+      seen << tile unless seen.include?(tile)
+    end
+    Rails.logger.info('about to save')
     save!
   end
 

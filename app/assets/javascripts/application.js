@@ -23,6 +23,6 @@ window.addEventListener('unload', function (event) {
 });
 
 $(function () {
-    $('.flash_msg').fadeOut(6000);
+    $('.flash_msg').fadeOut(5000);
 
 })

@@ -8,7 +8,6 @@ class OaiOutbox < ActiveRecord::Migration[7.1]
       t.timestamps # created at
     end
 
-    add_check_constraint :openai_events, "row < #{World.dim}", name: 'row_less_than_dim'
-    add_check_constraint :openai_events, "col < #{World.dim}", name: 'col_less_than_dim'
+    
   end
 end

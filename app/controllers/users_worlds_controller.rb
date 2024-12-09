@@ -13,9 +13,9 @@ class UsersWorldsController < ApplicationController
   end
 
   def cell_quest
-    @world = World.find(params[:world_id])
+    params[:world_id]
 
-    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @user_world = UserWorld.find_by_ids(@cur_user.id, world)
     Rails.logger.debug('Enter quest log')
     Rails.logger.debug(@user_world.xp)
 
@@ -25,8 +25,8 @@ class UsersWorldsController < ApplicationController
   end
 
   def move_user
-    @world = World.find(params[:world_id])
-    user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    world = params[:world_id]
+    user_world = UserWorld.find_by_ids(@cur_user.id, world)
     row = user_world.user_row
     col = user_world.user_col
     dest_row = params[:dest_row]
@@ -36,20 +36,23 @@ class UsersWorldsController < ApplicationController
     unless isfree
       # Charge failed, return 400 status
       charge_res = @cur_user.charge_credits(0.75)
-      Rails.logger.info(charge_res)
-      flash[:warning] = 'Insufficient credits!'
-      return render json: { error: 'Insufficient credits!' }, status: :bad_request unless charge_res
+      Rails.logger.info("charge_res #{charge_res}")
+      unless charge_res
+        flash[:warning] = 'Insufficient credits!'
+        return render json: { error: 'Insufficient credits!' }, status: :bad_request unless charge_res
+      end
 
-      Rails.logger.info('here')
     end
+
+    Rails.logger.info('here')
     user_world.set_position(dest_row, dest_col)
-    render text: 'ok', status: :ok
+    render json: { error: 'none' }, status: :ok
   end
 
   def cell_action
-    @world = World.find(params[:world_id])
+    world = params[:world_id]
 
-    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @user_world = UserWorld.find_by_ids(@cur_user.id, world)
     Rails.logger.debug('Enter action')
     Rails.logger.debug(@user_world.xp)
 
@@ -59,14 +62,22 @@ class UsersWorldsController < ApplicationController
   end
 
   def cell_shop
-    @world = World.find(params[:world_id])
+    world = params[:world_id]
 
-    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @user_world = UserWorld.find_by_ids(@cur_user.id, world)
     Rails.logger.debug('Enter shop')
     Rails.logger.debug(@user_world.xp)
 
     # {respond_to do |format|
     #  format.js
     # end}
+  end
+
+  def poll_img
+    world = World.find(params[:world_id])
+    row = World.find(params[:row])
+    col = World.find(params[:col])
+    allowed = UserWorld.find_by_ids(@cur_user.id, world).seen
+    puts "allowed #{allowed}"
   end
 end

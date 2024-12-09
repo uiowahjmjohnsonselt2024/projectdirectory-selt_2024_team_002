@@ -159,8 +159,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_215950) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["world_id"], name: "index_openai_events_on_world_id"
-    t.check_constraint "\"row\" < 6", name: "row_less_than_dim"
-    t.check_constraint "col < 6", name: "col_less_than_dim"
   end
 
   create_table "user_worlds", force: :cascade do |t|
