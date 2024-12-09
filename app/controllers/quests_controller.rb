@@ -10,7 +10,7 @@ class QuestsController < ApplicationController
     if quest.complete_trivia(params[:answer])
       flash[:notice] = "Correct answer! Quest completed."
     else
-      flash[:alert] = "Incorrect answer. Try again."
+      flash[:alert] = "Incorrect answer."
     end
     redirect_to world_path(quest.world)
   end
