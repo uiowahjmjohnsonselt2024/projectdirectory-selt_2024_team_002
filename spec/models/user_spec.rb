@@ -29,7 +29,6 @@ RSpec.describe User, type: :model do
 
   describe 'validations' do
     # see the justification in the validation function
-
     # rubocop:disable RSpec/MultipleExpectations
     describe 'password' do
       it 'dosent validate when the password is empty' do
@@ -97,6 +96,28 @@ RSpec.describe User, type: :model do
       allow(usr).to receive(:save)
       usr.purchase_plus_user
       expect(usr.plus_user).to be true
+    end
+  end
+
+  describe 'generate reset token' do
+    it 'sets the timestamp' do
+      usr = described_class.new
+      allow(SecureRandom).to receive(:hex)
+      time = instance_double(Time)
+      expect(Time).to receive(:now)
+      allow(Time).to receive(:now).and_return time
+      allow(time).to receive(:utc)
+      usr.generate_reset_password_token
+    end
+
+    it 'generates a token' do 
+      usr = described_class.new
+      allow(SecureRandom).to receive(:hex)
+      time = instance_double(Time)
+      expect(Time).to receive(:now)
+      allow(Time).to receive(:now).and_return time
+      allow(time).to receive(:utc)
+      usr.generate_reset_password_token
     end
   end
 end

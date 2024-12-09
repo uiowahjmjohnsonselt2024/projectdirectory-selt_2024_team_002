@@ -47,15 +47,10 @@ Rails.application.routes.draw do
   post 'worlds/leave_world', to: 'worlds#leave_world'
   resources :worlds
   root to: redirect('/worlds')
-
-  # routes for quests
-  post 'quests/:id/complete', to: 'quests#complete', as: 'complete_quest'
-  resources :quests do
-    post 'complete_trivia', on: :member
-  end
-
+  mount GoodJob::Engine => 'good_job' if ENV['RAILS_ENV'] != 'production'
   # routes for game
   post '/worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
   post '/worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
   post '/worlds/game/cell_shop', to: 'users_worlds#cell_shop', as: 'cell_shop'
+  post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
 end
