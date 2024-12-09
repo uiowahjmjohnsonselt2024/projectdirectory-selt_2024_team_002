@@ -54,6 +54,14 @@
             <%= image_tag(url_for(@data[row][col].image), class: "grid_image") %>
             <div class="hidden"><%=row%>-<%=col%></div>
           </div>
+        <% elsif !@data[row][col].image.attached? %>
+          <div class="grid_cell filled_cell" >
+            <% if @pos_row == row && @pos_col == col%>
+            <div class="here"></div>
+            <%end%>
+            <div>No Image</div>
+            <div class="hidden"><%=row%>-<%=col%></div>
+          </div>
         <% end %>
       <% end %>
     <% end %>
