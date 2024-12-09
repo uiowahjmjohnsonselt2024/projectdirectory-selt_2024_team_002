@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-# require 'rails_helper'
+require 'webmock/rspec'
 
 SimpleCov.start 'rails' do
   SimpleCov.add_filter 'app/controllers/application_controller.rb' # rails generated file
