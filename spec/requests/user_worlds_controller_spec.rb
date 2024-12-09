@@ -41,4 +41,19 @@ RSpec.describe UserWorld, type: :request do
       expect(response).to have_http_status(:no_content)
     end
   end
+
+  describe 'move user' do
+    describe 'free move' do
+      it 'should render ok json' do
+        usrwrld = double('association')
+        allow(usrwrld).to receive(:user_row).and_return(2)
+        allow(usrwrld).to receive(:user_col).and_return(3)
+        allow(usrwrld).to receive(:set_position).and_return(true)
+        allow(UserWorld).to receive(:find_by_ids).and_return(usrwrld)
+        post move_user_path, params: {world_id: 1, dest_row: 3, dest_col:3}
+        expect(response).to have_http_status(:ok)
+      end
+      
+    end
+  end
 end

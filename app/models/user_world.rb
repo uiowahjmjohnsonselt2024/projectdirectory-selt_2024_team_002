@@ -8,8 +8,8 @@ class UserWorld < ApplicationRecord
   validates :xp, numericality: { greater_than_or_equal_to: 0 }
 
   def self.free_move?(player_row, player_col, dest_row, dest_col)
-    row_diff = (player_row - dest_row).abs
-    col_diff = (player_col - dest_col).abs
+    row_diff = (player_row.to_i - dest_row.to_i).abs
+    col_diff = (player_col.to_i - dest_col.to_i).abs
     (row_diff == 1 && col_diff.zero?) || (row_diff.zero? && col_diff == 1)
   end
 

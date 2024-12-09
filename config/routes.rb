@@ -53,5 +53,4 @@ Rails.application.routes.draw do
   post '/worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
   post '/worlds/game/cell_shop', to: 'users_worlds#cell_shop', as: 'cell_shop'
   post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
-  post '/worlds/game/image', to: 'users_worlds#poll_img', as: 'world_image'
 end

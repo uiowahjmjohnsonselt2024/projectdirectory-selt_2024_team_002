@@ -29,20 +29,18 @@ class UsersWorldsController < ApplicationController
     col = user_world.user_col
     dest_row = params[:dest_row]
     dest_col = params[:dest_col]
+
     isfree = UserWorld.free_move?(row, col, dest_row, dest_col)
 
     unless isfree
       # Charge failed, return 400 status
       charge_res = @cur_user.charge_credits(0.75)
-      Rails.logger.info("charge_res #{charge_res}")
       unless charge_res
         flash[:warning] = 'Insufficient credits!'
         return render json: { error: 'Insufficient credits!' }, status: :bad_request unless charge_res
       end
 
     end
-
-    Rails.logger.info('here')
     user_world.set_position(dest_row, dest_col)
     render json: { error: 'none' }, status: :ok
   end
@@ -69,13 +67,5 @@ class UsersWorldsController < ApplicationController
     # {respond_to do |format|
     #  format.js
     # end}
-  end
-
-  def poll_img
-    world = World.find(params[:world_id])
-    row = World.find(params[:row])
-    col = World.find(params[:col])
-    allowed = UserWorld.find_by_ids(@cur_user.id, world).seen
-    puts "allowed #{allowed}"
   end
 end
