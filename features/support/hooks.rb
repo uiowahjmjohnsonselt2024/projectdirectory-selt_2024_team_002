@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'database_cleaner/active_record'
 # this seeds our database for the int tests
 Before do
-  Rails.application.load_seed
+  DatabaseCleaner.clean
+  # Rails.application.load_seed
 end
 
 at_exit do
