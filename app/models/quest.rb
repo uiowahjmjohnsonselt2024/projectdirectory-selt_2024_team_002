@@ -39,11 +39,12 @@ class Quest < ApplicationRecord
     end
 
     def complete_trivia(answer)
-      if answer == trivia_question[:answer]
+      if answer == trivia_question['answer']
         user_world.user.increment!(:available_credits, 5)
         user_world.increment!(:xp, 15)
         update!(completed: true)
       else
+        update!(completed: true)
         false
       end
     end

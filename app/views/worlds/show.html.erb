@@ -108,10 +108,10 @@
         <% if quest.trivia_question.present? %>
           <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
           <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
-            <% quest.trivia_question['choices'].each do |choice| %>
+            <% quest.trivia_question['choices'].each_with_index do |choice, index| %>
               <div>
-                <%= radio_button_tag "answer_#{quest.id}", choice, false, { name: "answer_#{quest.id}" } %>
-                <%= label_tag "answer_#{quest.id}_#{choice}", choice %>
+                <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}" %>
+                <%= label_tag "answer_#{quest.id}_#{index}", choice %>
               </div>
             <% end %>
             <%= submit_tag 'Submit Answer' %>
