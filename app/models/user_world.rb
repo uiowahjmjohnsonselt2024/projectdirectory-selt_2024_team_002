@@ -6,6 +6,7 @@ class UserWorld < ApplicationRecord
   belongs_to :world
 
   validates :xp, numericality: { greater_than_or_equal_to: 0 }
+  validate :validate_seen_and_position
 
   def self.free_move?(player_row, player_col, dest_row, dest_col)
     row_diff = (player_row.to_i - dest_row.to_i).abs
@@ -15,12 +16,12 @@ class UserWorld < ApplicationRecord
 
   def validate_seen_and_position
     seen.each do |pair|
-      errors.add(attr, 'len of seen pair must be 2') if pair.length > 2
-      errors.add(attr, 'len of seen pair must be 2') unless (1..World.dim).include?(pair[0])
-      errors.add(attr, 'len of seen pair must be 2') unless (1..World.dim).include?(pair[1])
+      errors.add(:seen, 'len of seen pair must be 2') if pair.length > 2
+      errors.add(:seen, 'row position must be in bounds') unless (1..World.dim).include?(pair[0].to_i)
+      errors.add(:seen, 'col position must be in bounds') unless (1..World.dim).include?(pair[1].to_i)
     end
-    errors.add(attr, 'user col position must be in range') unless (1..World.dim).include?(user_col)
-    errors.add(attr, 'user col position must be in range') unless (1..World.dim).include?(user_row)
+    errors.add(:seen, 'user col position must be in range') unless (1..World.dim).include?(user_col)
+    errors.add(:seen, 'user col position must be in range') unless (1..World.dim).include?(user_row)
   end
 
   def self.find_known_squares(user_id, world_id)

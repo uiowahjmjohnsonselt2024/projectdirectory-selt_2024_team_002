@@ -30,6 +30,35 @@ RSpec.describe UserWorld, type: :model do
   end
   
   describe 'validations' do
+    it 'is not valid when some seen row is out of range' do
+      uw = described_class.new(xp:0, seen: [[7,2]] )
+      expect(uw).not_to be_valid
+    end
     
+    it 'is not valid when some seen col is out of range' do
+      uw = described_class.new(xp:0, seen: [[2,7]] )
+      expect(uw).not_to be_valid
+    end
+  
+    it 'is valid when both seen and col in range' do
+      uw = described_class.new(xp:0, seen: [[2,2]] )
+      expect(uw).to be_valid
+    end
+
+    it 'is valid when both positions in range' do
+      uw = described_class.new(user_row: 1, user_col: 1)
+      expect(uw).to be_valid
+    end
+
+    it 'is not valid when row not in range' do
+      uw = described_class.new(user_row: 500, user_col: 1)
+      expect(uw).not_to be_valid
+    end
+
+    it 'is not valid when col not in range' do
+      uw = described_class.new(user_row: 1, user_col: 100 )
+      expect(uw).not_to be_valid
+    end
+
   end
 end
