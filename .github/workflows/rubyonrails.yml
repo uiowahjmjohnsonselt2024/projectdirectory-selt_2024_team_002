@@ -47,6 +47,7 @@ jobs:
       # Add or replace database setup steps here - name: Set up database schema
       - name: Set up Chrome
         uses: nanasess/setup-chromedriver@v2        
+      - name: Set up Chrome 2  
         run: |
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
