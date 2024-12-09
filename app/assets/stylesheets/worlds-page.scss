@@ -1,5 +1,8 @@
-body {
+body::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
   margin: 0;
+  -ms-overflow-style: none;
 }
 
 .nav-container {
@@ -122,6 +125,12 @@ body {
   position: fixed;
   right: 10px;
   top: 30%;
+}
+
+.scroll-independent-div-center {
+  position: fixed;
+  right: 30%;
+  top: 10%;
 }
 
 .lower-div-after-nav {

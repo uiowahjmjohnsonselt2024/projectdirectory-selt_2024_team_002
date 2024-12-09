@@ -6,23 +6,31 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<div>
+<body style="
+  }; -ms-overflow-style: none; ">
+<div class="main-container" id="main_container">
   <div class="game_toolbar">
     <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
     <span class="world_name">World Name: <%= @world[:world_name] %></span>
     <span class="world_id">World ID: <%= @world[:world_code] %></span>
+    <div class="center-stack">
+      <div id="flash">
+        <% if flash[:alert] %>
+          <div class="alert world-creation-alert-box">
+            <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+              <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+            </svg></div>
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-
-<script>
-  var worldId = <%= @world.id %>;
-</script>
-
-<div class="grid_container">
-  <% (1..World.dim).each do |row| %>
-    <% (1..World.dim).each do |col| %>
-      <% if @data[row][col].image.attached? %>
+  <div class="grid_container">
+    <% (1..World.dim).each do |row| %>
+      <% (1..World.dim).each do |col| %>
+        <% if @data[row][col].image.attached? %>
           <div class="grid_cell filled_cell" >
             <%= image_tag(url_for(@data[row][col].image), class: "grid_image") %>
             <div class="hidden"><%=row%>-<%=col%></div>
@@ -38,17 +46,17 @@
   </div>
 
   <div class="game-ui">
-    <%= form_tag "/worlds/game/cell_quest", method: :post, id: 'quest_form' do %>
+    <%= form_tag cell_quest_path, method: :post, id: 'quest_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= button_to 'Quest', "", method: :post, id: "quest_log_button", class: "game_button"%>
     <% end %>
-    <%= form_tag "/worlds/game/cell_action", method: :post, id: 'action_form' do %>
+    <%= form_tag cell_action_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= button_to 'Action', "", method: :post, id: "action_engage_button", class: "game_button"%>
     <% end %>
-    <%= form_tag "/worlds/game/cell_shop", method: :post, id: 'shop_form' do %>
+    <%= form_tag cell_shop_path, method: :post, id: 'shop_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Shop', "", method: :post, id: "shop_log_button", class: "game_button"%>
+      <%= button_to 'Shop', "", method: :post, id: "shop_log_button", class: "game_button", onclick: "disable_background_interaction()"%>
     <% end %>
   </div>
 
@@ -58,6 +66,7 @@
       <p>Cell (1, 1)</p>
     </div>
   </div>
+
   <div class="scroll-independent-div-cr">
     <div class="floating-blob">
       <p id="xp-text"></p>
@@ -68,7 +77,20 @@
       </div>
     </div>
   </div>
+
+  <div id="black_background" class="black_overlay"></div>
 </div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_container">
+    <a id="close_link" class="close-button"></a>
+    <div id="shop"></div>
+  </div>
+</div>
+
+<script>
+    var worldId = <%= @world.id %>;
+</script>
 
 <script>
     const currentXP = <%= @user_world[:xp] %>;
@@ -81,6 +103,31 @@
 
     // Update the XP text
     xpText.textContent = `XP: ${currentXP}/${maxXP}`;
+</script>
+
+<script>
+  function disable_background_interaction() {
+      if (document.getElementById("main_container").style.pointerEvents === "none") {
+          document.getElementById("main_container").style.pointerEvents = "auto";
+      } else {
+          document.body.style.overflow = "hidden";
+          document.getElementById("main_container").style.pointerEvents = "none";
+          document.getElementById("partial_container").style.display = "block"
+          document.getElementById("close_link").style.display = "block"
+          document.getElementById("black_background").style.display = "block"
+      }
+      document.getElementById("partial_container").style.pointerEvents = "auto";
+  }
+</script>
+
+<script>
+  document.getElementById("close_link").addEventListener("click", function (event) {
+      event.preventDefault()
+      document.getElementById("partial_container").style.display = "none"
+      document.getElementById("main_container").style.pointerEvents = "auto";
+      document.body.style.overflow = "auto";
+      document.getElementById("black_background").style.display = "none"
+  }, false);
 </script>
 
 </body>

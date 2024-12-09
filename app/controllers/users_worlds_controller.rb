@@ -38,16 +38,17 @@ class UsersWorldsController < ApplicationController
     # end}
   end
 
-  def cell_shop
+  def shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
 
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     Rails.logger.debug('Enter shop')
     Rails.logger.debug(@user_world.xp)
+    @items = ["Item 1", "Item 2", "Item 3"]
 
-    # {respond_to do |format|
-    #  format.js
-    # end}
+    respond_to do |format|
+      format.js
+    end
   end
 end

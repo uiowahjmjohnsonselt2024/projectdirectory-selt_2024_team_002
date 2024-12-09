@@ -1,0 +1,9 @@
+<div class="floating-partial-box" id="cell-shop-box">
+  <label for="shard_input" style="font-size: 30px">Cell Shop</label>
+  <% items.each do |item| %>
+    <p><%= item %></p>
+  <% end %>
+  <%= form_tag "", method: :post, id: 'buy_form' do %>
+    <%= button_to 'Buy', "", method: :post, id: "buy_button", class: "accept_button"%>
+  <% end %>
+</div>
