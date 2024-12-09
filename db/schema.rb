@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_09_214728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -152,15 +152,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
 
-  create_table "openai_events", force: :cascade do |t|
-    t.bigint "world_id", null: false
-    t.integer "row", null: false
-    t.integer "col", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["world_id"], name: "index_openai_events_on_world_id"
-  end
-
   create_table "inventory_items", force: :cascade do |t|
     t.bigint "user_world_id"
     t.bigint "item_id"
@@ -178,6 +169,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
     t.boolean "is_interactable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "openai_events", force: :cascade do |t|
+    t.bigint "world_id", null: false
+    t.integer "row", null: false
+    t.integer "col", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["world_id"], name: "index_openai_events_on_world_id"
   end
 
   create_table "shop_items", force: :cascade do |t|
@@ -215,7 +215,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
     t.string "email"
     t.text "password_digest"
     t.text "session_token"
-    t.integer "available_credits", default: 0, null: false
+    t.integer "available_credits"
     t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -244,9 +244,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "gridsquares", "worlds"
-  add_foreign_key "openai_events", "worlds"
   add_foreign_key "inventory_items", "items"
   add_foreign_key "inventory_items", "user_worlds"
+  add_foreign_key "openai_events", "worlds"
   add_foreign_key "shop_items", "items"
   add_foreign_key "shop_items", "shops"
   add_foreign_key "user_worlds", "users"
