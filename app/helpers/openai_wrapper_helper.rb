@@ -60,7 +60,6 @@ module OpenaiWrapperHelper
         
         return
       end
-
       result = JSON.parse(response.body)
       res = result.dig('choices', 0, 'message', 'content')&.strip
       Rails.logger.info("got 3.5 turbo response for row: #{row}, col: #{col}, response: #{res}")
