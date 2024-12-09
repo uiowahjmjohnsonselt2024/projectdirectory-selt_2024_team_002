@@ -34,6 +34,8 @@ class WorldsController < ApplicationController
       
       @data[cell.row][cell.col] = allowed.include?([cell.row.to_s, cell.col.to_s]) ? cell : :none
     end
+
+    @quests = Quest.where(world_id: @world.id)
   end
 
   def index

@@ -26,10 +26,10 @@ class QuestsController < ApplicationController
     user_world = UserWorld.find_by(user_id: user_id, world_id: world_id)
     if user_world
       if rand(2).zero?
-        Quest.generate_movement_for(user_world)
+        @quest = Quest.generate_movement_for(user_world)
         Rails.logger.info("Generated movement quest")
       else
-        Quest.generate_trivia_for(user_world)
+        @quest = Quest.generate_trivia_for(user_world)
         Rails.logger.info("Generated trivia quest")
       end
       flash[:notice] = "New quest generated!"

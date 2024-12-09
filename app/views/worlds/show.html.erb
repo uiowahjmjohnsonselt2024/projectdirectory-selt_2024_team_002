@@ -101,6 +101,28 @@
   </div>
 </div>
 
+<div class="quest-info" style="color: white;">
+  <h2>Current Quest</h2>
+  <% if @quests.any? %>
+    <% @quests.each do |quest| %>
+      <% if quest.trivia_question.present? %>
+        <p>Question: <%= quest.trivia_question["question"] %></p>
+        <p>Choices:</p>
+        <ul>
+          <% quest.trivia_question["choices"].each do |choice| %>
+            <li><%= choice %></li>
+          <% end %>
+        </ul>
+        <p>Answer: <%= quest.trivia_question["answer"] %></p>
+      <% else %>
+        <p>Description: <%= quest.description %></p>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>No Quests Available</p>
+  <% end %>
+</div>
+
 <script>
     const currentXP = <%= @user_world[:xp] %>;
     const maxXP = 100; // Maximum XP
