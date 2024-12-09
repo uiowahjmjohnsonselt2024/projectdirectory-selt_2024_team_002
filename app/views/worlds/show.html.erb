@@ -102,23 +102,23 @@
 </div>
 
 <div class="quest_container" style="color: white;">
-  <% if @quests.any? %>
-    <% @quests.each do |quest| %>
-      <% if !quest.completed %>
-        <% if quest.trivia_question.present? %>
-          <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
-          <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
-            <% quest.trivia_question['choices'].each_with_index do |choice, index| %>
-              <div>
-                <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}" %>
-                <%= label_tag "answer_#{quest.id}_#{index}", choice %>
-              </div>
-            <% end %>
-            <%= submit_tag 'Submit Answer' %>
+  <% incomplete_quests = @quests.reject(&:completed) %>
+  <% if incomplete_quests.any? %>
+    <% incomplete_quests.each do |quest| %>
+      <% if quest.trivia_question.present? %>
+        <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
+        <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
+          <% quest.trivia_question['choices'].each_with_index do |choice, index| %>
+            <div>
+              <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}" %>
+              <%= label_tag "answer_#{quest.id}_#{index}", choice %>
+            </div>
           <% end %>
-        <% else %>
-          <p>Quest: <%= @random_quest_message %></p>
+          <%= submit_tag 'Submit Answer' %>
         <% end %>
+      <% else %>
+        <h3>Quest: <%= quest.description || 'testing message' %></h3>
+        <p>Debug: Non-trivia quest detected</p>
       <% end %>
     <% end %>
   <% else %>

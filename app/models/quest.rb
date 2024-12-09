@@ -4,9 +4,9 @@ class Quest < ApplicationRecord
   
     def self.generate_movement_for(user_world)
       world = user_world.world
-      filled_cells = world.gridsquares.select { |cell| cell.image.attached? }
+      filled_cells = world.gridsquares.select { |cell| cell.image.attached? && cell.image.metadata['class'] != 'question' }
       return if filled_cells.empty?
-  
+
       target_cell = filled_cells.sample
       create!(
         user_world: user_world,
@@ -49,7 +49,7 @@ class Quest < ApplicationRecord
       end
     end
 
-    def random_quest_message(description)
+    def self.random_quest_message(description)
       quest_messages = [
         "Find the sword in the #{description}",
         "Find the treasure in the #{description}",
