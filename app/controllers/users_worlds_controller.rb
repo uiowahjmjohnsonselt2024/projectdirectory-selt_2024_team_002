@@ -63,10 +63,10 @@ class UsersWorldsController < ApplicationController
   def cell_shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
-
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-    Rails.logger.debug('Enter shop')
-    Rails.logger.debug(@user_world.xp)
+    @row_pos = @user_world.user_row
+    @col_pos = @user_world.user_col
+
     @items = Item.all
 
     respond_to do |format|

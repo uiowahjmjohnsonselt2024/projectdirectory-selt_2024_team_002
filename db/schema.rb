@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_09_214728) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_09_231311) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -142,6 +142,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_214728) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "grid_shops", force: :cascade do |t|
+    t.bigint "gridsquare_id"
+    t.bigint "shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gridsquare_id"], name: "index_grid_shops_on_gridsquare_id"
+    t.index ["shop_id"], name: "index_grid_shops_on_shop_id"
+  end
+
   create_table "gridsquares", force: :cascade do |t|
     t.bigint "world_id"
     t.integer "row"
@@ -243,6 +252,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_214728) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "grid_shops", "gridsquares"
+  add_foreign_key "grid_shops", "shops"
   add_foreign_key "gridsquares", "worlds"
   add_foreign_key "inventory_items", "items"
   add_foreign_key "inventory_items", "user_worlds"
