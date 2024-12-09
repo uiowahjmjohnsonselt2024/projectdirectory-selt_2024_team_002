@@ -175,7 +175,56 @@ RSpec.describe 'Users', type: :request do
       post send_reset_email_path, params: { email: 'admin@admin.com' }
       expect(response).to redirect_to forgot_password_path
     end
-    # TODO: check email seam
+
+    it 'calls the active mailer seam when the user is found' do
+      user = instance_double(User)
+      allow(User).to receive(:find_by_email).and_return(user)
+      allow(user).to receive(:generate_reset_password_token).and_return(user)
+      # rubocop:disable RSpec/VerifiedDoubles
+      mailer = double('mailer')
+      # rubocop:enable RSpec/VerifiedDoubles
+      allow(UserMailer).to receive(:send_reset_password_email).and_return(mailer)
+      allow(mailer).to receive(:deliver_now)
+      expect(UserMailer).to receive(:send_reset_password_email).with user
+      post send_reset_email_path, params: { email: 'admin@admin.com' }
+    end
+
+    it 'redirects correctly when the user is found' do
+      user = instance_double(User)
+      allow(User).to receive(:find_by_email).and_return(user)
+      allow(user).to receive(:generate_reset_password_token).and_return(user)
+      # rubocop:disable RSpec/VerifiedDoubles
+      mailer = double('mailer')
+      # rubocop:enable RSpec/VerifiedDoubles
+      allow(mailer).to receive(:deliver_now)
+      allow(UserMailer).to receive(:send_reset_password_email).and_return(mailer)
+      post send_reset_email_path, params: { email: 'admin@admin.com' }
+      expect(response).to redirect_to users_login_path
+    end
+  end
+
+  describe 'reset password' do
+    it 'renders the correct password template' do
+      user = instance_double(User)
+      allow(User).to receive(:find_by_reset_password_token).and_return(user)
+      allow(user).to receive(:invalid_reset_password_token?).and_return(false)
+      get reset_password_path
+      expect(response).to render_template('users/reset_password')
+    end
+
+    it 'redirects when the user is not found' do
+      allow(User).to receive(:find_by_reset_password_token).and_return(nil)
+      get reset_password_path
+      expect(response).to redirect_to users_login_path
+    end
+
+    it 'redirects when the token is not valid' do
+      user = instance_double(User)
+      allow(User).to receive(:find_by_reset_password_token).and_return(user)
+      allow(user).to receive(:invalid_reset_password_token?).and_return(true)
+      get reset_password_path
+      expect(response).to redirect_to users_login_path
+    end
   end
 
   describe 'plus user' do
@@ -405,6 +454,24 @@ RSpec.describe 'Users', type: :request do
         post users_add_friend_path, params: { friend_name: 'alex' }
         expect(assigns(:message)).to eq('Failed to add friendship.')
       end
+    end
+  end
+
+  describe 'update password' do 
+    before do 
+      @usr = instance_double(User)
+      allow(User).to receive(:find_by_reset_password_token).and_return(@usr)
+    end
+    
+    it 'redirects to correctly when the confirmation does not match' do
+      post users_update_password_path, params: { new_password: 'alex', confirm_new_password: 'ahahah' }
+      expect(response).to redirect_to new_user_path
+    end
+    
+    it 'updates the password when they match' do
+      allow(@usr).to receive(:update_password).and_return(true)
+      post users_update_password_path, params: { new_password: 'alex', confirm_new_password: 'alex' }
+      expect(response).to redirect_to users_login_path
     end
   end
 end

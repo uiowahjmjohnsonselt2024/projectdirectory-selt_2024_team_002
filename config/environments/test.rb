@@ -42,8 +42,11 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  config.action_mailer.default_url_options = { host: 'test.yourhost.com' }
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.log_level = :info
 
   config.assets.check_precompiled_asset = false # without this here, our css won't load correctly in the tests
 end
