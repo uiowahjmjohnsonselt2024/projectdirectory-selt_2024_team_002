@@ -45,7 +45,7 @@ class UsersWorldsController < ApplicationController
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     Rails.logger.debug('Enter shop')
     Rails.logger.debug(@user_world.xp)
-    @items = ["Item 1", "Item 2", "Item 3"]
+    @items = Item.all
 
     respond_to do |format|
       format.js
