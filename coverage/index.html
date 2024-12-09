@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-08T20:58:15-06:00">2024-12-08T20:58:15-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-08T21:07:08-06:00">2024-12-08T21:07:08-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -29,7 +29,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.74
+         1.78
        </span>
     </span> hits/line
     )
@@ -83,7 +83,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#ff43321110f97648c2d844fb70bc84f122ee207e" class="src_link" title="app/controllers/users_worlds_controller.rb">app/controllers/users_worlds_controller.rb</a></td>
             <td class="green strong cell--number t-file__coverage">94.29 %</td>
-            <td class="cell--number">71</td>
+            <td class="cell--number">73</td>
             <td class="cell--number">35</td>
             <td class="cell--number">33</td>
             <td class="cell--number">2</td>
@@ -226,11 +226,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#36059dc70e2c9dc55130ac0b000c1e9fcfc920e0" class="src_link" title="app/models/user_world.rb">app/models/user_world.rb</a></td>
             <td class="red strong cell--number t-file__coverage">42.86 %</td>
-            <td class="cell--number">49</td>
+            <td class="cell--number">51</td>
             <td class="cell--number">28</td>
             <td class="cell--number">12</td>
             <td class="cell--number">16</td>
-            <td class="cell--number">0.75</td>
+            <td class="cell--number">1.50</td>
             
           </tr>
         
@@ -318,7 +318,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#ff43321110f97648c2d844fb70bc84f122ee207e" class="src_link" title="app/controllers/users_worlds_controller.rb">app/controllers/users_worlds_controller.rb</a></td>
             <td class="green strong cell--number t-file__coverage">94.29 %</td>
-            <td class="cell--number">71</td>
+            <td class="cell--number">73</td>
             <td class="cell--number">35</td>
             <td class="cell--number">33</td>
             <td class="cell--number">2</td>
@@ -413,7 +413,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.54
+         2.7
        </span>
     </span> hits/line
     )
@@ -500,11 +500,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#36059dc70e2c9dc55130ac0b000c1e9fcfc920e0" class="src_link" title="app/models/user_world.rb">app/models/user_world.rb</a></td>
             <td class="red strong cell--number t-file__coverage">42.86 %</td>
-            <td class="cell--number">49</td>
+            <td class="cell--number">51</td>
             <td class="cell--number">28</td>
             <td class="cell--number">12</td>
             <td class="cell--number">16</td>
-            <td class="cell--number">0.75</td>
+            <td class="cell--number">1.50</td>
             
           </tr>
         
@@ -4576,7 +4576,17 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="25">
+          <li class="never" data-hits="" data-linenumber="25">
+            
+
+            
+
+            <code class="ruby">  # rubocop:disable Metrics/MethodLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="26">
             
               <span class="hits">1</span>
             
@@ -4588,18 +4598,6 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="26">
-            
-              <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    world = params[:world_id]</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="covered" data-hits="4" data-linenumber="27">
             
               <span class="hits">4</span>
@@ -4607,7 +4605,7 @@
 
             
 
-            <code class="ruby">    user_world = UserWorld.find_by_ids(@cur_user.id, world)</code>
+            <code class="ruby">    world = params[:world_id]</code>
           </li>
         </div>
       
@@ -4619,7 +4617,7 @@
 
             
 
-            <code class="ruby">    row = user_world.user_row</code>
+            <code class="ruby">    user_world = UserWorld.find_by_ids(@cur_user.id, world)</code>
           </li>
         </div>
       
@@ -4631,7 +4629,7 @@
 
             
 
-            <code class="ruby">    col = user_world.user_col</code>
+            <code class="ruby">    row = user_world.user_row</code>
           </li>
         </div>
       
@@ -4643,7 +4641,7 @@
 
             
 
-            <code class="ruby">    dest_row = params[:dest_row]</code>
+            <code class="ruby">    col = user_world.user_col</code>
           </li>
         </div>
       
@@ -4655,12 +4653,24 @@
 
             
 
+            <code class="ruby">    dest_row = params[:dest_row]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="32">
+            
+              <span class="hits">4</span>
+            
+
+            
+
             <code class="ruby">    dest_col = params[:dest_col]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="32">
+          <li class="never" data-hits="" data-linenumber="33">
             
 
             
@@ -4670,7 +4680,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="33">
+          <li class="covered" data-hits="4" data-linenumber="34">
             
               <span class="hits">4</span>
             
@@ -4682,7 +4692,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="34">
+          <li class="never" data-hits="" data-linenumber="35">
             
 
             
@@ -4692,7 +4702,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="35">
+          <li class="covered" data-hits="4" data-linenumber="36">
             
               <span class="hits">4</span>
             
@@ -4704,24 +4714,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="36">
+          <li class="never" data-hits="" data-linenumber="37">
             
 
             
 
             <code class="ruby">      # Charge failed, return 400 status</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="3" data-linenumber="37">
-            
-              <span class="hits">3</span>
-            
-
-            
-
-            <code class="ruby">      charge_res = @cur_user.charge_credits(0.75)</code>
           </li>
         </div>
       
@@ -4733,19 +4731,19 @@
 
             
 
-            <code class="ruby">      unless charge_res</code>
+            <code class="ruby">      charge_res = @cur_user.charge_credits(0.75)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="39">
+          <li class="covered" data-hits="3" data-linenumber="39">
             
-              <span class="hits">1</span>
-            
-
+              <span class="hits">3</span>
             
 
-            <code class="ruby">        flash[:warning] = &#39;Insufficient credits!&#39;</code>
+            
+
+            <code class="ruby">      unless charge_res</code>
           </li>
         </div>
       
@@ -4757,17 +4755,19 @@
 
             
 
-            <code class="ruby">        return render json: { error: &#39;Insufficient credits!&#39; }, status: :bad_request unless charge_res</code>
+            <code class="ruby">        flash[:warning] = &#39;Insufficient credits!&#39;</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="41">
+          <li class="covered" data-hits="1" data-linenumber="41">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">        return render json: { error: &#39;Insufficient credits!&#39; }, status: :bad_request unless charge_res</code>
           </li>
         </div>
       
@@ -4777,7 +4777,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -4787,19 +4787,17 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="44">
-            
-              <span class="hits">3</span>
+          <li class="never" data-hits="" data-linenumber="44">
             
 
             
 
-            <code class="ruby">    user_world.set_position(dest_row, dest_col)</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -4811,17 +4809,19 @@
 
             
 
-            <code class="ruby">    render json: { error: &#39;none&#39; }, status: :ok</code>
+            <code class="ruby">    user_world.set_position(dest_row, dest_col)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="46">
+          <li class="covered" data-hits="3" data-linenumber="46">
+            
+              <span class="hits">3</span>
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    render json: { error: &#39;none&#39; }, status: :ok</code>
           </li>
         </div>
       
@@ -4831,12 +4831,32 @@
 
             
 
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="48">
+            
+
+            
+
+            <code class="ruby">  # rubocop:enable Metrics/MethodLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="49">
+            
+
+            
+
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="48">
+          <li class="covered" data-hits="1" data-linenumber="50">
             
               <span class="hits">1</span>
             
@@ -4848,7 +4868,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="49">
+          <li class="covered" data-hits="1" data-linenumber="51">
             
               <span class="hits">1</span>
             
@@ -4860,36 +4880,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="50">
+          <li class="never" data-hits="" data-linenumber="52">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="51">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @user_world = UserWorld.find_by_ids(@cur_user.id, world)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="52">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    Rails.logger.debug(&#39;Enter action&#39;)</code>
           </li>
         </div>
       
@@ -4901,27 +4897,31 @@
 
             
 
+            <code class="ruby">    @user_world = UserWorld.find_by_ids(@cur_user.id, world)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="54">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    Rails.logger.debug(&#39;Enter action&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="55">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">    Rails.logger.debug(@user_world.xp)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="54">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="55">
-            
-
-            
-
-            <code class="ruby">    # {respond_to do |format|</code>
           </li>
         </div>
       
@@ -4931,7 +4931,7 @@
 
             
 
-            <code class="ruby">    #  format.js</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -4941,7 +4941,7 @@
 
             
 
-            <code class="ruby">    # end}</code>
+            <code class="ruby">    # {respond_to do |format|</code>
           </li>
         </div>
       
@@ -4951,7 +4951,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    #  format.js</code>
           </li>
         </div>
       
@@ -4961,12 +4961,32 @@
 
             
 
+            <code class="ruby">    # end}</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="60">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="61">
+            
+
+            
+
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="60">
+          <li class="covered" data-hits="1" data-linenumber="62">
             
               <span class="hits">1</span>
             
@@ -4978,7 +4998,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="61">
+          <li class="covered" data-hits="1" data-linenumber="63">
             
               <span class="hits">1</span>
             
@@ -4990,36 +5010,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="62">
+          <li class="never" data-hits="" data-linenumber="64">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="63">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @user_world = UserWorld.find_by_ids(@cur_user.id, world)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="64">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    Rails.logger.debug(&#39;Enter shop&#39;)</code>
           </li>
         </div>
       
@@ -5031,27 +5027,31 @@
 
             
 
+            <code class="ruby">    @user_world = UserWorld.find_by_ids(@cur_user.id, world)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="66">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    Rails.logger.debug(&#39;Enter shop&#39;)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="67">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">    Rails.logger.debug(@user_world.xp)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="66">
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="67">
-            
-
-            
-
-            <code class="ruby">    # {respond_to do |format|</code>
           </li>
         </div>
       
@@ -5061,7 +5061,7 @@
 
             
 
-            <code class="ruby">    #  format.js</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -5071,7 +5071,7 @@
 
             
 
-            <code class="ruby">    # end}</code>
+            <code class="ruby">    # {respond_to do |format|</code>
           </li>
         </div>
       
@@ -5081,12 +5081,32 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    #  format.js</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="71">
+            
+
+            
+
+            <code class="ruby">    # end}</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="72">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="73">
             
 
             
@@ -10759,9 +10779,9 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="11">
+          <li class="covered" data-hits="11" data-linenumber="11">
             
-              <span class="hits">4</span>
+              <span class="hits">11</span>
             
 
             
@@ -10771,9 +10791,9 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="12">
+          <li class="covered" data-hits="11" data-linenumber="12">
             
-              <span class="hits">4</span>
+              <span class="hits">11</span>
             
 
             
@@ -10783,9 +10803,9 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="13">
+          <li class="covered" data-hits="11" data-linenumber="13">
             
-              <span class="hits">4</span>
+              <span class="hits">11</span>
             
 
             
@@ -10959,7 +10979,17 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="30">
+          <li class="never" data-hits="" data-linenumber="30">
+            
+
+            
+
+            <code class="ruby">  # rubocop:disable Metrics/MethodLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="31">
             
               <span class="hits">1</span>
             
@@ -10971,7 +11001,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="31">
+          <li class="missed" data-hits="0" data-linenumber="32">
             
 
             
@@ -10981,7 +11011,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="32">
+          <li class="missed" data-hits="0" data-linenumber="33">
             
 
             
@@ -10991,7 +11021,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="33">
+          <li class="never" data-hits="" data-linenumber="34">
             
 
             
@@ -11001,7 +11031,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="34">
+          <li class="missed" data-hits="0" data-linenumber="35">
             
 
             
@@ -11011,7 +11041,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="35">
+          <li class="never" data-hits="" data-linenumber="36">
             
 
             
@@ -11021,7 +11051,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="36">
+          <li class="missed" data-hits="0" data-linenumber="37">
             
 
             
@@ -11031,7 +11061,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="37">
+          <li class="never" data-hits="" data-linenumber="38">
             
 
             
@@ -11041,22 +11071,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="38">
+          <li class="never" data-hits="" data-linenumber="39">
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="39">
-            
-
-            
-
-            <code class="ruby">    tiles.each do |tile|</code>
           </li>
         </div>
       
@@ -11066,12 +11086,22 @@
 
             
 
+            <code class="ruby">    tiles.each do |tile|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="41">
+            
+
+            
+
             <code class="ruby">      seen &lt;&lt; tile unless seen.include?(tile)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="41">
+          <li class="never" data-hits="" data-linenumber="42">
             
 
             
@@ -11081,7 +11111,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="42">
+          <li class="missed" data-hits="0" data-linenumber="43">
             
 
             
@@ -11091,7 +11121,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="43">
+          <li class="missed" data-hits="0" data-linenumber="44">
             
 
             
@@ -11101,7 +11131,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="44">
+          <li class="never" data-hits="" data-linenumber="45">
             
 
             
@@ -11111,7 +11141,17 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="never" data-hits="" data-linenumber="46">
+            
+
+            
+
+            <code class="ruby">  # rubocop:enable Metrics/MethodLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="47">
             
 
             
@@ -11121,7 +11161,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="46">
+          <li class="covered" data-hits="1" data-linenumber="48">
             
               <span class="hits">1</span>
             
@@ -11133,7 +11173,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="47">
+          <li class="missed" data-hits="0" data-linenumber="49">
             
 
             
@@ -11143,7 +11183,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="48">
+          <li class="never" data-hits="" data-linenumber="50">
             
 
             
@@ -11153,7 +11193,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="49">
+          <li class="never" data-hits="" data-linenumber="51">
             
 
             
