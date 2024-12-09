@@ -45,8 +45,8 @@ jobs:
           rubygems: 3.5.23
           bundler-cache: true
       # Add or replace database setup steps here - name: Set up database schema
-      - name: echo user
-        run: echo $DATABASE_USERNAME
+      - name: install chrome
+        uses: browser-actions/setup-chrome@v1
       - name: create db
         run: bin/rake db:create
       - name: migrate db
