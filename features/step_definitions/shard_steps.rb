@@ -6,6 +6,7 @@ end
 
 When(/^I fill in "([^"]*)" with (\d+) and currency "([^"]*)"$/) do |field, shards, currency|
   fill_in field, with: shards.to_i
+  find('#currency').hover
   within '#dropdown-content' do
     click_button currency
   end
@@ -25,4 +26,12 @@ end
 
 Then(/^I should have the correct amount of shards$/) do
   expect(page).to have_content(0)
+end
+
+And('I wait for {int} seconds') do |seconds|
+  sleep(seconds)
+end
+
+Given('I hover over the element with {string}') do |selector|
+  find(selector).hover
 end
