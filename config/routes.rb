@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get 'users/login', to: 'users#login'
   post 'users/get-session', to: 'users#get_session'
   get 'users/logout'
-  get 'users/purchase', to: 'users#purchase'
+  get 'users/purchase', to: 'users#purchase', as: 'users_purchase'
   post 'users/conversion', to: 'users#conversion', defaults: { format: 'js' }
   get 'users/checkout', to: 'users#checkout'
   post 'users/checkout', to: 'users#checkout'

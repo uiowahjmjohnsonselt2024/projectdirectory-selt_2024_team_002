@@ -102,6 +102,7 @@ describe WorldsController do
       allow(world).to receive_messages(id: 1)
       allow(user_world).to receive_messages(xp: 0, world_id: 1, user_id: 1, user_row: 1, user_col: 1)
       allow(user_world).to receive(:[]).with(:xp).and_return(100)
+      allow(cur_user).to receive(:available_credits).and_return(100000)
       get '/worlds/1'
       expect(response).to render_template('show')
     end

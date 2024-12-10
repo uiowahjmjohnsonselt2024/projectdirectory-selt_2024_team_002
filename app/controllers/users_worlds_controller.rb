@@ -103,8 +103,6 @@ class UsersWorldsController < ApplicationController
         end
       end
 
-      puts(item.item_name)
-
       @user_item = InventoryItem.find_or_create_by(user_world_id: @user_world.id, item_id: item.id)
       @user_item.increment(:amount_available, list_of_items[item.item_name])
       @cur_user.update(available_credits: @cur_user.available_credits - (list_of_items[item.item_name] * item.price))
