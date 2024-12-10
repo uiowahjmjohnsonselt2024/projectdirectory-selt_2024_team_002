@@ -54,5 +54,5 @@ Rails.application.routes.draw do
   post '/worlds/game/cell_shop', to: 'users_worlds#cell_shop', as: 'cell_shop'
   post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
   get '/messages/get/:id', to: 'messages#get_all_messages', as: 'get_messages'
-
+  post '/messages/send', to: 'messages#send_message', as: 'send_message'
 end

@@ -83,9 +83,7 @@ $(function () {
         `
     }
 
-    $("#chat").click( async (e) => {
-        e.preventDefault()
-        $(".chatmodal").css("display", "flex")
+    async function populateChat() {
         const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
         const response = await fetch(`${url}/messages/get/${worldId}`)
         const json = await response.json()
@@ -93,13 +91,38 @@ $(function () {
         $(".messagebox").empty() // clear all messages out
         json.forEach((message_row, idx) => {
             const html = getHTMLForOneChat(message_row, idx)
-            console.log(html)
-            console.log($('.messagebox'))
             $('.messagebox').append(
                 html
             );
         });
-        
+    }
+
+    $("#chat").click( async (e) => {
+        e.preventDefault()
+        $(".chatmodal").css("display", "flex")
+        populateChat()
     })
+
+    $(".send_chat").click(async () => {
+        console.log("called")
+        const csrfToken = $("meta[name='csrf-token']").attr("content");
+                    const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+                    const text = $('textarea.txtarea').val();
+                    const params = {
+                        world_id: worldId,
+                        message: text
+                      };
+                      const response = await fetch(`${url}/messages/send`, {
+                        method: 'POST',  // Use POST method
+                        headers: {
+                            'Content-Type': 'application/json',  // Send as JSON
+                            'X-CSRF-Token': csrfToken            // Include CSRF token from meta tag
+                          },
+                        body: JSON.stringify(params),  // Send params as JSON in the request body
+                      });
+                      console.log(response)
+        
+        populateChat()
+    }) 
 
 });
