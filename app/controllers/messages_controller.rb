@@ -19,7 +19,6 @@ class MessagesController < ApplicationController
     msgs = Message.get_messages_for_world(world_id)
     res = []
     msgs.each do |msg|
-      Rails.logger.info("here #{msg.user_id}, #{usr_id}, #{msgs}")
       if msg.user_id == usr_id
         # Create an object (you can customize the object based on your needs)
         res << {
@@ -32,8 +31,6 @@ class MessagesController < ApplicationController
           content: msg.text,
         }
       end
-
-      
     end
     return render json: res
 
