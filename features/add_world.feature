@@ -2,7 +2,7 @@ Feature: Allow Application user to add a new world
   As a user
   so that I can create a new world
 
-Scenario: Add a new world (Declarative)
+Scenario: Add a new world (Declarative), js: true do
   When I log in with valid credentials
   When I am on the Creation World page
   And I enter the fields with world name "Test Cucumber", world code "11111", public is "true", and max player to be "10"

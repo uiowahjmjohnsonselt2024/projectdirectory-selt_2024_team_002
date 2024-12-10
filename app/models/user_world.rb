@@ -4,6 +4,7 @@
 class UserWorld < ApplicationRecord
   belongs_to :user
   belongs_to :world
+  has_many :quests, dependent: :destroy
 
   validates :xp, numericality: { greater_than_or_equal_to: 0 }
   validate :validate_seen_and_position

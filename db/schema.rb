@@ -149,6 +149,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_154302) do
     t.boolean "filled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
 
@@ -169,6 +170,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_154302) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["world_id"], name: "index_openai_events_on_world_id"
+  end
+
+  create_table "quests", force: :cascade do |t|
+    t.integer "cell_row"
+    t.integer "cell_col"
+    t.boolean "completed", default: false
+    t.bigint "user_world_id"
+    t.bigint "world_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "trivia_question"
+    t.index ["user_world_id"], name: "index_quests_on_user_world_id"
+    t.index ["world_id"], name: "index_quests_on_world_id"
   end
 
   create_table "user_worlds", force: :cascade do |t|
@@ -221,6 +235,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_154302) do
   add_foreign_key "messages", "users"
   add_foreign_key "messages", "worlds"
   add_foreign_key "openai_events", "worlds"
+  add_foreign_key "quests", "user_worlds"
+  add_foreign_key "quests", "worlds"
   add_foreign_key "user_worlds", "users"
   add_foreign_key "user_worlds", "worlds"
 end

@@ -26,16 +26,15 @@ class WorldsController < ApplicationController
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     @pos_row = @user_world.user_row
     @pos_col = @user_world.user_col
-    grid_arr = @world.gridsquares.to_ary
+    grid_arr = @world.gridsquares.to_a
     allowed = UserWorld.find_known_squares(@cur_user.id, @world.id)
-    Rails.logger.info("#{allowed}, pefwefweji")
     grid_arr.each do |cell|
       @data[cell.row] ||= {}
       
       @data[cell.row][cell.col] = allowed.include?([cell.row.to_s, cell.col.to_s]) ? cell : :none
     end
 
-    
+    set_quest
   end
 
   def index
@@ -44,6 +43,23 @@ class WorldsController < ApplicationController
     @private_worlds = World.where(is_public: false)
     @friends = User.where(id: Friendship.friend_ids(@cur_user))
     @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
+  end
+
+  def set_quest
+    @quests = @user_world.quests
+    @quest = @quests.where(completed: false).first
+  
+    if @quest
+      gridsquare = @world.gridsquares.find_by(row: @quest.cell_row, col: @quest.cell_col)
+      if gridsquare
+        cell_desc = gridsquare.description
+        @random_quest_message ||= Quest.random_quest_message(cell_desc)
+      else
+        @random_quest_message ||= "No description available for the quest location"
+      end
+    else
+      @random_quest_message ||= "No active quests"
+    end
   end
 
   def new
