@@ -4,11 +4,9 @@ class Quest < ApplicationRecord
   
     def self.generate_movement_for(user_world)
       world = user_world.world
-      filled_cells = world.gridsquares.where.not(row: 1, col: 1)
-      puts "filled cells: " + filled_cells.to_s
+      filled_cells = world.gridsquares..where.image.attached?
   
       target_cell = filled_cells.sample
-      puts "target cell: " + target_cell.to_s
       create!(
         user_world: user_world,
         world: world,
