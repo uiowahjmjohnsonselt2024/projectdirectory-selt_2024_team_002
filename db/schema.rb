@@ -244,8 +244,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_224121) do
   add_foreign_key "openai_events", "worlds"
   add_foreign_key "user_worlds", "users"
   add_foreign_key "user_worlds", "worlds"
-  add_foreign_key "inventory_items", "items"
-  add_foreign_key "inventory_items", "user_worlds"
-  add_foreign_key "shop_items", "items"
-  add_foreign_key "shop_items", "shops"
 end
