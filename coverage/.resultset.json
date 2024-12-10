@@ -1002,11 +1002,52 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
+      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/messages_controller.rb": {
         "lines": [
           null,
           null,
+          null,
+          null,
           0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
+        "lines": [
+          null,
           null,
           null,
           0,
@@ -1017,8 +1058,26 @@
           0
         ],
         "branches": {}
+      },
+      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/message.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
       }
     },
-    "timestamp": 1733723416
+    "timestamp": 1733862584
   }
 }

@@ -146,6 +146,17 @@
     width: 100%;
 }
 
+.message_row {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.oddrow {
+    background-color: #2e7195;
+}
+
 .txtarea {
     flex-grow: 1; /* Makes the textarea grow to take available space */
     resize: none;

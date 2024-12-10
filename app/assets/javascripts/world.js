@@ -72,6 +72,17 @@ $(function () {
         $(".chatmodal").css("display", "none")
     })
 
+    function getHTMLForOneChat(chat, idx) {
+        const isEven = idx % 2 == 0
+
+        return `
+            <div class="message_row ${isEven ? "oddrow" : ""}">
+                <div>${chat.display_name}:</div>
+                <div>${chat.content}</div>
+            </div>
+        `
+    }
+
     $("#chat").click( async (e) => {
         e.preventDefault()
         $(".chatmodal").css("display", "flex")
@@ -79,6 +90,16 @@ $(function () {
         const response = await fetch(`${url}/messages/get/${worldId}`)
         const json = await response.json()
         console.log(json)
+        $(".messagebox").empty() // clear all messages out
+        json.forEach((message_row, idx) => {
+            const html = getHTMLForOneChat(message_row, idx)
+            console.log(html)
+            console.log($('.messagebox'))
+            $('.messagebox').append(
+                html
+            );
+        });
+        
     })
 
 });
