@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_06_215950) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_10_154302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -152,6 +152,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_215950) do
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "world_id", null: false
+    t.bigint "user_id", null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["world_id"], name: "index_messages_on_world_id"
+  end
+
   create_table "openai_events", force: :cascade do |t|
     t.bigint "world_id", null: false
     t.integer "row", null: false
@@ -208,6 +218,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_215950) do
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "gridsquares", "worlds"
+  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "worlds"
   add_foreign_key "openai_events", "worlds"
   add_foreign_key "user_worlds", "users"
   add_foreign_key "user_worlds", "worlds"

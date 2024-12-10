@@ -9,8 +9,8 @@ class AddMessage < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_index :messages, :world_id
-    add_index :messages, :user_id
-    add_index :messages, :created_at
+    # add_index :messages, :world_id
+    # add_index :messages, :user_id
+    # add_index :messages, :created_at
   end
 end
