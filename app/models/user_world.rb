@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 # UserWorld class is a model class that represents the relationship between a user and a world.
+# Represents a unique user playing in a specific world
 class UserWorld < ApplicationRecord
   belongs_to :user
   belongs_to :world
+  has_many :inventory_items, dependent: :destroy
+  has_many :items, through: :inventory_items
 
   validates :xp, numericality: { greater_than_or_equal_to: 0 }
   validate :validate_seen_and_position

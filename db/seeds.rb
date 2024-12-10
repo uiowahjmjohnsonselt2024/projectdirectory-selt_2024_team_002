@@ -26,7 +26,7 @@ end
 # Create all items
 items = [{ item_name: 'XP Boost', item_description: 'Boosts your XP by 25 points', price: 5, is_interactable: true},
          { item_name: 'Speed Potion', item_description: 'Lets you move past adjacent cells for no cost', price: 1, is_interactable: true},
-         { item_name: '4 Leaf Clover', item_description: 'Increases your minigame luck', price: 10, is_interactable: true}]
+         { item_name: '4 Leaf Clover', item_description: 'Increases your mini game luck', price: 10, is_interactable: true}]
 
 
 items.each do |item|

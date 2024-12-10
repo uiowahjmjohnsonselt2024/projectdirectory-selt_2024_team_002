@@ -60,12 +60,10 @@ class UsersWorldsController < ApplicationController
     # end}
   end
 
-  # rubocop:disable Metrics/MethodLength
   def cell_shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-    @gridsquare = Gridsquare.find_by(row: @user_world.user_row, col: @user_world.user_col, world_id: @world.id)
 
     # @grid_shop = GridShop.find_or_create_by(grid: @gridsquare) do |grid_shop|
     #   # Create a new Shop and associate it with the GridShop
@@ -79,5 +77,25 @@ class UsersWorldsController < ApplicationController
       format.js
     end
   end
+
+  def purchase_item
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+
+    @item = Item.find(params[:item_id])
+
+    if @cur_user.available_credits < @item.price
+      flash[:alert] = 'Insufficient shards!'
+      redirect_to cell_shop_path
+    end
+    @user_item = InventoryItem.find_or_create_by(user_world_id: @user_world.id, item_id: @item.id)
+    @user_item.increment(:quantity, 1)
+    @cur_user.update(available_credits: @cur_user.available_credits - @item.price)
+    redirect_to world_path
+  end
+
+  def use_item
+
+  end
 end
-# rubocop:enable Metrics/MethodLength
