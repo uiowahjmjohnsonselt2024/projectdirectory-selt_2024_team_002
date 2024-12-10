@@ -24,6 +24,8 @@ window.addEventListener('unload', function (event) {
 });
 
 $(function () {
+    $('#flash_partial').show();
+    $('#flash_msg').show();
     $('.flash_msg').fadeOut(5000);
 
 })

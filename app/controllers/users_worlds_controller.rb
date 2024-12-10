@@ -3,6 +3,7 @@
 # Controller for handling user-world actions.
 class UsersWorldsController < ApplicationController
   before_action :authenticate_user
+  require 'json'
 
   def authenticate_user
     @cur_user = User.find_user_by_session_token(cookies[:session])
@@ -84,17 +85,34 @@ class UsersWorldsController < ApplicationController
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @items = Array.new
+    list_of_items = JSON.parse(params[:items_id])
 
-    @item = Item.find(params[:item_id])
-
-    if @cur_user.available_credits < @item.price
-      flash[:alert] = 'Insufficient shards!'
-      redirect_to cell_shop_path
+    list_of_items.each_key do |item|
+      if list_of_items[item] != 0
+        @items.push(Item.where(item_name: item).first)
+      end
     end
-    @user_item = InventoryItem.find_or_create_by(user_world_id: @user_world.id, item_id: @item.id)
-    @user_item.increment(:quantity, 1)
-    @cur_user.update(available_credits: @cur_user.available_credits - @item.price)
-    redirect_to world_path
+
+    @items.each do |item|
+      if @cur_user.available_credits < item.price
+        @message = 'Insufficient shards!'
+        puts("no money")
+        respond_to do |format|
+          format.js
+        end
+      end
+
+      puts(item.item_name)
+      puts(item.price)
+      puts(list_of_items[item.item_name] * item.price)
+
+      @user_item = InventoryItem.find_or_create_by(user_world_id: @user_world.id, item_id: item.id)
+      @user_item.increment(:amount_available, list_of_items[item.item_name])
+      @cur_user.update(available_credits: @cur_user.available_credits - (list_of_items[item.item_name] * item.price))
+
+      redirect_to world_path(params[:world_id])
+    end
   end
   # rubocop:enable Metrics/MethodLength
 

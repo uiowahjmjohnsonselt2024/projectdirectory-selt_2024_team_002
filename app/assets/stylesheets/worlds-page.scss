@@ -121,6 +121,12 @@ body::-webkit-scrollbar {
   top: 30%;
 }
 
+.scroll-independent-div-hl {
+  position: fixed;
+  left: 10px;
+  top: 10%;
+}
+
 .scroll-independent-div-cr {
   position: fixed;
   right: 10px;
@@ -129,9 +135,10 @@ body::-webkit-scrollbar {
 
 .scroll-independent-div-center {
   position: fixed;
-  right: 30%;
-  top: 10%;
+  left: 50%;
+  top: 50%;
   z-index: 50;
+  transform: translate(-50%, -50%);
 }
 
 .lower-div-after-nav {

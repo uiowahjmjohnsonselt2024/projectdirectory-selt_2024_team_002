@@ -82,8 +82,8 @@
 
 .close-button {
   position: absolute;
-  left: 85%;
-  top: 21%;
+  left: 89%;
+  top: 17%;
   width: 32px;
   height: 32px;
   opacity: 0.5;
@@ -129,6 +129,12 @@
 }
 
 .item-description {
+  margin: 0;
+  font-size: 16px;
+  flex: 1;
+}
+
+.item-price {
   margin: 0;
   font-size: 16px;
   flex: 1;

@@ -22,6 +22,7 @@
 
 <div class="main-container" id="main_container">
   <div class="center-stack on_top flash_msg">
+    <div id="flash_partial"></div>
     <div id="flash">
       <% if flash[:warning] %>
         <div class="alert">
@@ -32,6 +33,7 @@
       <% end %>
     </div>
   </div>
+
 
   <div class="game_toolbar">
     <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
@@ -86,19 +88,25 @@
   <div class="game-ui">
     <%= form_tag cell_quest_path, method: :post, id: 'quest_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Quest', "", method: :post, id: "quest_log_button", class: "game_button"%>
+      <%= submit_tag 'Quest', id: "quest_log_button", class: "game_button"%>
     <% end %>
     <%= form_tag cell_action_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Action', "", method: :post, id: "action_engage_button", class: "game_button"%>
+      <%= submit_tag 'Action', id: "action_engage_button", class: "game_button"%>
     <% end %>
-    <%= form_tag cell_shop_path, method: :post, id: 'shop_form', remote: true do %>
+    <%= form_tag shop_path, method: :post, id: 'shop_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Shop', "", method: :post, id: "shop_log_button", class: "game_button", onclick: "disable_background_interaction('shop')"%>
+      <%= submit_tag 'Shop', id: "shop_log_button", class: "game_button", onclick: "disable_background_interaction('shop')"%>
     <% end %>
   </div>
 
   <div class="game-ui-spacer"></div>
+
+  <div class="scroll-independent-div-hl">
+    <div class="floating-blob">
+      <p>Shards: <%= @cur_user.available_credits %></p>
+    </div>
+  </div>
 
   <div class="scroll-independent-div-cl">
     <div class="floating-blob">
@@ -130,21 +138,26 @@
 </div>
 
 <script>
-    const worldId = <%= @world.id %>;
+    (function() { //IIFE
+        let worldId = <%= @world.id %>;
+    })();
 </script>
 
 <script>
-    const currentXP = <%= @user_world[:xp] %>;
-    const maxXP = 100; // Maximum XP
-    const xpBar = document.getElementById('xp-bar');
-    const xpText = document.getElementById('xp-text');
-    const usr_row = <%= @pos_row%>;
-    const usr_col = <%= @pos_col%>;
-    // Set the width of the XP bar
-    xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
+    (function() { //IIFE
+        let currentXP = <%= @user_world[:xp] %>;
+        console.log(currentXP)
+        let maxXP = 100;
+        let xpBar = document.getElementById('xp-bar');
+        let xpText = document.getElementById('xp-text');
+        let usr_row = <%= @pos_row%>;
+        let usr_col = <%= @pos_col%>;
+        // Set the width of the XP bar
+        xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
 
-    // Update the XP text
-    xpText.textContent = `XP: ${currentXP}/${maxXP}`;
+        // Update the XP text
+        xpText.textContent = `XP: ${currentXP}/${maxXP}`;
+    })();
 </script>
 
 <script>
@@ -178,6 +191,77 @@
         document.getElementById("main_container").style.pointerEvents = "auto";
         document.getElementById("black_background").style.display = "none"
     };
+</script>
+
+<script>
+    $(function () {
+        // it needs to be in here, or j query will not find shit!
+        $(".grid_cell").each((index, cell) => {  // Note: the second argument is the actual DOM element
+            $(cell).click(() => {
+                const cellID = $(cell).find(".hidden").text()
+                const rowCol = cellID.split('-')
+                const row = rowCol[0]
+                const col = rowCol[1]
+                if (parseInt(row) === <%= @pos_row%> && parseInt(col) === <%= @pos_col%>) {
+                    $(".modal").css("display", "flex")
+                    $(".modal").find('h2').html(`The world of ${row}, ${col}!`)
+                    $(".modal").find('h3').html("This is a beautiful world of wonder. What would await us...?")
+                    $(".modal").find('button').css('display', 'none')
+                }
+                else {
+                    $(".modal").css("display", "flex")
+                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 0.75 shards!'
+                    $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}? `)
+                    $(".modal").find('h3').html(`${isFreeText}`)
+
+                    $(".modal").find('button').css('display', 'flex')
+                    $(".modal").find('button').click(async () => {
+                        const csrfToken = $("meta[name='csrf-token']").attr("content");
+                        const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+                        const params = {
+                            dest_row: parseInt(row),
+                            dest_col: parseInt(col),
+                            world_id: <%= @world.id %>
+                        };
+                        const response = await fetch(`${url}/worlds/game/move`, {
+                            method: 'POST',  // Use POST method
+                            headers: {
+                                'Content-Type': 'application/json',  // Send as JSON
+                                'X-CSRF-Token': csrfToken            // Include CSRF token from meta tag
+                            },
+                            body: JSON.stringify(params),  // Send params as JSON in the request body
+                        });
+                        window.location.reload()
+
+                    })
+                }
+            });});
+
+        pollWithJitter()
+
+        $(".x").click(() => {
+            $(".modal").css("display", "none")
+        })
+    });
+</script>
+
+<script>
+    let isSubmitting = false;
+
+    $(document).on('submit', 'form', function() {
+        if (isSubmitting) {
+            return false;  // Prevent duplicate submission
+        }
+
+        isSubmitting = true;
+
+        // Disable the submit button to prevent multiple clicks
+        $(this).find('input[type="submit"]').prop('disabled', true);
+    });
+
+    $(document).on('ajax:complete', 'form', function() {
+        isSubmitting = false;
+    });
 </script>
 
 </body>

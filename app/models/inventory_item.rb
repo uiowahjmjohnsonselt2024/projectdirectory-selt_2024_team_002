@@ -4,4 +4,6 @@
 class InventoryItem < ApplicationRecord
   belongs_to :user_world
   belongs_to :item
+
+  validates :amount_available, uniqueness: true
 end

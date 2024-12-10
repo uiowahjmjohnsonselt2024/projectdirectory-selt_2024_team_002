@@ -48,9 +48,11 @@ Rails.application.routes.draw do
   resources :worlds
   root to: redirect('/worlds')
   mount GoodJob::Engine => 'good_job' if ENV['RAILS_ENV'] != 'production'
+
   # routes for game
-  post '/worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
-  post '/worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
-  post 'worlds/:id/shop', to: 'users_worlds#shop', as: 'cell_shop', defaults: { format: 'js' }
+  post 'worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
+  post 'worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
+  post 'users_worlds/shop', to: 'users_worlds#shop', as: 'shop', defaults: { format: 'js' }
+  post 'worlds/game/purchase_item', to: 'users_worlds#purchase_item', as: 'purchase_item', defaults: { format: 'js' }
   post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
 end
