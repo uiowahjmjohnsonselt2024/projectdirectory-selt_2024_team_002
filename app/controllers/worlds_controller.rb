@@ -28,7 +28,6 @@ class WorldsController < ApplicationController
     @pos_col = @user_world.user_col
     grid_arr = @world.gridsquares.to_ary
     allowed = UserWorld.find_known_squares(@cur_user.id, @world.id)
-    Rails.logger.info("#{allowed}, pefwefweji")
     grid_arr.each do |cell|
       @data[cell.row] ||= {}
       

@@ -59,6 +59,10 @@ Then(/^I should see the exact phrase "([^"]*)"$/) do |arg|
   expect(page).to have_content(arg)
 end
 
+Then(/^I should not see the exact phrase "([^"]*)"$/) do |arg|
+  expect(page).to have_no_content(arg)
+end
+
 Then(/^I should see a string that starts with "([^"]*)"$/) do |arg|
   expect(page).to have_content(/^#{Regexp.escape(arg)}/)
 end
