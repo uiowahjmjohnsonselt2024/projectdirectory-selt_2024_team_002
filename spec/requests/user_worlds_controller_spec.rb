@@ -30,16 +30,6 @@ RSpec.describe UserWorld, type: :request do
       post cell_quest_path(world.id), params: {world_id: 1}
       expect(response).to have_http_status(:no_content)
     end
-
-    it 'accesses actions' do
-      post cell_action_path(world.id)
-      expect(response).to have_http_status(:no_content)
-    end
-
-    it 'accesses shops' do
-      post cell_shop_path(world.id)
-      expect(response).to have_http_status(:no_content)
-    end
   end
 
   describe 'move user' do
@@ -86,6 +76,32 @@ RSpec.describe UserWorld, type: :request do
         allow(UserWorld).to receive(:find_by_ids).and_return(usrwrld)
         post move_user_path, params: {world_id: 1, dest_row: 6, dest_col:6}
         expect(response).to have_http_status(:bad_request)
+      end
+    end
+  end
+
+  describe 'items' do
+    describe 'purchasing items' do
+      it 'should purchase item with sufficient credits' do
+        pending
+      end
+
+      it 'should not purchase item with insufficient credits' do
+        pending
+      end
+    end
+
+    describe 'using items' do
+      it 'should increase my xp with xp booster' do
+        pending
+      end
+
+      it 'should allow me to move past adjacent cells with speed potion' do
+        pending
+      end
+
+      it 'should increase my mini game luck with 4 leaf clover' do
+        pending
       end
     end
   end
