@@ -117,3 +117,25 @@
     width: 60%;
     height: 60%;
 }
+
+.textbox {
+    width: 80%;
+    height: 80%;
+    border-color: #2e7195;
+    background-color: #1999ae;
+    border-width: 5px;
+    border-style: solid;
+    flex-grow: 1;
+}
+
+.sendflex {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+}
+
+.txtarea {
+    resize: none;
+    width: auto;
+}
