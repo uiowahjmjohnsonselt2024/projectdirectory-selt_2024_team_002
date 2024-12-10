@@ -133,6 +133,11 @@
     flex-grow: 1; /* Allow the first child to grow and take up available vertical space */
 }
 
+.messagebox {
+    display: flex;
+    flex-direction: column;
+}
+
 .sendflex {
     display: flex;
     align-items: center;

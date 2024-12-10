@@ -10,11 +10,32 @@ class MessagesController < ApplicationController
     return if @cur_user
 
     flash[:alert] = 'Please login'
-    redirect_to users_login_path
+    return redirect_to users_login_path
   end
 
   def get_all_messages
-    
-  end
+    world_id = params[:id]
+    usr_id = @cur_user.id
+    msgs = Message.get_messages_for_world(world_id)
+    res = []
+    msgs.each do |msg|
+      Rails.logger.info("here #{msg.user_id}, #{usr_id}, #{msgs}")
+      if msg.user_id == usr_id
+        # Create an object (you can customize the object based on your needs)
+        res << {
+          display_name: "You",
+          content: msg.message,
+        }
+      else 
+        res << {
+          display_name: User.where(id: msg.user_id).first,
+          content: msg.text,
+        }
+      end
 
+      
+    end
+    return render json: res
+
+  end
 end

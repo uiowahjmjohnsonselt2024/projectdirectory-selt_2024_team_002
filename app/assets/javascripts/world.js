@@ -72,10 +72,14 @@ $(function () {
         $(".chatmodal").css("display", "none")
     })
 
-    $("#chat").click((e) => {
-        console.log("callled")
+    $("#chat").click( async (e) => {
         e.preventDefault()
         $(".chatmodal").css("display", "flex")
+        const csrfToken = $("meta[name='csrf-token']").attr("content");
+        const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+        const response = await fetch(`${url}/messages/get/${worldId}`)
+        const json = await response.json()
+        console.log(json)
     })
 
 });

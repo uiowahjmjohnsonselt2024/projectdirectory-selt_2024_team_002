@@ -10,7 +10,7 @@ class WorldsController < ApplicationController
     return if @cur_user
 
     flash[:alert] = 'Please login'
-    redirect_to users_login_path
+    return redirect_to users_login_path
   end
 
   def world_params
