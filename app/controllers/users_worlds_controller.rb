@@ -60,12 +60,18 @@ class UsersWorldsController < ApplicationController
     # end}
   end
 
+  # rubocop:disable Metrics/MethodLength
   def cell_shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-    @row_pos = @user_world.user_row
-    @col_pos = @user_world.user_col
+    @gridsquare = Gridsquare.find_by(row: @user_world.user_row, col: @user_world.user_col, world_id: @world.id)
+
+    # @grid_shop = GridShop.find_or_create_by(grid: @gridsquare) do |grid_shop|
+    #   # Create a new Shop and associate it with the GridShop
+    #   @shop = Shop.create!(name: "Shop for Grid #{@gridsquare.id}")
+    #   grid_shop.shop = @shop
+    # end
 
     @items = Item.all
 
@@ -74,3 +80,4 @@ class UsersWorldsController < ApplicationController
     end
   end
 end
+# rubocop:enable Metrics/MethodLength

@@ -19,7 +19,7 @@ module OpenaiWrapperHelper
         return
       end
       
-      download_and_attach_image(uri, row, col, world,event)
+      download_and_attach_image(uri, row, col, world, event)
     end
 
     private
@@ -93,7 +93,7 @@ module OpenaiWrapperHelper
     end
 
     # rubocop: disable Metrics/MethodLength
-    def download_and_attach_image(image_uri, row, col, world,event)
+    def download_and_attach_image(image_uri, row, col, world, event)
       image_response = Net::HTTP.get_response(URI(image_uri))
       unless (200..299).include?(image_response.code.to_i)
         logstr = "Call to DALL-E failed with HTTP status code: #{image_response.code.to_i}, error: #{image_response.body}"

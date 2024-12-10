@@ -303,5 +303,4 @@ class UsersController < ApplicationController
     end
     redirect_to worlds_path
   end
-
 end
