@@ -49,7 +49,7 @@ jobs:
       - name: download chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: 120
+          chrome-version: 131
           install-chromedriver: true
       - name: create db
         run: bin/rake db:create
