@@ -28,8 +28,8 @@ $(function () {
             const col = rowCol[1]
             if (parseInt(row) === usr_row && parseInt(col) === usr_col) {
                 $(".modal").css("display", "flex")
-                $(".modal").find('h2').html(`You already are at ${row}, ${col}!`)
-                $(".modal").find('h3').html("")
+                $(".modal").find('h2').html(`The world of ${row}, ${col}!`)
+                $(".modal").find('h3').html("This is a beautiful world of wonder. What would await us...?")
                 $(".modal").find('button').css('display', 'none')
             }
             else {

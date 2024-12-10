@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.1].define(version: 2024_12_09_231311) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -224,7 +225,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_231311) do
     t.string "email"
     t.text "password_digest"
     t.text "session_token"
-    t.integer "available_credits"
+    t.integer "available_credits", default: 0, null: false
     t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
