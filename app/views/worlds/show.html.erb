@@ -96,6 +96,7 @@
     <% end %>
     <%= form_tag shop_path, method: :post, id: 'shop_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+      <%= hidden_field_tag :unique_token, SecureRandom.uuid %>
       <%= submit_tag 'Shop', id: "shop_log_button", class: "game_button", onclick: "disable_background_interaction('shop')"%>
     <% end %>
   </div>

@@ -104,15 +104,13 @@ class UsersWorldsController < ApplicationController
       end
 
       puts(item.item_name)
-      puts(item.price)
-      puts(list_of_items[item.item_name] * item.price)
 
       @user_item = InventoryItem.find_or_create_by(user_world_id: @user_world.id, item_id: item.id)
       @user_item.increment(:amount_available, list_of_items[item.item_name])
       @cur_user.update(available_credits: @cur_user.available_credits - (list_of_items[item.item_name] * item.price))
-
-      redirect_to world_path(params[:world_id])
     end
+
+    redirect_to world_path(params[:world_id])
   end
   # rubocop:enable Metrics/MethodLength
 

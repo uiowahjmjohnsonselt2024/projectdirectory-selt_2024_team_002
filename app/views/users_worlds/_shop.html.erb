@@ -9,10 +9,9 @@
       <button class="plus-minus-button" id="plus-button_<%= index %>" onclick="{updateItemAmount(1, <%= index %>); buy_items()}">+</button>
     </div>
   <% end %>
-  <%= form_tag purchase_item_path, method: :post, id: 'buy_form', remote: true do %>
+  <%= form_tag purchase_item_path, method: :post, id: 'buy_form' do %>
     <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
     <input type="hidden" name="items_id" id="items_id"/>
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <button id="buy_button" class="accept_button" onclick="enable_background_interaction()" disabled style="background-color: #808391; transition: none;">Buy</button>
   <% end %>
 
