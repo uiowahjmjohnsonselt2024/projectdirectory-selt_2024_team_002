@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   delete 'users/delete_friend', to: 'users#delete_friend', defaults: { format: 'js' }
   post 'users/approve_request', to: 'users#approve_request', defaults: { format: 'js' }
   delete 'users/reject_request', to: 'users#reject_request', defaults: { format: 'js' }
-  post 'users/world_invite', to: 'users#world_invite'#, defaults: { format: 'js'}
+  post 'users/send_invite', to: 'users#send_invite'#, defaults: { format: 'js'}
   # displays page where the user will enter reset email
   get 'users/forgot-password', to: 'users#forgot_password', as: 'forgot_password'
   post 'users/send-reset-email', to: 'users#send_reset_email', as: 'send_reset_email' # sends reset email
@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   # routes for worlds
   post 'worlds/join_world', to: 'worlds#join_world'
   post 'worlds/leave_world', to: 'worlds#leave_world'
+  get 'worlds/invite', to: 'worlds#invite', as: 'world_invite'
   resources :worlds
   root to: redirect('/worlds')
 

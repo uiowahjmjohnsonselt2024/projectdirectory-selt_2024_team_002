@@ -4,6 +4,7 @@
 # rubocop:disable all
 class WorldsController < ApplicationController
   before_action :authenticate_user
+  before_action :index, only: [:index, :invite]
 
   def authenticate_user
     @cur_user = User.find_user_by_session_token(cookies[:session])
@@ -41,6 +42,10 @@ class WorldsController < ApplicationController
     @friends = User.where(id: Friendship.friend_ids(@cur_user))
     @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
     @world_invites = UserWorld.where( user: @cur_user, request: true )
+  end
+
+  def invite
+    @friend = User.find_by_id(params[:friend_id])
   end
 
   def new
@@ -97,7 +102,7 @@ class WorldsController < ApplicationController
 
   def build_world_params
     new_params = world_params
-    new_params[:user_id_id] = @cur_user.id
+    new_params[:user_id] = @cur_user.id
     new_params[:current_players] = 0 # Ensure current_players is set to 0
     new_params
   end

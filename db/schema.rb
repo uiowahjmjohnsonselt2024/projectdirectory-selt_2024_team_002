@@ -93,14 +93,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211434) do
   create_table "worlds", force: :cascade do |t|
     t.string "world_code"
     t.string "world_name"
-    t.bigint "user_id_id"
+    t.bigint "user_id"
     t.boolean "is_public"
     t.string "max_player"
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "current_players"
-    t.index ["user_id_id"], name: "index_worlds_on_user_id_id"
+    t.index ["user_id"], name: "index_worlds_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

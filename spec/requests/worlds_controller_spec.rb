@@ -60,7 +60,7 @@ describe WorldsController do
         expect(assigns(:world)).to have_attributes(
           world_code: '11111',
           world_name: 'test',
-          user_id_id: 1,
+          user_id: 1,
           is_public: true,
           max_player: '5'
         )

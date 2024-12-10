@@ -288,7 +288,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def world_invite
+  def send_invite
     cur_user = User.find_user_by_session_token(cookies[:session])
     @friend = User.find_by(id: params[:friend_id])
     @world = World.find_by(id: params[:world_id])

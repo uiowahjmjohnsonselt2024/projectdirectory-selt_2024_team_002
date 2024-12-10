@@ -111,8 +111,7 @@
           <h3><%= friend.display_name %></h3>
         </div>
         <div class="friend_right">
-          <% world = @private_worlds[0]%>
-          <%= button_to 'Invite to world', users_world_invite_path(friend_id: friend.id, world_id: world.id), method: :post, :remote => true, :class => "secondary_button" %>
+          <%= link_to 'Invite to World', world_invite_path(friend_id: friend.id), class: 'button' %>
         </div>
       </div>
     <% end %>
@@ -153,7 +152,7 @@
           <h3><%= invite.world.world_name %></h3>
         </div>
         <div class="friend_right">
-          <h3><%= "Sent by " + invite.user.display_name %></h3>
+          <h3><%= "Sent by " + invite.world.user.display_name %></h3>
         </div>
       </div>
     <% end %>
@@ -232,6 +231,5 @@
 
   window.noRequestMessage();
 </script>
-
 </body>
 </html>
