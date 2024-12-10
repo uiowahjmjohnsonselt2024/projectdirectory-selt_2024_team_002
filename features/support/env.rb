@@ -6,7 +6,7 @@ require 'rspec/expectations'
 Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 
 Capybara.default_selector = :css
-Capybara.default_driver = :selenium_chrome # Use Selenium with Chrome
+Capybara.default_driver = :selenium_headless # Use Selenium with Chrome
 Capybara.javascript_driver = :selenium_chrome # Use Selenium with Chrome for JS tests
 
 ActionController::Base.allow_rescue = false
