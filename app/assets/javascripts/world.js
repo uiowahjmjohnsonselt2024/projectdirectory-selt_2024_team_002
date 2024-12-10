@@ -19,6 +19,7 @@ function pollWithJitter() {
   }
 
 $(function () {
+    console.log("loaded")
     // it needs to be in here, or j query will not find shit!
     $(".grid_cell").each((index, cell) => {  // Note: the second argument is the actual DOM element
         $(cell).click(() => {
@@ -103,7 +104,7 @@ $(function () {
         populateChat()
     })
 
-    $(".send_chat").click(async () => {
+    $(".send_chat").off("click").click(async () => {
         console.log("called")
         const csrfToken = $("meta[name='csrf-token']").attr("content");
                     const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");

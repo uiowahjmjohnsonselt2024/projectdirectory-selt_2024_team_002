@@ -27,8 +27,8 @@ class MessagesController < ApplicationController
         }
       else 
         res << {
-          display_name: User.where(id: msg.user_id).first,
-          content: msg.text,
+          display_name: User.where(id: msg.user_id).first.display_name,
+          content: msg.message,
         }
       end
     end
