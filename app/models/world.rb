@@ -33,9 +33,7 @@ class World < ApplicationRecord
 
     if rand < 0.5
       Quest.generate_movement_for(user_world)
-      cell_desc = gridsquares.find_by(row: user_world.user_row, col: user_world.user_col).description
-      @random_quest_message = Quest.random_quest_message(cell_desc)
-      puts 'movement quest' + @random_quest_message
+      puts 'movement quest'
     else
       Quest.generate_trivia_for(user_world)
       puts 'trivia quest'

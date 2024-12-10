@@ -117,8 +117,7 @@
           <%= submit_tag 'Submit Answer' %>
         <% end %>
       <% else %>
-        <h3>Quest: <%= quest.description || 'testing message' %></h3>
-        <p>Debug: Non-trivia quest detected</p>
+        <h3>Quest: <%= @random_quest_message %></h3>
       <% end %>
     <% end %>
   <% else %>
