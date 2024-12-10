@@ -35,9 +35,9 @@ class WorldsController < ApplicationController
       @data[cell.row][cell.col] = allowed.include?([cell.row.to_s, cell.col.to_s]) ? cell : :none
     end
 
-    @quests = Quest.where(world_id: @world.id) 
-    current_quest_cell = @quests.find { |quest| quest.cell_row == @pos_row && quest.cell_col == @pos_col }
-    @random_quest_message = Quest.random_quest_message(current_quest_cell)
+    @quests = Quest.where(world_id: @world.id)
+    cell_desc = @world.gridsquares.find_by(row: @pos_row, col: @pos_col).description
+    @random_quest_message = Quest.random_quest_message(cell_desc)
   end
 
   def index
