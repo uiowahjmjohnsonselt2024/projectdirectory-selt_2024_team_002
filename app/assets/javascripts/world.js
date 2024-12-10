@@ -61,12 +61,21 @@ $(function () {
             }
         });});
 
-    pollWithJitter()
+    // TODO: implement polling with jitter
+    // pollWithJitter()
 
     $(".x").click(() => {
         $(".modal").css("display", "none")
-        
+    })
 
+    $(".xchat").click(() => {
+        $(".chatmodal").css("display", "none")
+    })
+
+    $("#chat").click((e) => {
+        console.log("callled")
+        e.preventDefault()
+        $(".chatmodal").css("display", "flex")
     })
 
 });

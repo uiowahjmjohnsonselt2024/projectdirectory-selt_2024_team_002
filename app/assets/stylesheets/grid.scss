@@ -86,10 +86,31 @@
     transform: translate(-50%, -50%);
 }
 
-.x {
+.chatmodal {
+    position: absolute;
+    width: 50%;
+    display: none;
+    height: 65%;
+    z-index: 20000;
+    border-radius: 10%;
+    border-color: #2e7195;
+    border-width: 5px;
+    padding: 20px;
+    border-style: solid;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #1999ae;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.x, .xchat {
     position: absolute;
     top: 20px;
-    right: 20px
+    right: 20px;
+    cursor: pointer;
 }
 
 .question {

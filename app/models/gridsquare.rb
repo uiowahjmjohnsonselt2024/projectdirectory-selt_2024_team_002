@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'concurrent'
-
 # Model dealing with one grid
 class Gridsquare < ApplicationRecord
   belongs_to :world
