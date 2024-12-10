@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Controller for handling quest-related actions.
 class QuestsController < ApplicationController
   def complete
     quest = Quest.find(params[:id])
@@ -8,9 +11,9 @@ class QuestsController < ApplicationController
   def complete_trivia
     quest = Quest.find(params[:id])
     if quest.complete_trivia(params[:answer])
-      flash[:notice] = "Correct answer! Quest completed."
+      flash[:notice] = 'Correct answer! Quest completed.'
     else
-      flash[:alert] = "Incorrect answer."
+      flash[:alert] = 'Incorrect answer.'
     end
     redirect_to world_path(quest.world)
   end

@@ -33,10 +33,10 @@ class World < ApplicationRecord
 
     if rand < 0.5
       Quest.generate_movement_for(user_world)
-      puts 'movement quest'
+      Rails.logger.debug 'movement quest'
     else
       Quest.generate_trivia_for(user_world)
-      puts 'trivia quest'
+      Rails.logger.debug 'trivia quest'
     end
   end
 
