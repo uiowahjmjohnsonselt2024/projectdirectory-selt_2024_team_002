@@ -4,7 +4,7 @@ class Quest < ApplicationRecord
   
     def self.generate_movement_for(user_world)
       world = user_world.world
-      filled_cells = world.gridsquares.joins(:image_attachment)
+      filled_cells = world.gridsquares.select { |cell| cell.image.attached? }
   
       target_cell = filled_cells.sample
       create!(
