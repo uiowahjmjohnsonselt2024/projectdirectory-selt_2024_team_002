@@ -17,6 +17,11 @@ When(/^I submit the Proceed to Checkout form for shards$/) do
   visit users_checkout_path
 end
 
+Then('I click on the last grid cell') do
+  # Click on the last grid cell in the array of grid cells
+  all('.grid_cell').last.click
+end
+
 Then(/^I should see the content of "([^"]*)" be "([^"]*)" and "([^"]*)" be "([^"]*)"$/) do |text1, price, text2, total|
   expect(page).to have_content text1
   expect(page).to have_content price
