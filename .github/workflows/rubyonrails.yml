@@ -61,6 +61,7 @@ jobs:
       - name: make storage dir
         run: mkdir int_storage
       - name: which chrome
+        run: which chrome
       - name: Run integration tests
         run: bin/bundle exec cucumber
 
