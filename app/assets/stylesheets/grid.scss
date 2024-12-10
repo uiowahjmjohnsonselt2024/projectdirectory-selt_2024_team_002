@@ -143,6 +143,7 @@
     align-items: center;
     justify-content: space-between; /* Distribute space between elements */
     min-height: 50px;
+    height: 50px;
     width: 100%;
 }
 
@@ -161,5 +162,6 @@
     flex-grow: 1; /* Makes the textarea grow to take available space */
     resize: none;
     width: 100%; /* Ensures the textarea spans the width of its parent */
-    height: 100%
+    height: 100%; /* Let the height be determined by flexbox and content */
+
 }

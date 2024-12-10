@@ -33,6 +33,15 @@ class MessagesController < ApplicationController
       end
     end
     return render json: res
+  end
 
+  def send_message
+    world_id = params[:world_id]
+    msg = params[:message]
+    if msg == nil || msg == ''
+      render json: { error: 'Message cannot be empty' }, status: 400
+      return
+    end
+  Message.create!(world_id: world_id, user_id: @cur_user.id, message: msg)
   end
 end

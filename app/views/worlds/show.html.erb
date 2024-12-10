@@ -34,8 +34,11 @@
     <div class="textbox">
       <div class="messagebox"></div>
         <div class="sendflex">
-            <textarea class="txtarea"></textarea>
+          <%= form_tag "/worlds/game/cell_action", method: :post, class: 'sendflex' do %>
+          <textarea class="txtarea"></textarea>
             <button class="game_button">Send Chat</button>
+    <% end %>
+            
         </div>
     </div>
 </div>
