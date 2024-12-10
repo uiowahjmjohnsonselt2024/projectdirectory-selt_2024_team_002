@@ -4,7 +4,7 @@ class Quest < ApplicationRecord
   
     def self.generate_movement_for(user_world)
       world = user_world.world
-      filled_cells = world.gridsquares..where.image.attached?
+      filled_cells = world.gridsquares.joins(:image_attachment)
   
       target_cell = filled_cells.sample
       create!(
@@ -60,10 +60,25 @@ class Quest < ApplicationRecord
 
       quest_messages.sample
     end
+
+    def self.check_and_complete_movement_quest(user_world, row, col)
+      quest = user_world.quests.find_by(completed: false)
+      return unless quest
+
+      puts "checking movement quest"
   
-    def complete
+      if quest.cell_row == row && quest.cell_col == col
+        quest.complete_movement
+        true
+      else
+        false
+      end
+    end
+  
+    def complete_movement
       user_world.user.increment!(:available_credits, 5)
       user_world.increment!(:xp, 15)
       update!(completed: true)
+      puts 'completed movement quest'
     end
   end

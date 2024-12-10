@@ -117,7 +117,7 @@
           <%= submit_tag 'Submit Answer' %>
         <% end %>
       <% else %>
-        <h3>Quest: <%= @random_quest_message %></h3>
+        <h3>Quest: <%= @random_quest_message + quest.cell_row.to_s + "," + quest.cell_col.to_s %></h3>
         <%= form_with url: complete_quest_path(quest.id), method: :post, local: true do %>
           <%= submit_tag 'Complete Quest' %>
         <% end %>

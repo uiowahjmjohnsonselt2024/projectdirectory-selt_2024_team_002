@@ -34,15 +34,15 @@ class UsersWorldsController < ApplicationController
     isfree = UserWorld.free_move?(row, col, dest_row, dest_col)
 
     unless isfree
-      # Charge failed, return 400 status
       charge_res = @cur_user.charge_credits(0.75)
       unless charge_res
         flash[:warning] = 'Insufficient credits!'
-        return render json: { error: 'Insufficient credits!' }, status: :bad_request unless charge_res
+        return render json: { error: 'Insufficient credits!' }, status: :bad_request
       end
-
     end
+
     user_world.set_position(dest_row, dest_col)
+    Quest.check_and_complete_movement_quest(user_world, dest_row, dest_col)
     render json: { error: 'none' }, status: :ok
   end
   # rubocop:enable Metrics/MethodLength
