@@ -60,6 +60,7 @@ jobs:
         run: bin/bundle exec rspec
       - name: make storage dir
         run: mkdir int_storage
+      - name: which chrome
       - name: Run integration tests
         run: bin/bundle exec cucumber
 
