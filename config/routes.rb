@@ -53,4 +53,15 @@ Rails.application.routes.draw do
   post '/worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
   post '/worlds/game/cell_shop', to: 'users_worlds#cell_shop', as: 'cell_shop'
   post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
+
+  # routes for quests
+  resources :quests do
+  member do
+    post 'complete'
+    post 'complete_trivia'
+  end
+  collection do
+    post 'generate'
+  end
+end
 end
