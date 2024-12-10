@@ -119,15 +119,18 @@
 }
 
 .textbox {
-    width: 80%;
-    height: 80%;
+    width: 90%; /* Ensure it takes up full width */
+    flex-grow: 1; /* Allows it to grow and take up remaining vertical space */
+    display: flex;
+    flex-direction: column; /* Vertical layout */
+    justify-content: flex-start; /* Align children at the top */
     border-color: #2e7195;
-    background-color: #1999ae;
     border-width: 5px;
     border-style: solid;
-    display: flex; /* To allow flexbox layout */
-    flex-direction: column; /* Arrange children vertically */
-    flex-grow: 1;
+}
+
+.textbox > div:first-child {
+    flex-grow: 1; /* Allow the first child to grow and take up available vertical space */
 }
 
 .sendflex {
