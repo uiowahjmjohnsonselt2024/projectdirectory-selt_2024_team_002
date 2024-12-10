@@ -125,17 +125,22 @@
     background-color: #1999ae;
     border-width: 5px;
     border-style: solid;
+    display: flex; /* To allow flexbox layout */
+    flex-direction: column; /* Arrange children vertically */
     flex-grow: 1;
 }
 
 .sendflex {
-    display:flex;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; /* Distribute space between elements */
     min-height: 50px;
+    width: 100%;
 }
 
 .txtarea {
+    flex-grow: 1; /* Makes the textarea grow to take available space */
     resize: none;
-    width: auto;
+    width: 100%; /* Ensures the textarea spans the width of its parent */
+    height: 100%
 }
