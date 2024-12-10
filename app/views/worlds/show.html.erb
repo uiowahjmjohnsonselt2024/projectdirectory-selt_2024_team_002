@@ -74,9 +74,9 @@
   </div>
 
   <div class="game-ui">
-    <%= form_tag cell_quest_path, method: :post, id: 'quest_form', remote: true do %>
+    <%= form_tag generate_quests_path, method: :post, id: 'quest_form' do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= submit_tag 'Quest', id: "quest_log_button", class: "game_button"%>
+      <%= button_to 'Quest', generate_quests_path, method: :post, id: "quest_log_button", class: "game_button"%>
     <% end %>
     <%= form_tag cell_action_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
@@ -125,6 +125,30 @@
     <div id="shop">
     </div>
   </div>
+</div>
+
+<div class="quest_container" style="color: white;">
+  <% incomplete_quests = @quests.reject(&:completed) %>
+  <% if incomplete_quests.any? %>
+    <% incomplete_quests.each do |quest| %>
+      <% if quest.trivia_question.present? %>
+        <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
+        <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
+          <% quest.trivia_question['choices'].each_with_index do |choice, index| %>
+            <div>
+              <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}" %>
+              <%= label_tag "answer_#{quest.id}_#{index}", choice %>
+            </div>
+          <% end %>
+          <%= submit_tag 'Submit Answer' %>
+        <% end %>
+      <% else %>
+        <h3>Quest: <%= @random_quest_message + ": " + quest.cell_row.to_s + "," + quest.cell_col.to_s %></h3>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>No active quests</p>
+  <% end %>
 </div>
 
 <script>

@@ -55,4 +55,15 @@ Rails.application.routes.draw do
   post 'users_worlds/shop', to: 'users_worlds#shop', as: 'shop', defaults: { format: 'js' }
   post 'worlds/game/purchase_item', to: 'users_worlds#purchase_item', as: 'purchase_item', defaults: { format: 'js' }
   post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
+
+  # routes for quests
+  resources :quests do
+  member do
+    post 'complete'
+    post 'complete_trivia'
+  end
+  collection do
+    post 'generate'
+  end
+end
 end

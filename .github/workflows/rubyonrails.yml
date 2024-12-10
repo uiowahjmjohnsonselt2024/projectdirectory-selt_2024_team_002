@@ -17,6 +17,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_USERNAME: postgres
       MONEY_APP_ID: ${{ secrets.MONEY_APP_ID }}
+      CHROME_USER_DATA_DIR: ./chrome_storage
     services:
       # Label used to access the service container
       postgres:
@@ -45,8 +46,11 @@ jobs:
           rubygems: 3.5.23
           bundler-cache: true
       # Add or replace database setup steps here - name: Set up database schema
-      - name: echo user
-        run: echo $DATABASE_USERNAME
+      - name: download chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 131 # DO NOT TOUCH!!!! THANKS!
+          install-chromedriver: true
       - name: create db
         run: bin/rake db:create
       - name: migrate db
@@ -56,8 +60,12 @@ jobs:
       # Add or replace test runners here
       - name: Run unit tests
         run: bin/bundle exec rspec
-      - name: make storage dir
+      - name: make image storage dir
         run: mkdir int_storage
+      - name: make chrome storage dir
+        run: mkdir chrome_storage
+      - name: which chrome
+        run: which chrome
       - name: Run integration tests
         run: bin/bundle exec cucumber
 

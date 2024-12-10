@@ -2,6 +2,7 @@
 
 # this seeds our database for the int tests
 Before do
+  DatabaseCleaner.clean
   Rails.application.load_seed
 end
 
