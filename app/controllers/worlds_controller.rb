@@ -35,9 +35,7 @@ class WorldsController < ApplicationController
       @data[cell.row][cell.col] = allowed.include?([cell.row.to_s, cell.col.to_s]) ? cell : :none
     end
 
-    @quests = Quest.where(world_id: @world.id)
-    cell_desc = @world.gridsquares.find_by(row: @pos_row, col: @pos_col).description
-    @random_quest_message = Quest.random_quest_message(cell_desc)
+    set_quest
   end
 
   def index
@@ -46,6 +44,23 @@ class WorldsController < ApplicationController
     @private_worlds = World.where(is_public: false)
     @friends = User.where(id: Friendship.friend_ids(@cur_user))
     @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
+  end
+
+  def set_quest
+    @quests = @user_world.quests
+    @quest = @quests.where(completed: false).first
+  
+    if @quest
+      gridsquare = @world.gridsquares.find_by(row: @quest.cell_row, col: @quest.cell_col)
+      if gridsquare
+        cell_desc = gridsquare.description
+        @random_quest_message ||= Quest.random_quest_message(cell_desc)
+      else
+        @random_quest_message ||= "No description available for the quest location"
+      end
+    else
+      @random_quest_message ||= "No active quests"
+    end
   end
 
   def new
