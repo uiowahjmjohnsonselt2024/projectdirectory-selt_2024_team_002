@@ -46,5 +46,33 @@ RSpec.describe World, type: :model do
       @world.init_if_not_inited
     end
   end
+  describe 'quests' do 
+    it 'should return early if the join record is not found' do 
+      world = described_class.new
+      user = double('user')
+      relation = double('rel')
+      allow(user).to receive(:user_worlds).and_return(relation)
+      allow(relation).to receive(:find_by).and_return(nil)
+      expect(Kernel).to_not receive(:rand)
+      world.generate_quest_for(user)
+    end
+
+    it 'should return early if the join record is not found' do 
+      world = described_class.new
+      join = double('join')
+      user = double('user')
+      relation = double('rel')
+      quests = double('quests_rel')
+      exists = double('exists')
+      allow(user).to receive(:user_worlds).and_return(relation)
+      allow(relation).to receive(:find_by).and_return(join)
+      allow(join).to receive(:quests).and_return(quests)
+      allow(quests).to receive(:where).and_return(exists)
+      allow(exists).to receive(:exists?).and_return(true)
+      expect(Quest).to_not receive(:generate_movement_for)
+      expect(Quest).to_not receive(:generate_trivia_for)
+      world.generate_quest_for(user)
+    end
+  end
 end
 # rubocop:enable RSpec/InstanceVariable
