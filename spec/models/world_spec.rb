@@ -57,7 +57,7 @@ RSpec.describe World, type: :model do
       world.generate_quest_for(user)
     end
 
-    it 'should return early if the join record is not found' do 
+    it 'should return early if the user has a quest' do 
       world = described_class.new
       join = double('join')
       user = double('user')
@@ -71,6 +71,43 @@ RSpec.describe World, type: :model do
       allow(exists).to receive(:exists?).and_return(true)
       expect(Quest).to_not receive(:generate_movement_for)
       expect(Quest).to_not receive(:generate_trivia_for)
+      world.generate_quest_for(user)
+    end
+    
+    it 'should generate a movement quest if the rand value is < 0.5' do 
+      world = described_class.new
+      join = double('join')
+      user = double('user')
+      relation = double('rel')
+      quests = double('quests_rel')
+      exists = double('exists')
+      allow(user).to receive(:user_worlds).and_return(relation)
+      allow(relation).to receive(:find_by).and_return(join)
+      allow(join).to receive(:quests).and_return(quests)
+      allow(quests).to receive(:where).and_return(exists)
+      allow(exists).to receive(:exists?).and_return(false)
+      allow(Kernel).to receive(:rand).and_return(0)
+      expect(Quest).to receive(:generate_movement_for)
+      expect(Quest).to_not receive(:generate_trivia_for)
+      world.generate_quest_for(user)
+    end
+
+
+    it 'should generate a trivia quest if the rand value is > 0.5' do 
+      world = described_class.new
+      join = double('join')
+      user = double('user')
+      relation = double('rel')
+      quests = double('quests_rel')
+      exists = double('exists')
+      allow(user).to receive(:user_worlds).and_return(relation)
+      allow(relation).to receive(:find_by).and_return(join)
+      allow(join).to receive(:quests).and_return(quests)
+      allow(quests).to receive(:where).and_return(exists)
+      allow(exists).to receive(:exists?).and_return(false)
+      allow(Kernel).to receive(:rand).and_return(0.6)
+      expect(Quest).to_not receive(:generate_movement_for)
+      expect(Quest).to receive(:generate_trivia_for)
       world.generate_quest_for(user)
     end
   end
