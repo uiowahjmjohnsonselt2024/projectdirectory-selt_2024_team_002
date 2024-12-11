@@ -83,10 +83,28 @@
     flex-direction: column;
 }
 
-.x {
+.chat-modal {
+    display: none;
+    width: 700px;
+    height: 500px;
+    z-index: 80;
+    padding: 20px;
+    margin-top: 60px;
+    background-color: #6fb2cd;
+    border: 5px solid #2e7195;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.x, .xchat {
     position: absolute;
     top: 20px;
     right: 20px;
+    cursor: pointer;
     width: 32px;
     height: 32px;
     opacity: 0.5;
@@ -119,4 +137,60 @@
 .question {
     width: 60%;
     height: 60%;
+}
+
+.textbox-chat {
+    width: 80%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 30px;
+    height: 80%;
+    overflow-x: hidden;
+}
+
+.textbox-chat > div:first-child {
+    flex-grow: 1; /* Allow the first child to grow and take up available vertical space */
+}
+
+.messagebox {
+    display: flex;
+    overflow: scroll;
+    max-height: 100%;
+    overflow-x: hidden;
+    border: 5px solid #3790bc;
+    border-radius: 10px;
+    flex-direction: column-reverse;
+}
+
+.send-flex {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    height: 50px;
+    width: 100%;
+}
+
+.message_row {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #1999ae;
+    word-break: break-word;
+}
+
+.odd-row {
+    background-color: #2e7195;
+    word-break: break-word;
+}
+
+.txt-area {
+    flex-grow: 1;
+    resize: none;
+    width: 400px;
+    height: 100%;
+    margin-top: 5px;
+    margin-right: 20px;
 }

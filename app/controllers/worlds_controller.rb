@@ -10,7 +10,7 @@ class WorldsController < ApplicationController
     return if @cur_user
 
     flash[:alert] = 'Please login'
-    redirect_to users_login_path
+    return redirect_to users_login_path
   end
 
   def world_params
@@ -104,11 +104,6 @@ class WorldsController < ApplicationController
       @selected_world.update(current_players: @selected_world.current_players + 1)
       redirect_to world_path(@selected_world)
     end
-  end
-
-  def add_world
-    @world = World.create!(new_params)
-    redirect_to new_world_path
   end
 
   def leave_world

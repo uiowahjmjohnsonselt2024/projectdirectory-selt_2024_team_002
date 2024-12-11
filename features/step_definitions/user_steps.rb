@@ -69,6 +69,7 @@ Then(/^I should see a string that starts with "([^"]*)"$/) do |arg|
 end
 
 Then(/^I should be redirected to "([^"]*)"$/) do |arg|
+  sleep 1
   current_url_path = URI.parse(current_url).path
   expect(current_url_path).to eq(arg)
   expect(page).to have_current_path(arg, ignore_query: true) # assuming your dashboard path is called dashboard_path

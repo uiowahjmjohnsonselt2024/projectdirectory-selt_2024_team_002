@@ -31,7 +31,7 @@ class World < ApplicationRecord
 
     return if user_world.quests.where(completed: false).exists?
 
-    if rand < 0.5
+    if Kernel.rand < 0.5
       Quest.generate_movement_for(user_world)
       Rails.logger.debug 'movement quest'
     else
