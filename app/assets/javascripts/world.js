@@ -16,4 +16,4 @@ function pollWithJitter() {
   
   
     setTimeout(pollWithJitter, nextPollDelay);
-  }
+}

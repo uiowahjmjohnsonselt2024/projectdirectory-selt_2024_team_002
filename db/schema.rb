@@ -154,17 +154,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_224121) do
     t.index ["world_id"], name: "index_gridsquares_on_world_id"
   end
 
-
-  create_table "messages", force: :cascade do |t|
-    t.bigint "world_id", null: false
-    t.bigint "user_id", null: false
-    t.text "message", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_messages_on_user_id"
-    t.index ["world_id"], name: "index_messages_on_world_id"
-  end
-
   create_table "inventory_items", force: :cascade do |t|
     t.bigint "user_world_id"
     t.bigint "item_id"
@@ -180,6 +169,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_224121) do
     t.boolean "is_interactable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "world_id", null: false
+    t.bigint "user_id", null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["world_id"], name: "index_messages_on_world_id"
   end
 
   create_table "openai_events", force: :cascade do |t|

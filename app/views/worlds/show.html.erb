@@ -20,6 +20,24 @@
   </div>
 </div>
 
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_chat_container">
+    <div class="chat-modal">
+      <a id="close_chat_link" class="close-button" onclick="enable_background_interaction()"></a>
+      <label for="shard_input" style="font-size: 30px;">World Chat</label>
+      <div class="textbox-chat disable-scrollbars">
+        <div class="messagebox disable-scrollbars" id="message_box"></div>
+        <div class="send-flex">
+          <label for="chat_text">
+            <textarea class="txt-area" id="chat_text_area"></textarea>
+          </label>
+          <button class="accept_button" id="send_chat_button" disabled style="background-color: #808391; transition: none;">Send Chat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="main-container" id="main_container">
   <div class="center-stack on_top flash_msg">
     <div id="flash_partial"></div>
@@ -33,24 +51,6 @@
       <% end %>
     </div>
   </div>
-  <div class="chatmodal">
-    <svg class="xchat" fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 460.775 460.775" xml:space="preserve">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-      <g id="SVGRepo_iconCarrier">
-        <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"></path>
-      </g>
-    </svg>
-    <div class="textbox">
-      <div class="messagebox"></div>
-        <div class="sendflex">
-          <textarea class="txtarea"></textarea>
-          <button class="game_button send_chat">Send Chat</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <div class="game_toolbar">
     <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
@@ -99,12 +99,12 @@
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= submit_tag 'Action', id: "action_engage_button", class: "game_button"%>
     <% end %>
-    <%= button_to 'Chat', "", id: "chat", class: "game_button"%>
     <%= form_tag shop_path, method: :post, id: 'shop_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= hidden_field_tag :unique_token, SecureRandom.uuid %>
       <%= submit_tag 'Shop', id: "shop_log_button", class: "game_button", onclick: "disable_background_interaction('shop')"%>
     <% end %>
+    <%= submit_tag 'Chat', id: "chat_button", class: "game_button", onclick: "disable_background_interaction('chat')"%>
   </div>
 
   <div class="game-ui-spacer"></div>
@@ -213,6 +213,10 @@
                 document.getElementById("partial_shop_container").style.display = "block"
                 document.getElementById("partial_shop_container").style.pointerEvents = "auto";
                 document.getElementById("close_shop_link").style.display = "block"
+            } else if (element_name === "chat") {
+                document.getElementById("partial_chat_container").style.display = "block"
+                document.getElementById("partial_chat_container").style.pointerEvents = "auto";
+                document.getElementById("close_chat_link").style.display = "block"
             }
             document.getElementById("black_background").style.display = "block"
         }
@@ -224,8 +228,10 @@
         document.body.style.overflow = "auto";
         document.getElementById("partial_movement_container").style.display = "none"
         document.getElementById("partial_shop_container").style.display = "none"
+        document.getElementById("partial_chat_container").style.display = "none"
         document.getElementById("close_movement_link").style.display = "none"
         document.getElementById("close_shop_link").style.display = "none"
+        document.getElementById("close_chat_link").style.display = "none"
         document.getElementById("main_container").style.pointerEvents = "auto";
         document.getElementById("black_background").style.display = "none"
     };
@@ -282,23 +288,23 @@
         })
 
         $(".xchat").click(() => {
-            $(".chatmodal").css("display", "none")
+            $(".chat-modal").css("display", "none")
         })
 
         function getHTMLForOneChat(chat, idx) {
-            const isEven = idx % 2 == 0
+            const isEven = idx % 2 === 0
 
             return `
-            <div class="message_row ${isEven ? "oddrow" : ""}">
-                <div>${chat.display_name}:</div>
-                <div>${chat.content}</div>
+            <div class="message_row ${isEven ? "odd-row" : ""}">
+                   <div style="word-break: initial; margin-right: 20px">${chat.display_name}:</div>
+                   <div>${chat.content}</div>
             </div>
-        `
+            `
         }
 
         async function populateChat() {
             const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
-            const response = await fetch(`${url}/messages/get/${worldId}`)
+            const response = await fetch(`${url}/messages/get/${<%= @world.id %>}`)
             const json = await response.json()
             console.log(json)
             $(".messagebox").empty() // clear all messages out
@@ -308,21 +314,23 @@
                   html
                 );
             });
+
+            $("#message_box").scrollTop(function() { return this.scrollHeight; });
         }
 
-        $("#chat").click( async (e) => {
+        $("#chat_button").click( async (e) => {
             e.preventDefault()
-            $(".chatmodal").css("display", "flex")
+            $(".chat-modal").css("display", "flex")
             populateChat()
         })
 
-        $(".send_chat").off("click").click(async () => {
+        $("#send_chat_button").off("click").click(async () => {
             console.log("called")
             const csrfToken = $("meta[name='csrf-token']").attr("content");
             const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
-            const text = $('textarea.txtarea').val();
+            const text = $('textarea.txt-area').val();
             const params = {
-                world_id: worldId,
+                world_id: <%= @world.id %>,
                 message: text
             };
             const response = await fetch(`${url}/messages/send`, {
@@ -336,8 +344,35 @@
             console.log(response)
 
             populateChat()
+            $('textarea.txt-area').val("")
+            $("#message_box").scrollTop(function() { return this.scrollHeight; });
+            disable_send_chat_button()
         })
     });
+</script>
+
+<script>
+    let text_area = document.getElementById('chat_text_area');
+    let send_button = document.getElementById('send_chat_button');
+
+    text_area.addEventListener('input', function() {
+        if (text_area.value.trim().length > 0) {
+            send_button.disabled = false;
+            send_button.style.backgroundColor = "#2ba62e"
+            send_button.style.transition = "background-color 0.3s ease, transform 0.2s ease"
+        } else {
+            send_button.disabled = true;
+            send_button.style.backgroundColor = "#808391"
+            send_button.style.transition = "none"
+        }
+    });
+
+    function disable_send_chat_button() {
+        let send_button = document.getElementById('send_chat_button');
+        send_button.disabled = true;
+        send_button.style.backgroundColor = "#808391"
+        send_button.style.transition = "none"
+    }
 </script>
 
 <script> //Thanks ChatGPT!
