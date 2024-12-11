@@ -92,9 +92,7 @@ Rails.application.configure do
     port: 587,
     from: 'adervesh03@gmail.com',
     user_name: 'apikey', # Always use "apikey" for SendGrid
-    password: ENV['sendgrid_api_key_2'], # Your SendGrid API key
-    authentification: :plain,
-    enable_starttls_auto: true
+    password: ENV['SENDGRID_API_KEY'] # Your SendGrid API key
   }
 
   config.active_job.queue_adapter = :good_job
