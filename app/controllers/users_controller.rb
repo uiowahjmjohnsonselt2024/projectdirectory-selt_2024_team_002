@@ -91,6 +91,11 @@ class UsersController < ApplicationController
 
   def purchase
     @user = User.find_user_by_session_token(cookies[:session])
+    if cookies[:previous_url] == nil
+      @is_from_game = false
+    else
+      @is_from_game = true
+    end
   end
 
   def conversion

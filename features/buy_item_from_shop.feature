@@ -23,7 +23,6 @@ Scenario: buy item from shop enough credit
   And I fill in "Billing Address:" with "1234 Test Address"
   And I press the button "Pay"
   And I press the button "<"
-  And I click the button "Join" that is under the div with class name "Test_World_1"
   Then I should see the exact phrase "World Name: Test World 1"
   And I press the button "Shop"
   Then I should see a string that starts with "Cell Shop"
