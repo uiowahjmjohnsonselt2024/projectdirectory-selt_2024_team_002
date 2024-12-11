@@ -1,11 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -14,11 +10,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/openai_wrapper_helper.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/helpers/openai_wrapper_helper.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -143,11 +135,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/world.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/models/world.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -208,11 +196,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/shards_helper.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/helpers/shards_helper.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -232,11 +216,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/jobs/openai_poller_job.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/jobs/openai_poller_job.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -264,11 +244,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/jobs/application_job.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/jobs/application_job.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -281,11 +257,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/mailers/user_mailer.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/mailers/user_mailer.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -305,11 +277,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/mailers/application_mailer.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/mailers/application_mailer.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -320,11 +288,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -368,7 +332,6 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/inventory_item.rb": {
         "lines": [
           null,
@@ -392,9 +355,6 @@
         ]
       },
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/openai_event.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/models/openai_event.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -415,11 +375,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/user.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/models/user.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -519,11 +475,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/user_world.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/models/user_world.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -583,11 +535,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -610,7 +558,6 @@
           null,
           1,
           null,
-          0,
           0,
           0,
           0,
@@ -725,11 +672,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -1039,11 +982,7 @@
           null
         ]
       },
-<<<<<<< HEAD
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/users_worlds_controller.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/controllers/users_worlds_controller.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -1176,32 +1115,22 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/models/quest.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/quest.rb": {
         "lines": [
-          1,
-          1,
-          1,
-          null,
-          1,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
           null,
           null,
           null,
           1,
+          1,
+          1,
+          null,
+          1,
           0,
           0,
+          null,
+          0,
+          0,
+          null,
           null,
           null,
           null,
@@ -1210,8 +1139,19 @@
           null,
           null,
           1,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
           null,
           0,
+          null,
           null,
           null,
           null,
@@ -1267,8 +1207,11 @@
           null
         ]
       },
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/controllers/quests_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/quests_controller.rb": {
         "lines": [
+          null,
+          null,
+          null,
           0,
           0,
           0,
@@ -1299,8 +1242,7 @@
         ],
         "branches": {}
       },
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
->>>>>>> main
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
         "lines": [
           null,
           null,
@@ -1323,10 +1265,6 @@
         "branches": {}
       }
     },
-<<<<<<< HEAD
-    "timestamp": 1733872142
-=======
-    "timestamp": 1733857791
->>>>>>> main
+    "timestamp": 1733878988
   }
 }

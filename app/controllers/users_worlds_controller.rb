@@ -37,7 +37,7 @@ class UsersWorldsController < ApplicationController
     unless isfree
       charge_res = @cur_user.charge_credits(0.75)
       unless charge_res
-        flash[:warning] = 'Insufficient credits!'
+        flash[:alert] = 'Insufficient credits!'
         return render json: { error: 'Insufficient credits!' }, status: :bad_request
       end
     end
@@ -90,7 +90,7 @@ class UsersWorldsController < ApplicationController
     end
 
     @items.each do |item|
-      if @cur_user.available_credits < item.price
+      if @cur_user.available_credits < (list_of_items[item.item_name] * item.price)
         flash[:alert] = 'No sufficient shard to purchase'
         break
       end

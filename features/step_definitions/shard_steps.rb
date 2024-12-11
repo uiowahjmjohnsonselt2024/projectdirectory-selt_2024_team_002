@@ -40,3 +40,23 @@ end
 Given('I hover over the element with {string}') do |selector|
   find(selector).hover
 end
+
+When(/^I click on the "([^"]*)" button$/) do |button|
+  click_button button
+end
+
+When(/^I press the button "([^"]*)" to increase or decrease amount$/) do |button|
+  if button == '+'
+    first('#plus_button_0').click
+  else
+    first('#minus_button_0').click
+  end
+end
+
+Then(/^I should see my shard decrease from "([^"]*)" shards$/) do |previous_shard|
+  within('#shard_blob') do
+    shard_content = find('#shard_number').text
+    shard_number = shard_content.to_i
+    expect(shard_number).to be < previous_shard.to_i
+  end
+end

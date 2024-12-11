@@ -4,9 +4,9 @@
     <div class="row-container">
       <p class="item-description"><%= item.item_name %></p>
       <p class="item-price" style="font-weight: normal" id="amount_text_<%= index %>">Price: <%= item.price %> shard</p>
-      <button class="plus-minus-button" id="minus-button_<%= index %>" onclick="{updateItemAmount(-1, <%= index %>); buy_items()}" disabled style="background-color: #6a7588; transition: none;">-</button>
+      <button class="plus-minus-button" id="minus_button_<%= index %>" onclick="{updateItemAmount(-1, <%= index %>); buy_items()}" disabled style="background-color: #6a7588; transition: none;">-</button>
       <span class="amount" id="amount_<%= index %>">0</span>
-      <button class="plus-minus-button" id="plus-button_<%= index %>" onclick="{updateItemAmount(1, <%= index %>); buy_items()}">+</button>
+      <button class="plus-minus-button" id="plus_button_<%= index %>" onclick="{updateItemAmount(1, <%= index %>); buy_items()}">+</button>
     </div>
   <% end %>
   <%= form_tag purchase_item_path, method: :post, id: 'buy_form' do %>
@@ -22,12 +22,12 @@
 
 
           if (currentAmount === 0) {
-              document.getElementById(`minus-button_${index}`).disabled = true
-              document.getElementById(`minus-button_${index}`).style.backgroundColor = "#808391"
+              document.getElementById(`minus_button_${index}`).disabled = true
+              document.getElementById(`minus_button_${index}`).style.backgroundColor = "#808391"
           } else {
-              document.getElementById(`minus-button_${index}`).disabled = false
-              document.getElementById(`minus-button_${index}`).style.backgroundColor = "#6fb2cd"
-              document.getElementById(`minus-button_${index}`).style.transition = "background-color 0.3s ease, transform 0.2s ease"
+              document.getElementById(`minus_button_${index}`).disabled = false
+              document.getElementById(`minus_button_${index}`).style.backgroundColor = "#6fb2cd"
+              document.getElementById(`minus_button_${index}`).style.transition = "background-color 0.3s ease, transform 0.2s ease"
           }
 
           document.getElementById(`amount_${index}`).textContent = currentAmount.toString();

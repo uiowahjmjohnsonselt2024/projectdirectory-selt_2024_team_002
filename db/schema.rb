@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_06_230446) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_10_224121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -180,6 +180,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_230446) do
     t.index ["world_id"], name: "index_openai_events_on_world_id"
   end
 
+  create_table "quests", force: :cascade do |t|
+    t.integer "cell_row"
+    t.integer "cell_col"
+    t.boolean "completed", default: false
+    t.bigint "user_world_id"
+    t.bigint "world_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "trivia_question"
+    t.index ["user_world_id"], name: "index_quests_on_user_world_id"
+    t.index ["world_id"], name: "index_quests_on_world_id"
+  end
+
   create_table "shops", force: :cascade do |t|
     t.string "shop_name"
     t.string "description"
@@ -193,19 +206,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_230446) do
     t.integer "amount_available"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "quests", force: :cascade do |t|
-    t.integer "cell_row"
-    t.integer "cell_col"
-    t.boolean "completed", default: false
-    t.bigint "user_world_id"
-    t.bigint "world_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.json "trivia_question"
-    t.index ["user_world_id"], name: "index_quests_on_user_world_id"
-    t.index ["world_id"], name: "index_quests_on_world_id"
   end
 
   create_table "user_worlds", force: :cascade do |t|

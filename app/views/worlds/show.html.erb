@@ -91,21 +91,21 @@
 
   <div class="game-ui-spacer"></div>
 
-  <div class="scroll-independent-div-hl">
+  <div class="scroll-independent-div-hl" id="shard_blob">
     <div class="floating-blob">
-      <p>Shards: <%= @cur_user.available_credits %></p>
+      <p id="shard_number">Shards: <%= @cur_user.available_credits %></p>
       <%= button_to 'Replenish', users_purchase_path, method: :get, id: "replenish_button", class: "game_button"%>
     </div>
   </div>
 
-  <div class="scroll-independent-div-cl">
+  <div class="scroll-independent-div-cl" id="level_cell_blob">
     <div class="floating-blob">
       <p>Level 1</p>
       <p>Cell (<%= @pos_row %>, <%= @pos_col %>)</p>
     </div>
   </div>
 
-  <div class="scroll-independent-div-cr">
+  <div class="scroll-independent-div-cr" id="xp_blob">
     <div class="floating-blob">
       <p id="xp-text"></p>
       <div class="xp-bar-container">

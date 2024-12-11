@@ -9,7 +9,7 @@ Scenario: move tile enough credits
     Then I should see the exact phrase "World Name: Test World 1"
     And I click on the last grid cell
     Then I should see a string that starts with "Are you sure you want to move to"
-    And I press the button "Move!"
+    And I press the button "Move"
     Then I should not see the exact phrase "Insufficient credits!"
 
 @javascript
@@ -24,5 +24,5 @@ Scenario: move tile broke boi
   Then I should see the exact phrase "World Name: Test World 1"
   And I click on the last grid cell
   Then I should see a string that starts with "Are you sure you want to move to"
-  And I press the button "Move!"
+  And I press the button "Move"
   Then I should see the exact phrase "Insufficient credits!"
