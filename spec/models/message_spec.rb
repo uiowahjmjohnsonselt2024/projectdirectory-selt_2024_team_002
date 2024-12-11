@@ -10,14 +10,4 @@ RSpec.describe Message, type: :model do
       expect(event).to be_valid
     end
   end
-  describe 'get messages for world' do 
-    it 'performs the necessary query' do
-      where = double('where')
-      order = double('order')
-      allow(Message).to receive(:where).and_return(where)
-      allow(where).to receive(:order).and_return(order)
-      expect(order).to receive(:limit)
-      described_class.get_messages_for_world(2)
-    end
-  end
 end

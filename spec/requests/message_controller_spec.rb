@@ -29,7 +29,26 @@ RSpec.describe 'messages', type: :request do
         post send_message_path, params: {world_id: 1, message: 'asdasdasd'}
       end
     end
-  end
+    describe 'fetch messages' do 
+        it 'should render you if you are the message creator' do
+          where = double('where')
+          order = double('order')
+          msg = instance_double(Message)
+          expect(Message).to receive(:get_messages_for_world).and_return([msg])
+          expect(msg).to receive(:user_id).and_return(1)
+          expect(msg).to receive(:message).and_return('hiiiiiii')
+          get '/messages/get/2'
+          expected_json = [
+            { 'display_name' => "You", 'content' => 'hiiiiiii' }
+          ]
+          expect(response.body).to eq(expected_json.to_json)
+        end
+      end
+
+      it 'has the name of the message creator if you did not create the message' do 
+        
+      end
+    end
 end
 # rubocop:enable RSpec/InstanceVariable
 # rubocop:enable Metrics/BlockLength
