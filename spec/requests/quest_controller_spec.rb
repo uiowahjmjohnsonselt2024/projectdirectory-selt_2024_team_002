@@ -21,7 +21,8 @@ RSpec.describe 'quests', type: :request do
     end
     
     it 'calls the complete quest method for the complete route' do
-      
+      quest = instance_double(Quest)
+      post complete_trivia_quest_path
     end
 
     it 'redirects to the world path for the complete route' do
