@@ -296,20 +296,17 @@ class UsersController < ApplicationController
     puts @world.id
     puts @friend.id
 
-    existing_world = UserWorld.find_by(user_id: cur_user.id, world_id: @world.id)
+    existing_world = UserWorld.find_by(user_id: @friend.id, world_id: @world.id)
     world = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
-    if world.save
-      flash[:notice] = "A world invite has been sent!"
-      redirect_to worlds_path
-      # respond_to do |format|
-      #   format.js
-      # end
+    if existing_world != nil
+      @message = "An invite has already been sent for " + world.world.world_name + "!"
+    elsif world.save
+      @message = "Invite sent!"
     else
-      flash[:notice] = "Failed to send world invite."
-      redirect_to worlds_path
-      # respond_to do |format|
-      #   format.js
-      # end
+      @message = "Failed to send world invite."
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
