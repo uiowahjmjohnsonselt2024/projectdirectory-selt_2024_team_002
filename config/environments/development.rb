@@ -52,7 +52,7 @@ Rails.application.configure do
     port: 587,
     from: 'adervesh03@gmail.com',
     user_name: 'apikey', # Always use "apikey" for SendGrid
-    password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
+    password: ENV['SENDGRID_API_KEY'] # Your SendGrid API key
   }
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000' # default host in development
