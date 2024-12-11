@@ -1,0 +1,66 @@
+<div class="floating-partial-box" id="cell-shop-box">
+  <label for="shard_input" style="font-size: 30px; padding-bottom: 10px">Cell Shop</label>
+  <% items.each_with_index do |item, index| %>
+    <div class="row-container">
+      <p class="item-description"><%= item.item_name %></p>
+      <p class="item-price" style="font-weight: normal" id="amount_text_<%= index %>">Price: <%= item.price %> shard</p>
+      <button class="plus-minus-button" id="minus_button_<%= index %>" onclick="{updateItemAmount(-1, <%= index %>); buy_items()}" disabled style="background-color: #6a7588; transition: none;">-</button>
+      <span class="amount" id="amount_<%= index %>">0</span>
+      <button class="plus-minus-button" id="plus_button_<%= index %>" onclick="{updateItemAmount(1, <%= index %>); buy_items()}">+</button>
+    </div>
+  <% end %>
+  <%= form_tag purchase_item_path, method: :post, id: 'buy_form' do %>
+    <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+    <input type="hidden" name="items_id" id="items_id"/>
+    <button id="buy_button" class="accept_button" onclick="enable_background_interaction()" disabled style="background-color: #808391; transition: none;">Buy</button>
+  <% end %>
+
+  <script>
+      function updateItemAmount(change, index) {
+          let currentAmount = parseInt(document.getElementById(`amount_${index}`).textContent, 10);
+          currentAmount = Math.max(0, currentAmount + change);
+
+
+          if (currentAmount === 0) {
+              document.getElementById(`minus_button_${index}`).disabled = true
+              document.getElementById(`minus_button_${index}`).style.backgroundColor = "#808391"
+          } else {
+              document.getElementById(`minus_button_${index}`).disabled = false
+              document.getElementById(`minus_button_${index}`).style.backgroundColor = "#6fb2cd"
+              document.getElementById(`minus_button_${index}`).style.transition = "background-color 0.3s ease, transform 0.2s ease"
+          }
+
+          document.getElementById(`amount_${index}`).textContent = currentAmount.toString();
+      }
+  </script>
+  <script>
+    function buy_items() {
+        let requestDict = {}
+        const itemElements = document.getElementsByClassName('item-description');
+        const amountElements = document.getElementsByClassName('amount');
+
+        for (let i = 0; i < itemElements.length; i++) {
+            requestDict[itemElements[i].textContent] = parseInt(amountElements[i].textContent);
+        }
+
+        for (let i = 0; i < amountElements.length; i++) {
+            if (parseInt(amountElements[i].textContent) > 0) {
+                document.getElementById("buy_button").disabled = false
+                document.getElementById("buy_button").style.backgroundColor = "#2ba62e"
+                document.getElementById("buy_button").style.transition = "background-color 0.3s ease, transform 0.2s ease"
+                break
+            }
+
+            document.getElementById("buy_button").disabled = true
+            document.getElementById("buy_button").style.backgroundColor = "#808391"
+            document.getElementById("buy_button").style.transition = "none"
+        }
+
+        console.log(document.getElementById("buy_button").disabled)
+
+        document.getElementById("items_id").value = JSON.stringify(requestDict)
+        console.log(document.getElementById("items_id").value)
+
+    }
+  </script>
+</div>

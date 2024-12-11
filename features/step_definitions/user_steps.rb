@@ -44,6 +44,7 @@ end
 # change to match the form fields
 And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, value|
   fill_in field_name, with: value
+  sleep 0.7 # This to prevent sometimes the Log In cannot get through
 end
 
 # CAREFULL! some links look like buttons, make sure to inspect element
