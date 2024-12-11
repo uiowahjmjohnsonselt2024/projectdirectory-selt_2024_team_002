@@ -1,11 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/application_helper.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -14,11 +10,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/helpers/openai_wrapper_helper.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/openai_wrapper_helper.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -143,11 +135,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/world.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/world.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -208,11 +196,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/helpers/shards_helper.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/helpers/shards_helper.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -232,11 +216,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/jobs/openai_poller_job.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/jobs/openai_poller_job.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -264,11 +244,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/jobs/application_job.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/jobs/application_job.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -281,11 +257,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/mailers/user_mailer.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/mailers/user_mailer.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -305,11 +277,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/mailers/application_mailer.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/mailers/application_mailer.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -320,11 +288,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/friendship.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -368,11 +332,26 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
-=======
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/inventory_item.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -380,19 +359,10 @@
           1,
           1,
           1,
-<<<<<<< HEAD
-          1,
-          1,
-          null
-        ]
-      },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/message.rb": {
-=======
           null
         ]
       },
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/item.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -400,23 +370,27 @@
           1,
           1,
           1,
-<<<<<<< HEAD
+          null
+        ]
+      },
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/message.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
           null,
           1,
           null,
           1,
           0,
           null,
-          null
-        ]
-      },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/openai_event.rb": {
-=======
           null
         ]
       },
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/openai_event.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -437,8 +411,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/quest.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/quest.rb": {
         "lines": [
           null,
           null,
@@ -530,10 +503,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/user.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/user.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -633,11 +603,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/user_world.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/user_world.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -697,11 +663,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/worlds_controller.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -729,7 +691,6 @@
           null,
           1,
           null,
-<<<<<<< HEAD
           1,
           1,
           1,
@@ -741,19 +702,6 @@
           1,
           1,
           1,
-=======
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
->>>>>>> main
           null,
           1,
           null,
@@ -828,6 +776,8 @@
           1,
           2,
           2,
+          2,
+          2,
           null,
           2,
           2,
@@ -841,12 +791,6 @@
           1,
           2,
           2,
-<<<<<<< HEAD
-=======
-          2,
-          2,
-          null,
->>>>>>> main
           2,
           2,
           null,
@@ -859,7 +803,7 @@
           null
         ]
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/messages_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/messages_controller.rb": {
         "lines": [
           null,
           null,
@@ -910,11 +854,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/users_controller.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -1229,11 +1169,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/users_worlds_controller.rb": {
-=======
       "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/users_worlds_controller.rb": {
->>>>>>> main
         "lines": [
           null,
           null,
@@ -1363,78 +1299,6 @@
           null,
           null,
           null,
-          null
-        ]
-      },
-<<<<<<< HEAD
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/controllers/quests_controller.rb": {
-        "lines": [
-=======
-      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/quest.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          1,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          0,
-          0,
-          null,
-          null,
-          null,
->>>>>>> main
-          null,
-          null,
-          null,
-          0,
-<<<<<<< HEAD
-=======
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
->>>>>>> main
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-<<<<<<< HEAD
-=======
           null
         ]
       },
@@ -1472,35 +1336,8 @@
           0
         ],
         "branches": {}
-      },
-      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
-        "lines": [
-          null,
-          null,
-          0,
-          null,
-          null,
->>>>>>> main
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
       }
     },
-<<<<<<< HEAD
-    "timestamp": 1733889462
-=======
-    "timestamp": 1733883985
->>>>>>> main
+    "timestamp": 1733895336
   }
 }
