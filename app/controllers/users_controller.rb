@@ -296,10 +296,13 @@ class UsersController < ApplicationController
     puts @world.id
     puts @friend.id
 
-    existing_world = UserWorld.find_by(user_id: @friend.id, world_id: @world.id)
+    existing_world = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: false)
+    existing_request = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: true)
     world = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
-    if existing_world != nil
+    if existing_request != nil
       @message = "An invite has already been sent for " + world.world.world_name + "!"
+    elsif existing_world != nil
+      @message = "This player is already on " + world.world.world_name + "!"
     elsif world.save
       @message = "Invite sent!"
     else
@@ -310,6 +313,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def approve_invite
+    world = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    if world&.update(request: false)
+      @message = 'Invite accepted!'
+    else
+      @message = 'Error accepting invite.'
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def reject_invite
+    world = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    if UserWorld.delete(world)
+      @message = 'Invite rejected.'
+    else
+      @message = 'Error rejecting invite.'
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
   def purchase_plus_user_view
     @user = User.find_user_by_session_token(cookies[:session])
   end

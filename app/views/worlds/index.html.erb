@@ -145,8 +145,8 @@
     <% @world_invites.each do |invite| %>
       <div class="friend_box" id="request_<%= invite.id %>">
         <div class="friend_left">
-          <%= button_to 'Approve', users_approve_request_path(friend_id: invite.id), method: :post, :remote => true, :class => "secondary_button" %>
-          <%= button_to 'Reject', users_reject_request_path(friend_id: invite.id), method: :delete, :remote => true, :class => "button" %>
+          <%= button_to 'Approve', users_approve_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :post, :remote => true, :class => "secondary_button" %>
+          <%= button_to 'Reject', users_reject_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :delete, :remote => true, :class => "button" %>
         </div>
         <div class="friend_center">
           <h3><%= invite.world.world_name %></h3>
