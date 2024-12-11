@@ -100,11 +100,6 @@ class WorldsController < ApplicationController
     end
   end
 
-  def add_world
-    @world = World.create!(new_params)
-    redirect_to new_world_path
-  end
-
   def leave_world
     @selected_world = World.find(params[:id])
     UserWorld.find_by(user: @cur_user, world: @selected_world)

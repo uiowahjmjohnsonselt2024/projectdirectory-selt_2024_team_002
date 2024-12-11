@@ -46,7 +46,20 @@ RSpec.describe 'messages', type: :request do
       end
 
       it 'has the name of the message creator if you did not create the message' do 
-        
+        where = double('where')
+          order = double('order')
+          msg = instance_double(Message)
+          expect(Message).to receive(:get_messages_for_world).and_return([msg])
+          expect(msg).to receive(:user_id).and_return(2).twice
+          usrr = instance_double(User)
+          expect(usrr).to receive(:display_name).and_return('larry')
+          expect(User).to receive(:where).and_return([usrr])
+          expect(msg).to receive(:message).and_return('hiiiiiii')
+          get '/messages/get/2'
+          expected_json = [
+            { 'display_name' => "larry", 'content' => 'hiiiiiii' }
+          ]
+          expect(response.body).to eq(expected_json.to_json)
       end
     end
 end

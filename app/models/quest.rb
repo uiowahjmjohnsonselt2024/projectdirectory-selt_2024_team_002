@@ -79,6 +79,8 @@ class Quest < ApplicationRecord
     end
   end
 
+  private
+
   def complete_movement
     user_world.user.increment(:available_credits, 5).save!
     user_world.increment(:xp, 15).save!
