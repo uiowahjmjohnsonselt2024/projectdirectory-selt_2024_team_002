@@ -38,7 +38,6 @@ class MessagesController < ApplicationController
   def send_message
     world_id = params[:world_id]
     msg = params[:message]
-    Rails.logger.info("#{msg} sdojifjoisfiojs")
     if msg == nil || msg == ''
       render json: { error: 'Message cannot be empty' }, status: 400
       return

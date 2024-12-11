@@ -332,6 +332,19 @@
           null
         ]
       },
+      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
       "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/openai_event.rb": {
         "lines": [
           null,
@@ -1175,7 +1188,6 @@
           0,
           0,
           0,
-          0,
           0
         ],
         "branches": {}
@@ -1215,20 +1227,6 @@
         ],
         "branches": {}
       },
-      "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/gridsquare.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
       "/Users/alexguo/projectdirectory-selt_2024_team_002/app/models/message.rb": {
         "lines": [
           null,
@@ -1248,6 +1246,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1733876458
+    "timestamp": 1733877462
   }
 }
