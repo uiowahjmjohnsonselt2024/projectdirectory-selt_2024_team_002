@@ -136,6 +136,7 @@ describe WorldsController do
           max_player: 2
         )
         expect(world).to receive(:update).with({ current_players: 2 })
+        expect(world).to receive(:id).and_return(1)
         post worlds_join_world_path, params: { id: '1' }
       end
 

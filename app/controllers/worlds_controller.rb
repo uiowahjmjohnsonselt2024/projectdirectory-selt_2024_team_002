@@ -17,6 +17,11 @@ class WorldsController < ApplicationController
     params.permit(:world_code, :world_name, :is_public, :max_player)
   end
 
+  def get_url(world_id)
+    cookies[:previous_url] = request.path
+    cookies[:world_id] = world_id
+  end
+
   def show
     # TODO: if private world, check user access
     id = params[:id] # retrieve world ID from URI route
@@ -95,12 +100,15 @@ class WorldsController < ApplicationController
       flash[:notice] = 'World is full. Please join another world.'
       redirect_to worlds_path
     else
+      get_url(@selected_world.id)
       @selected_world.update(current_players: @selected_world.current_players + 1)
       redirect_to world_path(@selected_world)
     end
   end
 
   def leave_world
+    cookies.delete(:previous_url)
+    cookies.delete(:world_id)
     @selected_world = World.find(params[:id])
     UserWorld.find_by(user: @cur_user, world: @selected_world)
 

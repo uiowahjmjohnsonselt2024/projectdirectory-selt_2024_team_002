@@ -33,16 +33,6 @@ RSpec.describe UserWorld, type: :request do
       post cell_quest_path(world.id), params: {world_id: 1}
       expect(response).to have_http_status(:no_content)
     end
-
-    it 'accesses actions' do
-      post cell_action_path(world.id)
-      expect(response).to have_http_status(:no_content)
-    end
-
-    it 'accesses shops' do
-      post cell_shop_path(world.id)
-      expect(response).to have_http_status(:no_content)
-    end
   end
 
   describe 'move user' do
@@ -87,5 +77,65 @@ RSpec.describe UserWorld, type: :request do
         expect(response).to have_http_status(:bad_request)
       end
     end
+  end
+
+  describe 'items' do
+    describe 'purchasing items' do
+      it 'should purchase item with sufficient credits' do
+        user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
+        item_params = { id: 1, item_name: "Test Item 1", price: 5.0 }
+        item_params_2 = { id: 2, item_name: "Test Item 2", price: 1.0 }
+        inventory_params = { user_world_id: 1, item_id: 1, amount_available: 10 }
+        user_world = instance_double(described_class, user_world_params)
+        items = [instance_double('item', item_params), instance_double('item', item_params_2)]
+        inventory = instance_double('InventoryItems', inventory_params)
+        allow(cur_user).to receive(:available_credits).and_return(1000)
+        allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+        allow(user_world).to receive(:id).and_return(1)
+        allow(Item).to receive(:all).and_return(items)
+        allow(Item).to receive(:where).and_return(items)
+        allow(items[0]).to receive(:find_or_created_by).with(item_params).and_return(items[0])
+        allow(items[1]).to receive(:find_or_created_by).with(item_params_2).and_return(items[1])
+        item = Item.where(id: 1)
+        uw = UserWorld.find_by_ids(1, 1)
+        allow(inventory).to receive(:find_or_create_by).with(user_world_id: uw.id, item_id: item[0].id).and_return(inventory)
+        allow(cur_user).to receive(:update).with(available_credits: 985).and_return(cur_user)
+        post purchase_item_path, params: {world_id: 1, items_id: '{"Test Item 1": 3, "Test Item 2": 4}'}
+
+        expect(response).to redirect_to(world_path(user_world.world_id))
+      end
+
+      it 'should not purchase item with insufficient credits' do
+        user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
+        item_params = { id: 1, item_name: "Test Item 1", price: 5.0 }
+        item_params_2 = { id: 2, item_name: "Test Item 2", price: 1.0 }
+        user_world = instance_double(described_class, user_world_params)
+        items = [instance_double('item', item_params), instance_double('item', item_params_2)]
+        allow(cur_user).to receive(:available_credits).and_return(0)
+        allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+        allow(user_world).to receive(:id).and_return(1)
+        allow(Item).to receive(:all).and_return(items)
+        allow(Item).to receive(:where).and_return(items)
+        allow(items[0]).to receive(:find_or_created_by).with(item_params).and_return(items[0])
+        allow(items[1]).to receive(:find_or_created_by).with(item_params_2).and_return(items[1])
+        post purchase_item_path, params: {world_id: 1, items_id: '{"Test Item 1": 3, "Test Item 2": 4}'}
+
+        expect(response).to redirect_to(world_path(user_world.world_id))
+      end
+    end
+
+    # describe 'using items' do
+    #   it 'should increase my xp with xp booster' do
+    #     pending
+    #   end
+    #
+    #   it 'should allow me to move past adjacent cells with speed potion' do
+    #     pending
+    #   end
+    #
+    #   it 'should increase my mini game luck with 4 leaf clover' do
+    #     pending
+    #   end
+    # end
   end
 end

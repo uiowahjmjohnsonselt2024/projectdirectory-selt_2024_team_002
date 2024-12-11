@@ -3,6 +3,7 @@
 # Controller for handling user-world actions.
 class UsersWorldsController < ApplicationController
   before_action :authenticate_user
+  require 'json'
 
   def authenticate_user
     @cur_user = User.find_user_by_session_token(cookies[:session])
@@ -36,7 +37,7 @@ class UsersWorldsController < ApplicationController
     unless isfree
       charge_res = @cur_user.charge_credits(0.75)
       unless charge_res
-        flash[:warning] = 'Insufficient credits!'
+        flash[:alert] = 'Insufficient credits!'
         return render json: { error: 'Insufficient credits!' }, status: :bad_request
       end
     end
@@ -45,12 +46,12 @@ class UsersWorldsController < ApplicationController
     Quest.check_and_complete_movement_quest(user_world, dest_row, dest_col)
     render json: { error: 'none' }, status: :ok
   end
-  # rubocop:enable Metrics/MethodLength
 
   def cell_action
-    world = params[:world_id]
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
 
-    @user_world = UserWorld.find_by_ids(@cur_user.id, world)
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     Rails.logger.debug('Enter action')
     Rails.logger.debug(@user_world.xp)
 
@@ -59,15 +60,70 @@ class UsersWorldsController < ApplicationController
     # end}
   end
 
-  def cell_shop
-    world = params[:world_id]
+  def shop
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
 
-    @user_world = UserWorld.find_by_ids(@cur_user.id, world)
-    Rails.logger.debug('Enter shop')
-    Rails.logger.debug(@user_world.xp)
+    # @grid_shop = GridShop.find_or_create_by(grid: @gridsquare) do |grid_shop|
+    #   # Create a new Shop and associate it with the GridShop
+    #   @shop = Shop.create!(name: "Shop for Grid #{@gridsquare.id}")
+    #   grid_shop.shop = @shop
+    # end
 
-    # {respond_to do |format|
-    #  format.js
-    # end}
+    @items = Item.all
+
+    respond_to do |format|
+      format.js
+    end
   end
+
+  def purchase_item
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @items = []
+    list_of_items = JSON.parse(params[:items_id])
+
+    list_of_items.each_key do |item|
+      @items.push(Item.where(item_name: item).first) if list_of_items[item] != 0
+    end
+
+    @items.each do |item|
+      if @cur_user.available_credits < (list_of_items[item.item_name] * item.price)
+        flash[:alert] = 'No sufficient shard to purchase'
+        break
+      end
+
+      @user_item = InventoryItem.find_or_create_by(user_world_id: @user_world.id, item_id: item.id)
+      @user_item.increment(:amount_available, list_of_items[item.item_name])
+      @cur_user.update(available_credits: @cur_user.available_credits - (list_of_items[item.item_name] * item.price))
+    end
+
+    redirect_to world_path(params[:world_id])
+  end
+  # def use_item
+  #   @cur_user = User.find_user_by_session_token(cookies[:session])
+  #   @world = World.find(params[:world_id])
+  #   @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+  #
+  #   @item = Item.find(params[:item_id])
+  #   @user_item = InventoryItem.find_by(user_world_id: @user_world.id, item_id: @item.id)
+  #   # use the item
+  #   case @item.name
+  #   when 'XP Boost'
+  #     # boost xp
+  #   when 'Speed Potion'
+  #     # boost speed
+  #   when '4 Leaf Clover'
+  #     # boost luck
+  #   else
+  #     flash[:alert] = 'Item not found'
+  #     redirect_to world_path
+  #   end
+  #   @user_item.decrement(:quantity, 1)
+  #   @user_item.save
+  #   redirect_to world_path
+  # end
+  # rubocop:enable Metrics/MethodLength
 end

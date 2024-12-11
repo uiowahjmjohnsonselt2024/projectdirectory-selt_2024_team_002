@@ -18,7 +18,7 @@ module OpenaiWrapperHelper
       if uri.blank?
         return
       end
-      
+
       download_and_attach_image(uri, row, col, world, event, text_prompt)
     end
 
