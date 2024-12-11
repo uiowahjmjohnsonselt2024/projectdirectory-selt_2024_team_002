@@ -19,9 +19,18 @@ RSpec.describe Quest, type: :model do
      Quest.generate_movement_for(uw)
    end
  end
- describe 'geerate trivia' do
+ describe 'generate trivia' do
+   it 'calls the create function' do
+    uw = instance_double(UserWorld)
+    world = double('World')
+    allow(uw).to receive(:world).and_return(world)
+   end
+ end
+
+ describe 'complete trivia' do
    
  end
+
  describe 'complete movement' do
    
  end
