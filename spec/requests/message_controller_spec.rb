@@ -25,8 +25,8 @@ RSpec.describe 'messages', type: :request do
       end
 
       it 'calls create when msg is present' do
-        allow(Message).to receive(:create!)
-        post send_message_path
+        expect(Message).to receive(:create!)
+        post send_message_path, params: {world_id: 1, message: 'asdasdasd'}
       end
     end
   end
