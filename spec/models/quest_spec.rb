@@ -60,6 +60,38 @@ RSpec.describe Quest, type: :model do
  end
 
  describe 'complete movement' do
+   it 'increments at the correct location' do
+    uw = instance_double(UserWorld)
+    quest = instance_double(Quest)
+    q = double('questrelation')
+    usr = instance_double(User)
+    allow(uw).to receive(:quests).and_return(q)
+    allow(q).to receive(:find_by).and_return(quest)
+    allow(quest).to receive(:complete_movement)
+    allow(quest).to receive(:cell_row).and_return(1)
+    allow(quest).to receive(:cell_col).and_return(1)
+    Quest.check_and_complete_movement_quest(uw, 1,1)
+   end
    
+   it 'increments at the correct location' do
+    uw = instance_double(UserWorld)
+    quest = instance_double(Quest)
+    q = double('questrelation')
+    usr = instance_double(User)
+    allow(uw).to receive(:quests).and_return(q)
+    allow(q).to receive(:find_by).and_return(quest)
+    allow(quest).to receive(:complete_movement)
+    allow(quest).to receive(:cell_row).and_return(1)
+    allow(quest).to receive(:cell_col).and_return(1)
+    result = Quest.check_and_complete_movement_quest(uw, 2, 1)
+    expect(result).to be false
+    end
  end
+
+ describe 'complete movement' do
+   it 'increments the correct things' do 
+     
+   end
+ end
+
 end
