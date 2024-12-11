@@ -70,3 +70,7 @@ end
 And(/^I fill in the input input box with id "([^"]*)" with the text "([^"]*)"$/) do |input_id, value|
   find("##{input_id}").set(value)
 end
+
+And(/^I click the link by ID "([^"]*)"$/) do |id|
+  find(id).click
+end
