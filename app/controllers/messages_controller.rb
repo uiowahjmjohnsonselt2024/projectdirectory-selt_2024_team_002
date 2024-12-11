@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     return if @cur_user
 
     flash[:alert] = 'Please login'
-    return redirect_to users_login_path
+    redirect_to users_login_path
   end
 
   def get_all_messages
@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
         }
       end
     end
-    return render json: res
+    render json: res
   end
 
   def send_message

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable all
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -94,6 +95,11 @@ Rails.application.configure do
     password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
   }
 
+  config.active_job.queue_adapter = :good_job
+  config.good_job.logger = Logger.new($stdout)
+  config.good_job.log_level = :debug
+
   # default host in production
-  Rails.application.routes.default_url_options[:host] = 'https://team2sprint2-7bb1f940aa79.herokuapp.com'
+  Rails.application.routes.default_url_options[:host] = 'https://team2sprint3-8309a00a9d8b.herokuapp.com'
 end
+# rubocop:enable all

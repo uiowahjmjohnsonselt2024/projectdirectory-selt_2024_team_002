@@ -103,7 +103,7 @@ describe WorldsController do
       allow(World).to receive(:find).and_return(world)
       allow(UserWorld).to receive(:find_by_ids).and_return(user_world)
       allow(UserWorld).to receive(:find_known_squares).and_return([[1, 1]])
-      allow(cur_user).to receive_messages(id: 1)
+      allow(cur_user).to receive_messages(id: 1, available_credits: 10)
       get '/worlds/1'
       expect(response).to render_template('show')
     end
@@ -136,6 +136,7 @@ describe WorldsController do
           max_player: 2
         )
         expect(world).to receive(:update).with({ current_players: 2 })
+        expect(world).to receive(:id).and_return(1)
         post worlds_join_world_path, params: { id: '1' }
       end
 
