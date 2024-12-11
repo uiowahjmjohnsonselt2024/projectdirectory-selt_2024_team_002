@@ -24,11 +24,39 @@ RSpec.describe Quest, type: :model do
     uw = instance_double(UserWorld)
     world = double('World')
     allow(uw).to receive(:world).and_return(world)
+    expect(Quest).to receive(:create!)
+    Quest.generate_trivia_for(uw)
    end
  end
 
  describe 'complete trivia' do
-   
+  it 'dosent change exp on wrong answer' do
+    quest = described_class.new
+    uw = instance_double(UserWorld)
+    allow(quest).to receive(:trivia_question).and_return({answer: 'ship'})
+    allow(quest).to receive(:update!)
+    expect(uw).to_not receive(:increment)
+    allow(quest).to receive(:user_world).and_return(uw)
+    expect(quest).to receive(:update!)
+    quest.complete_trivia('bob')
+  end 
+
+  it 'does change exp on wrong answer' do
+    quest = described_class.new
+    uw = instance_double(UserWorld)
+    allow(quest).to receive(:trivia_question).and_return({'answer' => 'ship'})
+    allow(quest).to receive(:update!)
+    expect(uw).to receive(:increment).and_return(uw)
+    expect(uw).to receive(:save!)
+    usr = instance_double(User)
+    expect(uw).to receive(:user).and_return(usr)
+    expect(usr).to receive(:increment).and_return(usr)
+    expect(usr).to receive(:save!)
+    allow(quest).to receive(:user_world).and_return(uw)
+    expect(quest).to receive(:update!)
+    quest.complete_trivia('ship')
+  end 
+
  end
 
  describe 'complete movement' do
