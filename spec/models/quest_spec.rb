@@ -90,7 +90,15 @@ RSpec.describe Quest, type: :model do
 
  describe 'complete movement' do
    it 'increments the correct things' do 
-     
+     q = described_class.new
+     uw = instance_double(UserWorld)
+     usr = instance_double(User)
+     expect(q).to receive(:user_world).and_return(uw).exactly(2).times
+     expect(uw).to receive(:user).and_return(usr)
+     expect(usr).to receive(:save!).exactly(2).times
+     expect(usr).to receive(:increment).and_return(usr)
+     expect(uw).to receive(:increment).and_return(usr)
+     q.complete_movement
    end
  end
 
