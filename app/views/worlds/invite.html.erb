@@ -31,7 +31,7 @@
 </div>
 
 <div style="display: flex; flex-direction: column; align-items: center;">
-  <% @private_worlds.each do |world| %>
+  <% @shareable_worlds.each do |world| %>
     <div class="world_box <%= world.world_name.split.join '_'%>">
       <h3><%= world.world_name %></h3>
       <p>Code: <%= world.world_code %></p>
