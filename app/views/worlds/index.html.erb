@@ -57,11 +57,18 @@
 
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
-      <div class="world_box <%= world.world_name.split.join '_'%>">
-        <h3><%= world.world_name %></h3>
-        <p>Code: <%= world.world_code %></p>
-        <p>Max Players: <%= world.max_player %></p>
-        <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+      <div class="item_box world <%= world.world_name.split.join '_'%>">
+        <div class="world-left">
+        </div>
+        <div class="world-center">
+          <h3><%= world.world_name %></h3>
+          <p>Code: <%= world.world_code %></p>
+          <p>Max Players: <%= world.max_player %></p>
+          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+        </div>
+        <div class="world-right">
+          <h3>Owned by <%=world.user.display_name %> </h3>
+        </div>
       </div>
     <% end %>
   </div>
@@ -74,11 +81,18 @@
 <div id="private_worlds" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @private_worlds.each do |world| %>
-      <div class="world_box">
-        <h3><%= world.world_name %></h3>
-        <p>Code: <%= world.world_code %></p>
-        <p>Max Players: <%= world.max_player %></p>
-        <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+      <div class="item_box world <%= world.world_name.split.join '_'%>">
+        <div class="world-left">
+        </div>
+        <div class="world-center">
+          <h3><%= world.world_name %></h3>
+          <p>Code: <%= world.world_code %></p>
+          <p>Max Players: <%= world.max_player %></p>
+          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+        </div>
+        <div class="world-right">
+          <h3>Owned by <%=world.user.display_name %> </h3>
+        </div>
       </div>
     <% end %>
   </div>
@@ -90,12 +104,12 @@
 
 <div id="friend_list" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;" id="friend_list_display">
-    <div class="world_box">
+    <div class="info_box">
       <p id="no_friends">Sorry, you currently have no friends. Add some below!</p>
       <button class="button" id="add_friend_button" onclick="addFriend()">Add Friend</button>
 
       <div id="add_friend_container" style="display: none;">
-        <p>Enter your friend's name:</p>
+        <p>Enter your friend's username:</p>
         <%= form_tag "/users/add_friend", :remote => true do %>
           <%= text_field_tag :friend_name, nil, id: 'friend_name', style: "height:30px", class: "textbox"%>
           <%= submit_tag 'Submit', id: 'submit_friend_button', class: "button", onClick: "submitFriend()" %>
@@ -103,7 +117,7 @@
       </div>
     </div>
     <% @friends.each do |friend| %>
-      <div class="friend_box" id="friend_<%= friend.id %>">
+      <div class="item_box friend" id="friend_<%= friend.id %>">
         <div class="friend_left">
           <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
         </div>
@@ -120,11 +134,11 @@
 
 <div id="friend_requests" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <div id="no_requests" class="world_box">
+    <div id="no_requests" class="info_box">
       <p>You do not have any requests at the moment.</p>
     </div>
     <% @requested_friends.each do |friend| %>
-      <div class="friend_box" id="request_<%= friend.id %>">
+      <div class="item_box friend" id="request_<%= friend.id %>">
         <div class="friend_left">
           <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "secondary_button" %>
           <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
@@ -139,11 +153,11 @@
 
 <div id="world_invites" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <div id="no_invites" class="world_box">
+    <div id="no_invites" class="info_box">
       <p>You do not have any world invites at the moment.</p>
     </div>
     <% @world_invites.each do |invite| %>
-      <div class="friend_box" id="request_<%= invite.id %>">
+      <div class="item_box friend" id="request_<%= invite.id %>">
         <div class="friend_left">
           <%= button_to 'Approve', users_approve_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :post, :remote => true, :class => "secondary_button" %>
           <%= button_to 'Reject', users_reject_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :delete, :remote => true, :class => "button" %>

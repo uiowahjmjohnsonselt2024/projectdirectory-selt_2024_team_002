@@ -32,11 +32,18 @@
 
 <div style="display: flex; flex-direction: column; align-items: center;">
   <% @shareable_worlds.each do |world| %>
-    <div class="world_box <%= world.world_name.split.join '_'%>">
-      <h3><%= world.world_name %></h3>
-      <p>Code: <%= world.world_code %></p>
-      <p>Max Players: <%= world.max_player %></p>
-      <%= button_to 'Invite to world', users_send_invite_path(friend_id: @friend.id, world_id: world.id), method: :post, :remote => true, :class => "button" %>
+    <div class="item_box world <%= world.world_name.split.join '_'%>">
+      <div class="world-left">
+      </div>
+      <div class="world-center">
+        <h3><%= world.world_name %></h3>
+        <p>Code: <%= world.world_code %></p>
+        <p>Max Players: <%= world.max_player %></p>
+        <%= button_to 'Invite to world', users_send_invite_path(friend_id: @friend.id, world_id: world.id), method: :post, :remote => true, :class => "button" %>
+      </div>
+      <div class="world-right">
+<!--        <h3>Owned by <%#=world.user.display_name %> </h3>-->
+      </div>
     </div>
   <% end %>
 </div>
