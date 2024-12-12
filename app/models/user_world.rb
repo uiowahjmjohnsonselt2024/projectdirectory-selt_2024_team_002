@@ -98,7 +98,7 @@ class UserWorld < ApplicationRecord
     save
   end
 
-  def is_lucky?
+  def lucky?
     luck_boost
   end
 

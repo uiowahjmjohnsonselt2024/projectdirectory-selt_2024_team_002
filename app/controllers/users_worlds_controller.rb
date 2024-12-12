@@ -127,22 +127,9 @@ class UsersWorldsController < ApplicationController
     @item = Item.find(params[:item_id])
     @user_item = InventoryItem.find_by(user_world_id: @user_world.id, item_id: @item.id)
 
-    case @user_item.name
-    when 'XP Boost'
-      @user_world.boost_xp
-    when 'Speed Potion'
-      @user_world.use_speed_potion
-    when '4 Leaf Clover'
-      # boost luck
-      # add luck_boost column to user_world, default is false but using 4 Leaf Clover changes it to true
-      # when user plays a mini game, they have improved odds of winning if luck_boost is true
-      # lasts for the next 5 mini games they play
-    else
-      flash[:alert] = 'Item not found'
-      redirect_to world_path
-    end
-    # @user_item.decrement(:quantity, 1)
-    # @user_item.save
+    @user_item.use_item
+
+    flash[:notice] = "#{@item.item_name} was used!"
     redirect_to world_path
   end
   # rubocop:enable Metrics/MethodLength
