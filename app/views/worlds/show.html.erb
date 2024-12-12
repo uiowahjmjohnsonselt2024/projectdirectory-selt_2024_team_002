@@ -254,7 +254,7 @@
                 }
                 else {
                     $(".modal").css("display", "flex")
-                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 0.75 shards!'
+                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 1 shard!'
                     $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}? `)
                     $(".modal").find('h3').html(`${isFreeText}`)
 
