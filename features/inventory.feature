@@ -31,7 +31,7 @@ Feature: Use my inventory
     And I press the button "Inventory"
     Then I should see a string that starts with "Inventory"
 
-  Scenario:
+  Scenario: See no items in inventory
     When I am on the Create Account page
     And I create a user with email: "admin@admin", username: "admin", password: "AdminsAreTheBest1$"
     And I fill in "Username:" with "admin"
@@ -42,3 +42,11 @@ Feature: Use my inventory
     Then I should see the exact phrase "World Name: Test World 1"
     And I press the button "Inventory"
     Then I should see a string that starts with "No items in inventory"
+
+    # Scenario: Use an XP Boost item
+
+    # Scenario: Use a Speed Potion item
+
+    # Scenario: Use a 4 Leaf Clover item
+
+
