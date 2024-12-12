@@ -59,24 +59,22 @@ class UserWorld < ApplicationRecord
     save
   end
 
+  # rubocop:disable Metrics/MethodLength
   def gain_xp(base_xp)
     boosted_xp = base_xp * xp_boost
+    boosted_xp = boosted_xp.round
 
-    # Increment XP for the user
     self.xp += boosted_xp
 
-    # If XP boost is active, increment the boost count
     if xp_boost > 1
       self.xp_boost_count += 1
 
-      # Reset xp_boost after 5 XP gains
       if xp_boost_count >= 5
         self.xp_boost = 1
         self.xp_boost_count = 0
       end
     end
-
-    # Save changes
     save
   end
 end
+# rubocop:enable Metrics/MethodLength
