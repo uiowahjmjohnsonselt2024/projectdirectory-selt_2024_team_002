@@ -102,28 +102,41 @@ class UsersWorldsController < ApplicationController
 
     redirect_to world_path(params[:world_id])
   end
-  # def use_item
-  #   @cur_user = User.find_user_by_session_token(cookies[:session])
-  #   @world = World.find(params[:world_id])
-  #   @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-  #
-  #   @item = Item.find(params[:item_id])
-  #   @user_item = InventoryItem.find_by(user_world_id: @user_world.id, item_id: @item.id)
-  #   # use the item
-  #   case @item.name
-  #   when 'XP Boost'
-  #     # boost xp
-  #   when 'Speed Potion'
-  #     # boost speed
-  #   when '4 Leaf Clover'
-  #     # boost luck
-  #   else
-  #     flash[:alert] = 'Item not found'
-  #     redirect_to world_path
-  #   end
-  #   @user_item.decrement(:quantity, 1)
-  #   @user_item.save
-  #   redirect_to world_path
-  # end
+
+  def inventory
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+
+    @inventory_items = InventoryItem.where(user_world_id: @user_world.id)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def use_item
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+
+    @item = Item.find(params[:item_id])
+    @user_item = InventoryItem.find_by(user_world_id: @user_world.id, item_id: @item.id)
+    # use the item
+    case @item.name
+    when 'XP Boost'
+      # boost xp
+    when 'Speed Potion'
+      # boost speed
+    when '4 Leaf Clover'
+      # boost luck
+    else
+      flash[:alert] = 'Item not found'
+      redirect_to world_path
+    end
+    # @user_item.decrement(:quantity, 1)
+    # @user_item.save
+    redirect_to world_path
+  end
   # rubocop:enable Metrics/MethodLength
 end
