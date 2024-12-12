@@ -1,14 +1,20 @@
 <div class="floating-partial-box" id="inventory-box">
   <label for="shard_input" style="font-size: 30px; padding-bottom: 10px">Inventory</label>
-  <% items.each_with_index do |item, index| %>
-    <div class="row-container">
-      <p class="item-description"><%= item.item_name %></p>
-      <p class="item-quantity" style="font-weight: normal" id="amount_text_<%= index %>">Quantity: <%= item.amount_available %> shard</p>
-      <%= form_tag use_item_path, method: :post, id: 'use_item_form' do %>
-        <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-        <input type="hidden" name="item_id" id="item_id"/>
-        <button id="use_item_button" class="accept_button" onclick="enable_background_interaction()" disabled style="background-color: #808391; transition: none;">Use</button>
-      <% end %>
+  <% if items.any? %>
+    <% items.each_with_index do |item, index| %>
+      <div class="row-container">
+        <p class="item-description"><%= item.item_name %></p>
+        <p class="item-quantity" style="font-weight: normal" id="amount_text_<%= index %>">Quantity: <%= item.amount_available %> shard</p>
+        <%= form_tag use_item_path, method: :post, id: 'use_item_form' do %>
+          <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+          <input type="hidden" name="item_id" id="item_id"/>
+          <button id="use_item_button" class="accept_button" onclick="enable_background_interaction()" disabled style="background-color: #808391; transition: none;">Use</button>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="no-items-message">
+      <p>No items in inventory</p>
     </div>
   <% end %>
   <script>
