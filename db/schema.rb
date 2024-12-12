@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_10_224121) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_12_074044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -227,6 +227,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_224121) do
     t.string "seen", default: [["1", "1"], ["1", "2"], ["2", "1"]], array: true
     t.integer "user_row", default: 1
     t.integer "user_col", default: 1
+    t.float "xp_boost", default: 1.0
+    t.integer "xp_boost_count", default: 0
+    t.boolean "speed_boost", default: false
+    t.integer "speed_boost_count", default: 0
     t.index ["user_id", "world_id"], name: "index_user_worlds_on_user_id_and_world_id", unique: true
     t.index ["user_id"], name: "index_user_worlds_on_user_id"
     t.index ["world_id"], name: "index_user_worlds_on_world_id"

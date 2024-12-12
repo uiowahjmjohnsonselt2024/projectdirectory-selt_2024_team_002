@@ -35,10 +35,14 @@ class UsersWorldsController < ApplicationController
     isfree = UserWorld.free_move?(row, col, dest_row, dest_col)
 
     unless isfree
-      charge_res = @cur_user.charge_credits(0.75)
-      unless charge_res
-        flash[:alert] = 'Insufficient credits!'
-        return render json: { error: 'Insufficient credits!' }, status: :bad_request
+      if user_world.speed_boost?
+        user_world.update_speed_count
+      else
+        charge_res = @cur_user.charge_credits(0.75)
+        unless charge_res
+          flash[:alert] = 'Insufficient credits!'
+          return render json: { error: 'Insufficient credits!' }, status: :bad_request
+        end
       end
     end
 
@@ -122,21 +126,17 @@ class UsersWorldsController < ApplicationController
 
     @item = Item.find(params[:item_id])
     @user_item = InventoryItem.find_by(user_world_id: @user_world.id, item_id: @item.id)
-    # use the item
-    case @item.name
+
+    case @user_item.name
     when 'XP Boost'
       @user_world.boost_xp
     when 'Speed Potion'
-      # boost speed
-      # add speed_boost column to user_world, default is false but using Speed Potion changes it to true
-      # when user moves to non-adjacent cell, they can move for free if speed_boost is true
-      # lasts for the next 5 times they make a non-adjacent cell move
+      @user_world.
     when '4 Leaf Clover'
       # boost luck
       # add luck_boost column to user_world, default is false but using 4 Leaf Clover changes it to true
       # when user plays a mini game, they have improved odds of winning if luck_boost is true
-      # lasts for the next 5 minigames they play
-      #
+      # lasts for the next 5 mini games they play
     else
       flash[:alert] = 'Item not found'
       redirect_to world_path

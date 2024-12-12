@@ -56,6 +56,7 @@ class UserWorld < ApplicationRecord
 
   def boost_xp
     self.xp_boost = 1.25
+    self.xp_boost_count = 0
     save
   end
 
@@ -78,3 +79,22 @@ class UserWorld < ApplicationRecord
   end
 end
 # rubocop:enable Metrics/MethodLength
+
+def speed_boost?
+  speed_boost
+end
+
+def use_speed_potion
+  self.speed_boost = true
+  self.speed_boost_count = 0
+  save
+end
+
+def update_speed_count
+  self.speed_boost_count += 1
+  if speed_boost_count >= 5
+    self.speed_boost = false
+    self.speed_boost_count = 0
+  end
+  save
+end
