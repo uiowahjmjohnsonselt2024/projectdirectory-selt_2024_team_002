@@ -66,7 +66,6 @@ RSpec.describe UserWorld, type: :model do
       new = described_class.new
       allow(new).to receive(:save!)
       new.set_position(1,3)
-
     end
   end
 end

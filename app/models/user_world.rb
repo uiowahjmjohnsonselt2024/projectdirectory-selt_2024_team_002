@@ -77,24 +77,43 @@ class UserWorld < ApplicationRecord
     end
     save
   end
-end
-# rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength
 
-def speed_boost?
-  speed_boost
-end
-
-def use_speed_potion
-  self.speed_boost = true
-  self.speed_boost_count = 0
-  save
-end
-
-def update_speed_count
-  self.speed_boost_count += 1
-  if speed_boost_count >= 5
-    self.speed_boost = false
-    self.speed_boost_count = 0
+  def speed_boost?
+    speed_boost
   end
-  save
+
+  def use_speed_potion
+    self.speed_boost = true
+    self.speed_boost_count = 0
+    save
+  end
+
+  def update_speed_count
+    self.speed_boost_count += 1
+    if speed_boost_count >= 5
+      self.speed_boost = false
+      self.speed_boost_count = 0
+    end
+    save
+  end
+
+  def is_lucky?
+    luck_boost
+  end
+
+  def use_leaf_clover
+    self.luck_boost = true
+    self.luck_boost_count = 0
+    save
+  end
+
+  def update_luck_count
+    self.luck_boost_count += 1
+    if luck_boost_count >= 5
+      self.luck_boost = false
+      self.luck_boost_count = 0
+    end
+    save
+  end
 end

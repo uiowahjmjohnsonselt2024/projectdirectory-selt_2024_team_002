@@ -131,7 +131,7 @@ class UsersWorldsController < ApplicationController
     when 'XP Boost'
       @user_world.boost_xp
     when 'Speed Potion'
-      @user_world.
+      @user_world.use_speed_potion
     when '4 Leaf Clover'
       # boost luck
       # add luck_boost column to user_world, default is false but using 4 Leaf Clover changes it to true
