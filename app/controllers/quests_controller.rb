@@ -34,7 +34,14 @@ class QuestsController < ApplicationController
 
   def generate
     world = World.find(params[:world_id])
-    world.generate_quest_for(User.find_user_by_session_token(cookies[:session]))
+
+    begin
+      world.generate_quest_for(User.find_user_by_session_token(cookies[:session]))
+      flash[:notice] = 'Quest generated.'
+    rescue Quest::NoFilledCellsError => e
+      flash[:alert] = e.message
+    end
+    
     redirect_to world_path(world)
   end
 end

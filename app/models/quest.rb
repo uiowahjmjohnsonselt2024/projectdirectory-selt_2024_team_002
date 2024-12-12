@@ -2,12 +2,17 @@
 
 # Model for handling quest-related actions.
 class Quest < ApplicationRecord
+  class NoFilledCellsError < StandardError; end
   belongs_to :user_world
   belongs_to :world
 
   def self.generate_movement_for(user_world)
     world = user_world.world
     filled_cells = world.gridsquares.select { |cell| cell.image.attached? }
+
+    if filled_cells.empty?
+      raise NoFilledCellsError, 'No filled cells to generate quest'
+    end
 
     target_cell = filled_cells.sample
     create!(
