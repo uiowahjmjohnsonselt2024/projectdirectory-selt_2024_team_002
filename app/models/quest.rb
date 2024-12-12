@@ -44,7 +44,7 @@ class Quest < ApplicationRecord
   def complete_trivia(answer)
     if answer == trivia_question['answer']
       user_world.user.increment(:available_credits, 5).save!
-      user_world.increment(:xp, 15).save!
+      user_world.gain_xp(15)
       update!(completed: true)
     else
       update!(completed: true)
@@ -81,7 +81,7 @@ class Quest < ApplicationRecord
 
   def complete_movement
     user_world.user.increment(:available_credits, 5).save!
-    user_world.increment(:xp, 15).save!
+    user_world.gain_xp(15)
     update!(completed: true)
     Rails.logger.debug 'completed movement quest'
   end

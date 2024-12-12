@@ -53,4 +53,30 @@ class UserWorld < ApplicationRecord
   def self.find_by_ids(user_id, world_id)
     UserWorld.where(user_id: user_id, world_id: world_id).first
   end
+
+  def boost_xp
+    self.xp_boost = 1.25
+    save
+  end
+
+  def gain_xp(base_xp)
+    boosted_xp = base_xp * xp_boost
+
+    # Increment XP for the user
+    self.xp += boosted_xp
+
+    # If XP boost is active, increment the boost count
+    if xp_boost > 1
+      self.xp_boost_count += 1
+
+      # Reset xp_boost after 5 XP gains
+      if xp_boost_count >= 5
+        self.xp_boost = 1
+        self.xp_boost_count = 0
+      end
+    end
+
+    # Save changes
+    save
+  end
 end
