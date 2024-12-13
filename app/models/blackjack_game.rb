@@ -1,10 +1,40 @@
 class BlackjackGame < ApplicationRecord
   belongs_to :user_world
 
+  #serialize :state, type: Hash
+
   after_initialize :initialize_game
 
+  def state
+    @state ||= begin
+                 raw_state = super()
+                 raw_state.is_a?(String) ? JSON.parse(raw_state) : raw_state
+               end
+  end
+
+  def state=(value)
+    super(value.to_json)
+    @state = value
+  end
+
   def initialize_game
-    self.state ||= {
+    if state.blank? || state == {}
+      self.state = default_state
+    end
+    puts "Initialized state: #{self.state.inspect}" # Debug statement
+    deal_initial_cards if state[:deck].empty?
+
+    # deal_initial_cards
+  end
+
+  def reset_game
+    self.state = default_state
+    deal_initial_cards
+    save
+  end
+
+  def default_state
+    {
       deck: init_deck,
       player_hand: [],
       dealer_hand: [],
@@ -12,14 +42,22 @@ class BlackjackGame < ApplicationRecord
       dealer_score: 0,
       status: 'ongoing'
     }
-    deal_initial_cards
   end
 
   def init_deck
     suits = %w[hearts diamonds clubs spades]
     values = %w[2 3 4 5 6 7 8 9 10 J Q K A]
+    deck = suits.product(values).shuffle
+    puts "Initialized deck: #{deck.inspect}" # Debug statement
+    deck
+  end
 
-    suits.product(values).shuffle
+  def deal_initial_cards
+    2.times do
+      deal_card(state[:player_hand])
+      deal_card(state[:dealer_hand])
+    end
+    update_scores
   end
 
   def deal_card(hand)

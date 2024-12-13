@@ -3,30 +3,36 @@ class BlackjackController < ApplicationController
     require 'json'
 
     
-  def start_blackjack_game
-    @cell = Gridsquare.find(params[:cell_id])
-    @world = @cell.world
-    @user = @cur_user
+    def start_blackjack_game
+        @cell = Gridsquare.find(params[:cell_id])
+        @world = @cell.world
+        @user_world = UserWorld.find_by(user: current_user, world: @world)
 
-    if @user.available_credits >= @cell.buy_in_amount
-      init_blackjack_game
-      redirect_to action: :show_blackjack_game
-    else
-      redirect_to @world, alert: 'Insufficient credits to play'
+        if @user_world.user.available_credits >= @cell.buy_in_amount
+            @user_world.user.update(available_credits: @user_world.user.available_credits - @cell.buy_in_amount)
+            @game = BlackjackGame.create(user_world: @user_world)
+            render partial: 'blackjack/game', locals: { game: @game }
+        else
+            render partial: 'blackjack/insufficient_credits'
+        end
     end
-  end
 
-  def hit_blackjack_game
-    @game_state = session[:blackjack_game]
+    def show_blackjack_game
+        @game = BlackjackGame.find(params[:id])
+        render partial: 'blackjack/game', locals: { game: @game }
+    end
 
-    # hit logic
-  end
+    def hit_blackjack_game
+        @game = BlackjackGame.find(params[:id])
+        @game.hit
+        render partial: 'blackjack/game', locals: { game: @game }
+    end
 
-  def stand_blackjack_game
-    @game_state = session[:blackjack_game]
-
-    # stand logic
-  end
+    def stand_blackjack_game
+        @game = BlackjackGame.find(params[:id])
+        @game.stand
+        render partial: 'blackjack/game', locals: { game: @game }
+    end
 
   private
 
@@ -40,3 +46,7 @@ class BlackjackController < ApplicationController
     }
   end
 end
+
+# find minimum bet amount from gridsquare
+    # check if user has enough credits
+    # check if luck_boost is active

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_13_023927) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_13_040817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -44,15 +44,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_13_023927) do
   end
 
   create_table "blackjack_games", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "world_id"
-    t.bigint "gridsquare_id"
-    t.text "state"
+    t.bigint "user_world_id"
+    t.integer "hand_value", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["gridsquare_id"], name: "index_blackjack_games_on_gridsquare_id"
-    t.index ["user_id"], name: "index_blackjack_games_on_user_id"
-    t.index ["world_id"], name: "index_blackjack_games_on_world_id"
+    t.text "state"
+    t.index ["user_world_id"], name: "index_blackjack_games_on_user_world_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -275,9 +272,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_13_023927) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "blackjack_games", "gridsquares"
-  add_foreign_key "blackjack_games", "users"
-  add_foreign_key "blackjack_games", "worlds"
+  add_foreign_key "blackjack_games", "user_worlds"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "gridsquares", "worlds"

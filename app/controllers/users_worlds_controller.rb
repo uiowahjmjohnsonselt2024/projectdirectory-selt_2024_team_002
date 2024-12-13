@@ -53,10 +53,11 @@ class UsersWorldsController < ApplicationController
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
 
-    # find minimum bet amount from gridsquare
-    # check if user has enough credits
-    # check if luck_boost is active
-    
+    @game = BlackjackGame.find_by(user_world_id: @user_world.id)
+    if @game
+      @game.reset_game
+    end
+    @game = BlackjackGame.find_or_create_by(user_world_id: @user_world.id)
 
     respond_to do |format|
       format.js
