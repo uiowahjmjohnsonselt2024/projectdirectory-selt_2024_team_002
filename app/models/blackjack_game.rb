@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Model for the Blackjack game
 class BlackjackGame < ApplicationRecord
   belongs_to :user_world
 
@@ -9,7 +10,7 @@ class BlackjackGame < ApplicationRecord
 
   def state
     @state ||= begin
-      raw_state = super()
+      raw_state = read_attribute(:state)
       raw_state.is_a?(String) ? JSON.parse(raw_state) : raw_state
     end
   end
@@ -104,6 +105,7 @@ class BlackjackGame < ApplicationRecord
     check_game_status
   end
 
+  # rubocop:disable Metrics/MethodLength
   def check_game_status
     if state['player_score'] > 21
       state['status'] = 'player_bust'
@@ -120,4 +122,6 @@ class BlackjackGame < ApplicationRecord
     end
     save
   end
+  # rubocop:enable Metrics/MethodLength
 end
+

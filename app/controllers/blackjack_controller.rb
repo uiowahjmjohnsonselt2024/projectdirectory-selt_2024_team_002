@@ -13,20 +13,24 @@ class BlackjackController < ApplicationController
     redirect_to users_login_path
   end
 
+  # rubocop:disable Metrics/MethodLength
   def start_blackjack_game
-    @cell = Gridsquare.find(params[:cell_id])
     @cur_user = User.find_user_by_session_token(cookies[:session])
-    @world = @cell.world
+    @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by(user: @cur_user, world: @world)
+    @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
 
-    if @user_world.user.available_credits >= @cell.buy_in_amount
-      @user_world.user.update(available_credits: @user_world.user.available_credits - @cell.buy_in_amount)
+    Rails.debugger.logger 'MY NAME IS JEFF'
+
+    if @user_world.user.available_credits >= @gridsquare.buy_in_amount
+      @user_world.user.update(available_credits: @user_world.user.available_credits - @gridsquare.buy_in_amount)
       @game = BlackjackGame.create(user_world: @user_world)
-      render partial: 'blackjack/game', locals: { game: @game }
+      render partial: 'blackjack', locals: { game: @game }
     else
       render partial: 'blackjack/insufficient_credits'
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def show_blackjack_game
     @game = BlackjackGame.find(params[:id])

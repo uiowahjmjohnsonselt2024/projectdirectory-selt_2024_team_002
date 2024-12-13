@@ -11,9 +11,8 @@ class Gridsquare < ApplicationRecord
     Gridsquare.where(world: world, row: row, col: col).first
   end
 
-  private
-
   def set_random_buy_in_amount
-    self.buy_in_amount = rand(1..100)
+    # set buy in to rand multiples of 5
+    self.buy_in_amount = rand(1..20) * 5
   end
 end

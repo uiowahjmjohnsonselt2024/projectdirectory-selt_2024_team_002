@@ -1,8 +1,20 @@
-<div class='floating-partial-box' id="blackjack_game">
-  <h1>Blackjack Game</h1>
+<div class='floating-partial-box' id="blackjack_start">
+  <h1>Blackjack</h1>
+  <p>Buy In: <%= gridsquare.buy_in_amount %></p>
+  <button id="play_button">Play</button>
 
-  <p>Player Hand: <%= (game.state[:player_hand] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
-  <p>Dealer Hand: <%= (game.state[:dealer_hand] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
-  <p>Player Score: <%= game.state[:player_score] %></p>
-  <p>Dealer Score: <%= game.state[:dealer_score] %></p>
+  <p>Player Hand: <%= (game.state['player_hand'] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
+  <p>Dealer Hand: <%= (game.state['dealer_hand'] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
 </div>
+
+<script>
+    $(document).on('turbolinks:load', function() {
+        $('#play_button').on('click', function() {
+            $.ajax({
+                url: '/blackjack/start_blackjack_game',
+                type: 'POST',
+                dataType: 'script'
+            });
+        });
+    });
+</script>

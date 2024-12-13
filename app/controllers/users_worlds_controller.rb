@@ -53,9 +53,13 @@ class UsersWorldsController < ApplicationController
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
 
-    @game = BlackjackGame.find_by(user_world_id: @user_world.id)
-    @game&.reset_game
+    if @gridsquare.buy_in_amount.nil?
+      @gridsquare.set_random_buy_in_amount
+      @gridsquare.save
+    end
+
     @game = BlackjackGame.find_or_create_by(user_world_id: @user_world.id)
+    @game.deal_initial_cards
 
     respond_to do |format|
       format.js
