@@ -110,13 +110,13 @@ class BlackjackGame < ApplicationRecord
     elsif state['dealer_score'] > 21
       state['status'] = 'dealer_bust'
     elsif state['dealer_score'] >= 17
-      if state['player_score'] > state['dealer_score']
-        state['status'] = 'player_wins'
-      elsif state['player_score'] < state['dealer_score']
-        state['status'] = 'dealer_wins'
-      else
-        state['status'] = 'push'
-      end
+      state['status'] = if state['player_score'] > state['dealer_score']
+                          'player_wins'
+                        elsif state['player_score'] < state['dealer_score']
+                          'dealer_wins'
+                        else
+                          'push'
+                        end
     end
     save
   end
