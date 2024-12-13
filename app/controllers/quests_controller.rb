@@ -32,24 +32,22 @@ class QuestsController < ApplicationController
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @user_world = UserWorld.find_by_ids(@cur_user.id, params[:world_id])
 
-    if @user_world.quests.where(completed: false).empty?
-      generate
-    end
+    generate_quest(@user_world) if @user_world.quests.where(completed: false).empty?
 
     @quest = @user_world.quests.where(completed: false).first
     @quests = @user_world.quests
 
-    if @quest&.move_quest?
-      @random_quest_message = Quest.random_quest_message(@quest)
-    end
+    @random_quest_message = Quest.random_quest_message(@quest) if @quest&.move_quest?
 
     respond_to do |format|
       format.js
     end
   end
 
-  def generate
-    world = World.find(params[:world_id])
+  private
+
+  def generate_quest(user_world)
+    world = user_world.world
 
     begin
       world.generate_quest_for(User.find_user_by_session_token(cookies[:session]))
@@ -57,6 +55,5 @@ class QuestsController < ApplicationController
     rescue Quest::NoFilledCellsError => e
       flash[:alert] = e.message
     end
-    
   end
 end

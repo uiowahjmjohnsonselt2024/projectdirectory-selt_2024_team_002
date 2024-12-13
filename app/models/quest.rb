@@ -6,13 +6,12 @@ class Quest < ApplicationRecord
   belongs_to :user_world
   belongs_to :world
 
+  # rubocop:disable Metrics/MethodLength
   def self.generate_movement_for(user_world)
     world = user_world.world
     filled_cells = world.gridsquares.select { |cell| cell.image.attached? }
 
-    if filled_cells.empty?
-      raise NoFilledCellsError, 'No filled cells to generate quest'
-    end
+    raise NoFilledCellsError, 'No filled cells to generate quest' if filled_cells.empty?
 
     target_cell = filled_cells.sample
     create!(
@@ -23,6 +22,7 @@ class Quest < ApplicationRecord
       completed: false
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def self.generate_trivia_for(user_world)
     world = user_world.world
@@ -57,6 +57,7 @@ class Quest < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def self.random_quest_message(quest)
     world = quest.world
     gridsquare = world.gridsquares.find_by(row: quest.cell_row, col: quest.cell_col)
@@ -73,6 +74,7 @@ class Quest < ApplicationRecord
 
     quest_messages.sample
   end
+  # rubocop:enable Metrics/MethodLength
 
   def self.check_and_complete_movement_quest(user_world, row, col)
     quest = user_world.quests.find_by(completed: false)
