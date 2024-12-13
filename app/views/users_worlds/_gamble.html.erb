@@ -1,12 +1,8 @@
 <div id="blackjack_game">
   <h1>Blackjack Game</h1>
 
-  <p>Player Hand: <%= game.state[:player_hand].map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
-  <p>Dealer Hand: <%= game.state[:dealer_hand].map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
+  <p>Player Hand: <%= (game.state[:player_hand] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
+  <p>Dealer Hand: <%= (game.state[:dealer_hand] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
   <p>Player Score: <%= game.state[:player_score] %></p>
   <p>Dealer Score: <%= game.state[:dealer_score] %></p>
-  <p>Status: <%= game.state[:status] %></p>
-
-  <%= button_to 'Hit', hit_blackjack_game_path(game), method: :post, remote: true %>
-  <%= button_to 'Stand', stand_blackjack_game_path(game), method: :post, remote: true %>
 </div>

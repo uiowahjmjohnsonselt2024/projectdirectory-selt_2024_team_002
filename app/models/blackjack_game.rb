@@ -1,8 +1,6 @@
 class BlackjackGame < ApplicationRecord
   belongs_to :user_world
 
-  #serialize :state, type: Hash
-
   after_initialize :initialize_game
 
   def state
@@ -22,9 +20,8 @@ class BlackjackGame < ApplicationRecord
       self.state = default_state
     end
     puts "Initialized state: #{self.state.inspect}" # Debug statement
-    deal_initial_cards if state[:deck].empty?
-
-    # deal_initial_cards
+    deal_initial_cards if state['deck'].nil? || state['deck'].empty?
+    save
   end
 
   def reset_game
@@ -53,15 +50,18 @@ class BlackjackGame < ApplicationRecord
   end
 
   def deal_initial_cards
+    state['deck'] ||= init_deck
+    state['player_hand'] ||= []
+    state['dealer_hand'] ||= []
     2.times do
-      deal_card(state[:player_hand])
-      deal_card(state[:dealer_hand])
+      deal_card(state['player_hand'])
+      deal_card(state['dealer_hand'])
     end
     update_scores
   end
 
   def deal_card(hand)
-    card = state[:deck].pop
+    card = state['deck'].pop
     hand << card
     save
   end
@@ -80,37 +80,37 @@ class BlackjackGame < ApplicationRecord
   end
 
   def update_scores
-    state[:player_score] = calculate_score(state[:player_hand])
-    state[:dealer_score] = calculate_score(state[:dealer_hand])
+    state['player_score'] = calculate_score(state['player_hand'])
+    state['dealer_score'] = calculate_score(state['dealer_hand'])
     save
   end
 
   def hit
-    deal_card(state[:player_hand])
+    deal_card(state['player_hand'])
     update_scores
     check_game_status
   end
 
   def stand
-    while state[:dealer_score] < 17
-      deal_card(state[:dealer_hand])
+    while state['dealer_score'] < 17
+      deal_card(state['dealer_hand'])
       update_scores
     end
     check_game_status
   end
 
   def check_game_status
-    if state[:player_score] > 21
-      state[:status] = 'player_bust'
-    elsif state[:dealer_score] > 21
-      state[:status] = 'dealer_bust'
-    elsif state[:dealer_score] >= 17
-      if state[:player_score] > state[:dealer_score]
-        state[:status] = 'player_wins'
-      elsif state[:player_score] < state[:dealer_score]
-        state[:status] = 'dealer_wins'
+    if state['player_score'] > 21
+      state['status'] = 'player_bust'
+    elsif state['dealer_score'] > 21
+      state['status'] = 'dealer_bust'
+    elsif state['dealer_score'] >= 17
+      if state['player_score'] > state['dealer_score']
+        state['status'] = 'player_wins'
+      elsif state['player_score'] < state['dealer_score']
+        state['status'] = 'dealer_wins'
       else
-        state[:status] = 'push'
+        state['status'] = 'push'
       end
     end
     save
