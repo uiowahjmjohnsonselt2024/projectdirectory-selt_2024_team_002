@@ -15,7 +15,7 @@
             <%= submit_tag 'Submit Answer' %>
           <% end %>
         <% else %>
-          <h3>Quest: <%= quest.cell_row %>, <%= quest.cell_col %></h3>
+          <h3>Quest: <%= random_quest_message %> <%= quest.cell_row %>, <%= quest.cell_col %></h3>
         <% end %>
       <% end %>
     <% else %>

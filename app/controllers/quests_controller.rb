@@ -41,6 +41,11 @@ class QuestsController < ApplicationController
     @quest = @user_world.quests.where(completed: false).first
     @quests = @user_world.quests
 
+    if @quest&.move_quest?
+      @random_quest_message = Quest.random_quest_message(@quest)
+      puts "random: " + @random_quest_message
+    end
+
     respond_to do |format|
       format.js
     end

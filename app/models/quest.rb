@@ -57,7 +57,11 @@ class Quest < ApplicationRecord
     end
   end
 
-  def self.random_quest_message(description)
+  def self.random_quest_message(quest)
+    world = quest.world
+    gridsquare = world.gridsquares.find_by(row: quest.cell_row, col: quest.cell_col)
+    description = gridsquare.description
+
     quest_messages = [
       "Find the sword in the #{description}",
       "Find the treasure in the #{description}",
@@ -89,5 +93,9 @@ class Quest < ApplicationRecord
     user_world.increment(:xp, 15).save!
     update!(completed: true)
     Rails.logger.debug 'completed movement quest'
+  end
+
+  def move_quest?
+    trivia_question.nil?
   end
 end
