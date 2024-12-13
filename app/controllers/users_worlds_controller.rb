@@ -104,12 +104,12 @@ class UsersWorldsController < ApplicationController
       @user_item.update(item_name: item.item_name)
       @user_item.save
       @cur_user.update(available_credits: @cur_user.available_credits - (list_of_items[item.item_name] * item.price))
-    end
-    puts(@items.length.to_s)
-    if @items.length == 1
-      flash[:alert] = "Bought #{@items[0].item_name} item."
-    else
-      flash[:alert] = "Bought #{@items[0].item_name} item and more."
+
+      if @items.length == 1
+        flash[:alert] = "Bought #{@items[0].item_name} item."
+      else
+        flash[:alert] = "Bought #{@items[0].item_name} item and more."
+      end
     end
 
     redirect_to world_path(params[:world_id])
@@ -134,7 +134,7 @@ class UsersWorldsController < ApplicationController
 
     @user_item = InventoryItem.find_by(id: params[:inventory_item_id])
 
-    item_name = @user_item.use_item
+    item_name = @user_item.consume_item
 
     flash[:alert] = "#{item_name} was used!"
     redirect_to world_path(params[:world_id])

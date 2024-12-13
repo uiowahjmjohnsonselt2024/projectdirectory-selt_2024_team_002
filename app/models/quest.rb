@@ -46,6 +46,7 @@ class Quest < ApplicationRecord
       user_world.user.increment(:available_credits, 5).save!
       user_world.gain_xp(15)
       update!(completed: true)
+      true
     else
       update!(completed: true)
       false

@@ -60,3 +60,11 @@ Then(/^I should see my shard decrease from "([^"]*)" shards$/) do |previous_shar
     expect(shard_number).to be < previous_shard.to_i
   end
 end
+
+When(/^I press the button "([^"]*)" on index "([^"]*)" to increase or decrease amount$/) do |button, index|
+  if button == '+'
+    find("#plus_button_#{index}").click
+  else
+    find("#minus_button_#{index}").click
+  end
+end

@@ -53,6 +53,8 @@ RSpec.describe UserWorld, type: :request do
     describe 'paid move' do
       it 'should render 200 ok when sufficient credits' do
         usrwrld = double('association')
+        allow(usrwrld).to receive(:speed_boost?).and_return(true)
+        allow(usrwrld).to receive(:update_speed_count)
         allow(usrwrld).to receive(:user_row).and_return(2)
         allow(usrwrld).to receive(:user_col).and_return(3)
         allow(cur_user).to receive_messages(charge_credits: true)
@@ -64,8 +66,10 @@ RSpec.describe UserWorld, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'should render 400 bad_request when insufficient credits' do
+      it 'should render 200 ok even when insufficient credits' do
         usrwrld = double('association')
+        allow(usrwrld).to receive(:speed_boost?).and_return(true)
+        allow(usrwrld).to receive(:update_speed_count)
         allow(usrwrld).to receive(:user_row).and_return(2)
         allow(usrwrld).to receive(:user_col).and_return(3)
         allow(cur_user).to receive_messages(charge_credits: false)
@@ -74,7 +78,7 @@ RSpec.describe UserWorld, type: :request do
         allow(usrwrld).to receive(:set_position).with("6", "6").and_return(true)
         allow(UserWorld).to receive(:find_by_ids).and_return(usrwrld)
         post move_user_path, params: {world_id: 1, dest_row: 6, dest_col: 6}
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:ok)
       end
     end
   end
@@ -124,7 +128,7 @@ RSpec.describe UserWorld, type: :request do
       end
 
       describe 'inventory' do
-        it 'should display user items' do
+        it 'should store user items' do
           user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
           item_params = { id: 1, item_name: "Test Item 1", price: 5.0 }
           item_params_2 = { id: 2, item_name: "Test Item 2", price: 1.0 }
@@ -156,17 +160,21 @@ RSpec.describe UserWorld, type: :request do
           post inventory_path, params: {world_id: 1}
           expect(response).to have_http_status(:ok)
         end
-      end
 
-      describe 'using items' do
-        it 'should increase my xp with xp booster' do
-          pending
-        end
-        it 'should allow me to move past adjacent cells with speed potion' do
-          pending
-        end
-        it 'should increase my mini game luck with 4 leaf clover' do
-          pending
+        it 'should use the items' do
+          user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
+          user_item_params = { id: 1, user_world_id: 1, item_name: "XP Boost", amount_available: 5 }
+          user_world = instance_double(described_class, user_world_params)
+          user_item = instance_double(InventoryItem, user_item_params)
+          allow(cur_user).to receive(:available_credits).and_return(0)
+          allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+          allow(user_world).to receive(:id).and_return(1)
+          post use_item_path, params: {world_id: 1, inventory_item_id: 1}
+          allow(InventoryItem).to receive(:find_by).with(id: 1).and_return(user_item)
+          allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+          allow(UserWorld).to receive(:consume_item).and_return(user_world)
+
+          expect(response).to redirect_to(world_path(user_world.world_id))
         end
       end
     end

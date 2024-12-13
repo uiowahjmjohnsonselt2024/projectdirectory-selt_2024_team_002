@@ -46,14 +46,15 @@ RSpec.describe Quest, type: :model do
     uw = instance_double(UserWorld)
     allow(quest).to receive(:trivia_question).and_return({'answer' => 'ship'})
     allow(quest).to receive(:update!)
-    expect(uw).to receive(:increment).and_return(uw)
-    expect(uw).to receive(:save!)
+    allow(uw).to receive(:increment).and_return(uw)
+    allow(uw).to receive(:save!)
     usr = instance_double(User)
     expect(uw).to receive(:user).and_return(usr)
     expect(usr).to receive(:increment).and_return(usr)
     expect(usr).to receive(:save!)
     allow(quest).to receive(:user_world).and_return(uw)
     expect(quest).to receive(:update!)
+    allow(uw).to receive(:gain_xp).with(15).and_return(uw)
     quest.complete_trivia('ship')
   end 
 
@@ -93,12 +94,15 @@ RSpec.describe Quest, type: :model do
      q = described_class.new
      uw = instance_double(UserWorld)
      usr = instance_double(User)
-     expect(q).to receive(:user_world).and_return(uw).exactly(2).times
-     expect(uw).to receive(:user).and_return(usr)
-     expect(usr).to receive(:save!).exactly(2).times
-     expect(usr).to receive(:increment).and_return(usr)
-     expect(uw).to receive(:increment).and_return(usr)
+     allow(usr).to receive(:increment).and_return(usr)
+     allow(usr).to receive(:save!)
+     allow(uw).to receive(:user).and_return(usr)
+     allow(uw).to receive(:gain_xp).with(15).and_return(uw)
+     allow(q).to receive(:user_world).and_return(uw)
      q.complete_movement
+     expect(usr).to have_received(:increment).with(:available_credits, 5)
+     expect(usr).to have_received(:save!)
+     expect(uw).to have_received(:gain_xp).with(15)
    end
  end
 

@@ -10,7 +10,10 @@ worlds.each do |world|
 end
 
 users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin', available_credits: 100000,
-           plus_user: true }]
+           plus_user: true },
+         { email: 'test@test.com', password: 'AdminsAreTheBest1$', display_name: 'test', available_credits: 0,
+           plus_user: true }
+]
 
 users.each do |user|
   User.create!(user)

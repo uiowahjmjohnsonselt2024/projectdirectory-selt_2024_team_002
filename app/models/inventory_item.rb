@@ -10,7 +10,7 @@ class InventoryItem < ApplicationRecord
   validates :item_id, presence: true
 
   # rubocop:disable Metrics/MethodLength
-  def use_item
+  def consume_item
     case item.item_name
     when 'XP Boost'
       user_world.boost_xp
