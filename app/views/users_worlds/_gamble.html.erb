@@ -1,4 +1,4 @@
-<div id="blackjack_game">
+<div class='floating-partial-box' id="blackjack_game">
   <h1>Blackjack Game</h1>
 
   <p>Player Hand: <%= (game.state[:player_hand] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>

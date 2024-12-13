@@ -54,9 +54,7 @@ class UsersWorldsController < ApplicationController
     @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
 
     @game = BlackjackGame.find_by(user_world_id: @user_world.id)
-    if @game
-      @game.reset_game
-    end
+    @game&.reset_game
     @game = BlackjackGame.find_or_create_by(user_world_id: @user_world.id)
 
     respond_to do |format|

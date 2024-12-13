@@ -97,7 +97,7 @@
     <% end %>
     <%= form_tag gamble_path, method: :post, id: 'gamble_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= submit_tag 'Gamble', id: "gamble_button", class: "game_button"%>
+      <%= submit_tag 'Gamble', id: "gamble_button", class: "game_button", onclick: "disable_background_interaction('gamble')"%>
     <% end %>
     <%= form_tag shop_path, method: :post, id: 'shop_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
@@ -141,6 +141,14 @@
   <div class="partial-container" id="partial_shop_container">
     <a id="close_shop_link" class="close-button" onclick="enable_background_interaction()"></a>
     <div id="shop">
+    </div>
+  </div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_gamble_container">
+    <a id="close_gamble_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="gamble">
     </div>
   </div>
 </div>
@@ -213,6 +221,10 @@
                 document.getElementById("partial_shop_container").style.display = "block"
                 document.getElementById("partial_shop_container").style.pointerEvents = "auto";
                 document.getElementById("close_shop_link").style.display = "block"
+            } else if (element_name === "gamble") {
+                document.getElementById("partial_gamble_container").style.display = "block"
+                document.getElementById("partial_gamble_container").style.pointerEvents = "auto";
+                document.getElementById("close_gamble_link").style.display = "block"
             } else if (element_name === "chat") {
                 document.getElementById("partial_chat_container").style.display = "block"
                 document.getElementById("partial_chat_container").style.pointerEvents = "auto";
@@ -228,6 +240,7 @@
         document.body.style.overflow = "auto";
         document.getElementById("partial_movement_container").style.display = "none"
         document.getElementById("partial_shop_container").style.display = "none"
+        document.getElementById("partial_gamble_container").style.display = "none"
         document.getElementById("partial_chat_container").style.display = "none"
         document.getElementById("close_movement_link").style.display = "none"
         document.getElementById("close_shop_link").style.display = "none"

@@ -1,13 +1,17 @@
+# frozen_string_literal: true
+
 class BlackjackGame < ApplicationRecord
   belongs_to :user_world
+
+  # serialize :state, type: Hash
 
   after_initialize :initialize_game
 
   def state
     @state ||= begin
-                 raw_state = super()
-                 raw_state.is_a?(String) ? JSON.parse(raw_state) : raw_state
-               end
+      raw_state = super()
+      raw_state.is_a?(String) ? JSON.parse(raw_state) : raw_state
+    end
   end
 
   def state=(value)
@@ -45,7 +49,7 @@ class BlackjackGame < ApplicationRecord
     suits = %w[hearts diamonds clubs spades]
     values = %w[2 3 4 5 6 7 8 9 10 J Q K A]
     deck = suits.product(values).shuffle
-    puts "Initialized deck: #{deck.inspect}" # Debug statement
+    Rails.logger.debug "Initialized deck: #{deck.inspect}" # Debug statement
     deck
   end
 
@@ -76,7 +80,8 @@ class BlackjackGame < ApplicationRecord
   def card_value(value)
     return value.to_i if value.to_i != 0
     return 10 if %w[J Q K].include?(value)
-    return 11 if value == 'A'
+
+    11 if value == 'A'
   end
 
   def update_scores

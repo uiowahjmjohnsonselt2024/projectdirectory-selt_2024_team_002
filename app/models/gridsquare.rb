@@ -12,6 +12,7 @@ class Gridsquare < ApplicationRecord
   end
 
   private
+
   def set_random_buy_in_amount
     self.buy_in_amount = rand(1..100)
   end
