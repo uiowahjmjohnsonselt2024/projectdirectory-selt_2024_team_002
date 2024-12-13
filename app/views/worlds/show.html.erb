@@ -91,7 +91,7 @@
   </div>
 
   <div class="game-ui">
-    <%= form_tag show_quest_path, method: :post, id: 'quest_form' do %>
+    <%= form_tag show_quest_path, method: :post, id: 'quest_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= submit_tag 'Quest', id: "quest_log_button", class: "game_button", onclick: "disable_background_interaction('quest')"%>
     <% end %>

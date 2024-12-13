@@ -34,6 +34,12 @@ class QuestsController < ApplicationController
 
   def quest
     @cur_user = User.find_user_by_session_token(cookies[:session])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, params[:world_id])
+
+    generate if @user_world.quests.where(completed: false).empty?
+
+    @quest = @user_world.quests.where(completed: false).first
+    @quests = @user_world.quests
 
     respond_to do |format|
       format.js
@@ -50,6 +56,5 @@ class QuestsController < ApplicationController
       flash[:alert] = e.message
     end
     
-    redirect_to world_path(world)
   end
 end
