@@ -51,7 +51,7 @@ Rails.application.routes.draw do
 
   # routes for game
   post 'worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
-  post 'worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
+  post 'worlds/game/gamble', to: 'users_worlds#gamble', as: 'gamble', defaults: { format: 'js' }
   post 'users_worlds/shop', to: 'users_worlds#shop', as: 'shop', defaults: { format: 'js' }
   post 'worlds/game/purchase_item', to: 'users_worlds#purchase_item', as: 'purchase_item', defaults: { format: 'js' }
   post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'

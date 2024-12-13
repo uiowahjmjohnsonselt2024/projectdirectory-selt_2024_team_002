@@ -47,13 +47,16 @@ class UsersWorldsController < ApplicationController
     render json: { error: 'none' }, status: :ok
   end
 
-  def cell_action
+  def gamble
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
-
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-    Rails.logger.debug('Enter action')
-    Rails.logger.debug(@user_world.xp)
+    @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
+
+    # find minimum bet amount from gridsquare
+    # check if user has enough credits
+    # check if luck_boost is active
+    
 
     # {respond_to do |format|
     #  format.js
