@@ -28,22 +28,19 @@ class QuestsController < ApplicationController
     redirect_to world_path(quest.world)
   end
 
-  def show
-    @quest = Quest.find(params[:id])
-  end
-
   def quest
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @user_world = UserWorld.find_by_ids(@cur_user.id, params[:world_id])
 
-    generate if @user_world.quests.where(completed: false).empty?
+    if @user_world.quests.where(completed: false).empty?
+      generate
+    end
 
     @quest = @user_world.quests.where(completed: false).first
     @quests = @user_world.quests
 
     if @quest&.move_quest?
       @random_quest_message = Quest.random_quest_message(@quest)
-      puts "random: " + @random_quest_message
     end
 
     respond_to do |format|
