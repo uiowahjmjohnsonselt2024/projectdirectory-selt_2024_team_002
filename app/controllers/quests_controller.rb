@@ -32,6 +32,14 @@ class QuestsController < ApplicationController
     @quest = Quest.find(params[:id])
   end
 
+  def quest
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def generate
     world = World.find(params[:world_id])
 

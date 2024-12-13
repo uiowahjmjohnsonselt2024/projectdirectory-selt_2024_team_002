@@ -1,0 +1,23 @@
+<div class="floating-partial-box" id="quest-box" style="color: white;">
+  <% incomplete_quests = @quests.reject(&:completed) %>
+  <% if incomplete_quests.any? %>
+    <% incomplete_quests.each do |quest| %>
+      <% if quest.trivia_question.present? %>
+        <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
+        <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
+          <% quest.trivia_question['choices'].each_with_index do |choice, index| %>
+            <div>
+              <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}" %>
+              <%= label_tag "answer_#{quest.id}_#{index}", choice %>
+            </div>
+          <% end %>
+          <%= submit_tag 'Submit Answer' %>
+        <% end %>
+      <% else %>
+        <h3>Quest: <%= @random_quest_message + ": " + quest.cell_row.to_s + "," + quest.cell_col.to_s %></h3>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>No active quests</p>
+  <% end %>
+</div>
