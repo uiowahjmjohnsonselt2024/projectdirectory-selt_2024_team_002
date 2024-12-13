@@ -157,6 +157,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_075943) do
   create_table "inventory_items", force: :cascade do |t|
     t.bigint "user_world_id"
     t.bigint "item_id"
+    t.string "item_name"
     t.integer "amount_available"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

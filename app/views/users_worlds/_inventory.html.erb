@@ -3,12 +3,12 @@
   <% if items.any? %>
     <% items.each_with_index do |item, index| %>
       <div class="row-container">
-        <p class="item-description"><%= item.item_name %></p>
-        <p class="item-quantity" style="font-weight: normal" id="amount_text_<%= index %>">Quantity: <%= item.amount_available %> shard</p>
+        <p class="item-name"><%= item.item_name %></p>
+        <p class="item-quantity" style="font-weight: normal" id="amount_text_<%= index %>">Quantity: <%= item.amount_available %></p>
         <%= form_tag use_item_path, method: :post, id: 'use_item_form' do %>
           <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-          <input type="hidden" name="item_id" id="item_id"/>
-          <button id="use_item_button" class="accept_button" onclick="enable_background_interaction()" disabled style="background-color: #808391; transition: none;">Use</button>
+          <input type="hidden" name="inventory_item_id" id="inventory_item_id" value="<%= item.id %>"/>
+          <button id="use_item_button" class="accept_button" onclick="enable_background_interaction()">Use</button>
         <% end %>
       </div>
     <% end %>
@@ -17,21 +17,4 @@
       <p>No items in inventory</p>
     </div>
   <% end %>
-  <script>
-      function updateItemAmount(change, index) {
-          let currentAmount = parseInt(document.getElementById(`amount_${index}`).textContent, 10);
-          currentAmount = Math.max(0, currentAmount + change);
-
-          if (currentAmount === 0) {
-              document.getElementById(`minus_button_${index}`).disabled = true
-              document.getElementById(`minus_button_${index}`).style.backgroundColor = "#808391"
-          } else {
-              document.getElementById(`minus_button_${index}`).disabled = false
-              document.getElementById(`minus_button_${index}`).style.backgroundColor = "#6fb2cd"
-              document.getElementById(`minus_button_${index}`).style.transition = "background-color 0.3s ease, transform 0.2s ease"
-          }
-
-          document.getElementById(`amount_${index}`).textContent = currentAmount.toString();
-      }
-  </script>
 </div>

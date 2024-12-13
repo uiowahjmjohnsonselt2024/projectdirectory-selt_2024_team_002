@@ -101,7 +101,15 @@ class UsersWorldsController < ApplicationController
 
       @user_item = InventoryItem.find_or_create_by(user_world_id: @user_world.id, item_id: item.id)
       @user_item.increment(:amount_available, list_of_items[item.item_name])
+      @user_item.update(item_name: item.item_name)
+      @user_item.save
       @cur_user.update(available_credits: @cur_user.available_credits - (list_of_items[item.item_name] * item.price))
+    end
+    puts(@items.length.to_s)
+    if @items.length == 1
+      flash[:alert] = "Bought #{@items[0].item_name} item."
+    else
+      flash[:alert] = "Bought #{@items[0].item_name} item and more."
     end
 
     redirect_to world_path(params[:world_id])
@@ -112,7 +120,7 @@ class UsersWorldsController < ApplicationController
     @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
 
-    @inventory_items = InventoryItem.where(user_world_id: @user_world.id)
+    @inventory_items = InventoryItem.where(user_world_id: @user_world&.id).order(item_name: :asc)
 
     respond_to do |format|
       format.js
@@ -124,13 +132,12 @@ class UsersWorldsController < ApplicationController
     @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
 
-    @item = Item.find(params[:item_id])
-    @user_item = InventoryItem.find_by(user_world_id: @user_world.id, item_id: @item.id)
+    @user_item = InventoryItem.find_by(id: params[:inventory_item_id])
 
-    @user_item.use_item
+    item_name = @user_item.use_item
 
-    flash[:notice] = "#{@item.item_name} was used!"
-    redirect_to world_path
+    flash[:alert] = "#{item_name} was used!"
+    redirect_to world_path(params[:world_id])
   end
   # rubocop:enable Metrics/MethodLength
 end

@@ -101,7 +101,7 @@
     <% end %>
     <%= form_tag inventory_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= submit_tag 'Inventory', id: "inventory_button", class: "game_button", onclick: "disable_background_interaction('shop')"%>
+      <%= submit_tag 'Inventory', id: "inventory_button", class: "game_button", onclick: "disable_background_interaction('inventory')"%>
     <% end %>
     <%= form_tag shop_path, method: :post, id: 'shop_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
@@ -145,6 +145,14 @@
   <div class="partial-container" id="partial_shop_container">
     <a id="close_shop_link" class="close-button" onclick="enable_background_interaction()"></a>
     <div id="shop">
+    </div>
+  </div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_inventory_container">
+    <a id="close_inventory_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="inventory">
     </div>
   </div>
 </div>
@@ -221,6 +229,10 @@
                 document.getElementById("partial_chat_container").style.display = "block"
                 document.getElementById("partial_chat_container").style.pointerEvents = "auto";
                 document.getElementById("close_chat_link").style.display = "block"
+            } else if (element_name === "inventory") {
+                document.getElementById("partial_inventory_container").style.display = "block"
+                document.getElementById("partial_inventory_container").style.pointerEvents = "auto";
+                document.getElementById("close_inventory_link").style.display = "block"
             }
             document.getElementById("black_background").style.display = "block"
         }
@@ -233,9 +245,13 @@
         document.getElementById("partial_movement_container").style.display = "none"
         document.getElementById("partial_shop_container").style.display = "none"
         document.getElementById("partial_chat_container").style.display = "none"
+        document.getElementById("partial_inventory_container").style.display = "none"
+
         document.getElementById("close_movement_link").style.display = "none"
         document.getElementById("close_shop_link").style.display = "none"
         document.getElementById("close_chat_link").style.display = "none"
+        document.getElementById("close_inventory_link").style.display = "none"
+
         document.getElementById("main_container").style.pointerEvents = "auto";
         document.getElementById("black_background").style.display = "none"
     };
@@ -258,7 +274,7 @@
                 }
                 else {
                     $(".modal").css("display", "flex")
-                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 0.75 shards!'
+                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 1 shards!'
                     $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}? `)
                     $(".modal").find('h3').html(`${isFreeText}`)
 

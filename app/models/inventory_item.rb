@@ -5,7 +5,7 @@ class InventoryItem < ApplicationRecord
   belongs_to :user_world
   belongs_to :item
 
-  validates :quantity, numericality: { greater_than_or_equal_to: 0 }
+  validates :amount_available, numericality: { greater_than_or_equal_to: 0 }
   validates :user_world_id, presence: true
   validates :item_id, presence: true
 
@@ -21,7 +21,9 @@ class InventoryItem < ApplicationRecord
     else
       flash[:alert] = 'Item not found'
     end
-    quantity > 1 ? decrement(:quantity, 1) : destroy
+    amount_available > 1 ? decrement(:amount_available, 1) : destroy
+    save
+    item.item_name
   end
   # rubocop:enable Metrics/MethodLength
 end
