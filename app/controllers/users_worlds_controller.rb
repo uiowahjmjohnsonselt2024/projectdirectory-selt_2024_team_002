@@ -58,9 +58,9 @@ class UsersWorldsController < ApplicationController
     # check if luck_boost is active
     
 
-    # {respond_to do |format|
-    #  format.js
-    # end}
+    respond_to do |format|
+      format.js
+    end
   end
 
   def shop
