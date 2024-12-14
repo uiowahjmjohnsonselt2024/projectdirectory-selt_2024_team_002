@@ -1,6 +1,5 @@
 $('#flash_partial').html("<%= escape_javascript(render :partial => 'flash_partial', :locals => {:message => @message}) %>");
 
-$("#friend_<%= @friend.id %>").remove();
+$("#friend_id_<%= @friend.id %>").remove();
 
-//TODO: This triggers before the controller has updated the database with the correct amount of friends/requests
 window.noFriendMessage();

@@ -1,1 +1,6 @@
 $('#flash_partial').html("<%= escape_javascript(render :partial => 'flash_partial', :locals => {:message => @message}) %>");
+
+$("#invite_id_<%= @invite.id %>").remove();
+
+window.appendWorldBox(<%= @world.to_json.html_safe %>, <%= @user.to_json.html_safe %>);
+window.noInviteMessage();

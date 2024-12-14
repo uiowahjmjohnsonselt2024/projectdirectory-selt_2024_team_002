@@ -292,9 +292,6 @@ class UsersController < ApplicationController
     cur_user = User.find_user_by_session_token(cookies[:session])
     @friend = User.find_by(id: params[:friend_id])
     @world = World.find_by(id: params[:world_id])
-    puts cur_user.id
-    puts @world.id
-    puts @friend.id
 
     existing_world = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: false)
     existing_request = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: true)
@@ -314,8 +311,14 @@ class UsersController < ApplicationController
   end
 
   def approve_invite
-    world = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
-    if world&.update(request: false)
+    @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    puts @invite.world
+    puts @invite.user
+    @world = World.find_by_id(@invite.world_id)
+    @user = User.find_by_id(@invite.user_id)
+    puts @user
+    puts @world
+    if @invite&.update(request: false)
       @message = 'Invite accepted!'
     else
       @message = 'Error accepting invite.'
@@ -326,8 +329,8 @@ class UsersController < ApplicationController
   end
 
   def reject_invite
-    world = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
-    if UserWorld.delete(world)
+    @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    if UserWorld.delete(@invite)
       @message = 'Invite rejected.'
     else
       @message = 'Error rejecting invite.'
@@ -336,6 +339,7 @@ class UsersController < ApplicationController
       format.js
     end
   end
+
   def purchase_plus_user_view
     @user = User.find_user_by_session_token(cookies[:session])
   end
