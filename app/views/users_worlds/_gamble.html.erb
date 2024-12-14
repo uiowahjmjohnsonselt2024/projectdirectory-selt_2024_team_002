@@ -1,30 +1,155 @@
 <div class='floating-partial-box' id="blackjack_start">
   <h1>Blackjack</h1>
+  <p>Test your luck!</p>
   <p id='buy_in'>Buy In: <%= gridsquare.buy_in_amount %></p>
-  <p style='display:none' id='player_hand'>Player Hand: <%= game.display_player_hand %></p>
-  <p style='display:none' id='dealer_hand'>Dealer Hand: <%= game.display_dealer_hand %></p>
+  <p style='display:none' id='player_hand'>Your Hand: </p>
+  <p style='display:none' id='dealer_hand'>Dealer Hand: </p>
+  <p id='status_message'></p>
   <button id="play_button" onclick="startGame()" style='display:block'>Play</button>
   <button id="hit_button" onclick="hit()" style='display:none'>Hit</button>
   <button id="stand_button" onclick="stand()" style='display:none'>Stand</button>
-
-
 </div>
 
 <script>
+    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+    let deck = [];
+    let playerHand = [];
+    let dealerHand = [];
+    let playerScore = 0;
+    let dealerScore = 0;
+    let status = '';
+
+    function initDeck() {
+        deck = [];
+        suits.forEach(suit => {
+            values.forEach(value => {
+                deck.push([suit, value]);
+            });
+        });
+        shuffle(deck);
+    }
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function dealCard(hand) {
+        const card = deck.pop();
+        hand.push(card);
+        return card;
+    }
+
+    function displayHand(hand) {
+        return hand.map(card => `${card[1]} of ${card[0]}`).join(', ');
+    }
+
+    function calculateScore(hand) {
+        let values = hand.map(card => cardValue(card[1]));
+        let score = values.reduce((a, b) => a + b, 0);
+        values.filter(v => v === 11).forEach(() => {
+            if (score > 21) score -= 10;
+        });
+        return score;
+    }
+
+    function cardValue(value) {
+        if (['J', 'Q', 'K'].includes(value)) return 10;
+        if (value === 'A') return 11;
+        return parseInt(value, 10);
+    }
+
+    function updateScores() {
+        playerScore = calculateScore(playerHand);
+        dealerScore = calculateScore(dealerHand);
+    }
+
+    function checkGameStatus() {
+        if (playerScore > 21) {
+            status = 'Player Bust! Dealer Wins!';
+        } else if (dealerScore > 21) {
+            status = 'Dealer Bust! Player Wins!';
+            updateUserCredits('win'); // Update credits on the backend
+        } else if (dealerScore >= 17) {
+            if (playerScore > dealerScore) {
+                status = 'Player Wins!';
+                updateUserCredits('win'); // Update credits on the backend
+            } else if (playerScore < dealerScore) {
+                status = 'Dealer Wins!';
+                updateUserCredits('loss'); // Update credits on the backend
+            } else {
+                status = 'Push!';
+            }
+        }
+        document.getElementById('status_message').textContent = status;
+    }
+
     function startGame() {
+        initDeck();
+        playerHand = [];
+        dealerHand = [];
+        for (let i = 0; i < 2; i++) {
+            dealCard(playerHand);
+            dealCard(dealerHand);
+        }
+        updateScores();
+
+        document.getElementById('player_hand').textContent = 'Player Hand: ' + displayHand(playerHand);
+        document.getElementById('dealer_hand').textContent = 'Dealer Hand: ' + displayHand(dealerHand);
         document.getElementById('player_hand').style.display = 'block';
         document.getElementById('dealer_hand').style.display = 'block';
         document.getElementById('hit_button').style.display = 'block';
         document.getElementById('stand_button').style.display = 'block';
         document.getElementById('play_button').style.display = 'none';
-        disableGameClose()
+        document.getElementById('status_message').textContent = '';
     }
 
     function hit() {
-        console.log('hit')
+        dealCard(playerHand);
+        updateScores();
+        document.getElementById('player_hand').textContent = 'Player Hand: ' + displayHand(playerHand);
+        if (playerScore > 21) {
+            checkGameStatus();
+            endGame();
+        }
     }
 
     function stand() {
-        console.log('stand')
+        while (dealerScore < 17) {
+            dealCard(dealerHand);
+            updateScores();
+        }
+        document.getElementById('dealer_hand').textContent = 'Dealer Hand: ' + displayHand(dealerHand);
+        checkGameStatus();
+        endGame();
+    }
+
+    function endGame() {
+        document.getElementById('hit_button').style.display = 'none';
+        document.getElementById('stand_button').style.display = 'none';
+        document.getElementById('play_button').style.display = 'block';
+    }
+
+    function updateUserCredits(result) {
+        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        fetch('/blackjack/update_credits', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({ result: result })
+        })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Credits updated:', data);
+          })
+          .catch(error => {
+              console.error('Error updating credits:', error);
+          });
     }
 </script>
