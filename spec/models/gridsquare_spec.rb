@@ -15,4 +15,12 @@ RSpec.describe Gridsquare, type: :model do
       expect(event).to be_valid
     end
   end
+
+  describe 'set_random_buy_in_amount' do
+    it 'sets buy in amount to multiples of 5' do
+      event = described_class.new
+      event.set_random_buy_in_amount
+      expect(event.buy_in_amount % 5).to eq(0)
+    end
+  end
 end

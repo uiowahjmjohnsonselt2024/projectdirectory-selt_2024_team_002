@@ -52,7 +52,7 @@ class UsersWorldsController < ApplicationController
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
     @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
 
-    if @gridsquare.buy_in_amount.nil?
+    if @gridsquare.buy_in_amount.nil? || @gridsquare.buy_in_amount % 5 != 0
       @gridsquare.set_random_buy_in_amount
       @gridsquare.save
     end
