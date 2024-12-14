@@ -2,8 +2,14 @@
   <h1>Blackjack</h1>
   <p>Test your luck!</p>
   <p id='buy_in'>Buy In: <%= gridsquare.buy_in_amount %></p>
-  <p style='display:none' id='player_hand'>Your Hand: </p>
-  <p style='display:none' id='dealer_hand'>Dealer Hand: </p>
+  <div id='player_hand' style='display:none'>
+    <p>Your Hand:</p>
+    <div id='player_cards'></div>
+  </div>
+  <div id='dealer_hand' style='display:none'>
+    <p>Dealer Hand:</p>
+    <div id='dealer_cards'></div>
+  </div>
   <p id='status_message'></p>
   <button id="play_button" onclick="startGame()" style='display:block'>Play</button>
   <button id="hit_button" onclick="hit()" style='display:none'>Hit</button>
@@ -44,8 +50,16 @@
         return card;
     }
 
-    function displayHand(hand) {
-        return hand.map(card => `${card[1]} of ${card[0]}`).join(', ');
+    function displayHand(hand, elementId) {
+        const handElement = document.getElementById(elementId);
+        handElement.innerHTML = '';
+        hand.forEach(card => {
+            const cardImage = document.createElement('img');
+            cardImage.src = `/assets/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
+            cardImage.alt = `${card[1]} of ${card[0]}`;
+            cardImage.className = 'card';
+            handElement.appendChild(cardImage);
+        });
     }
 
     function calculateScore(hand) {
@@ -98,8 +112,8 @@
         }
         updateScores();
 
-        document.getElementById('player_hand').textContent = 'Player Hand: ' + displayHand(playerHand);
-        document.getElementById('dealer_hand').textContent = 'Dealer Hand: ' + displayHand(dealerHand);
+        displayHand(playerHand, 'player_cards');
+        displayHand(dealerHand, 'dealer_cards');
         document.getElementById('player_hand').style.display = 'block';
         document.getElementById('dealer_hand').style.display = 'block';
         document.getElementById('hit_button').style.display = 'block';
@@ -111,7 +125,7 @@
     function hit() {
         dealCard(playerHand);
         updateScores();
-        document.getElementById('player_hand').textContent = 'Player Hand: ' + displayHand(playerHand);
+        displayHand(playerHand, 'player_cards');
         if (playerScore > 21) {
             checkGameStatus();
             endGame();
@@ -123,7 +137,7 @@
             dealCard(dealerHand);
             updateScores();
         }
-        document.getElementById('dealer_hand').textContent = 'Dealer Hand: ' + displayHand(dealerHand);
+        displayHand(dealerHand, 'dealer_cards');
         checkGameStatus();
         endGame();
     }
@@ -133,23 +147,12 @@
         document.getElementById('stand_button').style.display = 'none';
         document.getElementById('play_button').style.display = 'block';
     }
-
-    function updateUserCredits(result) {
-        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-        fetch('/blackjack/update_credits', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-Token': csrfToken
-            },
-            body: JSON.stringify({ result: result })
-        })
-          .then(response => response.json())
-          .then(data => {
-              console.log('Credits updated:', data);
-          })
-          .catch(error => {
-              console.error('Error updating credits:', error);
-          });
-    }
 </script>
+
+<style>
+    .card {
+        width: 100px;
+        height: auto;
+        margin: 5px;
+    }
+</style>
