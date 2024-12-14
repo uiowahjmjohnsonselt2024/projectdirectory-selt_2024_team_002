@@ -103,7 +103,9 @@
         <div class="friend_left">
           <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button", style: "margin-top: 10px" %>
         </div>
-        <h3><%= friend.display_name %></h3>
+        <div class="friend_center">
+          <h3><%= friend.display_name %></h3>
+        </div>
       </div>
     <% end %>
   </div>
