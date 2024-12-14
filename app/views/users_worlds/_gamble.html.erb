@@ -50,12 +50,12 @@
         return card;
     }
 
-    function displayHand(hand, elementId) {
+    function displayHand(hand, elementId, hideSecondCard = true) {
         const handElement = document.getElementById(elementId);
         handElement.innerHTML = '';
         hand.forEach((card, index) => {
             const cardImage = document.createElement('img');
-            if (elementId === 'dealer_cards' && index === 1) {
+            if (elementId === 'dealer_cards' && index === 1 && hideSecondCard) {
                 cardImage.src = '/assets/cards/face_down.png';
                 cardImage.alt = 'Face Down';
             } else {
@@ -162,17 +162,18 @@
     }
 
     function stand() {
-        console.log('stand')
+        console.log('stand');
         while (dealerScore < 17) {
             dealCard(dealerHand);
             updateScores();
         }
-        displayHand(dealerHand, 'dealer_cards');
+        displayHand(dealerHand, 'dealer_cards', false);
         checkGameStatus();
         endGame();
     }
 
     function endGame() {
+        displayHand(dealerHand, 'dealer_cards', false);
         document.getElementById('hit_button').style.display = 'none';
         document.getElementById('stand_button').style.display = 'none';
         document.getElementById('play_button').style.display = 'block';
