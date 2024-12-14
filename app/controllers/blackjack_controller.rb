@@ -15,29 +15,30 @@ class BlackjackController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength
   def update_user_credits
-    result = params[:result]
     @cur_user = User.find_user_by_session_token(cookies[:session])
+    unless @cur_user
+      redirect_to users_login_path, alert: 'Please login' and return
+    end
+
     @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by(user: @cur_user, world: @world)
-    @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
 
-    case result
+    unless @user_world
+      redirect_to world_path(@world), alert: 'User does not belong to this world' and return
+    end
+
+    @gridsquare = Gridsquare.find_by_row_col(@world.id, @user_world.user_row, @user_world.user_col)
+
+    case params[:result]
     when 'win'
-      @cur_user.charge_credits(-@gridsquare.buy_in_amount) # negative value to add credits
+      @cur_user.charge_credits(-@gridsquare.buy_in_amount)
     when 'loss'
       @cur_user.charge_credits(@gridsquare.buy_in_amount)
     else
-      flash[:alert] = 'Invalid result'
-      redirect_to world_path(@world)
+      redirect_to world_path(@world), alert: 'Invalid result' and return
     end
 
-    flash[:alert] = 'Error updating credits' unless @cur_user.save
-    @cur_user.available_credits
-    render json: { shard_balance: @cur_user.available_credits }
+    render json: { shard_balance: @cur_user.available_credits }, status: :ok
   end
   # rubocop:enable Metrics/MethodLength
 end
-
-# find minimum bet amount from gridsquare
-# check if user has enough credits
-# check if luck_boost is active
