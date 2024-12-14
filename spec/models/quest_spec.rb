@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Quest, type: :model do
- describe 'geerate movement' do
+ describe 'generate movement' do
    it 'calls the necessary seems' do
      uw = instance_double(UserWorld)
      world = double('World')
@@ -30,7 +30,7 @@ RSpec.describe Quest, type: :model do
  end
 
  describe 'complete trivia' do
-  it 'dosent change exp on wrong answer' do
+  it 'doesnt change exp on wrong answer' do
     quest = described_class.new
     uw = instance_double(UserWorld)
     allow(quest).to receive(:trivia_question).and_return({answer: 'ship'})

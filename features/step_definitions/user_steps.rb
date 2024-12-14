@@ -74,3 +74,23 @@ Then(/^I should be redirected to "([^"]*)"$/) do |arg|
   expect(current_url_path).to eq(arg)
   expect(page).to have_current_path(arg, ignore_query: true) # assuming your dashboard path is called dashboard_path
 end
+
+Given(/^a trivia quest is generated with the question "([^"]*)" and answer "([^"]*)"$/) do |question, answer|
+  user = User.find_by(username: 'admin')
+  world = World.find_by(name: 'Test World 1')
+  user_world = UserWorld.find_by(user: user, world: world)
+  Quest.create!(
+    user_world: user_world,
+    world: world,
+    completed: false,
+    trivia_question: { 'question' => question, 'choices' => %w[3 4 5 6], 'answer' => answer }
+  )
+end
+
+When(/^I visit the quest page$/) do
+  user = User.find_by(username: 'admin')
+  world = World.find_by(name: 'Test World 1')
+  user_world = UserWorld.find_by(user: user, world: world)
+  quest = user_world.quests.where(completed: false).first
+  visit quest_path(quest)
+end
