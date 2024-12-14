@@ -98,7 +98,6 @@
     <%= form_tag gamble_path, method: :post, id: 'gamble_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= submit_tag 'Gamble', id: "gamble_button", class: "game_button", onclick: "disable_background_interaction('gamble')"%>
-      <%= submit_tag 'Action', id: "action_engage_button", class: "game_button"%>
     <% end %>
     <%= form_tag inventory_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
