@@ -101,7 +101,7 @@
     <% @friends.each do |friend| %>
       <div class="world_box" id="friend_<%= friend.id %>">
         <div class="friend_left">
-          <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button", style: "margin-top: 10px" %>
+          <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button", onclick: "flashFadeOut()", style: "margin-top: 10px" %>
         </div>
         <div class="friend_center">
           <h3><%= friend.display_name %></h3>
@@ -117,10 +117,10 @@
       <p>You do not have any requests at the moment.</p>
     </div>
     <% @requested_friends.each do |friend| %>
-      <div class="friend_box" id="request_<%= friend.id %>">
+      <div class="world_box" id="request_<%= friend.id %>">
         <div class="friend_left">
-          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button", onclick: "flashFadeOut()" %>
-          <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button", onclick: "flashFadeOut()" %>
+          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button", onclick: "flashFadeOut()", style: "margin-top: 5px" %>
+          <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button", onclick: "flashFadeOut()", style: "margin-top: 5px" %>
         </div>
         <div class="friend_center">
           <h3><%= friend.display_name %></h3>
@@ -191,33 +191,33 @@
 
 <script id="no_friend_message">
     window.noFriendMessage = function() {
-      console.log("NO Friend Message triggered")
-      var friendsLength = <%= @friends.length %>;
-      console.log("Friends length: " + friendsLength)
-      if (friendsLength > 0) {
-          document.getElementById('no_friends').style.display = 'none'
-      }
-      else {
-          document.getElementById('no_friends').style.display = 'block'
-      }
-  }
+        console.log("NO Friend Message triggered")
+        var friendsLength = <%= @friends.length %>;
+        console.log("Friends length: " + friendsLength)
+        if (friendsLength > 0) {
+            document.getElementById('no_friends').style.display = 'none'
+        }
+        else {
+            document.getElementById('no_friends').style.display = 'block'
+        }
+    }
 
-  window.noFriendMessage();
+    window.noFriendMessage();
 </script>
 
 <script id="no_request_message">
     window.noRequestMessage = function() {
-      console.log("NO Request Message triggered")
-      var requestLength = <%= @requested_friends.length %>;
-        console.log("Requests length: " + requestLength)
-        if (requestLength > 0) {
-          document.getElementById('no_requests').style.display = 'none'
-      } else {
-          document.getElementById('no_requests').style.display = 'block'
-      }
-  }
+        console.log("NO Request Message triggered")
+        var requestLength = <%= @requested_friends.length %>;
+          console.log("Requests length: " + requestLength)
+          if (requestLength > 0) {
+            document.getElementById('no_requests').style.display = 'none'
+        } else {
+            document.getElementById('no_requests').style.display = 'block'
+        }
+    }
 
-  window.noRequestMessage();
+    window.noRequestMessage();
 </script>
 
 </body>

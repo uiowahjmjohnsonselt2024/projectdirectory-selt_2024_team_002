@@ -2,9 +2,9 @@ $('#flash_partial').html("<%= escape_javascript(render :partial => 'flash_partia
 
 $("#request_<%= @friend.id %>").remove();
 $('#friend_list_display').append(`
-  <div class="friend_box" id="friend_<%= @friend.id %>">
+  <div class="world_box" id="friend_<%= @friend.id %>">
     <div class="friend_left">
-      <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: @friend.id), method: :delete, remote: true, class: 'button' %>
+      <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: @friend.id), method: :delete, remote: true, class: 'button', onclick: "flashFadeOut()", style: "margin-top: 10px" %>
     </div>
     <div class="friend_center">
       <h3><%= @friend.display_name %></h3>
