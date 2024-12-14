@@ -38,10 +38,17 @@
     }
 
     function shuffle(array) {
+        const statusMessage = document.getElementById('status_message');
+        statusMessage.textContent = 'Shuffling the deck...';
+
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+
+        setTimeout(() => {
+            statusMessage.textContent = '';
+        }, 1000);
     }
 
     function dealCard(hand) {
@@ -181,13 +188,16 @@
 
     function updateUserCredits(result) {
         const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-        fetch('/blackjack/update_credits', {
+        fetch('/blackjack/update_user_credits', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-Token': csrfToken
             },
-            body: JSON.stringify({ result: result })
+            body: JSON.stringify({
+                result: result,
+                world_id: <%= @world.id %>
+            })
         })
           .then(response => response.json())
           .then(data => {

@@ -31,7 +31,7 @@ class BlackjackController < ApplicationController
       redirect_to world_path(@world)
     end
 
-    flash[:alert] = 'Error updating credits' unless user.save
+    flash[:alert] = 'Error updating credits' unless @cur_user.save
     redirect_to world_path(@world)
   end
   # rubocop:enable Metrics/MethodLength
