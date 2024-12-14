@@ -203,6 +203,59 @@
 
   &:active {
     background-color: #6a9dae;
+  }
+}
+
+.accept_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #2ba62e;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #1f7520;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #2fb333;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: #33cd38;
+    transform: scale(0.98);
+  }
+}
+
+.not_accept_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #a62b2b;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #751f1f;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #b32f2f;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: #cd3333;
     transform: scale(0.98);
   }
 }

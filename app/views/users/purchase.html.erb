@@ -9,7 +9,11 @@
 <body>
   <div class="profile_toolbar">
     <div class="scroll-independent-div-tl">
-      <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+      <% if @is_from_game == true %>
+        <%= button_to '<', cookies[:previous_url], params: {id: "world_#{cookies[:world_id]}"}, method: :post, id: "return_button", class: "big-circle-button"%>
+      <% else %>
+        <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
+      <% end %>
     </div>
 
     <div class="center-stack">
@@ -21,7 +25,9 @@
         <%= if @user.available_credits == nil
               0 else @user.available_credits end %>
       </div>
-      <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "secondary_button"%>
+      <% if @is_from_game == false %>
+        <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "small_button highlight_button"%>
+      <% end %>
     </div>
   </div>
 

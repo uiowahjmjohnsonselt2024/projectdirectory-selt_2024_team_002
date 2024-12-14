@@ -74,7 +74,7 @@ class UsersController < ApplicationController
       return redirect_to users_login_path
     end
     flash[:alert] = @user.errors.empty? ? 'Something went wrong' : @user.errors.full_messages.first
-    redirect_to users_login_path
+    redirect_to reset_password_path
   end
 
   def get_session
@@ -91,6 +91,11 @@ class UsersController < ApplicationController
 
   def purchase
     @user = User.find_user_by_session_token(cookies[:session])
+    if cookies[:previous_url] == nil
+      @is_from_game = false
+    else
+      @is_from_game = true
+    end
   end
 
   def conversion
@@ -303,5 +308,4 @@ class UsersController < ApplicationController
     end
     redirect_to worlds_path
   end
-
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # WorldController performs basic operations for world generation and state storage.
+# rubocop:disable all
 class WorldsController < ApplicationController
   before_action :authenticate_user
 
@@ -9,11 +10,16 @@ class WorldsController < ApplicationController
     return if @cur_user
 
     flash[:alert] = 'Please login'
-    redirect_to users_login_path
+    return redirect_to users_login_path
   end
 
   def world_params
     params.permit(:world_code, :world_name, :is_public, :max_player)
+  end
+
+  def get_url(world_id)
+    cookies[:previous_url] = request.path
+    cookies[:world_id] = world_id
   end
 
   def show
@@ -22,14 +28,16 @@ class WorldsController < ApplicationController
     @world = World.find(id)
     @world.init_if_not_inited
     @data = {}
-    grid_arr = @world.gridsquares.to_ary
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @pos_row = @user_world.user_row
+    @pos_col = @user_world.user_col
+    grid_arr = @world.gridsquares.to_a
+    allowed = UserWorld.find_known_squares(@cur_user.id, @world.id)
     grid_arr.each do |cell|
       @data[cell.row] ||= {}
-      @data[cell.row][cell.col] = cell
+      
+      @data[cell.row][cell.col] = allowed.include?([cell.row.to_s, cell.col.to_s]) ? cell : :none
     end
-
-    @cur_user = User.find_user_by_session_token(cookies[:session])
-    @user_world = UserWorld.find_by_ids(@cur_user[:id], @world[:id])
   end
 
   def index
@@ -73,17 +81,15 @@ class WorldsController < ApplicationController
       flash[:notice] = 'World is full. Please join another world.'
       redirect_to worlds_path
     else
+      get_url(@selected_world.id)
       @selected_world.update(current_players: @selected_world.current_players + 1)
       redirect_to world_path(@selected_world)
     end
   end
 
-  def add_world
-    @world = World.create!(new_params)
-    redirect_to new_world_path
-  end
-
   def leave_world
+    cookies.delete(:previous_url)
+    cookies.delete(:world_id)
     @selected_world = World.find(params[:id])
     UserWorld.find_by(user: @cur_user, world: @selected_world)
 

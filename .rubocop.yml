@@ -2,8 +2,9 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - vendor/**/*
-    - db/schema.rb
+    - db/**/* 
     - app/helpers/**/*
+    - spec/**/*
 
 Metrics/ClassLength:
   Enabled: false

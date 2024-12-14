@@ -14,3 +14,18 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+window.addEventListener('unload', function (event) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/worlds/leave_world?id=' + worldId, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    xhr.send();
+});
+
+$(function () {
+    $('#flash_partial').show();
+    $('#flash_msg').show();
+    $('.flash_msg').fadeOut(7000);
+
+})

@@ -6,6 +6,11 @@
   display: flex;
   align-items: center;
 }
+
+
+.on_top {
+  z-index: 300000;
+}
 .alert_spacer {
   width: 20px;
 }

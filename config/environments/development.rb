@@ -27,6 +27,8 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
+  config.log_level = :info
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
@@ -50,7 +52,7 @@ Rails.application.configure do
     port: 587,
     from: 'adervesh03@gmail.com',
     user_name: 'apikey', # Always use "apikey" for SendGrid
-    password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
+    password: ENV['SENDGRID_API_KEY'] # Your SendGrid API key
   }
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000' # default host in development

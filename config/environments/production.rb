@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable all
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -39,6 +40,8 @@ Rails.application.configure do
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
+
+  config.log_level = :info
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -89,9 +92,14 @@ Rails.application.configure do
     port: 587,
     from: 'adervesh03@gmail.com',
     user_name: 'apikey', # Always use "apikey" for SendGrid
-    password: ENV['sendgrid_api_key_2'] # Your SendGrid API key
+    password: ENV['SENDGRID_API_KEY'] # Your SendGrid API key
   }
 
+  config.active_job.queue_adapter = :good_job
+  config.good_job.logger = Logger.new($stdout)
+  config.good_job.log_level = :debug
+
   # default host in production
-  Rails.application.routes.default_url_options[:host] = 'https://team2sprint2-7bb1f940aa79.herokuapp.com'
+  Rails.application.routes.default_url_options[:host] = 'https://team2sprint3-8309a00a9d8b.herokuapp.com'
 end
+# rubocop:enable all

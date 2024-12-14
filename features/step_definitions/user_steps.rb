@@ -44,6 +44,7 @@ end
 # change to match the form fields
 And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, value|
   fill_in field_name, with: value
+  sleep 0.7 # This to prevent sometimes the Log In cannot get through
 end
 
 # CAREFULL! some links look like buttons, make sure to inspect element
@@ -59,11 +60,16 @@ Then(/^I should see the exact phrase "([^"]*)"$/) do |arg|
   expect(page).to have_content(arg)
 end
 
+Then(/^I should not see the exact phrase "([^"]*)"$/) do |arg|
+  expect(page).to have_no_content(arg)
+end
+
 Then(/^I should see a string that starts with "([^"]*)"$/) do |arg|
   expect(page).to have_content(/^#{Regexp.escape(arg)}/)
 end
 
 Then(/^I should be redirected to "([^"]*)"$/) do |arg|
+  sleep 1
   current_url_path = URI.parse(current_url).path
   expect(current_url_path).to eq(arg)
   expect(page).to have_current_path(arg, ignore_query: true) # assuming your dashboard path is called dashboard_path
