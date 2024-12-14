@@ -61,6 +61,18 @@ RSpec.describe UserWorld, type: :model do
     end
   end
 
+  describe 'database fiding' do
+    it 'returns the first matching UserWorld' do
+      # Create a mock of the UserWorld object returned by the query
+      user_world = instance_double('UserWorld', user_id: 1, world_id: 1)
+      allow(UserWorld).to receive(:where).with(user_id: 1, world_id: 1).and_return([user_world])
+      allow([user_world]).to receive(:first).and_return(user_world)
+      result = UserWorld.find_by_ids(1, 1)
+
+      expect(result).to eq(user_world)
+    end
+  end
+
   describe 'move' do
     it 'calls the save method' do
       new = described_class.new
@@ -71,7 +83,7 @@ RSpec.describe UserWorld, type: :model do
 
   describe 'item' do
     it 'activates speed boost when using a speed potion' do
-      user_world = described_class.new
+      user_world = instance_double(described_class)
       allow(user_world).to receive(:use_speed_potion)
       allow(user_world).to receive(:speed_boost?).and_return(true)
       allow(user_world).to receive(:speed_boost).and_return(true)

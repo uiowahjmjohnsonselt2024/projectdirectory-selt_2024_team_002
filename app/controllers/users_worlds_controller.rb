@@ -15,12 +15,7 @@ class UsersWorldsController < ApplicationController
 
   def cell_quest
     world = params[:world_id]
-
     @user_world = UserWorld.find_by_ids(@cur_user.id, world)
-
-    # {respond_to do |format|
-    #  format.js
-    # end}
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -51,29 +46,10 @@ class UsersWorldsController < ApplicationController
     render json: { error: 'none' }, status: :ok
   end
 
-  def cell_action
-    @cur_user = User.find_user_by_session_token(cookies[:session])
-    @world = World.find(params[:world_id])
-
-    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-    Rails.logger.debug('Enter action')
-    Rails.logger.debug(@user_world.xp)
-
-    # {respond_to do |format|
-    #  format.js
-    # end}
-  end
-
   def shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
     @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
-
-    # @grid_shop = GridShop.find_or_create_by(grid: @gridsquare) do |grid_shop|
-    #   # Create a new Shop and associate it with the GridShop
-    #   @shop = Shop.create!(name: "Shop for Grid #{@gridsquare.id}")
-    #   grid_shop.shop = @shop
-    # end
 
     @items = Item.all
 
@@ -105,11 +81,11 @@ class UsersWorldsController < ApplicationController
       @user_item.save
       @cur_user.update(available_credits: @cur_user.available_credits - (list_of_items[item.item_name] * item.price))
 
-      if @items.length == 1
-        flash[:alert] = "Bought #{@items[0].item_name} item."
-      else
-        flash[:alert] = "Bought #{@items[0].item_name} item and more."
-      end
+      flash[:alert] = if @items.length == 1
+                        "Bought #{@items[0].item_name} item."
+                      else
+                        "Bought #{@items[0].item_name} item and more."
+                      end
     end
 
     redirect_to world_path(params[:world_id])

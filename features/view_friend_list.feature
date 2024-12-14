@@ -29,5 +29,6 @@ Scenario:  View the Friend list after adding a friend.
   And I press the button "Approve"
   And I am on the home page
   And I click on the "Friends" tab
+  And I wait for 2 seconds
   Then I should see the exact phrase "bob"
   

@@ -18,6 +18,7 @@ Feature: Reset my password when I've forgotten it
     And I fill in "New Password:" with "1234"
     And I fill in "Confirm New Password:" with "1234"
     And I press the button "Reset Password"
+    And I wait for 2 seconds
     Then I should see a string that starts with "Password"
 
   Scenario: Reset password with non-matching password
