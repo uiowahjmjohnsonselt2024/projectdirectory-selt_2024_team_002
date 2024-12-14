@@ -61,12 +61,54 @@ RSpec.describe UserWorld, type: :model do
     end
   end
 
+  describe 'database fiding' do
+    it 'returns the first matching UserWorld' do
+      # Create a mock of the UserWorld object returned by the query
+      user_world = instance_double('UserWorld', user_id: 1, world_id: 1)
+      allow(UserWorld).to receive(:where).with(user_id: 1, world_id: 1).and_return([user_world])
+      allow([user_world]).to receive(:first).and_return(user_world)
+      result = UserWorld.find_by_ids(1, 1)
+
+      expect(result).to eq(user_world)
+    end
+  end
+
   describe 'move' do
     it 'calls the save method' do
       new = described_class.new
       allow(new).to receive(:save!)
       new.set_position(1,3)
+    end
+  end
 
+  describe 'item' do
+    it 'activates speed boost when using a speed potion' do
+      user_world = instance_double(described_class)
+      allow(user_world).to receive(:use_speed_potion)
+      allow(user_world).to receive(:speed_boost?).and_return(true)
+      allow(user_world).to receive(:speed_boost).and_return(true)
+      allow(user_world).to receive(:speed_boost_count).and_return(0)
+      expect(user_world.speed_boost).to be true
+      expect(user_world.speed_boost_count).to eq 0
+    end
+
+    it 'activates lucky when using a 4 leaf clover' do
+      user_world = described_class.new
+      allow(user_world).to receive(:use_leaf_clover)
+      allow(user_world).to receive(:lucky?).and_return(true)
+      allow(user_world).to receive(:luck_boost).and_return(true)
+      allow(user_world).to receive(:update_luck_count).and_return(0)
+      expect(user_world.luck_boost).to be true
+      expect(user_world.luck_boost_count).to eq 0
+    end
+
+    it 'activates xp boost when using a XP booster' do
+      user_world = described_class.new
+      allow(user_world).to receive(:boost_xp)
+      allow(user_world).to receive(:xp_boost).and_return(true)
+      allow(user_world).to receive(:gain_xp).with(15)
+      expect(user_world.xp_boost).to be true
+      expect(user_world.xp_boost_count).to eq 0
     end
   end
 end

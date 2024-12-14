@@ -91,17 +91,21 @@
   </div>
 
   <div class="game-ui">
-    <%= form_tag generate_quests_path, method: :post, id: 'quest_form' do %>
+    <%= form_tag show_quest_path, method: :post, id: 'quest_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Quest', generate_quests_path, method: :post, id: "quest_log_button", class: "game_button"%>
+      <%= submit_tag 'Quest', id: "quest_log_button", class: "game_button", onclick: "disable_background_interaction('quest')"%>
     <% end %>
     <%= form_tag gamble_path, method: :post, id: 'gamble_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= submit_tag 'Gamble', id: "gamble_button", class: "game_button", onclick: "disable_background_interaction('gamble')"%>
+      <%= submit_tag 'Action', id: "action_engage_button", class: "game_button"%>
+    <% end %>
+    <%= form_tag inventory_path, method: :post, id: 'action_form', remote: true do %>
+      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+      <%= submit_tag 'Inventory', id: "inventory_button", class: "game_button", onclick: "disable_background_interaction('inventory')"%>
     <% end %>
     <%= form_tag shop_path, method: :post, id: 'shop_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= hidden_field_tag :unique_token, SecureRandom.uuid %>
       <%= submit_tag 'Shop', id: "shop_log_button", class: "game_button", onclick: "disable_background_interaction('shop')"%>
     <% end %>
     <%= submit_tag 'Chat', id: "chat_button", class: "game_button", onclick: "disable_background_interaction('chat')"%>
@@ -128,7 +132,6 @@
       <p id="xp-text"></p>
       <div class="xp-bar-container">
         <div class="xp-bar" id="xp-bar">
-
         </div>
       </div>
     </div>
@@ -153,28 +156,20 @@
   </div>
 </div>
 
-<div class="quest_container" style="color: white;">
-  <% incomplete_quests = @quests.reject(&:completed) %>
-  <% if incomplete_quests.any? %>
-    <% incomplete_quests.each do |quest| %>
-      <% if quest.trivia_question.present? %>
-        <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
-        <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
-          <% quest.trivia_question['choices'].each_with_index do |choice, index| %>
-            <div>
-              <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}" %>
-              <%= label_tag "answer_#{quest.id}_#{index}", choice %>
-            </div>
-          <% end %>
-          <%= submit_tag 'Submit Answer' %>
-        <% end %>
-      <% else %>
-        <h3>Quest: <%= @random_quest_message + ": " + quest.cell_row.to_s + "," + quest.cell_col.to_s %></h3>
-      <% end %>
-    <% end %>
-  <% else %>
-    <p>No active quests</p>
-  <% end %>
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_inventory_container">
+    <a id="close_inventory_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="inventory">
+    </div>
+  </div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_quest_container">
+    <a id="close_quest_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="quest">
+    </div>
+  </div>
 </div>
 
 <script>
@@ -221,6 +216,10 @@
                 document.getElementById("partial_shop_container").style.display = "block"
                 document.getElementById("partial_shop_container").style.pointerEvents = "auto";
                 document.getElementById("close_shop_link").style.display = "block"
+            } else if (element_name === "quest") {
+                document.getElementById("partial_quest_container").style.display = "block"
+                document.getElementById("partial_quest_container").style.pointerEvents = "auto";
+                document.getElementById("close_quest_link").style.display = "block"
             } else if (element_name === "gamble") {
                 document.getElementById("partial_gamble_container").style.display = "block"
                 document.getElementById("partial_gamble_container").style.pointerEvents = "auto";
@@ -229,7 +228,12 @@
                 document.getElementById("partial_chat_container").style.display = "block"
                 document.getElementById("partial_chat_container").style.pointerEvents = "auto";
                 document.getElementById("close_chat_link").style.display = "block"
+            } else if (element_name === "inventory") {
+                document.getElementById("partial_inventory_container").style.display = "block"
+                document.getElementById("partial_inventory_container").style.pointerEvents = "auto";
+                document.getElementById("close_inventory_link").style.display = "block"
             }
+
             document.getElementById("black_background").style.display = "block"
         }
     }
@@ -240,11 +244,16 @@
         document.body.style.overflow = "auto";
         document.getElementById("partial_movement_container").style.display = "none"
         document.getElementById("partial_shop_container").style.display = "none"
+        document.getElementById("partial_quest_container").style.display = "none"
         document.getElementById("partial_gamble_container").style.display = "none"
         document.getElementById("partial_chat_container").style.display = "none"
+        document.getElementById("partial_inventory_container").style.display = "none"
+
         document.getElementById("close_movement_link").style.display = "none"
         document.getElementById("close_shop_link").style.display = "none"
         document.getElementById("close_chat_link").style.display = "none"
+        document.getElementById("close_inventory_link").style.display = "none"
+
         document.getElementById("main_container").style.pointerEvents = "auto";
         document.getElementById("black_background").style.display = "none"
     };
@@ -267,7 +276,8 @@
                 }
                 else {
                     $(".modal").css("display", "flex")
-                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 0.75 shards!'
+                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 1 shard!'
+
                     $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}? `)
                     $(".modal").find('h3').html(`${isFreeText}`)
 

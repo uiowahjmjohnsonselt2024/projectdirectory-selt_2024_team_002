@@ -25,7 +25,7 @@ Scenario: buy item from shop enough credit
   And I press the button "<"
   Then I should see the exact phrase "World Name: Test World 1"
   And I press the button "Shop"
-  Then I should see a string that starts with "Cell Shop"
+  Then I should see a string that starts with "Shop"
   And I press the button "+" to increase or decrease amount
   And I press the button "Buy"
   Then I should see my shard decrease from "75" shards
@@ -40,7 +40,7 @@ Scenario: buy item from shop not enough credit
   And I click the button "Join" that is under the div with class name "Test_World_1"
   Then I should see the exact phrase "World Name: Test World 1"
   And I press the button "Shop"
-  Then I should see a string that starts with "Cell Shop"
+  Then I should see a string that starts with "Shop"
   And I press the button "+" to increase or decrease amount
   And I press the button "Buy"
   Then I should see a string that starts with "No sufficient shard to purchase"
