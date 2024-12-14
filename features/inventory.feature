@@ -59,6 +59,7 @@ Feature: Use my inventory
     Then I should see a string that starts with "Shop"
     And I press the button "+" on index "0" to increase or decrease amount
     And I press the button "Buy"
+    And I wait for 2 seconds
     And I press the button "Inventory"
     Then I should see a string that starts with "Inventory"
     Then I should see a string that starts with "XP Boost"
@@ -87,6 +88,7 @@ Feature: Use my inventory
     Then I should see a string that starts with "Shop"
     And I press the button "+" on index "1" to increase or decrease amount
     And I press the button "Buy"
+    And I wait for 2 seconds
     And I press the button "Inventory"
     Then I should see a string that starts with "Inventory"
     Then I should see a string that starts with "Speed Potion"
@@ -118,6 +120,7 @@ Feature: Use my inventory
     Then I should see a string that starts with "Shop"
     And I press the button "+" on index "2" to increase or decrease amount
     And I press the button "Buy"
+    And I wait for 2 seconds
     And I press the button "Inventory"
     Then I should see a string that starts with "Inventory"
     Then I should see a string that starts with "4 Leaf Clover"

@@ -97,9 +97,9 @@ RSpec.describe Quest, type: :model do
      flash = {}
      expect(q).to receive(:user_world).and_return(uw).exactly(2).times
      expect(uw).to receive(:user).and_return(usr)
-     expect(usr).to receive(:save!).exactly(2).times
+     allow(uw).to receive(:gain_xp).with(15).and_return(uw)
+     expect(usr).to receive(:save!).once
      expect(usr).to receive(:increment).and_return(usr)
-     expect(uw).to receive(:increment).and_return(usr)
      q.complete_movement(flash)
      expect(flash[:alert]).to eq('Quest completed.')
    end
