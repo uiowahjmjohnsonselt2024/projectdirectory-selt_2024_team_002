@@ -53,6 +53,8 @@ RSpec.describe UserWorld, type: :request do
     describe 'paid move' do
       it 'should render 200 ok when sufficient credits' do
         usrwrld = double('association')
+        allow(usrwrld).to receive(:speed_boost?).and_return(true)
+        allow(usrwrld).to receive(:update_speed_count)
         allow(usrwrld).to receive(:user_row).and_return(2)
         allow(usrwrld).to receive(:user_col).and_return(3)
         allow(cur_user).to receive_messages(charge_credits: true)
@@ -64,8 +66,24 @@ RSpec.describe UserWorld, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'should render 400 bad_request when insufficient credits' do
+      it 'should render 200 ok even when insufficient credits' do
         usrwrld = double('association')
+        allow(usrwrld).to receive(:speed_boost?).and_return(true)
+        allow(usrwrld).to receive(:update_speed_count)
+        allow(usrwrld).to receive(:user_row).and_return(2)
+        allow(usrwrld).to receive(:user_col).and_return(3)
+        allow(cur_user).to receive_messages(charge_credits: false)
+        allow(usrwrld).to receive(:quests).and_return(quests)
+        allow(quests).to receive(:find_by).and_return(nil)
+        allow(usrwrld).to receive(:set_position).with("6", "6").and_return(true)
+        allow(UserWorld).to receive(:find_by_ids).and_return(usrwrld)
+        post move_user_path, params: {world_id: 1, dest_row: 6, dest_col: 6}
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'should render 304 bad request when insufficient credits and no speed boost yet' do
+        usrwrld = double('association')
+        allow(usrwrld).to receive(:speed_boost?).and_return(false)
         allow(usrwrld).to receive(:user_row).and_return(2)
         allow(usrwrld).to receive(:user_col).and_return(3)
         allow(cur_user).to receive_messages(charge_credits: false)
@@ -81,6 +99,21 @@ RSpec.describe UserWorld, type: :request do
 
   describe 'items' do
     describe 'purchasing items' do
+      it 'should open the shop and has items display' do
+        user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
+        item_params = { id: 1, item_name: "Test Item 1", price: 5.0 }
+        item_params_2 = { id: 2, item_name: "Test Item 2", price: 1.0 }
+        user_world = instance_double(described_class, user_world_params)
+        items = [instance_double('item', item_params), instance_double('item', item_params_2)]
+        allow(cur_user).to receive(:available_credits).and_return(1000)
+        allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+        allow(user_world).to receive(:id).and_return(1)
+        allow(Item).to receive(:all).and_return(items)
+        post shop_path, params: {world_id: 1}
+
+        expect(response).to have_http_status(:ok)
+      end
+
       it 'should purchase item with sufficient credits' do
         user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
         item_params = { id: 1, item_name: "Test Item 1", price: 5.0 }
@@ -122,20 +155,57 @@ RSpec.describe UserWorld, type: :request do
 
         expect(response).to redirect_to(world_path(user_world.world_id))
       end
-    end
 
-    # describe 'using items' do
-    #   it 'should increase my xp with xp booster' do
-    #     pending
-    #   end
-    #
-    #   it 'should allow me to move past adjacent cells with speed potion' do
-    #     pending
-    #   end
-    #
-    #   it 'should increase my mini game luck with 4 leaf clover' do
-    #     pending
-    #   end
-    # end
+      describe 'inventory' do
+        it 'should store user items' do
+          user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
+          item_params = { id: 1, item_name: "Test Item 1", price: 5.0 }
+          item_params_2 = { id: 2, item_name: "Test Item 2", price: 1.0 }
+          user_world = instance_double(described_class, user_world_params)
+          items = [instance_double('item', item_params), instance_double('item', item_params_2)]
+          allow(cur_user).to receive(:available_credits).and_return(0)
+          allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+          allow(user_world).to receive(:id).and_return(1)
+          allow(Item).to receive(:all).and_return(items)
+          allow(Item).to receive(:where).and_return(items)
+          allow(items[0]).to receive(:find_or_created_by).with(item_params).and_return(items[0])
+          allow(items[1]).to receive(:find_or_created_by).with(item_params_2).and_return(items[1])
+          post purchase_item_path, params: {world_id: 1, items_id: '{"Test Item 1": 3, "Test Item 2": 4}'}
+
+          res = [instance_double('InventoryItem', { user_world_id: 1, item_id: 1, amount_available: 1 })]
+          allow(InventoryItem).to receive(:find_by).with(user_world_id: user_world.id).and_return(res)
+
+          post inventory_path, params: {world_id: 1}
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'should display with no items' do
+          user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
+          user_world = instance_double(described_class, user_world_params)
+          allow(cur_user).to receive(:available_credits).and_return(0)
+          allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+          allow(user_world).to receive(:id).and_return(1)
+
+          post inventory_path, params: {world_id: 1}
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'should use the items' do
+          user_world_params = { id: 1, user_id: 1, world_id: 1, xp: 10 }
+          user_item_params = { id: 1, user_world_id: 1, item_name: "XP Boost", amount_available: 5 }
+          user_world = instance_double(described_class, user_world_params)
+          user_item = instance_double(InventoryItem, user_item_params)
+          allow(cur_user).to receive(:available_credits).and_return(0)
+          allow(UserWorld).to receive(:find_by_ids).with(1, 1).and_return(user_world)
+          allow(user_world).to receive(:id).and_return(1)
+          allow(InventoryItem).to receive(:find_by).with(id: "1").and_return(user_item)
+          allow(user_item).to receive(:id).and_return(user_item)
+          allow(user_item).to receive(:consume_item).and_return(user_world)
+          post use_item_path, params: {world_id: 1, inventory_item_id: 1}
+
+          expect(response).to redirect_to(world_path(user_world.world_id))
+        end
+      end
+    end
   end
 end

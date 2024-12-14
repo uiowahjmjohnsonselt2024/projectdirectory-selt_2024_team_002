@@ -49,8 +49,9 @@ class Quest < ApplicationRecord
   def complete_trivia(answer)
     if answer == trivia_question['answer']
       user_world.user.increment(:available_credits, 5).save!
-      user_world.increment(:xp, 15).save!
+      user_world.gain_xp(15)
       update!(completed: true)
+      true
     else
       update!(completed: true)
       false
@@ -92,7 +93,7 @@ class Quest < ApplicationRecord
 
   def complete_movement(flash)
     user_world.user.increment(:available_credits, 5).save!
-    user_world.increment(:xp, 15).save!
+    user_world.gain_xp(15)
     update!(completed: true)
     flash[:alert] = 'Quest completed.'
   end

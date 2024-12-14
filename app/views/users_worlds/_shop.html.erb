@@ -1,5 +1,5 @@
 <div class="floating-partial-box" id="cell-shop-box">
-  <label for="shard_input" style="font-size: 30px; padding-bottom: 10px">Cell Shop</label>
+  <label for="shard_input" style="font-size: 30px; padding-bottom: 10px">Shop</label>
   <% items.each_with_index do |item, index| %>
     <div class="row-container">
       <p class="item-description"><%= item.item_name %></p>
@@ -40,6 +40,8 @@
         const amountElements = document.getElementsByClassName('amount');
 
         for (let i = 0; i < itemElements.length; i++) {
+            console.log(itemElements[i].textContent)
+            console.log(amountElements[i].textContent)
             requestDict[itemElements[i].textContent] = parseInt(amountElements[i].textContent);
         }
 
@@ -56,11 +58,7 @@
             document.getElementById("buy_button").style.transition = "none"
         }
 
-        console.log(document.getElementById("buy_button").disabled)
-
         document.getElementById("items_id").value = JSON.stringify(requestDict)
-        console.log(document.getElementById("items_id").value)
-
     }
   </script>
 </div>

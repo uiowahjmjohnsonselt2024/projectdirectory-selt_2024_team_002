@@ -54,6 +54,8 @@ Rails.application.routes.draw do
   post 'worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
   post 'users_worlds/shop', to: 'users_worlds#shop', as: 'shop', defaults: { format: 'js' }
   post 'worlds/game/purchase_item', to: 'users_worlds#purchase_item', as: 'purchase_item', defaults: { format: 'js' }
+  post 'users_worlds/inventory', to: 'users_worlds#inventory', as: 'inventory', defaults: { format: 'js' }
+  post 'users_worlds/use_item', to: 'users_worlds#use_item', as: 'use_item'
   post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
 
   get '/messages/get/:id', to: 'messages#get_all_messages', as: 'get_messages'

@@ -53,4 +53,67 @@ class UserWorld < ApplicationRecord
   def self.find_by_ids(user_id, world_id)
     UserWorld.where(user_id: user_id, world_id: world_id).first
   end
+
+  def boost_xp
+    self.xp_boost = 1.25
+    self.xp_boost_count = 0
+    save
+  end
+
+  # rubocop:disable Metrics/MethodLength
+  def gain_xp(base_xp)
+    boosted_xp = base_xp * xp_boost
+    boosted_xp = boosted_xp.round
+
+    self.xp += boosted_xp
+
+    if xp_boost > 1
+      self.xp_boost_count += 1
+
+      if xp_boost_count >= 5
+        self.xp_boost = 1
+        self.xp_boost_count = 0
+      end
+    end
+    save
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def speed_boost?
+    speed_boost
+  end
+
+  def use_speed_potion
+    self.speed_boost = true
+    self.speed_boost_count = 0
+    save
+  end
+
+  def update_speed_count
+    self.speed_boost_count += 1
+    if speed_boost_count >= 5
+      self.speed_boost = false
+      self.speed_boost_count = 0
+    end
+    save
+  end
+
+  def lucky?
+    luck_boost
+  end
+
+  def use_leaf_clover
+    self.luck_boost = true
+    self.luck_boost_count = 0
+    save
+  end
+
+  def update_luck_count
+    self.luck_boost_count += 1
+    if luck_boost_count >= 5
+      self.luck_boost = false
+      self.luck_boost_count = 0
+    end
+    save
+  end
 end
