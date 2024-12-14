@@ -1,6 +1,7 @@
 <div class='floating-partial-box' id="blackjack_start">
   <h1>Blackjack</h1>
   <p>Test your luck!</p>
+  <p id='shard_balance'>Shards Available: <%= user.available_credits %></p>
   <p id='buy_in'>Buy In: <%= gridsquare.buy_in_amount %></p>
   <div id='player_hand' style='display:none'>
     <p>Your Hand:</p>
@@ -11,7 +12,9 @@
     <div id='dealer_cards'></div>
   </div>
   <p id='status_message'></p>
+  <div id="shuffling_message" style="display:none;">Deck is being shuffled...</div>
   <button id="play_button" onclick="startGame()" style='display:block'>Play</button>
+  <button id="play_hand_button" onclick="nextHand()" style='display:none'>Play Hand</button>
   <button id="hit_button" onclick="hit()" style='display:none'>Hit</button>
   <button id="stand_button" onclick="stand()" style='display:none'>Stand</button>
 </div>
@@ -38,8 +41,7 @@
     }
 
     function shuffle(array) {
-        const statusMessage = document.getElementById('status_message');
-        statusMessage.textContent = 'Shuffling the deck...';
+        document.getElementById('shuffling_message').style.display = 'block';
 
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -47,11 +49,14 @@
         }
 
         setTimeout(() => {
-            statusMessage.textContent = '';
-        }, 1000);
+            document.getElementById('shuffling_message').style.display = 'none';
+        }, 2000);
     }
 
     function dealCard(hand) {
+        if (deck.length === 0) {
+            initDeck();
+        }
         const card = deck.pop();
         hand.push(card);
         return card;
@@ -96,18 +101,23 @@
 
     function checkGameStatus() {
         if (playerScore > 21) {
+            document.getElementById('status_message').style.display = 'block';
             status = 'Player Bust! Dealer Wins!';
         } else if (dealerScore > 21) {
+            document.getElementById('status_message').style.display = 'block';
             status = 'Dealer Bust! Player Wins!';
             updateUserCredits('win'); // Update credits on the backend
         } else if (dealerScore >= 17) {
             if (playerScore > dealerScore) {
+                document.getElementById('status_message').style.display = 'block';
                 status = 'Player Wins!';
                 updateUserCredits('win'); // Update credits on the backend
             } else if (playerScore < dealerScore) {
+                document.getElementById('status_message').style.display = 'block';
                 status = 'Dealer Wins!';
                 updateUserCredits('loss'); // Update credits on the backend
             } else {
+                document.getElementById('status_message').style.display = 'block';
                 status = 'Push!';
             }
         }
@@ -116,16 +126,28 @@
 
     function startGame() {
         initDeck();
+        nextHand();
+        document.getElementById('play_button').style.display = 'none';
+    }
+
+    function nextHand() {
+        document.getElementById('status_message').style.display = 'none';
+
         playerHand = [];
         dealerHand = [];
+
+        // Deal two new cards
         for (let i = 0; i < 2; i++) {
             dealCard(playerHand);
             dealCard(dealerHand);
         }
+
         updateScores();
 
+        // Display the hands
         displayHand(playerHand, 'player_cards');
         displayHand(dealerHand, 'dealer_cards');
+
         if (playerScore === 21 && playerHand.length === 2 && dealerScore === 21 && dealerHand.length === 2) {
             status = 'Push! Both Player and Dealer have Blackjack!';
             endGame();
@@ -144,12 +166,12 @@
             return;
         }
 
+        // Enable gameplay actions
         document.getElementById('player_hand').style.display = 'block';
         document.getElementById('dealer_hand').style.display = 'block';
         document.getElementById('hit_button').style.display = 'block';
         document.getElementById('stand_button').style.display = 'block';
-        document.getElementById('play_button').style.display = 'none';
-        document.getElementById('status_message').textContent = '';
+        document.getElementById('play_hand_button').style.display = 'none';
     }
 
     function hit() {
@@ -183,7 +205,8 @@
         displayHand(dealerHand, 'dealer_cards', false);
         document.getElementById('hit_button').style.display = 'none';
         document.getElementById('stand_button').style.display = 'none';
-        document.getElementById('play_button').style.display = 'block';
+        document.getElementById('status_message').style.display = 'block';
+        document.getElementById('play_hand_button').style.display = 'block';
     }
 
     function updateUserCredits(result) {
@@ -201,7 +224,8 @@
         })
           .then(response => response.json())
           .then(data => {
-              console.log('Credits updated:', data);
+              const shard_balance = data.shard_balance
+              document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
           })
           .catch(error => {
               console.error('Error updating credits:', error);
@@ -214,5 +238,19 @@
         width: 100px;
         height: auto;
         margin: 5px;
+    }
+
+    .floating-partial-box {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    h1 {
+        margin-bottom: 10px; /* Reduces the space below the <h1> */
+    }
+
+    p {
+        margin-top: 0; /* Removes the top margin of the <p> */
+        margin-bottom: 5px; /* Reduces the bottom margin of the <p> */
     }
 </style>

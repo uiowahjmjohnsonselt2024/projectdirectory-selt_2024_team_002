@@ -57,9 +57,6 @@ class UsersWorldsController < ApplicationController
       @gridsquare.save
     end
 
-    @game = BlackjackGame.find_or_create_by(user_world_id: @user_world.id)
-    @game.deal_initial_cards
-
     respond_to do |format|
       format.js
     end
