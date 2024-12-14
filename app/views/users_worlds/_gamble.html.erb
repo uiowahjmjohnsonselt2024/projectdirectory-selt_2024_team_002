@@ -53,10 +53,15 @@
     function displayHand(hand, elementId) {
         const handElement = document.getElementById(elementId);
         handElement.innerHTML = '';
-        hand.forEach(card => {
+        hand.forEach((card, index) => {
             const cardImage = document.createElement('img');
-            cardImage.src = `/assets/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
-            cardImage.alt = `${card[1]} of ${card[0]}`;
+            if (elementId === 'dealer_cards' && index === 1) {
+                cardImage.src = '/assets/cards/face_down.png';
+                cardImage.alt = 'Face Down';
+            } else {
+                cardImage.src = `/assets/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
+                cardImage.alt = `${card[1]} of ${card[0]}`;
+            }
             cardImage.className = 'card';
             handElement.appendChild(cardImage);
         });
