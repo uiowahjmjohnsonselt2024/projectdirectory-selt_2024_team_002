@@ -12,7 +12,8 @@ end
 users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin', available_credits: 100000,
            plus_user: true },
          { email: 'test@test.com', password: 'AdminsAreTheBest1$', display_name: 'test', available_credits: 0,
-           plus_user: true }
+           plus_user: true },
+         { email: 'seltgrader@nowhere.com', password: 'selt.is.#1BEST.course', display_name: 'seltgrader', available_credits: 1000, plus_user: false }
 ]
 
 users.each do |user|
