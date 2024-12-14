@@ -60,6 +60,8 @@ Rails.application.routes.draw do
 
   get '/messages/get/:id', to: 'messages#get_all_messages', as: 'get_messages'
   post '/messages/send', to: 'messages#send_message', as: 'send_message'
+
+  post 'quests/quest', to: 'quests#quest', as: 'show_quest', defaults: { format: 'js' }
   # routes for quests
   resources :quests do
   member do

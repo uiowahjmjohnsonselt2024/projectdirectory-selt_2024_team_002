@@ -42,7 +42,7 @@ class UsersWorldsController < ApplicationController
     end
 
     user_world.set_position(dest_row, dest_col)
-    Quest.check_and_complete_movement_quest(user_world, dest_row, dest_col)
+    Quest.check_and_complete_movement_quest(user_world, dest_row, dest_col, flash)
     render json: { error: 'none' }, status: :ok
   end
 
