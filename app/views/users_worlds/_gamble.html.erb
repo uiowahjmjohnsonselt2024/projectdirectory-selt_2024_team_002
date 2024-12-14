@@ -132,8 +132,6 @@
             return;
         }
 
-        document.getElementById('player_hand').textContent = 'Player Hand: ' + displayHand(playerHand);
-        document.getElementById('dealer_hand').textContent = 'Dealer Hand: ' + displayHand(dealerHand);
         document.getElementById('player_hand').style.display = 'block';
         document.getElementById('dealer_hand').style.display = 'block';
         document.getElementById('hit_button').style.display = 'block';
@@ -143,6 +141,7 @@
     }
 
     function hit() {
+        console.log('hit')
         dealCard(playerHand);
         updateScores();
         displayHand(playerHand, 'player_cards');
@@ -158,6 +157,7 @@
     }
 
     function stand() {
+        console.log('stand')
         while (dealerScore < 17) {
             dealCard(dealerHand);
             updateScores();
