@@ -71,6 +71,14 @@ class BlackjackGame < ApplicationRecord
     save
   end
 
+  def display_player_hand
+    (state['player_hand'] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ')
+  end
+
+  def display_dealer_hand
+    (state['dealer_hand'] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ')
+  end
+
   def calculate_score(hand)
     values = hand.map { |card| card_value(card[1]) }
     score = values.sum

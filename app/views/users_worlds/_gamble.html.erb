@@ -1,20 +1,30 @@
 <div class='floating-partial-box' id="blackjack_start">
   <h1>Blackjack</h1>
-  <p>Buy In: <%= gridsquare.buy_in_amount %></p>
-  <button id="play_button">Play</button>
+  <p id='buy_in'>Buy In: <%= gridsquare.buy_in_amount %></p>
+  <p style='display:none' id='player_hand'>Player Hand: <%= game.display_player_hand %></p>
+  <p style='display:none' id='dealer_hand'>Dealer Hand: <%= game.display_dealer_hand %></p>
+  <button id="play_button" onclick="startGame()" style='display:block'>Play</button>
+  <button id="hit_button" onclick="hit()" style='display:none'>Hit</button>
+  <button id="stand_button" onclick="stand()" style='display:none'>Stand</button>
 
-  <p>Player Hand: <%= (game.state['player_hand'] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
-  <p>Dealer Hand: <%= (game.state['dealer_hand'] || []).map { |card| "#{card[1]} of #{card[0]}" }.join(', ') %></p>
+
 </div>
 
 <script>
-    $(document).on('turbolinks:load', function() {
-        $('#play_button').on('click', function() {
-            $.ajax({
-                url: '/blackjack/start_blackjack_game',
-                type: 'POST',
-                dataType: 'script'
-            });
-        });
-    });
+    function startGame() {
+        document.getElementById('player_hand').style.display = 'block';
+        document.getElementById('dealer_hand').style.display = 'block';
+        document.getElementById('hit_button').style.display = 'block';
+        document.getElementById('stand_button').style.display = 'block';
+        document.getElementById('play_button').style.display = 'none';
+        disableGameClose()
+    }
+
+    function hit() {
+        console.log('hit')
+    }
+
+    function stand() {
+        console.log('stand')
+    }
 </script>
