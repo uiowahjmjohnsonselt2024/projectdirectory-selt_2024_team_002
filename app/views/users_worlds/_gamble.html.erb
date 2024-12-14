@@ -12,7 +12,7 @@
     <div id='dealer_cards'></div>
   </div>
   <p id='status_message'></p>
-  <div id="shuffling_message" style="display:none;">Deck is being shuffled...</div>
+  <div id="shuffling_message" style="display:none;">Deck has been reshuffled!</div>
   <button id="play_button" onclick="startGame()" style='display:block'>Play</button>
   <button id="play_hand_button" onclick="nextHand()" style='display:none'>Play Hand</button>
   <button id="hit_button" onclick="hit()" style='display:none'>Hit</button>
@@ -101,24 +101,24 @@
 
     function checkGameStatus() {
         if (playerScore > 21) {
-            document.getElementById('status_message').style.display = 'block';
             status = 'Player Bust! Dealer Wins!';
-        } else if (dealerScore > 21) {
             document.getElementById('status_message').style.display = 'block';
+        } else if (dealerScore > 21) {
             status = 'Dealer Bust! Player Wins!';
             updateUserCredits('win'); // Update credits on the backend
+            document.getElementById('status_message').style.display = 'block';
         } else if (dealerScore >= 17) {
             if (playerScore > dealerScore) {
-                document.getElementById('status_message').style.display = 'block';
                 status = 'Player Wins!';
                 updateUserCredits('win'); // Update credits on the backend
-            } else if (playerScore < dealerScore) {
                 document.getElementById('status_message').style.display = 'block';
+            } else if (playerScore < dealerScore) {
                 status = 'Dealer Wins!';
                 updateUserCredits('loss'); // Update credits on the backend
-            } else {
                 document.getElementById('status_message').style.display = 'block';
+            } else {
                 status = 'Push!';
+                document.getElementById('status_message').style.display = 'block';
             }
         }
         document.getElementById('status_message').textContent = status;
@@ -127,11 +127,12 @@
     function startGame() {
         initDeck();
         nextHand();
+        document.getElementById('status_message').style.display = 'none';
         document.getElementById('play_button').style.display = 'none';
     }
 
     function nextHand() {
-        document.getElementById('status_message').style.display = 'none';
+        document.getElementById('status_message').style.display = 'none';  // Hide status message for new hand
 
         playerHand = [];
         dealerHand = [];
@@ -150,18 +151,24 @@
 
         if (playerScore === 21 && playerHand.length === 2 && dealerScore === 21 && dealerHand.length === 2) {
             status = 'Push! Both Player and Dealer have Blackjack!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
             endGame();
             return;
         }
 
         if (playerScore === 21 && playerHand.length === 2) {
             status = 'Player Blackjack! Player Wins!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
             endGame();
             return;
         }
 
         if (dealerScore === 21 && dealerHand.length === 2) {
             status = 'Dealer Blackjack! Dealer Wins!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
             endGame();
             return;
         }
@@ -205,8 +212,8 @@
         displayHand(dealerHand, 'dealer_cards', false);
         document.getElementById('hit_button').style.display = 'none';
         document.getElementById('stand_button').style.display = 'none';
-        document.getElementById('status_message').style.display = 'block';
         document.getElementById('play_hand_button').style.display = 'block';
+        document.getElementById('status_message').style.display = 'block';
     }
 
     function updateUserCredits(result) {
