@@ -14,14 +14,19 @@ class QuestsController < ApplicationController
 
   def complete
     quest = Quest.find(params[:id])
-    quest.complete
+    if quest.complete
+      flash[:notice] = 'Quest completed.'
+    else
+      flash[:alert] = 'Quest not completed.'
+    end
+
     redirect_to world_path(quest.world)
   end
 
   def complete_trivia
     quest = Quest.find(params[:id])
     if quest.complete_trivia(params[:answer])
-      flash[:notice] = 'Correct answer! Quest completed.'
+      flash[:alert] = 'Correct answer! Quest completed.'
     else
       flash[:alert] = 'Incorrect answer.'
     end

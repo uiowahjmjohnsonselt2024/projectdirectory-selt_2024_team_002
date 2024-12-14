@@ -76,25 +76,25 @@ class Quest < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength
 
-  def self.check_and_complete_movement_quest(user_world, row, col)
+  def self.check_and_complete_movement_quest(user_world, row, col, flash)
     quest = user_world.quests.find_by(completed: false)
     return unless quest
 
     Rails.logger.debug 'checking movement quest'
 
     if quest.cell_row == row && quest.cell_col == col
-      quest.complete_movement
+      quest.complete_movement(flash)
       true
     else
       false
     end
   end
 
-  def complete_movement
+  def complete_movement(flash)
     user_world.user.increment(:available_credits, 5).save!
     user_world.increment(:xp, 15).save!
     update!(completed: true)
-    Rails.logger.debug 'completed movement quest'
+    flash[:alert] = 'Quest completed.'
   end
 
   def move_quest?
