@@ -13,10 +13,28 @@ class BlackjackController < ApplicationController
     redirect_to users_login_path
   end
 
-
+  # rubocop:disable Metrics/MethodLength
   def update_user_credits
+    result = params[:result]
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
+    @user_world = UserWorld.find_by(user: @cur_user, world: @world)
+    @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
 
+    case result
+    when 'win'
+      @cur_user.charge_credits(-@gridsquare.buy_in_amount) # negative value to add credits
+    when 'loss'
+      @cur_user.charge_credits(@gridsquare.buy_in_amount)
+    else
+      flash[:alert] = 'Invalid result'
+      redirect_to world_path(@world)
+    end
+
+    flash[:alert] = 'Error updating credits' unless user.save
+    redirect_to world_path(@world)
   end
+  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/MethodLength
   def start_blackjack_game

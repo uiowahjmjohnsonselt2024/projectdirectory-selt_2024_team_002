@@ -65,19 +65,19 @@ Rails.application.routes.draw do
   post 'quests/quest', to: 'quests#quest', as: 'show_quest', defaults: { format: 'js' }
   # routes for quests
   resources :quests do
-  member do
-    post 'complete'
-    post 'complete_trivia'
+    member do
+      post 'complete'
+      post 'complete_trivia'
+    end
+    collection do
+      post 'generate'
+    end
   end
-  collection do
-    post 'generate'
-  end
-
   # routes for blackjack
   post 'blackjack/update_user_credits', to: 'blackjack#update_user_credits', as: 'update_user_credits', defaults: { format: 'js' }
-  post '/blackjack/start_blackjack_game', to: 'blackjack#start_blackjack_game', as: 'start_blackjack_game', defaults: { format: 'js' }
-  get '/blackjack/show_blackjack_game/:id', to: 'blackjack#show_blackjack_game', as: 'show_blackjack_game', defaults: { format: 'js' }
-  post '/blackjack/hit_blackjack_game/:id', to: 'blackjack#hit_blackjack_game', as: 'hit_blackjack_game', defaults: { format: 'js' }
-  post '/blackjack/stand_blackjack_game/:id', to: 'blackjack#stand_blackjack_game', as: 'stand_blackjack_game', defaults: { format: 'js' }
-end
+  # post '/blackjack/start_blackjack_game', to: 'blackjack#start_blackjack_game', as: 'start_blackjack_game', defaults: { format: 'js' }
+  # get '/blackjack/show_blackjack_game/:id', to: 'blackjack#show_blackjack_game', as: 'show_blackjack_game', defaults: { format: 'js' }
+  # post '/blackjack/hit_blackjack_game/:id', to: 'blackjack#hit_blackjack_game', as: 'hit_blackjack_game', defaults: { format: 'js' }
+  # post '/blackjack/stand_blackjack_game/:id', to: 'blackjack#stand_blackjack_game', as: 'stand_blackjack_game', defaults: { format: 'js' }
+
 end
