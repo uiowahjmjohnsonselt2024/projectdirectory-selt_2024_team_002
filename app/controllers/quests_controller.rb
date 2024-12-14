@@ -34,6 +34,7 @@ class QuestsController < ApplicationController
     redirect_to world_path(quest.world)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def quest
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @user_world = UserWorld.find_by_ids(@cur_user.id, params[:world_id])
@@ -46,10 +47,13 @@ class QuestsController < ApplicationController
     @random_quest_message = Quest.random_quest_message(@quest) if @quest&.move_quest?
 
     respond_to do |format|
-      format.html { render partial: 'quests/quest', locals: { quests: @quests, random_quest_message: @random_quest_message } }
+      format.html do
+        render partial: 'quests/quest', locals: { quests: @quests, random_quest_message: @random_quest_message }
+      end
       format.js
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
