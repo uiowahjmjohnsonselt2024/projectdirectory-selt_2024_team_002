@@ -3,6 +3,7 @@
 # Controller for handling quest-related actions.
 class QuestsController < ApplicationController
   before_action :authenticate_user
+  protect_from_forgery except: :quest
 
   def authenticate_user
     @cur_user = User.find_user_by_session_token(cookies[:session])
@@ -14,7 +15,7 @@ class QuestsController < ApplicationController
 
   def complete
     quest = Quest.find(params[:id])
-    if quest.complete
+    if quest.completed
       flash[:notice] = 'Quest completed.'
     else
       flash[:alert] = 'Quest not completed.'
@@ -45,6 +46,7 @@ class QuestsController < ApplicationController
     @random_quest_message = Quest.random_quest_message(@quest) if @quest&.move_quest?
 
     respond_to do |format|
+      format.html { render partial: 'quests/quest', locals: { quests: @quests, random_quest_message: @random_quest_message } }
       format.js
     end
   end
