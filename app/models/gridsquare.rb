@@ -6,10 +6,13 @@ class Gridsquare < ApplicationRecord
   validates :row, presence: true
   validates :col, presence: true
   has_one_attached :image
-  has_one :grid_shop, dependent: :destroy
-  has_one :shop, through: :grid_shop
 
   def self.find_by_row_col(world, row, col)
     Gridsquare.where(world: world, row: row, col: col).first
+  end
+
+  def set_random_buy_in_amount
+    # set buy in to rand multiples of 5
+    self.buy_in_amount = rand(1..20) * 5
   end
 end

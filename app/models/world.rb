@@ -45,7 +45,7 @@ class World < ApplicationRecord
   def initialize_grid
     (1..@@dim).each do |row|
       (1..@@dim).each do |col|
-        gridsquares.create!(row: row, col: col)
+        gridsquares.create!(row: row, col: col, buy_in_amount: rand(1..100))
         OpenaiEvent.new(row: row, col: col, world_id: id).save!
       end
     end

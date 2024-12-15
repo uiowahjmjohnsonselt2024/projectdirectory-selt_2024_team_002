@@ -51,7 +51,7 @@ Rails.application.routes.draw do
 
   # routes for game
   post 'worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
-  post 'worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
+  post 'worlds/game/gamble', to: 'users_worlds#gamble', as: 'gamble', defaults: { format: 'js' }
   post 'users_worlds/shop', to: 'users_worlds#shop', as: 'shop', defaults: { format: 'js' }
   post 'worlds/game/purchase_item', to: 'users_worlds#purchase_item', as: 'purchase_item', defaults: { format: 'js' }
   post 'users_worlds/inventory', to: 'users_worlds#inventory', as: 'inventory', defaults: { format: 'js' }
@@ -61,15 +61,23 @@ Rails.application.routes.draw do
   get '/messages/get/:id', to: 'messages#get_all_messages', as: 'get_messages'
   post '/messages/send', to: 'messages#send_message', as: 'send_message'
 
+
   post 'quests/quest', to: 'quests#quest', as: 'show_quest', defaults: { format: 'js' }
   # routes for quests
   resources :quests do
-  member do
-    post 'complete'
-    post 'complete_trivia'
+    member do
+      post 'complete'
+      post 'complete_trivia'
+    end
+    collection do
+      post 'generate'
+    end
   end
-  collection do
-    post 'generate'
-  end
-end
+  # routes for blackjack
+  post 'blackjack/update_user_credits', to: 'blackjack#update_user_credits', as: 'update_user_credits', defaults: { format: 'js' }
+  # post '/blackjack/start_blackjack_game', to: 'blackjack#start_blackjack_game', as: 'start_blackjack_game', defaults: { format: 'js' }
+  # get '/blackjack/show_blackjack_game/:id', to: 'blackjack#show_blackjack_game', as: 'show_blackjack_game', defaults: { format: 'js' }
+  # post '/blackjack/hit_blackjack_game/:id', to: 'blackjack#hit_blackjack_game', as: 'hit_blackjack_game', defaults: { format: 'js' }
+  # post '/blackjack/stand_blackjack_game/:id', to: 'blackjack#stand_blackjack_game', as: 'stand_blackjack_game', defaults: { format: 'js' }
+
 end
