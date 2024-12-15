@@ -65,13 +65,15 @@
     function displayHand(hand, elementId, hideSecondCard = true) {
         const handElement = document.getElementById(elementId);
         handElement.innerHTML = '';
+        const baseUrl = '/cards';
+
         hand.forEach((card, index) => {
             const cardImage = document.createElement('img');
             if (elementId === 'dealer_cards' && index === 1 && hideSecondCard) {
-                cardImage.src = 'https://seltproject.s3.amazonaws.com/cards/face_down.png';
+                cardImage.src = `${baseUrl}/face_down.png`;
                 cardImage.alt = 'Face Down';
             } else {
-                cardImage.src = `https://seltproject.s3.amazonaws.com/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
+                cardImage.src = `${baseUrl}/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
                 cardImage.alt = `${card[1]} of ${card[0]}`;
             }
             cardImage.className = 'card';
