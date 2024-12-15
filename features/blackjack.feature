@@ -44,7 +44,6 @@ Feature: Play the mini game blackjack
     Then I should see the exact phrase "Blackjack"
     And I press the button "Play"
     And I have a higher hand than the dealer
-    And I press the button "Stand"
     Then I should see the exact phrase "Player Wins!"
 
   @javascript
@@ -56,11 +55,10 @@ Feature: Play the mini game blackjack
     Then I should see the exact phrase "Blackjack"
     And I press the button "Play"
     And I have a lower hand than the dealer
-    And I press the button "Stand"
     Then I should see the exact phrase "Dealer Wins!"
 
   @javascript
-  Scenario: The dealer and I have an equal hand and its push
+  Scenario: The dealer and I have an equal hand and its a push
     When I log in with valid credentials
     And I click the button "Join" that is under the div with class name "Test_World_1"
     Then I should see the exact phrase "World Name: Test World 1"
@@ -68,7 +66,6 @@ Feature: Play the mini game blackjack
     Then I should see the exact phrase "Blackjack"
     And I press the button "Play"
     And I have an equal hand to the dealer
-    And I press the button "Stand"
     Then I should see the exact phrase "Push!"
 
   @javascript

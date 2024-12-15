@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 And(/^I have a blackjack and the dealer does not$/) do
   @player_hand = [Card.new('Hearts', 'A'), Card.new('Diamonds', '10')]
   @player_score = @player_hand.sum(&:value)
@@ -39,7 +41,8 @@ And(/^I have a blackjack and the dealer does$/) do
   expect(@dealer_score).to eq(21)
 
   page.execute_script("document.getElementById('status_message').style.display = 'block';")
-  page.execute_script("document.getElementById('status_message').innerText = 'Push! Both Player and Dealer have Blackjack!'")
+  status = 'Push! Both Player and Dealer have Blackjack!'
+  page.execute_script("document.getElementById('status_message').innerText = '#{status}'")
   expect(find('#status_message').text).to eq('Push! Both Player and Dealer have Blackjack!')
 end
 
