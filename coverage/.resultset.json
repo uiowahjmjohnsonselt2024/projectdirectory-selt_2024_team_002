@@ -767,10 +767,7 @@
           null
         ]
       },
-<<<<<<< HEAD
-      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/quests_controller.rb": {
-=======
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/controllers/blackjack_controller.rb": {
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/blackjack_controller.rb": {
         "lines": [
           null,
           null,
@@ -799,6 +796,7 @@
           4,
           null,
           4,
+          null,
           3,
           null,
           null,
@@ -817,11 +815,11 @@
           null,
           3,
           null,
+          null,
           null
         ]
       },
-      "/Users/herdt/Library/CloudStorage/OneDrive-UniversityofIowa/Year 4/Sem 1/Software Engineering Lanuages & Tools/SELTREPOS/projectdirectory-selt_2024_team_002/app/controllers/quests_controller.rb": {
->>>>>>> main
+      "/home/tannguyen/SELT_REPOS/projectdirectory-selt_2024_team_002/app/controllers/quests_controller.rb": {
         "lines": [
           null,
           null,
@@ -1522,10 +1520,6 @@
         ]
       }
     },
-<<<<<<< HEAD
-    "timestamp": 1734216047
-=======
-    "timestamp": 1734225792
->>>>>>> main
+    "timestamp": 1734230912
   }
 }

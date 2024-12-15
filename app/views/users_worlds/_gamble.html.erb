@@ -1,6 +1,6 @@
 <div class='floating-partial-box' id="blackjack_start">
-  <h1>Blackjack</h1>
-  <p>Test your luck!</p>
+  <h1 id="blackjack_title">Blackjack</h1>
+  <p id="blackjack_title_2">Test your luck!</p>
   <p id='shard_balance'>Shards Available: <%= user.available_credits %></p>
   <p id='buy_in'>Buy In: <%= gridsquare.buy_in_amount %></p>
   <div id='player_hand' style='display:none'>
@@ -14,9 +14,18 @@
   <p id='status_message'></p>
   <div id="shuffling_message" style="display:none;">Deck has been reshuffled!</div>
   <button id="play_button" class="accept_button" onclick="startGame()" style='display:block'>Play</button>
-  <button id="play_hand_button" class="accept_button" onclick="nextHand()" style='display:none'>Play Next Hand</button>
-  <button id="hit_button" class="accept_button" onclick="hit()" style='display:none'>Hit</button>
-  <button id="stand_button" class="accept_button" onclick="stand()" style='display:none'>Stand</button>
+  <div class="radio-group">
+    <div>
+      <button id="hit_button" class="accept_button" onclick="hit()" style='display:none; float:right;'>Hit</button>
+      <button id="play_hand_button" class="accept_button" onclick="nextHand()" style='display:none; float:right; width: fit-content;'>Play Next Hand</button>
+    </div>
+    <div>
+      <%= form_tag world_path(id: @world.id), method: :get, id: 'end_game_form' do %>
+        <button id="end_game_button" class="not_accept_button" style='display:none; float:left; width: fit-content;'>End Gamble</button>
+      <% end %>
+      <button id="stand_button" class="accept_button" onclick="stand()" style='display:none'>Stand</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -50,6 +59,8 @@
 
         setTimeout(() => {
             document.getElementById('shuffling_message').style.display = 'none';
+            document.getElementById('hit_button').style.display = 'block';
+            document.getElementById('stand_button').style.display = 'block';
         }, 2000);
     }
 
@@ -125,16 +136,20 @@
     }
 
     function startGame() {
-        initDeck();
-        nextHand();
+        document.getElementById('blackjack_title').style.display = 'none';
+        document.getElementById('blackjack_title_2').style.display = 'none';
         document.getElementById('status_message').style.display = 'none';
         document.getElementById('play_button').style.display = 'none';
+        document.getElementById('close_gamble_link').style.display = 'none';
+        initDeck();
+        nextHand();
     }
 
     function nextHand() {
         updateUserCredits('buy_in');
-        document.getElementById("close_gamble_link").style.display = "none"
+        document.getElementById("end_game_button").style.display = "none"
         document.getElementById('status_message').style.display = 'none';
+        shuffle(deck);
 
         playerHand = [];
         dealerHand = [];
@@ -180,8 +195,6 @@
         // Enable gameplay actions
         document.getElementById('player_hand').style.display = 'block';
         document.getElementById('dealer_hand').style.display = 'block';
-        document.getElementById('hit_button').style.display = 'block';
-        document.getElementById('stand_button').style.display = 'block';
         document.getElementById('play_hand_button').style.display = 'none';
     }
 
@@ -218,7 +231,7 @@
         document.getElementById('stand_button').style.display = 'none';
         document.getElementById('play_hand_button').style.display = 'block';
         document.getElementById('status_message').style.display = 'block';
-        document.getElementById("close_gamble_link").style.display = "block"
+        document.getElementById("end_game_button").style.display = "block"
     }
 
     function updateUserCredits(result) {
@@ -249,11 +262,13 @@
     .card {
         width: 100px;
         height: auto;
-        margin: 5px;
+        margin-top: 5px;
+        margin-right: 5px;
     }
 
     .floating-partial-box {
-        max-height: 80vh;
+        max-height: 90vh;
+        width: 700px;
         overflow-y: auto;
     }
 
