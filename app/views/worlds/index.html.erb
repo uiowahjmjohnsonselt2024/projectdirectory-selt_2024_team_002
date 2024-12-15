@@ -92,7 +92,7 @@
         </div>
         <div class="world-right">
           <h3>Owned by <%=world.user.display_name %> </h3>
-          <%= button_to 'Delete', worlds_delete_path(world_id: world.id), method: :delete, :remote => true, :class => "button", onclick: "flashFadeOut()" %>
+          <%= button_to 'Delete', world_path(id: world.id), method: :delete, :remote => true, :class => "button", onclick: "flashFadeOut()" %>
         </div>
       </div>
     <% end %>

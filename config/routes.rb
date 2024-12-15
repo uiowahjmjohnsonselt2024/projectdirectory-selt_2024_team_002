@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   post 'worlds/join_world', to: 'worlds#join_world'
   post 'worlds/leave_world', to: 'worlds#leave_world'
   get 'worlds/invite', to: 'worlds#invite', as: 'world_invite'
-  delete 'worlds/delete', to: 'worlds#delete'
   get 'worlds/confirm', to: 'worlds#confirm', as: 'confirm_world'
   resources :worlds
   root to: redirect('/worlds')

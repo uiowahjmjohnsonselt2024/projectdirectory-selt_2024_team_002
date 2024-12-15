@@ -81,7 +81,18 @@ class WorldsController < ApplicationController
 
   def update; end
 
-  def destroy; end
+  def destroy
+    Rails.logger.info("were here!@!!!!")
+    user_world = UserWorld.find_by(user_id: @cur_user.id, world_id: params[:world_id])
+    world = World.find_by(id: params[:world_id])
+
+    if UserWorld.delete(user_world) && World.delete(world)
+      @message = 'Invite rejected.'
+    else
+      @message = 'Error rejecting invite.'
+    end
+    redirect_to worlds_path
+  end
 
   def join_world
     @selected_world = World.find(params[:id].split('_')[1])
@@ -123,18 +134,6 @@ class WorldsController < ApplicationController
     max_players_limit = @cur_user.plus_user? ? 20 : 5
     params[:is_public] == '0' && params[:max_player].to_i > max_players_limit ||
       params[:world_code].blank? || params[:world_name].blank? || params[:max_player].blank?
-  end
-
-  def delete
-    user_world = UserWorld.find_by(user_id: @cur_user.id, world_id: params[:world_id])
-    world = World.find_by(id: params[:world_id])
-
-    if UserWorld.delete(user_world) && World.delete(world)
-      @message = 'Invite rejected.'
-    else
-      @message = 'Error rejecting invite.'
-    end
-    redirect_to worlds_path
   end
 
   def confirm
