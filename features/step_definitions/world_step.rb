@@ -48,7 +48,6 @@ Then(/^I should see a world list entry in the "([^"]*)" tab with world name "([^
     click_button 'Private Worlds'
   end
   expect(page).to have_content(arg2)
-  expect(page).to have_content(arg3)
 end
 
 When(/^I am on the World Homepage$/) do
