@@ -7,7 +7,7 @@
     <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
   </div>
   <div class="center-stack">
-    <h1 style="font-size: 35px; margin: 15px 0 0;">Sending an invite to <%= @friend.display_name%></h1>
+    <h1 style="font-size: 35px; margin: 15px 0 0;">Sending an world invitation to <%= @friend.display_name%></h1>
     <div id="flash_partial"></div>
     <div id="flash">
       <% if flash[:notice] %>
@@ -39,7 +39,7 @@
         <h3><%= world.world_name %></h3>
         <p>Code: <%= world.world_code %></p>
         <p>Max Players: <%= world.max_player %></p>
-        <%= button_to 'Invite to world', users_send_invite_path(friend_id: @friend.id, world_id: world.id), method: :post, :remote => true, :class => "button" %>
+        <%= button_to 'Invite to world', users_send_invite_path(friend_id: @friend.id, world_id: world.id), method: :post, :remote => true, :class => "button", onclick: "flashFadeOut()" %>
       </div>
       <div class="world-right">
       </div>
@@ -53,6 +53,15 @@
             $('#flash').fadeOut();
         }, 2000);
     })
+</script>
+
+<script>
+    function flashFadeOut() {
+        $('#flash_partial').show();
+        setTimeout(function(){
+            $('#flash_partial').fadeOut();
+        }, 2000);
+    }
 </script>
 </body>
 </html>

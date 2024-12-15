@@ -35,12 +35,13 @@
 
   <div class="purchase-plus-box">
     <h1>Purchase Plus User Access</h1>
-    <p style="font-size: 20px">Cost: 100 Shards</p>
+    <p style="font-size: 20px">Cost: <b>100</b> Shards</p>
+    <p style="font-size: 20px">With Plus User Access, you are able to create world with <b>more than 5</b> users be able to join!</p>
     <% if @user.plus_user? %>
       <p style="font-size: 20px">You already have Plus User access</p>
     <% else %>
       <%= form_tag "/users/purchase_plus_user", method: :post do %>
-        <button type="submit" class="button">Purchase Plus User Access</button>
+        <button type="submit" class="secondary_button" style="margin-bottom: 5px">Purchase Plus User Access</button>
       <% end %>
     <% end %>
     <%= button_to 'Back to Worlds', worlds_path, method: :get, class: "small_button highlight_button" %>

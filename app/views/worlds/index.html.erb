@@ -59,7 +59,6 @@
         </div>
         <div class="world-center">
           <h3><%= world.world_name %></h3>
-          <p>Code: <%= world.world_code %></p>
           <p>Max Players: <%= world.max_player %></p>
           <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
         </div>
@@ -83,7 +82,6 @@
         </div>
         <div class="world-center">
           <h3><%= world.world_name %></h3>
-          <p>Code: <%= world.world_code %></p>
           <p>Max Players: <%= world.max_player %></p>
           <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
         </div>
@@ -101,7 +99,7 @@
 
 <div id="friend_list" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;" id="friend_list_display">
-    <div class="info_box">
+    <div class="world_box">
       <p id="no_friends">Sorry, you currently have no friends. Add some below!</p>
       <button class="button" id="add_friend_button" onclick="addFriend()">Add Friend</button>
 
@@ -137,8 +135,8 @@
     <% @requested_friends.each do |friend| %>
       <div class="item_box friend" id="request_id_<%= friend.id %>">
         <div class="friend_left">
-          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button", onclick: "flashFadeOut()", style: "margin-top: 5px" %>
-          <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button", onclick: "flashFadeOut()", style: "margin-top: 5px" %>
+          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, remote: true, class: "accept_button", onclick: "flashFadeOut()", style: "margin-top: 5px" %>
+          <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, remote: true, class: "not_accept_button", onclick: "flashFadeOut()", style: "margin-top: 5px; margin-left: 10px" %>
         </div>
         <div class="friend_center">
           <h3><%= friend.display_name %></h3>
@@ -156,8 +154,8 @@
     <% @world_invites.each do |invite| %>
       <div class="item_box friend" id="invite_id_<%= invite.id %>">
         <div class="friend_left">
-          <%= button_to 'Approve', users_approve_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :post, :remote => true, :class => "secondary_button" %>
-          <%= button_to 'Reject', users_reject_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :delete, :remote => true, :class => "button" %>
+          <%= button_to 'Approve', users_approve_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :post, remote:  true, class: "accept_button", onclick: "flashFadeOut()" %>
+          <%= button_to 'Reject', users_reject_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :delete, remote: true, class: "not_accept_button", style: "margin-left: 10px", onclick: "flashFadeOut()" %>
         </div>
         <div class="friend_center">
           <h3><%= invite.world.world_name %></h3>
