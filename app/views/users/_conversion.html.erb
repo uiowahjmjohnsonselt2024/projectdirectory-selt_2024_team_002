@@ -6,6 +6,6 @@
     <input type="hidden" name="total_amount" id="total_amount" value="<%= amount %>"/>
     <input type="hidden" name="with_currency" id="with_currency" value="<%= currency %>"/>
     <input type="hidden" name="total_shards" id="total_shards" value="<%= num_of_shards %>"/>
-    <%= submit_tag 'Proceed to Checkout', method: :post, id: 'checkout_button', class: "world_add_button", data: { disable_with: false }%>
+    <%= submit_tag 'Proceed to Checkout', method: :post, id: 'checkout_button', class: "highlight_button", data: { disable_with: false }%>
   <% end %>
 </div>

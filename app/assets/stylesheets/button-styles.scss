@@ -1,6 +1,6 @@
 .button {
   padding: 10px 20px;
-  background-color: #718ca5;
+  background-color: #518BC4;
   color: black;
   font-size: 16px;
   font-weight: bold;
@@ -27,7 +27,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  background-color: #566a7e;
+  background-color: #518BC4;
   color: black;
   font-size: 16px;
   font-weight: bold;
@@ -39,7 +39,7 @@
   text-decoration: none;
 
   &:hover {
-    background-color: #2e7195;
+    background-color: #22729c;
     transform: scale(1.05);
   }
 
@@ -54,7 +54,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  background-color: #6fb2cd;
+  background-color: #518BC4;
   color: black;
   font-size: 16px;
   font-weight: bold;
@@ -66,7 +66,7 @@
   text-decoration: none;
 
   &:hover {
-    background-color: #2e7195;
+    background-color: #22729c;
     transform: scale(1.05);
   }
 
@@ -76,21 +76,85 @@
   }
 }
 
+.small_button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #718096;
+    transform: scale(1.05);
+  }
+}
+
 .highlight_button {
   padding: 10px 20px;
-  background-color: #38435a;
+  background-color: #090e1c;
   color: white;
   font-size: 16px;
   font-weight: bold;
   border: 1px solid #03192c;
-  border-radius: 0px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   text-align: center;
   text-decoration: none;
 
   &:hover {
-    background-color: #718096;
+    background-color: #254177;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: #6a9dae;
+    transform: scale(0.98);
+  }
+}
+
+.tab_button {
+  padding: 10px 20px;
+  background-color: #0e162c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid #254177;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #254177;
+    transform: scale(1.05);
+  }
+}
+
+.tab_active {
+  padding: 10px 20px;
+  background-color: #254177;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid #254177;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #254177;
+    transform: scale(1.05);
+  }
+}
+
+.purchase-button {
+  background-color: #7a90bf;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #2e7195;
+    transform: scale(1.02);
   }
 
   &:active {
@@ -105,16 +169,17 @@
   color: white;
   font-size: 16px;
   font-weight: bold;
-  border: 1px solid #1d465d;
+  border: 2px solid #1d465d;
+  border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   text-align: center;
 
-
   &:hover {
     background-color: #2e7195;
+    transform: scale(1.02);
   }
 
   &:active {
@@ -133,7 +198,7 @@
   width: 50px;
   height: 50px;
   border-bottom: solid 2px black;
-  background-color: #A7BCC7;
+  background-color: #7a90bf;
   color: black;
   border-radius: 50%;
   font-size: 35px;
@@ -143,6 +208,16 @@
   align-items: center;
   position: relative;
   vertical-align: top;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #2e7195;
+    transform: scale(1.15);
+  }
+
+  &:active {
+    background-color: #6a9dae;
+  }
 }
 
 .accept_button {

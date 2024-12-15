@@ -1,6 +1,6 @@
-<div class='floating-partial-box' id="blackjack_start">
-  <h1>Blackjack</h1>
-  <p>Test your luck!</p>
+<div class='floating-partial-wide-box' id="blackjack_start">
+  <h1 id="blackjack_title">Blackjack</h1>
+  <p id="blackjack_title_2">Test your luck!</p>
   <p id='shard_balance'>Shards Available: <%= user.available_credits %></p>
   <p id='buy_in'>Buy In: <%= gridsquare.buy_in_amount %></p>
   <div id='player_hand' style='display:none'>
@@ -14,9 +14,18 @@
   <p id='status_message'></p>
   <div id="shuffling_message" style="display:none;">Deck has been reshuffled!</div>
   <button id="play_button" class="accept_button" onclick="startGame()" style='display:block'>Play</button>
-  <button id="play_hand_button" class="accept_button" onclick="nextHand()" style='display:none'>Play Next Hand</button>
-  <button id="hit_button" class="accept_button" onclick="hit()" style='display:none'>Hit</button>
-  <button id="stand_button" class="accept_button" onclick="stand()" style='display:none'>Stand</button>
+  <div class="radio-group">
+    <div>
+      <button id="hit_button" class="accept_button" onclick="hit()" style='display:none; float:right;'>Hit</button>
+      <button id="play_hand_button" class="accept_button" onclick="nextHand()" style='display:none; float:right; width: fit-content;'>Play Next Hand</button>
+    </div>
+    <div>
+      <%= form_tag world_path(id: @world.id), method: :get, id: 'end_game_form' do %>
+        <button id="end_game_button" class="not_accept_button" style='display:none; float:left; width: fit-content;'>End Session</button>
+      <% end %>
+      <button id="stand_button" class="accept_button" onclick="stand()" style='display:none'>Stand</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -38,6 +47,8 @@
             });
         });
         shuffle(deck);
+
+
     }
 
     function shuffle(array) {
@@ -95,6 +106,8 @@
             cardImage.className = 'card';
             handElement.appendChild(cardImage);
         });
+
+
     }
 
     function calculateScore(hand) {
@@ -145,8 +158,11 @@
     function startGame() {
         initDeck();
         nextHand();
+        document.getElementById('blackjack_title').style.display = 'none';
+        document.getElementById('blackjack_title_2').style.display = 'none';
         document.getElementById('status_message').style.display = 'none';
         document.getElementById('play_button').style.display = 'none';
+        document.getElementById('close_gamble_link').style.display = 'none';
     }
 
     async function nextHand() {
@@ -171,7 +187,7 @@
                 statusMessage.textContent = "Not enough credits to play!";
                 statusMessage.style.display = 'block';
 
-                document.getElementById('play_button').style.display = 'block';
+                document.getElementById('play_button').style.display = 'none';
                 document.getElementById('play_hand_button').style.display = 'none';
                 return; // Stop the function
             }
@@ -201,10 +217,13 @@
             displayHand(playerHand, 'player_cards');
             displayHand(dealerHand, 'dealer_cards');
 
+
             if (playerScore === 21 && playerHand.length === 2 && dealerScore === 21 && dealerHand.length === 2) {
                 status = 'Push! Both Player and Dealer have Blackjack!';
                 document.getElementById('status_message').style.display = 'block';
                 document.getElementById('status_message').textContent = status;
+                document.getElementById('player_hand').style.display = 'block';
+                document.getElementById('dealer_hand').style.display = 'block';
                 updateUserCredits('push');
                 endGame();
                 return;
@@ -214,6 +233,8 @@
                 status = 'Player Blackjack! Player Wins!';
                 document.getElementById('status_message').style.display = 'block';
                 document.getElementById('status_message').textContent = status;
+                document.getElementById('player_hand').style.display = 'block';
+                document.getElementById('dealer_hand').style.display = 'block';
                 updateUserCredits('win');
                 endGame();
                 return;
@@ -223,6 +244,8 @@
                 status = 'Dealer Blackjack! Dealer Wins!';
                 document.getElementById('status_message').style.display = 'block';
                 document.getElementById('status_message').textContent = status;
+                document.getElementById('player_hand').style.display = 'block';
+                document.getElementById('dealer_hand').style.display = 'block';
                 endGame();
                 return;
             }
@@ -233,6 +256,7 @@
             document.getElementById('hit_button').style.display = 'block';
             document.getElementById('stand_button').style.display = 'block';
             document.getElementById('play_hand_button').style.display = 'none';
+            document.getElementById("end_game_button").style.display = "none"
         } catch (error) {
             console.error('Error checking credits:', error);
             const statusMessage = document.getElementById('status_message');
@@ -274,7 +298,7 @@
         document.getElementById('stand_button').style.display = 'none';
         document.getElementById('play_hand_button').style.display = 'block';
         document.getElementById('status_message').style.display = 'block';
-        document.getElementById("close_gamble_link").style.display = "block"
+        document.getElementById("end_game_button").style.display = "block"
     }
 
     function buyIn() {
@@ -296,6 +320,7 @@
               const success = data.success;
               document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
               if (!success) {
+                  document.getElementById('play_button').style.display = 'none';
                   alert('Not enough shards to play!');
                   throw new Error('Insufficient shards');
               }
@@ -329,6 +354,20 @@
               console.error('Error updating credits:', error);
           });
     }
+</script>
+
+<script>
+    $(document).ready(function(){
+        const current_available = <%= user.available_credits %>
+        const buy_in = <%= gridsquare.buy_in_amount %>
+
+        if (current_available < buy_in) {
+            document.getElementById('play_button').style.display = 'none';
+            status = 'Not enough shards to play!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
+        }
+    })
 </script>
 
 <style>

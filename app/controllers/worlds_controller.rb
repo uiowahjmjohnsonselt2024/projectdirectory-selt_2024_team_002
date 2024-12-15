@@ -107,7 +107,10 @@ class WorldsController < ApplicationController
       redirect_to worlds_path
     else
       get_url(@selected_world.id)
-      @selected_world.update(current_players: @selected_world.current_players + 1)
+      unless params[:is_from_world]
+        @selected_world.update(current_players: @selected_world.current_players + 1)
+      end
+
       redirect_to world_path(@selected_world)
     end
   end

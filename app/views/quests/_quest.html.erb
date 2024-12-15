@@ -1,4 +1,4 @@
-<div class="floating-partial-box" id="quest-box">
+<div class="floating-partial-box disable-scrollbars" id="quest-box">
   <% if quests.present? %>
     <% incomplete_quests = quests.reject(&:completed) %>
     <% if incomplete_quests.any? %>
@@ -7,12 +7,12 @@
           <p>Trivia Question: <%= quest.trivia_question['question'] %></p>
           <%= form_with url: complete_trivia_quest_path(quest.id), method: :post, local: true do %>
             <% quest.trivia_question['choices'].each_with_index do |choice, index| %>
-              <div>
-                <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}" %>
-                <%= label_tag "answer_#{quest.id}_#{index}", choice %>
+              <div class="radio-group">
+                <%= radio_button_tag "answer", choice, false, id: "answer_#{quest.id}_#{index}", class: "choice-text", onclick: "enableSubmitButton()"%>
+                <label class="radio-text" id="answer_#{quest.id}_#{index}" >  <%= choice %> </label>
               </div>
             <% end %>
-            <%= submit_tag 'Submit Answer' %>
+            <%= submit_tag 'Submit Answer', id: "submit_answer_button", class: "accept_button", disabled: true, style: "background-color: #6a7588; transition: none;"%>
           <% end %>
         <% else %>
           <h3>Quest: <%= random_quest_message %> <%= quest.cell_row %>, <%= quest.cell_col %></h3>
@@ -24,4 +24,12 @@
   <% else %>
     <p>No active quests</p>
   <% end %>
+
+  <script>
+      function enableSubmitButton() {
+          document.getElementById("submit_answer_button").disabled = false
+          document.getElementById("submit_answer_button").style.backgroundColor = "#2ba62e"
+          document.getElementById("submit_answer_button").style.transition = "background-color 0.3s ease, transform 0.2s ease"
+      }
+  </script>
 </div>

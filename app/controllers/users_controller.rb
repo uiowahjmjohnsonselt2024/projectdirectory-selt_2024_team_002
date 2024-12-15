@@ -141,35 +141,29 @@ class UsersController < ApplicationController
     @user = User.find_user_by_session_token(cookies[:session])
 
     if card_number == "" or expiration_date == "" or cvv == "" or billing_address == ""
-      @message = "There is an error on processing. Please check your fields are correct."
-      respond_to do |format|
-        format.js
-      end
+      flash[:alert] = "There is an error on processing. Please check your fields are correct."
+      redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
+      return
     else
       detector = CreditCardDetector::Detector.new(card_number)
       result = detector.valid_luhn?
       unless result
-        @message = "Card number is not valid. Please recheck your card number."
-        respond_to do |format|
-          format.js
-        end
+        flash[:alert] = "Card number is not valid. Please recheck your card number."
+        redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
         return
       end
       unless expiration_date =~ /\A\d\d\d\d\Z/
-        @message = "Expiration date can only be 4 digits. Please try again."
-        respond_to do |format|
-          format.js
-        end
+        flash[:alert] = "Expiration date can only be 4 digits. Please try again."
+        redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
         return
       end
       unless cvv =~ /\A\d\d\d\Z/
-        @message = "CVV can only be 3 digits. Please try again."
-        respond_to do |format|
-          format.js
-        end
+        flash[:alert] = "CVV can only be 3 digits. Please try again."
+        redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
         return
       end
       @user.update(available_credits: @user.available_credits + num_of_shards)
+      flash[:notice] = "Purchase #{num_of_shards} shards successful! Thank you for your support!"
       redirect_to users_purchase_path
     end
   end
@@ -301,13 +295,13 @@ class UsersController < ApplicationController
     existing_request = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: true)
     invite = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
     if existing_request != nil
-      @message = "An invite has already been sent for " + invite.world.world_name + "!"
+      @message = "An invitation has already been sent for " + invite.world.world_name + "!"
     elsif existing_world != nil
       @message = "This player is already on " + invite.world.world_name + "!"
     elsif invite.save
-      @message = "Invite sent!"
+      @message = "Invitation sent!"
     else
-      @message = "Failed to send world invite."
+      @message = "Failed to send world invitation!"
     end
     respond_to do |format|
       format.js
@@ -319,9 +313,9 @@ class UsersController < ApplicationController
     @world = World.find_by_id(@invite.world_id)
     @user = User.find_by_id(@world.user_id)
     if @invite&.update(request: false)
-      @message = 'Invite accepted!'
+      @message = 'Invitation accepted!'
     else
-      @message = 'Error accepting invite.'
+      @message = 'Error accepting invitation.'
     end
     respond_to do |format|
       format.js
@@ -331,9 +325,9 @@ class UsersController < ApplicationController
   def reject_invite
     @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
     if UserWorld.delete(@invite)
-      @message = 'Invite rejected.'
+      @message = 'Invitation rejected.'
     else
-      @message = 'Error rejecting invite.'
+      @message = 'Error rejecting invitation.'
     end
     respond_to do |format|
       format.js

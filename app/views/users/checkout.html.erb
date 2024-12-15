@@ -14,8 +14,15 @@
 
     <div class="center-stack">
       <h1 style="font-size: 35px; margin: 15px 0 0;">Checkout</h1>
-      <div id="flash_partial" style="z-index: 10">
-
+      <div id="flash_partial" style="z-index: 10"></div>
+      <div id="flash">
+        <% if flash[:alert] %>
+          <div class="alert world-creation-alert-box">
+            <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+              <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+            </svg></div>
+            <%= flash[:alert] %></div>
+        <% end %>
       </div>
     </div>
     <div class="right-stack">
@@ -28,7 +35,7 @@
 
   <div class="lower-div-after-nav">
     <div class="purchase-box">
-      <%= form_tag "/users/payment", id: 'payment_form', :remote => true do %>
+      <%= form_tag "/users/payment", id: 'payment_form' do %>
         <div>
           <label for="card_number_field">Card Number:</label>
           <%= text_field_tag :card_number, nil, id: 'card_number_field', class: "textbox", :maxlength => 16 %>
@@ -48,7 +55,9 @@
         <label for="shard_receive" style="font-size: 30px">Receive: <%= @num_of_shards %> shards</label>
         <label for="total_amount" style="font-size: 30px">Total: <%= @total_amount %> <%= @with_currency %></label>
         <input type="hidden" name="total_shards" id="total_shards" value="<%= @num_of_shards %>"/>
-        <%= submit_tag 'Pay', id: 'pay_button', class: "world_add_button", onclick: "handle_pay()" %>
+        <input type="hidden" name="total_amount" id="total_amount" value="<%= @total_amount %>"/>
+        <input type="hidden" name="with_currency" id="with_currency" value="<%= @with_currency %>"/>
+        <%= submit_tag 'Pay', id: 'pay_button', class: "highlight_button", onclick: "handle_pay()" %>
       <% end %>
     </div>
   </div>
