@@ -67,9 +67,12 @@ class UserWorld < ApplicationRecord
 
     self.xp += boosted_xp
 
-    if self.xp > 100
-      self.xp = self.xp - 100
+    if self.xp >= world_max_xp
+      self.xp = self.xp - world_max_xp
       self.level += 1
+      user.available_credits += 100
+      self.world_max_xp = world_max_xp + 50
+      user.save
     end
 
     if xp_boost > 1

@@ -187,7 +187,7 @@
 <script>
     (function() { //IIFE
         let currentXP = <%= @user_world[:xp] %>;
-        let maxXP = 100;
+        let maxXP = <%= @user_world[:world_max_xp] %>;
         let xpBar = document.getElementById('xp-bar');
         let xpText = document.getElementById('xp-text');
         let usr_row = <%= @pos_row%>;
