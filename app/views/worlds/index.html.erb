@@ -57,7 +57,7 @@
 
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
-      <div class="item_box world" id= "<%= world.world_name.split.join '_'%>">
+      <div class="item_box world <%= world.world_name.split.join '_'%>" id= "<%= world.world_name.split.join '_'%>">
         <div class="world-left">
         </div>
         <div class="world-center">
