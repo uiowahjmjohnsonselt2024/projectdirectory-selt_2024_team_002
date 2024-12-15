@@ -38,7 +38,6 @@
     let playerScore = 0;
     let dealerScore = 0;
     let status = '';
-    let shard_balance = 0;
 
     function initDeck() {
         deck = [];
@@ -48,6 +47,8 @@
             });
         });
         shuffle(deck);
+
+
     }
 
     function shuffle(array) {
@@ -60,8 +61,6 @@
 
         setTimeout(() => {
             document.getElementById('shuffling_message').style.display = 'none';
-            document.getElementById('hit_button').style.display = 'block';
-            document.getElementById('stand_button').style.display = 'block';
         }, 2000);
     }
 
@@ -107,6 +106,8 @@
             cardImage.className = 'card';
             handElement.appendChild(cardImage);
         });
+
+
     }
 
     function calculateScore(hand) {
@@ -155,13 +156,13 @@
     }
 
     function startGame() {
+        initDeck();
+        nextHand();
         document.getElementById('blackjack_title').style.display = 'none';
         document.getElementById('blackjack_title_2').style.display = 'none';
         document.getElementById('status_message').style.display = 'none';
         document.getElementById('play_button').style.display = 'none';
         document.getElementById('close_gamble_link').style.display = 'none';
-        initDeck();
-        nextHand();
     }
 
     async function nextHand() {
@@ -186,7 +187,7 @@
                 statusMessage.textContent = "Not enough credits to play!";
                 statusMessage.style.display = 'block';
 
-                document.getElementById('play_button').style.display = 'block';
+                document.getElementById('play_button').style.display = 'none';
                 document.getElementById('play_hand_button').style.display = 'none';
                 return; // Stop the function
             }
@@ -216,10 +217,13 @@
             displayHand(playerHand, 'player_cards');
             displayHand(dealerHand, 'dealer_cards');
 
+
             if (playerScore === 21 && playerHand.length === 2 && dealerScore === 21 && dealerHand.length === 2) {
                 status = 'Push! Both Player and Dealer have Blackjack!';
                 document.getElementById('status_message').style.display = 'block';
                 document.getElementById('status_message').textContent = status;
+                document.getElementById('player_hand').style.display = 'block';
+                document.getElementById('dealer_hand').style.display = 'block';
                 updateUserCredits('push');
                 endGame();
                 return;
@@ -229,6 +233,8 @@
                 status = 'Player Blackjack! Player Wins!';
                 document.getElementById('status_message').style.display = 'block';
                 document.getElementById('status_message').textContent = status;
+                document.getElementById('player_hand').style.display = 'block';
+                document.getElementById('dealer_hand').style.display = 'block';
                 updateUserCredits('win');
                 endGame();
                 return;
@@ -238,6 +244,8 @@
                 status = 'Dealer Blackjack! Dealer Wins!';
                 document.getElementById('status_message').style.display = 'block';
                 document.getElementById('status_message').textContent = status;
+                document.getElementById('player_hand').style.display = 'block';
+                document.getElementById('dealer_hand').style.display = 'block';
                 endGame();
                 return;
             }
@@ -248,6 +256,7 @@
             document.getElementById('hit_button').style.display = 'block';
             document.getElementById('stand_button').style.display = 'block';
             document.getElementById('play_hand_button').style.display = 'none';
+            document.getElementById("end_game_button").style.display = "none"
         } catch (error) {
             console.error('Error checking credits:', error);
             const statusMessage = document.getElementById('status_message');
@@ -311,6 +320,7 @@
               const success = data.success;
               document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
               if (!success) {
+                  document.getElementById('play_button').style.display = 'none';
                   alert('Not enough shards to play!');
                   throw new Error('Insufficient shards');
               }
@@ -337,33 +347,40 @@
         })
           .then(response => response.json())
           .then(data => {
-              shard_balance = data.shard_balance
+              const shard_balance = data.shard_balance
               document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
           })
           .catch(error => {
               console.error('Error updating credits:', error);
           });
     }
+</script>
 
-    function checkAvailableCredits(current_shard) {
-        const buy_in = <%= @gridsquare.buy_in_amount %>
-        if (buy_in > current_shard) {
-            document.getElementById('status_message').textContent = 'You do not have enough shards to play!'
-            document.getElementById('status_message').style.display = 'block';
+<script>
+    $(document).ready(function(){
+        const current_available = <%= user.available_credits %>
+        const buy_in = <%= gridsquare.buy_in_amount %>
+
+        if (current_available < buy_in) {
             document.getElementById('play_button').style.display = 'none';
-            document.getElementById('play_hand_button').style.display = 'none';
+            status = 'Not enough shards to play!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
         }
-    }
+    })
 </script>
 
 <style>
     .card {
         width: 100px;
         height: auto;
-        margin-top: 5px;
-        margin-right: 5px;
+        margin: 5px;
     }
 
+    .floating-partial-box {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
 
     h1 {
         margin-bottom: 10px; /* Reduces the space below the <h1> */
