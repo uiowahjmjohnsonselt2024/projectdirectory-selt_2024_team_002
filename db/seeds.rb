@@ -16,14 +16,15 @@ worlds.each do |world|
   World.create!(world)
 end
 
-users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin', available_credits: 0,
+users = [{ id: 1, email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin', available_credits: 0,
            plus_user: true }]
 
 users.each do |user|
   User.create!(user)
 end
 
-user_worlds = [{ world: World.where(world_name: 'Test World 2').first, user: User.find_user_by_display_name('admin') }]
+user_worlds = [{ world: World.where(world_name: 'Test World 2').first, user: User.find_user_by_display_name('admin') },
+               { world: World.where(world_name: 'Test World 1').first, user: User.find_user_by_display_name('admin') }]
 user_worlds.each do |user_world|
   UserWorld.create!(user_world)
 end

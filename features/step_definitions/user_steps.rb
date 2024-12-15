@@ -6,7 +6,6 @@ And(/^I create a user with email: "([^"]*)", username: "([^"]*)", password: "([^
   fill_in 'Username:', with: username
   fill_in 'Password:', with: password
   fill_in 'Confirm Password:', with: password
-
   # Press the Sign Up button
   click_button 'Sign Up'
 
