@@ -64,17 +64,17 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    @user = User.find_by_reset_password_token(params[:token])
+    @user = User.find_by(reset_password_token: params[:token])
     if params[:new_password] != params[:confirm_new_password]
       flash[:alert] = 'Password confirmation must match'
-      return redirect_to new_user_path
+      return redirect_to reset_password_path(token: params[:token])
     end
-    if @user.update_password(params[:new_password])
-      flash[:notice] = 'Password reset successful'
+    if @user.update_password(params[:new_password]) and @user.valid?
+      flash[:notice] = 'Password reset successfully'
       return redirect_to users_login_path
     end
     flash[:alert] = @user.errors.empty? ? 'Something went wrong' : @user.errors.full_messages.first
-    redirect_to reset_password_path
+    redirect_to reset_password_path(token: params[:token])
   end
 
   def get_session
