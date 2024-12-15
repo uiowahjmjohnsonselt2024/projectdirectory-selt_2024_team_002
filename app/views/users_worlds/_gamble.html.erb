@@ -105,19 +105,19 @@
             document.getElementById('status_message').style.display = 'block';
         } else if (dealerScore > 21) {
             status = 'Dealer Bust! Player Wins!';
-            updateUserCredits('win'); // Update credits on the backend
+            updateUserCredits('win');
             document.getElementById('status_message').style.display = 'block';
         } else if (dealerScore >= 17) {
             if (playerScore > dealerScore) {
                 status = 'Player Wins!';
-                updateUserCredits('win'); // Update credits on the backend
+                updateUserCredits('win');
                 document.getElementById('status_message').style.display = 'block';
             } else if (playerScore < dealerScore) {
                 status = 'Dealer Wins!';
-                updateUserCredits('loss'); // Update credits on the backend
                 document.getElementById('status_message').style.display = 'block';
             } else {
                 status = 'Push!';
+                updateUserCredits('push');
                 document.getElementById('status_message').style.display = 'block';
             }
         }
@@ -132,6 +132,7 @@
     }
 
     function nextHand() {
+        updateUserCredits('buy_in');
         document.getElementById("close_gamble_link").style.display = "none"
         document.getElementById('status_message').style.display = 'none';
 
@@ -154,6 +155,7 @@
             status = 'Push! Both Player and Dealer have Blackjack!';
             document.getElementById('status_message').style.display = 'block';
             document.getElementById('status_message').textContent = status;
+            updateUserCredits('push');
             endGame();
             return;
         }
@@ -162,6 +164,7 @@
             status = 'Player Blackjack! Player Wins!';
             document.getElementById('status_message').style.display = 'block';
             document.getElementById('status_message').textContent = status;
+            updateUserCredits('win');
             endGame();
             return;
         }
