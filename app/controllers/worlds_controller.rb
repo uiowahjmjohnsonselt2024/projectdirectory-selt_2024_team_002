@@ -86,6 +86,9 @@ class WorldsController < ApplicationController
     world = World.find_by(id: params[:id])
 
     UserWorld.where(world_id: world.id).destroy_all
+    Gridsquare.where(world_id: world.id).destroy_all
+    Message.where(world_id: world.id).destroy_all
+    OpenaiEvent.where(world_id: world.id).destroy_all
 
     if World.delete(world)
       @message = 'World deleted.'
