@@ -233,6 +233,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_14_231350) do
     t.bigint "user_id", null: false
     t.bigint "world_id", null: false
     t.integer "xp", default: 0, null: false
+    t.integer "level", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "seen", default: [["1", "1"], ["1", "2"], ["2", "1"]], array: true

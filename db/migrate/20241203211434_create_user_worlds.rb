@@ -7,6 +7,7 @@ class CreateUserWorlds < ActiveRecord::Migration[7.1]
       t.references :user, null: false, foreign_key: true
       t.references :world, null: false, foreign_key: true
       t.integer :xp, default: 0, null: false
+      t.integer :level, default: 1, null: false
 
       t.timestamps
     end

@@ -122,7 +122,7 @@
 
   <div class="scroll-independent-div-cl" id="level_cell_blob">
     <div class="floating-blob">
-      <p>Level 1</p>
+      <p>Level <%= @user_world.level %></p>
       <p>Cell (<%= @pos_row %>, <%= @pos_col %>)</p>
     </div>
   </div>
@@ -187,16 +187,13 @@
 <script>
     (function() { //IIFE
         let currentXP = <%= @user_world[:xp] %>;
-        console.log(currentXP)
         let maxXP = 100;
         let xpBar = document.getElementById('xp-bar');
         let xpText = document.getElementById('xp-text');
         let usr_row = <%= @pos_row%>;
         let usr_col = <%= @pos_col%>;
-        // Set the width of the XP bar
-        xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
 
-        // Update the XP text
+        xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
         xpText.textContent = `XP: ${currentXP}/${maxXP}`;
     })();
 </script>

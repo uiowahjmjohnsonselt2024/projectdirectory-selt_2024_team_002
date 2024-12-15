@@ -67,6 +67,11 @@ class UserWorld < ApplicationRecord
 
     self.xp += boosted_xp
 
+    if self.xp > 100
+      self.xp = self.xp - 100
+      self.level += 1
+    end
+
     if xp_boost > 1
       self.xp_boost_count += 1
 

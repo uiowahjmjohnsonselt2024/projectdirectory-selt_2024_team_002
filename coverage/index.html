@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-14T20:48:33-06:00">2024-12-14T20:48:33-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-14T22:00:03-06:00">2024-12-14T22:00:03-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,14 +22,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  87.37%
+  87.04%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.96
+         1.95
        </span>
     </span> hits/line
     )
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>792</b> relevant lines,
+    <b>795</b> relevant lines,
     <span class="green"><b>692</b> lines covered</span> and
-    <span class="red"><b>100</b> lines missed. </span>
+    <span class="red"><b>103</b> lines missed. </span>
     (<span class="yellow">
-  87.37%
+  87.04%
 </span>
 )
   </div>
@@ -302,12 +302,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#a1f6b1f417257d7d7e4221a3f0fcb8e2e202fc30" class="src_link" title="app/models/user_world.rb">app/models/user_world.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">55.71 %</td>
-            <td class="cell--number">119</td>
-            <td class="cell--number">70</td>
+            <td class="red strong cell--number t-file__coverage">53.42 %</td>
+            <td class="cell--number">124</td>
+            <td class="cell--number">73</td>
             <td class="cell--number">39</td>
-            <td class="cell--number">31</td>
-            <td class="cell--number">1.77</td>
+            <td class="cell--number">34</td>
+            <td class="cell--number">1.70</td>
             
           </tr>
         
@@ -516,14 +516,14 @@
     <span class="group_name">Models</span>
     (<span class="covered_percent">
       <span class="red">
-  77.73%
+  76.83%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.27
+         2.25
        </span>
     </span> hits/line
     )
@@ -536,11 +536,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>256</b> relevant lines,
+    <b>259</b> relevant lines,
     <span class="green"><b>199</b> lines covered</span> and
-    <span class="red"><b>57</b> lines missed. </span>
+    <span class="red"><b>60</b> lines missed. </span>
     (<span class="red">
-  77.73%
+  76.83%
 </span>
 )
   </div>
@@ -653,12 +653,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#a1f6b1f417257d7d7e4221a3f0fcb8e2e202fc30" class="src_link" title="app/models/user_world.rb">app/models/user_world.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">55.71 %</td>
-            <td class="cell--number">119</td>
-            <td class="cell--number">70</td>
+            <td class="red strong cell--number t-file__coverage">53.42 %</td>
+            <td class="cell--number">124</td>
+            <td class="cell--number">73</td>
             <td class="cell--number">39</td>
-            <td class="cell--number">31</td>
-            <td class="cell--number">1.77</td>
+            <td class="cell--number">34</td>
+            <td class="cell--number">1.70</td>
             
           </tr>
         
@@ -15402,7 +15402,7 @@
     <h3>app/models/user_world.rb</h3>
     <h4>
       <span class="red">
-  55.71%
+  53.42%
 </span>
 
       lines covered
@@ -15411,9 +15411,9 @@
     
 
     <div class="t-line-summary">
-      <b>70</b> relevant lines.
+      <b>73</b> relevant lines.
       <span class="green"><b>39</b> lines covered</span> and
-      <span class="red"><b>31</b> lines missed.</span>
+      <span class="red"><b>34</b> lines missed.</span>
     </div>
 
     
@@ -16185,7 +16185,7 @@
 
             
 
-            <code class="ruby">    if xp_boost &gt; 1</code>
+            <code class="ruby">    if self.xp &gt; 100</code>
           </li>
         </div>
       
@@ -16195,62 +16195,22 @@
 
             
 
-            <code class="ruby">      self.xp_boost_count += 1</code>
+            <code class="ruby">      self.xp = self.xp - 100</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="72">
+          <li class="missed" data-hits="0" data-linenumber="72">
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      self.level += 1</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="73">
-            
-
-            
-
-            <code class="ruby">      if xp_boost_count &gt;= 5</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="74">
-            
-
-            
-
-            <code class="ruby">        self.xp_boost = 1</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="75">
-            
-
-            
-
-            <code class="ruby">        self.xp_boost_count = 0</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="76">
-            
-
-            
-
-            <code class="ruby">      end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="77">
+          <li class="never" data-hits="" data-linenumber="73">
             
 
             
@@ -16260,37 +16220,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="78">
-            
-
-            
-
-            <code class="ruby">    save</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="79">
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="80">
-            
-
-            
-
-            <code class="ruby">  # rubocop:enable Metrics/MethodLength</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="81">
+          <li class="never" data-hits="" data-linenumber="74">
             
 
             
@@ -16300,14 +16230,82 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="82">
-            
-              <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="75">
             
 
             
 
-            <code class="ruby">  def speed_boost?</code>
+            <code class="ruby">    if xp_boost &gt; 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="76">
+            
+
+            
+
+            <code class="ruby">      self.xp_boost_count += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="77">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="78">
+            
+
+            
+
+            <code class="ruby">      if xp_boost_count &gt;= 5</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="79">
+            
+
+            
+
+            <code class="ruby">        self.xp_boost = 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="80">
+            
+
+            
+
+            <code class="ruby">        self.xp_boost_count = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="81">
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="82">
+            
+
+            
+
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -16317,7 +16315,7 @@
 
             
 
-            <code class="ruby">    speed_boost</code>
+            <code class="ruby">    save</code>
           </li>
         </div>
       
@@ -16337,12 +16335,64 @@
 
             
 
+            <code class="ruby">  # rubocop:enable Metrics/MethodLength</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="86">
+            
+
+            
+
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="86">
+          <li class="covered" data-hits="1" data-linenumber="87">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def speed_boost?</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="88">
+            
+
+            
+
+            <code class="ruby">    speed_boost</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="89">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="90">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="91">
             
               <span class="hits">1</span>
             
@@ -16354,7 +16404,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="87">
+          <li class="missed" data-hits="0" data-linenumber="92">
             
 
             
@@ -16364,7 +16414,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="88">
+          <li class="missed" data-hits="0" data-linenumber="93">
             
 
             
@@ -16374,7 +16424,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="89">
+          <li class="missed" data-hits="0" data-linenumber="94">
             
 
             
@@ -16384,7 +16434,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="90">
+          <li class="never" data-hits="" data-linenumber="95">
             
 
             
@@ -16394,7 +16444,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="91">
+          <li class="never" data-hits="" data-linenumber="96">
             
 
             
@@ -16404,7 +16454,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="92">
+          <li class="covered" data-hits="1" data-linenumber="97">
             
               <span class="hits">1</span>
             
@@ -16416,7 +16466,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="93">
+          <li class="missed" data-hits="0" data-linenumber="98">
             
 
             
@@ -16426,7 +16476,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="94">
+          <li class="missed" data-hits="0" data-linenumber="99">
             
 
             
@@ -16436,7 +16486,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="95">
+          <li class="missed" data-hits="0" data-linenumber="100">
             
 
             
@@ -16446,7 +16496,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="96">
+          <li class="missed" data-hits="0" data-linenumber="101">
             
 
             
@@ -16456,7 +16506,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="97">
+          <li class="never" data-hits="" data-linenumber="102">
             
 
             
@@ -16466,7 +16516,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="98">
+          <li class="missed" data-hits="0" data-linenumber="103">
             
 
             
@@ -16476,7 +16526,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="99">
+          <li class="never" data-hits="" data-linenumber="104">
             
 
             
@@ -16486,7 +16536,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="100">
+          <li class="never" data-hits="" data-linenumber="105">
             
 
             
@@ -16496,7 +16546,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="101">
+          <li class="covered" data-hits="1" data-linenumber="106">
             
               <span class="hits">1</span>
             
@@ -16508,7 +16558,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="102">
+          <li class="missed" data-hits="0" data-linenumber="107">
             
 
             
@@ -16518,7 +16568,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="103">
+          <li class="never" data-hits="" data-linenumber="108">
             
 
             
@@ -16528,7 +16578,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="104">
+          <li class="never" data-hits="" data-linenumber="109">
             
 
             
@@ -16538,7 +16588,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="105">
+          <li class="covered" data-hits="1" data-linenumber="110">
             
               <span class="hits">1</span>
             
@@ -16550,7 +16600,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="106">
+          <li class="missed" data-hits="0" data-linenumber="111">
             
 
             
@@ -16560,7 +16610,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="107">
+          <li class="missed" data-hits="0" data-linenumber="112">
             
 
             
@@ -16570,7 +16620,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="108">
+          <li class="missed" data-hits="0" data-linenumber="113">
             
 
             
@@ -16580,7 +16630,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="109">
+          <li class="never" data-hits="" data-linenumber="114">
             
 
             
@@ -16590,7 +16640,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="110">
+          <li class="never" data-hits="" data-linenumber="115">
             
 
             
@@ -16600,7 +16650,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="111">
+          <li class="covered" data-hits="1" data-linenumber="116">
             
               <span class="hits">1</span>
             
@@ -16612,7 +16662,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="112">
+          <li class="missed" data-hits="0" data-linenumber="117">
             
 
             
@@ -16622,7 +16672,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="113">
+          <li class="missed" data-hits="0" data-linenumber="118">
             
 
             
@@ -16632,7 +16682,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="114">
+          <li class="missed" data-hits="0" data-linenumber="119">
             
 
             
@@ -16642,7 +16692,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="115">
+          <li class="missed" data-hits="0" data-linenumber="120">
             
 
             
@@ -16652,7 +16702,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="116">
+          <li class="never" data-hits="" data-linenumber="121">
             
 
             
@@ -16662,7 +16712,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="117">
+          <li class="missed" data-hits="0" data-linenumber="122">
             
 
             
@@ -16672,7 +16722,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="118">
+          <li class="never" data-hits="" data-linenumber="123">
             
 
             
@@ -16682,7 +16732,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="119">
+          <li class="never" data-hits="" data-linenumber="124">
             
 
             
