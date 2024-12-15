@@ -89,6 +89,7 @@
       <% end %>
     <% end %>
   </div>
+  <div class="game-ui-spacer"></div>
 
   <div class="game-ui">
     <%= form_tag show_quest_path, method: :post, id: 'quest_form', remote: true do %>
@@ -121,7 +122,7 @@
 
   <div class="scroll-independent-div-cl" id="level_cell_blob">
     <div class="floating-blob">
-      <p>Level 1</p>
+      <p>Level <%= @user_world.level %></p>
       <p>Cell (<%= @pos_row %>, <%= @pos_col %>)</p>
     </div>
   </div>
@@ -186,16 +187,13 @@
 <script>
     (function() { //IIFE
         let currentXP = <%= @user_world[:xp] %>;
-        console.log(currentXP)
-        let maxXP = 100;
+        let maxXP = <%= @user_world[:world_max_xp] %>;
         let xpBar = document.getElementById('xp-bar');
         let xpText = document.getElementById('xp-text');
         let usr_row = <%= @pos_row%>;
         let usr_col = <%= @pos_col%>;
-        // Set the width of the XP bar
-        xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
 
-        // Update the XP text
+        xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
         xpText.textContent = `XP: ${currentXP}/${maxXP}`;
     })();
 </script>
@@ -252,6 +250,7 @@
         document.getElementById("close_shop_link").style.display = "none"
         document.getElementById("close_chat_link").style.display = "none"
         document.getElementById("close_inventory_link").style.display = "none"
+        document.getElementById('close_gamble_link').style.display = 'none';
 
         document.getElementById("main_container").style.pointerEvents = "auto";
         document.getElementById("black_background").style.display = "none"
@@ -275,7 +274,7 @@
                 }
                 else {
                     $(".modal").css("display", "flex")
-                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 1 shard!'
+                    let isFreeText = (isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) || <%=@user_world.speed_boost? %>) ? 'This move is free!' : 'This move costs 1 shard!'
 
                     $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}? `)
                     $(".modal").find('h3').html(`${isFreeText}`)
@@ -422,6 +421,12 @@
   }
   function enableGameClose() {
     document.getElementById("close_gamble_link").style.display = "block"
+  }
+</script>
+
+<script>
+  function hasFreeSpeedMove() {
+
   }
 </script>
 

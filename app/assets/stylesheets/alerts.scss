@@ -1,6 +1,7 @@
 .alert {
   background-color: #f97316;
-  border-radius: 25px;
+  color: black;
+  border-radius: 20px;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -16,6 +17,7 @@
 .alert_icon {
   width: auto;
   height: auto;
+  padding-right: 10px;
 }
 
 .login_alert_box {

@@ -10,7 +10,7 @@
   <div class="profile_toolbar">
     <div class="scroll-independent-div-tl">
       <% if @is_from_game == true %>
-        <%= button_to '<', cookies[:previous_url], params: {id: "world_#{cookies[:world_id]}"}, method: :post, id: "return_button", class: "big-circle-button"%>
+        <%= button_to '<', cookies[:previous_url], params: {id: "world_#{cookies[:world_id]}", is_from_world: true}, method: :post, id: "return_button", class: "big-circle-button"%>
       <% else %>
         <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
       <% end %>
@@ -26,7 +26,7 @@
               0 else @user.available_credits end %>
       </div>
       <% if @is_from_game == false %>
-        <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "small_button highlight_button"%>
+        <%= button_to 'Purchase Plus User', users_purchase_plus_user_view_path, method: :get, id: "purchase_plus_user_button", class: "secondary_button"%>
       <% end %>
     </div>
   </div>
@@ -48,7 +48,7 @@
               <%= text_field_tag :shard_input_field, nil, id: 'shard_input_field', class: "textbox-center-large-size"%>
               <input type="hidden" name="currency" id="currency-hidden" value="usd"/>
               <div class="dropdown">
-                <button class="drop-button" id="currency" disabled>
+                <button class="highlight_button" id="currency" disabled>
                   USD
                 </button>
                 <div class="dropdown-content" id="dropdown-content">
@@ -61,7 +61,7 @@
               </div>
             </div>
         </div>
-        <%= submit_tag 'Convert', id: 'convert_button', class: "world_add_button", disabled: false, data: { disable_with: false } %>
+        <%= submit_tag 'Convert', id: 'convert_button', class: "highlight_button", disabled: false, data: { disable_with: false } %>
       <% end %>
     </div>
     <div id="conversion">

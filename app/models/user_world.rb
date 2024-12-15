@@ -67,6 +67,14 @@ class UserWorld < ApplicationRecord
 
     self.xp += boosted_xp
 
+    if self.xp >= world_max_xp
+      self.xp = self.xp - world_max_xp
+      self.level += 1
+      user.available_credits += 100
+      self.world_max_xp = world_max_xp + 50
+      user.save
+    end
+
     if xp_boost > 1
       self.xp_boost_count += 1
 
@@ -91,7 +99,7 @@ class UserWorld < ApplicationRecord
 
   def update_speed_count
     self.speed_boost_count += 1
-    if speed_boost_count >= 5
+    if speed_boost_count >= 3
       self.speed_boost = false
       self.speed_boost_count = 0
     end

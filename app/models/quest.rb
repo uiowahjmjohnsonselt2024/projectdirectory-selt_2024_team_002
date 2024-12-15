@@ -34,13 +34,22 @@ class Quest < ApplicationRecord
     )
   end
 
+  # rubocop:disable Metrics/MethodLength
   def self.random_trivia_question
     questions = [
       { question: 'What is the capital of France?', choices: %w[Paris London Berlin Madrid], answer: 'Paris' },
       { question: 'What is the capital of Germany?', choices: %w[Berlin Mumbai Pyongyang Seol], answer: 'Berlin' },
       { question: 'What is 2+2?', choices: %w[3 4 5 6], answer: '4' },
       { question: "Who wrote 'Romeo and Juliet'?", choices: %w[Shakespeare Hemingway Tolstoy Dickens],
-        answer: 'Shakespeare' }
+        answer: 'Shakespeare' },
+      { question: 'The chicken or the egg?', choices: %w[Chicken Egg Nothing], answer: 'Nothing' },
+      { question: 'What year did the University of Iowa establish?', choices: %w[1845 1847 1850 1857],
+        answer: '1847' },
+      { question: "What is the name of the University of Iowa mascot'?", choices: %w[Sparty Brutus Cy Herky],
+        answer: 'Herky' },
+      { question: 'Who is the Iowa Football Head Coach?', choices: ['Brian Ferentz', 'Phil Parker', 'Deacon Hill',
+                                                                    'Kirk Ferentz'],
+        answer: 'Kirk Ferentz' }
     ]
 
     questions.sample
@@ -58,7 +67,6 @@ class Quest < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def self.random_quest_message(quest)
     world = quest.world
     gridsquare = world.gridsquares.find_by(row: quest.cell_row, col: quest.cell_col)

@@ -1,13 +1,21 @@
 .textbox {
-  background-color: #a3b7c9;
+  background-color: #7a90bf;
 }
 
 .radio-text {
   float: left;
 }
 
+.choice-text {
+  display: flex;
+}
+
+.radio-group {
+  column-count: 2;
+}
+
 .textbox-center-large-size {
-  background-color: #a3b7c9;
+  background-color: #7a90bf;
   font-size: 25px;
   font-weight: bold;
   float: left;
