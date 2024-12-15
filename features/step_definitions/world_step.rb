@@ -38,7 +38,7 @@ When(/^I submit the "([^"]*)" form$/) do |button_name|
 end
 
 # rubocop:disable Layout/LineLength
-Then(/^I should see a world list entry in the "([^"]*)" tab with world name "([^"]*)" and world code "([^"]*)"$/) do |arg1, arg2, arg3|
+Then(/^I should see a world list entry in the "([^"]*)" tab with world name "([^"]*)" and world code "([^"]*)"$/) do |arg1, arg2, _arg3|
   # rubocop:enable Layout/LineLength
   visit worlds_path
   case arg1
