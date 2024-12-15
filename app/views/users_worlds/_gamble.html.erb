@@ -192,6 +192,9 @@
                 return; // Stop the function
             }
 
+            const shard_balance = data.shard_balance
+            document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
+
             document.getElementById("close_gamble_link").style.display = "none"
             document.getElementById('status_message').style.display = 'none';
 

@@ -25,12 +25,17 @@ class BlackjackController < ApplicationController
     @gridsquare = Gridsquare.find_by_row_col(@world.id, @user_world.user_row, @user_world.user_col)
     has_enough_credits = @cur_user.available_credits >= @gridsquare.buy_in_amount
     unless has_enough_credits
-      return render json: { success: false, shard_balance: @cur_user.available_credits }, status: :ok
+      params = { has_enough_credits: has_enough_credits, shard_balance: @cur_user.available_credits }
+      return render json: params, status: :ok
     end
 
     @cur_user.charge_credits(@gridsquare.buy_in_amount)
-
-    render json: { has_enough_credits: has_enough_credits, luck_boost: @user_world.luck_boost }, status: :ok
+    params = {
+      has_enough_credits: has_enough_credits,
+      luck_boost: @user_world.luck_boost,
+      shard_balance: @cur_user.available_credits
+    }
+    render json: params, status: :ok
   end
   # rubocop:enable Metrics/MethodLength
 
