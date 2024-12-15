@@ -47,7 +47,7 @@ class User < ApplicationRecord
   end
 
   def invalid_reset_password_token?
-    reset_password_sent_at < 1.hour.ago # before an hour ~ more than an hour ago
+    reset_password_sent_at.nil? || reset_password_token.nil? || reset_password_sent_at < 1.hour.ago # before an hour ~ more than an hour ago
   end
 
   def update_password(new_password)
