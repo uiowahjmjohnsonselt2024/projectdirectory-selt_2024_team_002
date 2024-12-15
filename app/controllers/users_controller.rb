@@ -316,12 +316,22 @@ class UsersController < ApplicationController
 
   def approve_invite
     @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
-    @world = World.find_by_id(@invite.world_id)
-    @user = User.find_by_id(@world.user_id)
-    if @invite&.update(request: false)
-      @message = 'Invite accepted!'
+    if @invite
+      @world = World.find_by_id(@invite.world_id)
+      if @world
+        @user = User.find_by_id(@world.user_id)
+        if @invite.update(request: false)
+          @message = 'Invite accepted!'
+        else
+          @message = 'Error accepting invite.'
+        end
+      else
+        Rails.logger.error "World not found for world_id: #{@invite.world_id}"
+        @message = 'World not found.'
+      end
     else
-      @message = 'Error accepting invite.'
+      Rails.logger.error "Invite not found for user_id: #{params[:user_id]}, world_id: #{params[:world_id]}"
+      @message = 'Invite not found.'
     end
     respond_to do |format|
       format.js
