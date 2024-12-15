@@ -65,15 +65,13 @@
     function displayHand(hand, elementId, hideSecondCard = true) {
         const handElement = document.getElementById(elementId);
         handElement.innerHTML = '';
-        const baseUrl = '/cards';
-
         hand.forEach((card, index) => {
             const cardImage = document.createElement('img');
             if (elementId === 'dealer_cards' && index === 1 && hideSecondCard) {
-                cardImage.src = `${baseUrl}/face_down.png`;
+                cardImage.src = '/assets/cards/face_down.png';
                 cardImage.alt = 'Face Down';
             } else {
-                cardImage.src = `${baseUrl}/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
+                cardImage.src = `/assets/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
                 cardImage.alt = `${card[1]} of ${card[0]}`;
             }
             cardImage.className = 'card';
@@ -133,9 +131,13 @@
         document.getElementById('play_button').style.display = 'none';
     }
 
-    async function nextHand() {
-        const canPlay = await buyIn(); // Wait for buy-in to complete
-        if (!canPlay) return; // Stop if buy-in failed
+    function nextHand() {
+        if (!hasEnoughCredits()) {
+            alert('You do not have enough credits to play!');
+            return;
+        }
+
+        updateUserCredits('buy_in');
         document.getElementById("close_gamble_link").style.display = "none"
         document.getElementById('status_message').style.display = 'none';
 
@@ -219,39 +221,17 @@
         displayHand(dealerHand, 'dealer_cards', false);
         document.getElementById('hit_button').style.display = 'none';
         document.getElementById('stand_button').style.display = 'none';
-        document.getElementById('play_hand_button').style.display = 'block';
         document.getElementById('status_message').style.display = 'block';
-        document.getElementById("close_gamble_link").style.display = "block"
-    }
+        document.getElementById("close_gamble_link").style.display = "block";
 
-    function buyIn() {
-        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-        fetch('/blackjack/buy_in', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-Token': csrfToken
-            },
-            body: JSON.stringify({
-                result: result,
-                world_id: <%= @world.id %>
-            })
-        })
-          .then(response => response.json())
-          .then(data => {
-              const shard_balance = data.shard_balance;
-              const success = data.success;
-              document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
-              if (!success) {
-                  alert('Not enough shards to play!');
-                  throw new Error('Insufficient shards');
-              }
-              return true;
-          })
-          .catch(error => {
-              console.error('Error in buy-in process:', error);
-              return false;
-          });
+        if (hasEnoughCredits()) {
+            document.getElementById('play_button').style.display = 'none';
+            document.getElementById('play_hand_button').style.display = 'block';
+        } else {
+            alert('You do not have enough credits to play!');
+            document.getElementById('play_button').style.display = 'block';
+            document.getElementById('play_hand_button').style.display = 'none';
+        }
     }
 
     function updateUserCredits(result) {
@@ -275,6 +255,12 @@
           .catch(error => {
               console.error('Error updating credits:', error);
           });
+    }
+
+    function hasEnoughCredits() {
+        const availableCredits = parseInt(document.getElementById('shard_balance').textContent.split(': ')[1], 10);
+        const buyIn = parseInt(document.getElementById('buy_in').textContent.split(': ')[1], 10);
+        return availableCredits >= buyIn;
     }
 </script>
 
