@@ -81,9 +81,6 @@ Rails.application.routes.draw do
   end
   # routes for blackjack
   post 'blackjack/update_user_credits', to: 'blackjack#update_user_credits', as: 'update_user_credits', defaults: { format: 'js' }
-  # post '/blackjack/start_blackjack_game', to: 'blackjack#start_blackjack_game', as: 'start_blackjack_game', defaults: { format: 'js' }
-  # get '/blackjack/show_blackjack_game/:id', to: 'blackjack#show_blackjack_game', as: 'show_blackjack_game', defaults: { format: 'js' }
-  # post '/blackjack/hit_blackjack_game/:id', to: 'blackjack#hit_blackjack_game', as: 'hit_blackjack_game', defaults: { format: 'js' }
-  # post '/blackjack/stand_blackjack_game/:id', to: 'blackjack#stand_blackjack_game', as: 'stand_blackjack_game', defaults: { format: 'js' }
+  post 'blackjack/buy_in', to: 'blackjack#buy_in', as: 'buy_in', defaults: { format: 'js' }
 
 end

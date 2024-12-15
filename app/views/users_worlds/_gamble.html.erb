@@ -56,22 +56,40 @@
     function dealCard(hand) {
         if (deck.length === 0) {
             initDeck();
+            shuffle(deck);
         }
         const card = deck.pop();
         hand.push(card);
         return card;
     }
 
+    function dealLuckyCard(hand){
+        if (deck.length === 0) {
+            initDeck();
+            shuffle(deck);
+        }
+        for (let i = 0; i < deck.length; i++) {
+            if (cardValue(deck[i][1]) > 7 || cardValue(deck[i][1]) < 3) {
+                let card = deck[i]
+                hand.push(card);
+                deck.splice(i, 1);
+                return card;
+            }
+        }
+    }
+
     function displayHand(hand, elementId, hideSecondCard = true) {
         const handElement = document.getElementById(elementId);
         handElement.innerHTML = '';
+        const baseUrl = '/cards';
+
         hand.forEach((card, index) => {
             const cardImage = document.createElement('img');
             if (elementId === 'dealer_cards' && index === 1 && hideSecondCard) {
-                cardImage.src = '/assets/cards/face_down.png';
+                cardImage.src = `${baseUrl}/face_down.png`;
                 cardImage.alt = 'Face Down';
             } else {
-                cardImage.src = `/assets/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
+                cardImage.src = `${baseUrl}/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
                 cardImage.alt = `${card[1]} of ${card[0]}`;
             }
             cardImage.className = 'card';
@@ -131,58 +149,96 @@
         document.getElementById('play_button').style.display = 'none';
     }
 
-    function nextHand() {
-        updateUserCredits('buy_in');
-        document.getElementById("close_gamble_link").style.display = "none"
-        document.getElementById('status_message').style.display = 'none';
+    async function nextHand() {
+        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
-        playerHand = [];
-        dealerHand = [];
+        try {
+            const response = await fetch('/blackjack/buy_in', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': csrfToken
+                },
+                body: JSON.stringify({
+                    world_id: <%= @world.id %> // Replace with your Rails variable
+                })
+            });
 
-        // Deal two new cards
-        for (let i = 0; i < 2; i++) {
-            dealCard(playerHand);
-            dealCard(dealerHand);
+            const data = await response.json();
+
+            if (!response.ok || !data.has_enough_credits) {
+                const statusMessage = document.getElementById('status_message');
+                statusMessage.textContent = "Not enough credits to play!";
+                statusMessage.style.display = 'block';
+
+                document.getElementById('play_button').style.display = 'block';
+                document.getElementById('play_hand_button').style.display = 'none';
+                return; // Stop the function
+            }
+
+            updateUserCredits('buy_in')
+            document.getElementById("close_gamble_link").style.display = "none"
+            document.getElementById('status_message').style.display = 'none';
+
+            playerHand = [];
+            dealerHand = [];
+
+            if (data.luck_boost) {
+                for (let i = 0; i < 2; i++) {
+                    dealLuckyCard(playerHand);
+                    dealCard(dealerHand);
+                }
+            }
+            else {
+                for (let i = 0; i < 2; i++) {
+                    dealCard(playerHand);
+                    dealCard(dealerHand);
+                }
+            }
+
+            updateScores();
+
+            displayHand(playerHand, 'player_cards');
+            displayHand(dealerHand, 'dealer_cards');
+
+            if (playerScore === 21 && playerHand.length === 2 && dealerScore === 21 && dealerHand.length === 2) {
+                status = 'Push! Both Player and Dealer have Blackjack!';
+                document.getElementById('status_message').style.display = 'block';
+                document.getElementById('status_message').textContent = status;
+                updateUserCredits('push');
+                endGame();
+                return;
+            }
+
+            if (playerScore === 21 && playerHand.length === 2) {
+                status = 'Player Blackjack! Player Wins!';
+                document.getElementById('status_message').style.display = 'block';
+                document.getElementById('status_message').textContent = status;
+                updateUserCredits('win');
+                endGame();
+                return;
+            }
+
+            if (dealerScore === 21 && dealerHand.length === 2) {
+                status = 'Dealer Blackjack! Dealer Wins!';
+                document.getElementById('status_message').style.display = 'block';
+                document.getElementById('status_message').textContent = status;
+                endGame();
+                return;
+            }
+
+            // Enable gameplay actions
+            document.getElementById('player_hand').style.display = 'block';
+            document.getElementById('dealer_hand').style.display = 'block';
+            document.getElementById('hit_button').style.display = 'block';
+            document.getElementById('stand_button').style.display = 'block';
+            document.getElementById('play_hand_button').style.display = 'none';
+        } catch (error) {
+            console.error('Error checking credits:', error);
+            const statusMessage = document.getElementById('status_message');
+            statusMessage.textContent = "Error checking credits. Please try again.";
+            statusMessage.style.display = 'block';
         }
-
-        updateScores();
-
-        // Display the hands
-        displayHand(playerHand, 'player_cards');
-        displayHand(dealerHand, 'dealer_cards');
-
-        if (playerScore === 21 && playerHand.length === 2 && dealerScore === 21 && dealerHand.length === 2) {
-            status = 'Push! Both Player and Dealer have Blackjack!';
-            document.getElementById('status_message').style.display = 'block';
-            document.getElementById('status_message').textContent = status;
-            updateUserCredits('push');
-            endGame();
-            return;
-        }
-
-        if (playerScore === 21 && playerHand.length === 2) {
-            status = 'Player Blackjack! Player Wins!';
-            document.getElementById('status_message').style.display = 'block';
-            document.getElementById('status_message').textContent = status;
-            updateUserCredits('win');
-            endGame();
-            return;
-        }
-
-        if (dealerScore === 21 && dealerHand.length === 2) {
-            status = 'Dealer Blackjack! Dealer Wins!';
-            document.getElementById('status_message').style.display = 'block';
-            document.getElementById('status_message').textContent = status;
-            endGame();
-            return;
-        }
-
-        // Enable gameplay actions
-        document.getElementById('player_hand').style.display = 'block';
-        document.getElementById('dealer_hand').style.display = 'block';
-        document.getElementById('hit_button').style.display = 'block';
-        document.getElementById('stand_button').style.display = 'block';
-        document.getElementById('play_hand_button').style.display = 'none';
     }
 
     function hit() {
@@ -219,6 +275,36 @@
         document.getElementById('play_hand_button').style.display = 'block';
         document.getElementById('status_message').style.display = 'block';
         document.getElementById("close_gamble_link").style.display = "block"
+    }
+
+    function buyIn() {
+        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        fetch('/blackjack/buy_in', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({
+                result: result,
+                world_id: <%= @world.id %>
+            })
+        })
+          .then(response => response.json())
+          .then(data => {
+              const shard_balance = data.shard_balance;
+              const success = data.success;
+              document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
+              if (!success) {
+                  alert('Not enough shards to play!');
+                  throw new Error('Insufficient shards');
+              }
+              return true;
+          })
+          .catch(error => {
+              console.error('Error in buy-in process:', error);
+              return false;
+          });
     }
 
     function updateUserCredits(result) {
