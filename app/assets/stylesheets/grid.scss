@@ -50,3 +50,147 @@
     // 
     display: none;
 }
+
+.here {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #1999ae;
+    border-color: #2e7195;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.modal {
+    display: none;
+    width: 500px;
+    height: 100%;
+    z-index: 100;
+    padding: 20px;
+    margin-top: 60px;
+    background-color: #6fb2cd;
+    border: 5px solid #2e7195;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.chat-modal {
+    display: none;
+    width: 700px;
+    height: 500px;
+    z-index: 80;
+    padding: 20px;
+    margin-top: 60px;
+    background-color: #6fb2cd;
+    border: 5px solid #2e7195;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.x, .xchat {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    opacity: 0.5;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: none;
+}
+
+.x:hover {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+.x:before, .x:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+}
+
+.x:before {
+    transform: rotate(45deg);
+}
+
+.x:after {
+    transform: rotate(-45deg);
+}
+
+.question {
+    width: 60%;
+    height: 60%;
+}
+
+.textbox-chat {
+    width: 80%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 30px;
+    height: 80%;
+    overflow-x: hidden;
+}
+
+.textbox-chat > div:first-child {
+    flex-grow: 1; /* Allow the first child to grow and take up available vertical space */
+}
+
+.messagebox {
+    display: flex;
+    overflow: scroll;
+    max-height: 100%;
+    overflow-x: hidden;
+    border: 5px solid #3790bc;
+    border-radius: 10px;
+    flex-direction: column-reverse;
+}
+
+.send-flex {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    height: 50px;
+    width: 100%;
+}
+
+.message_row {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #1999ae;
+    word-break: break-word;
+}
+
+.odd-row {
+    background-color: #2e7195;
+    word-break: break-word;
+}
+
+.txt-area {
+    flex-grow: 1;
+    resize: none;
+    width: 400px;
+    height: 100%;
+    margin-top: 5px;
+    margin-right: 20px;
+}

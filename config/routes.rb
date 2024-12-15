@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get 'users/login', to: 'users#login'
   post 'users/get-session', to: 'users#get_session'
   get 'users/logout'
-  get 'users/purchase', to: 'users#purchase'
+  get 'users/purchase', to: 'users#purchase', as: 'users_purchase'
   post 'users/conversion', to: 'users#conversion', defaults: { format: 'js' }
   get 'users/checkout', to: 'users#checkout'
   post 'users/checkout', to: 'users#checkout'
@@ -52,9 +52,29 @@ Rails.application.routes.draw do
   get 'worlds/invite', to: 'worlds#invite', as: 'world_invite'
   resources :worlds
   root to: redirect('/worlds')
+  mount GoodJob::Engine => 'good_job' if ENV['RAILS_ENV'] != 'production'
 
   # routes for game
-  post '/worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
-  post '/worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
-  post '/worlds/game/cell_shop', to: 'users_worlds#cell_shop', as: 'cell_shop'
+  post 'worlds/game/cell_quest', to: 'users_worlds#cell_quest', as: 'cell_quest'
+  post 'worlds/game/cell_action', to: 'users_worlds#cell_action', as: 'cell_action'
+  post 'users_worlds/shop', to: 'users_worlds#shop', as: 'shop', defaults: { format: 'js' }
+  post 'worlds/game/purchase_item', to: 'users_worlds#purchase_item', as: 'purchase_item', defaults: { format: 'js' }
+  post 'users_worlds/inventory', to: 'users_worlds#inventory', as: 'inventory', defaults: { format: 'js' }
+  post 'users_worlds/use_item', to: 'users_worlds#use_item', as: 'use_item'
+  post '/worlds/game/move', to: 'users_worlds#move_user', as: 'move_user'
+
+  get '/messages/get/:id', to: 'messages#get_all_messages', as: 'get_messages'
+  post '/messages/send', to: 'messages#send_message', as: 'send_message'
+
+  post 'quests/quest', to: 'quests#quest', as: 'show_quest', defaults: { format: 'js' }
+  # routes for quests
+  resources :quests do
+  member do
+    post 'complete'
+    post 'complete_trivia'
+  end
+  collection do
+    post 'generate'
+  end
+end
 end

@@ -1,3 +1,14 @@
+.main-container {
+  pointer-events: auto;
+  overflow: auto;
+}
+
+.partial-container {
+  pointer-events: auto;
+  z-index: 100;
+  overflow: auto;
+}
+
 .floating-blob {
   width: 150px;
   height: 100px;
@@ -10,6 +21,37 @@
   margin: 10px;
 }
 
+.floating-partial-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  min-height: 400px;
+  padding: 30px;
+  margin-top: 60px;
+  background-color: #6fb2cd;
+  border: 5px solid #2e7195;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+
+  div {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+}
+
 .xp-bar-container {
   width: 150px;
   height: 30px;
@@ -18,10 +60,128 @@
   border: 2px solid #000000;
 }
 
-/* XP Bar */
 .xp-bar {
   height: 100%;
   background-color: #31b138;
   border-radius: 15px 0 0 15px;
   transition: width 0.3s ease-in-out;
+}
+
+.black_overlay{
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background-color: black;
+  z-index:10;
+  -moz-opacity: 0.8;
+  opacity:.80;
+  filter: alpha(opacity=80);
+}
+
+.close-button {
+  position: absolute;
+  left: 89%;
+  top: 17%;
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: none;
+}
+
+.close-button:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.close-button:before, .close-button:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+
+.close-button:before {
+  transform: rotate(45deg);
+}
+
+.close-button:after {
+  transform: rotate(-45deg);
+}
+
+.game-ui-spacer {
+  height: 100px;
+}
+
+.row-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 5px solid #2e7195;
+  border-radius: 10px;
+  background-color: #1999ae;
+  width: 300px;
+  gap: 10px;
+}
+
+.item-description {
+  margin: 0;
+  font-size: 16px;
+  flex: 1;
+}
+
+.item-name {
+  margin: 0;
+  font-size: 16px;
+  flex: 1;
+}
+
+.item-price {
+  margin: 0;
+  font-size: 16px;
+  flex: 1;
+}
+
+.plus-minus-button {
+  padding: 5px 10px;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #1d465d;
+  background-color: #6fb2cd;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: bolder;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #2e7195;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: #27607e;
+    transform: scale(0.98);
+  }
+}
+
+.amount {
+  font-size: 16px;
+  width: 30px;
+  text-align: center;
+}
+
+.disable-scrollbars::-webkit-scrollbar {
+  background: transparent; /* Chrome/Safari/Webkit */
+  width: 0;
+}
+
+.disable-scrollbars {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
 }

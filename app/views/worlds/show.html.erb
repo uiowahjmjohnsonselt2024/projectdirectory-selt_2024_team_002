@@ -6,30 +6,83 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<div>
+<body style="
+}; -ms-overflow-style: none; ">
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_movement_container">
+    <div class="modal">
+      <a id="close_movement_link" class="close-button" onclick="enable_background_interaction()"></a>
+      <%= image_tag("logo.png", width: 200) %>
+      <h2></h2>
+      <h3></h3>
+      <button class="accept_button">Move</button>
+    </div>
+  </div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_chat_container">
+    <div class="chat-modal">
+      <a id="close_chat_link" class="close-button" onclick="enable_background_interaction()"></a>
+      <label for="shard_input" style="font-size: 30px;">World Chat</label>
+      <div class="textbox-chat disable-scrollbars">
+        <div class="messagebox disable-scrollbars" id="message_box"></div>
+        <div class="send-flex">
+          <label for="chat_text">
+            <textarea class="txt-area" id="chat_text_area"></textarea>
+          </label>
+          <button class="accept_button" id="send_chat_button" disabled style="background-color: #808391; transition: none;">Send Chat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-container" id="main_container">
+  <div class="center-stack on_top flash_msg">
+    <div id="flash_partial"></div>
+    <div id="flash">
+      <% if flash[:alert] %>
+        <div class="alert world-creation-alert-box">
+          <div class="alert_icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+            <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56 c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0 l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z"></path>
+          </svg></div>
+          <%= flash[:alert] %></div>
+      <% end %>
+    </div>
+  </div>
+
   <div class="game_toolbar">
     <%= button_to 'Back to Worlds', worlds_leave_world_path(id: @world.id), method: :post, id: "leave_world_button", class: "secondary_button"%>
     <span class="world_name">World Name: <%= @world[:world_name] %></span>
     <span class="world_id">World ID: <%= @world[:world_code] %></span>
   </div>
 
-
-<script>
-  var worldId = <%= @world.id %>;
-</script>
-
-<div class="grid_container">
-  <% (1..World.dim).each do |row| %>
-    <% (1..World.dim).each do |col| %>
-      <% if @data[row][col].image.attached? %>
-          <div class="grid_cell filled_cell" >
+  <div class="grid_container">
+    <% (1..World.dim).each do |row| %>
+      <% (1..World.dim).each do |col| %>
+        <% if @data[row][col] == :none %>
+          <div class="grid_cell filled_cell" onclick="disable_background_interaction('grid')">
+            <% if @pos_row == row && @pos_col == col%>
+              <div class="here"></div>
+            <%end%>
+            <svg class="question" fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 93.936 93.936" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M80.179,13.758c-18.342-18.342-48.08-18.342-66.422,0c-18.342,18.341-18.342,48.08,0,66.421 c18.342,18.342,48.08,18.342,66.422,0C98.521,61.837,98.521,32.099,80.179,13.758z M44.144,83.117 c-4.057,0-7.001-3.071-7.001-7.305c0-4.291,2.987-7.404,7.102-7.404c4.123,0,7.001,3.044,7.001,7.404 C51.246,80.113,48.326,83.117,44.144,83.117z M54.73,44.921c-4.15,4.905-5.796,9.117-5.503,14.088l0.097,2.495 c0.011,0.062,0.017,0.125,0.017,0.188c0,0.58-0.47,1.051-1.05,1.051c-0.004-0.001-0.008-0.001-0.012,0h-7.867 c-0.549,0-1.005-0.423-1.047-0.97l-0.202-2.623c-0.676-6.082,1.508-12.218,6.494-18.202c4.319-5.087,6.816-8.865,6.816-13.145 c0-4.829-3.036-7.536-8.548-7.624c-3.403,0-7.242,1.171-9.534,2.913c-0.264,0.201-0.607,0.264-0.925,0.173 s-0.575-0.327-0.693-0.636l-2.42-6.354c-0.169-0.442-0.02-0.943,0.364-1.224c3.538-2.573,9.441-4.235,15.041-4.235 c12.36,0,17.894,7.975,17.894,15.877C63.652,33.765,59.785,38.919,54.73,44.921z"></path> </g> </g></svg>
+            <div class="hidden"><%=row%>-<%=col%></div>
+          </div>
+        <% elsif @data[row][col].image.attached? %>
+          <div class="grid_cell filled_cell" onclick="disable_background_interaction('grid')">
+            <% if @pos_row == row && @pos_col == col%>
+              <div class="here"></div>
+            <%end%>
             <%= image_tag(url_for(@data[row][col].image), class: "grid_image") %>
             <div class="hidden"><%=row%>-<%=col%></div>
           </div>
-        <% else %>
-          <div class="grid_cell filled_cell">
-            <div>No image</div>
+        <% elsif !@data[row][col].image.attached? %>
+          <div class="grid_cell filled_cell" onclick="disable_background_interaction('grid')">
+            <% if @pos_row == row && @pos_col == col%>
+            <div class="here"></div>
+            <%end%>
+            <div>No Image</div>
             <div class="hidden"><%=row%>-<%=col%></div>
           </div>
         <% end %>
@@ -38,49 +91,316 @@
   </div>
 
   <div class="game-ui">
-    <%= form_tag "/worlds/game/cell_quest", method: :post, id: 'quest_form' do %>
+    <%= form_tag show_quest_path, method: :post, id: 'quest_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Quest', "", method: :post, id: "quest_log_button", class: "game_button"%>
+      <%= submit_tag 'Quest', id: "quest_log_button", class: "game_button", onclick: "disable_background_interaction('quest')"%>
     <% end %>
-    <%= form_tag "/worlds/game/cell_action", method: :post, id: 'action_form' do %>
+    <%= form_tag cell_action_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Action', "", method: :post, id: "action_engage_button", class: "game_button"%>
+      <%= submit_tag 'Action', id: "action_engage_button", class: "game_button"%>
     <% end %>
-    <%= form_tag "/worlds/game/cell_shop", method: :post, id: 'shop_form' do %>
+    <%= form_tag inventory_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= button_to 'Shop', "", method: :post, id: "shop_log_button", class: "game_button"%>
+      <%= submit_tag 'Inventory', id: "inventory_button", class: "game_button", onclick: "disable_background_interaction('inventory')"%>
     <% end %>
+    <%= form_tag shop_path, method: :post, id: 'shop_form', remote: true do %>
+      <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
+      <%= submit_tag 'Shop', id: "shop_log_button", class: "game_button", onclick: "disable_background_interaction('shop')"%>
+    <% end %>
+    <%= submit_tag 'Chat', id: "chat_button", class: "game_button", onclick: "disable_background_interaction('chat')"%>
   </div>
 
-  <div class="scroll-independent-div-cl">
+  <div class="game-ui-spacer"></div>
+
+  <div class="scroll-independent-div-hl" id="shard_blob">
     <div class="floating-blob">
-      <p>Level 1</p>
-      <p>Cell (1, 1)</p>
+      <p id="shard_number">Shards: <%= @cur_user.available_credits %></p>
+      <%= button_to 'Replenish', users_purchase_path, method: :get, id: "replenish_button", class: "game_button"%>
     </div>
   </div>
-  <div class="scroll-independent-div-cr">
+
+  <div class="scroll-independent-div-cl" id="level_cell_blob">
+    <div class="floating-blob">
+      <p>Level 1</p>
+      <p>Cell (<%= @pos_row %>, <%= @pos_col %>)</p>
+    </div>
+  </div>
+
+  <div class="scroll-independent-div-cr" id="xp_blob">
     <div class="floating-blob">
       <p id="xp-text"></p>
       <div class="xp-bar-container">
         <div class="xp-bar" id="xp-bar">
-
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="black_background" class="black_overlay"></div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_shop_container">
+    <a id="close_shop_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="shop">
+    </div>
+  </div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_inventory_container">
+    <a id="close_inventory_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="inventory">
+    </div>
+  </div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_quest_container">
+    <a id="close_quest_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="quest">
     </div>
   </div>
 </div>
 
 <script>
-    const currentXP = <%= @user_world[:xp] %>;
-    const maxXP = 100; // Maximum XP
-    const xpBar = document.getElementById('xp-bar');
-    const xpText = document.getElementById('xp-text');
+    (function() { //IIFE
+        let worldId = <%= @world.id %>;
+    })();
 
-    // Set the width of the XP bar
-    xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('#flash').fadeOut();
+        }, 2000);
+    })
+</script>
 
-    // Update the XP text
-    xpText.textContent = `XP: ${currentXP}/${maxXP}`;
+<script>
+    (function() { //IIFE
+        let currentXP = <%= @user_world[:xp] %>;
+        console.log(currentXP)
+        let maxXP = 100;
+        let xpBar = document.getElementById('xp-bar');
+        let xpText = document.getElementById('xp-text');
+        let usr_row = <%= @pos_row%>;
+        let usr_col = <%= @pos_col%>;
+        // Set the width of the XP bar
+        xpBar.style.width = `${(currentXP / maxXP) * 100}%`;
+
+        // Update the XP text
+        xpText.textContent = `XP: ${currentXP}/${maxXP}`;
+    })();
+</script>
+
+<script>
+    function disable_background_interaction(element_name) {
+        if (document.getElementById("main_container").style.pointerEvents === "none") {
+            document.getElementById("main_container").style.pointerEvents = "auto";
+        } else {
+            document.body.style.overflow = "hidden";
+            document.getElementById("main_container").style.pointerEvents = "none";
+            if (element_name === "grid") {
+                document.getElementById("partial_movement_container").style.display = "block"
+                document.getElementById("partial_movement_container").style.pointerEvents = "auto";
+                document.getElementById("close_movement_link").style.display = "block"
+            } else if (element_name === "shop") {
+                document.getElementById("partial_shop_container").style.display = "block"
+                document.getElementById("partial_shop_container").style.pointerEvents = "auto";
+                document.getElementById("close_shop_link").style.display = "block"
+            } else if (element_name === "quest") {
+                document.getElementById("partial_quest_container").style.display = "block"
+                document.getElementById("partial_quest_container").style.pointerEvents = "auto";
+                document.getElementById("close_quest_link").style.display = "block"
+            } else if (element_name === "chat") {
+                document.getElementById("partial_chat_container").style.display = "block"
+                document.getElementById("partial_chat_container").style.pointerEvents = "auto";
+                document.getElementById("close_chat_link").style.display = "block"
+            } else if (element_name === "inventory") {
+                document.getElementById("partial_inventory_container").style.display = "block"
+                document.getElementById("partial_inventory_container").style.pointerEvents = "auto";
+                document.getElementById("close_inventory_link").style.display = "block"
+            }
+
+            document.getElementById("black_background").style.display = "block"
+        }
+    }
+</script>
+
+<script>
+    function enable_background_interaction() {
+        document.body.style.overflow = "auto";
+        document.getElementById("partial_movement_container").style.display = "none"
+        document.getElementById("partial_shop_container").style.display = "none"
+        document.getElementById("partial_quest_container").style.display = "none"
+        document.getElementById("partial_chat_container").style.display = "none"
+        document.getElementById("partial_inventory_container").style.display = "none"
+
+        document.getElementById("close_movement_link").style.display = "none"
+        document.getElementById("close_shop_link").style.display = "none"
+        document.getElementById("close_chat_link").style.display = "none"
+        document.getElementById("close_inventory_link").style.display = "none"
+
+        document.getElementById("main_container").style.pointerEvents = "auto";
+        document.getElementById("black_background").style.display = "none"
+    };
+</script>
+
+<script>
+    $(function () {
+        // it needs to be in here, or j query will not find shit!
+        $(".grid_cell").each((index, cell) => {  // Note: the second argument is the actual DOM element
+            $(cell).click(() => {
+                const cellID = $(cell).find(".hidden").text()
+                const rowCol = cellID.split('-')
+                const row = rowCol[0]
+                const col = rowCol[1]
+                if (parseInt(row) === <%= @pos_row%> && parseInt(col) === <%= @pos_col%>) {
+                    $(".modal").css("display", "flex")
+                    $(".modal").find('h2').html(`The world of ${row}, ${col}!`)
+                    $(".modal").find('h3').html("This is a beautiful world of wonder. What would await us...?")
+                    $(".modal").find('button').css('display', 'none')
+                }
+                else {
+                    $(".modal").css("display", "flex")
+                    const isFreeText = isFreeMove(parseInt(<%= @pos_row%>),parseInt(<%= @pos_col%>), row, col) ? 'This move is free!' : 'This move costs 1 shard!'
+
+                    $(".modal").find('h2').html(`Are you sure you want to move to ${row}, ${col}? `)
+                    $(".modal").find('h3').html(`${isFreeText}`)
+
+                    $(".modal").find('button').css('display', 'flex')
+                    $(".modal").find('button').click(async () => {
+                        const csrfToken = $("meta[name='csrf-token']").attr("content");
+                        const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+                        const params = {
+                            dest_row: parseInt(row),
+                            dest_col: parseInt(col),
+                            world_id: <%= @world.id %>
+                        };
+                        const response = await fetch(`${url}/worlds/game/move`, {
+                            method: 'POST',  // Use POST method
+                            headers: {
+                                'Content-Type': 'application/json',  // Send as JSON
+                                'X-CSRF-Token': csrfToken            // Include CSRF token from meta tag
+                            },
+                            body: JSON.stringify(params),  // Send params as JSON in the request body
+                        });
+                        window.location.reload()
+
+                    })
+                }
+            });});
+
+        pollWithJitter()
+
+        $(".x").click(() => {
+            $(".modal").css("display", "none")
+        })
+
+        $(".xchat").click(() => {
+            $(".chat-modal").css("display", "none")
+        })
+
+        function getHTMLForOneChat(chat, idx) {
+            const isEven = idx % 2 === 0
+
+            return `
+            <div class="message_row ${isEven ? "odd-row" : ""}">
+                   <div style="word-break: initial; margin-right: 20px">${chat.display_name}:</div>
+                   <div>${chat.content}</div>
+            </div>
+            `
+        }
+
+        async function populateChat() {
+            const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+            const response = await fetch(`${url}/messages/get/${<%= @world.id %>}`)
+            const json = await response.json()
+            console.log(json)
+            $(".messagebox").empty() // clear all messages out
+            json.forEach((message_row, idx) => {
+                const html = getHTMLForOneChat(message_row, idx)
+                $('.messagebox').append(
+                  html
+                );
+            });
+
+            $("#message_box").scrollTop(function() { return this.scrollHeight; });
+        }
+
+        $("#chat_button").click( async (e) => {
+            e.preventDefault()
+            $(".chat-modal").css("display", "flex")
+            populateChat()
+        })
+
+        $("#send_chat_button").off("click").click(async () => {
+            console.log("called")
+            const csrfToken = $("meta[name='csrf-token']").attr("content");
+            const url = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+            const text = $('textarea.txt-area').val();
+            const params = {
+                world_id: <%= @world.id %>,
+                message: text
+            };
+            const response = await fetch(`${url}/messages/send`, {
+                method: 'POST',  // Use POST method
+                headers: {
+                    'Content-Type': 'application/json',  // Send as JSON
+                    'X-CSRF-Token': csrfToken            // Include CSRF token from meta tag
+                },
+                body: JSON.stringify(params),  // Send params as JSON in the request body
+            });
+            console.log(response)
+
+            populateChat()
+            $('textarea.txt-area').val("")
+            $("#message_box").scrollTop(function() { return this.scrollHeight; });
+            disable_send_chat_button()
+        })
+    });
+</script>
+
+<script>
+    let text_area = document.getElementById('chat_text_area');
+    let send_button = document.getElementById('send_chat_button');
+
+    text_area.addEventListener('input', function() {
+        if (text_area.value.trim().length > 0) {
+            send_button.disabled = false;
+            send_button.style.backgroundColor = "#2ba62e"
+            send_button.style.transition = "background-color 0.3s ease, transform 0.2s ease"
+        } else {
+            send_button.disabled = true;
+            send_button.style.backgroundColor = "#808391"
+            send_button.style.transition = "none"
+        }
+    });
+
+    function disable_send_chat_button() {
+        let send_button = document.getElementById('send_chat_button');
+        send_button.disabled = true;
+        send_button.style.backgroundColor = "#808391"
+        send_button.style.transition = "none"
+    }
+</script>
+
+<script> //Thanks ChatGPT!
+    let isSubmitting = false;
+
+    $(document).on('submit', 'form', function() {
+        if (isSubmitting) {
+            return false;  // Prevent duplicate submission
+        }
+
+        isSubmitting = true;
+
+        // Disable the submit button to prevent multiple clicks
+        $(this).find('input[type="submit"]').prop('disabled', true);
+    });
+
+    $(document).on('ajax:complete', 'form', function() {
+        isSubmitting = false;
+    });
 </script>
 
 </body>

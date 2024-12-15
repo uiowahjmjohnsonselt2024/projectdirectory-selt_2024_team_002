@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 worlds = [{ world_code: '12321', world_name: 'Test World 1', user_id: '1', is_public: true,
             max_player: '5', current_players: 0 },
           { world_code: '12322', world_name: 'Test World 2', user_id: '1', is_public: false,
@@ -16,8 +9,12 @@ worlds.each do |world|
   World.create!(world)
 end
 
-users = [{ id: 1, email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin', available_credits: 0,
-           plus_user: true }]
+users = [{ email: 'admin@admin.com', password: 'AdminsAreTheBest1$', display_name: 'admin', available_credits: 100000,
+           plus_user: true },
+         { email: 'test@test.com', password: 'AdminsAreTheBest1$', display_name: 'test', available_credits: 0,
+           plus_user: true },
+         { email: 'seltgrader@nowhere.com', password: 'selt.is.#1BEST.course', display_name: 'seltgrader', available_credits: 1000, plus_user: false }
+]
 
 users.each do |user|
   User.create!(user)
@@ -28,3 +25,24 @@ user_worlds = [{ world: World.where(world_name: 'Test World 2').first, user: Use
 user_worlds.each do |user_world|
   UserWorld.create!(user_world)
 end
+messages = [
+  { world_id: World.all.first.id, user_id: User.all.first.id, message: 'Welcome to Test World 1!', created_at: Time.now, updated_at: Time.now },
+  { world_id: World.all.first.id, user_id: User.all.first.id, message: 'Anyone want to team up?', created_at: Time.now, updated_at: Time.now },
+  { world_id: World.all.first.id, user_id: User.all.first.id, message: 'This world is private, keep it low-key!', created_at: Time.now, updated_at: Time.now },
+  { world_id: World.all.first.id, user_id: User.all.first.id, message: 'Hello, anyone here?', created_at: Time.now, updated_at: Time.now }
+]
+
+messages.each do |msg|
+  Message.create!(msg)
+end
+
+# Create all items
+items = [{ item_name: 'XP Boost', description: 'Boosts your XP by 25 points', price: 5, is_interactable: true},
+         { item_name: 'Speed Potion', description: 'Lets you move past adjacent cells for no cost', price: 1, is_interactable: true},
+         { item_name: '4 Leaf Clover', description: 'Increases your minigame luck', price: 10, is_interactable: true}]
+
+
+items.each do |item|
+  Item.create!(item)
+end
+

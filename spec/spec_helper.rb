@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-# require 'rails_helper'
+require 'webmock/rspec'
 
 SimpleCov.start 'rails' do
-  SimpleCov.add_filter 'app/helper' # all files here are http orchestrators to call other services
-  SimpleCov.add_filter 'app/mailers' # rails generated directory
   SimpleCov.add_filter 'app/controllers/application_controller.rb' # rails generated file
   SimpleCov.add_filter 'app/models/application_record.rb' # rails generated file
 end
