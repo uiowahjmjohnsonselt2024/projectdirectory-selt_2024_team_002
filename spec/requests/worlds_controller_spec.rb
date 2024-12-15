@@ -20,7 +20,7 @@ describe WorldsController do
     before do
       usr = instance_double(User)
       allow(User).to receive(:find_user_by_session_token).and_return(usr)
-      allow(usr).to receive_messages(display_name: '', available_credits: 0, plus_user?: false)
+      allow(usr).to receive_messages(display_name: '', available_credits: 0, plus_user?: false, id: 1)
       allow(Friendship).to receive_messages(
         friend_ids: [],
         requested_friend_ids: []
@@ -55,6 +55,7 @@ describe WorldsController do
         usr = instance_double(User)
         allow(World).to receive(:create).and_return(fake_results)
         allow(User).to receive(:find_user_by_session_token).and_return(usr)
+        allow(UserWorld).to receive(:create)
         allow(usr).to receive_messages(id: 1, plus_user?: false)
         post worlds_path, params: fake_params
         expect(assigns(:world)).to have_attributes(

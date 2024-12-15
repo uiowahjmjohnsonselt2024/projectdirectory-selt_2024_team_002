@@ -282,14 +282,6 @@
 
 <script id="append_world_box">
   function appendWorldBox(world, user) {
-      console.log("Appending world box");
-      console.log(world)
-      console.log(world.world_name)
-      console.log(world.max_player)
-      console.log(world.world_name.split(' ').join('_'))
-      console.log(world.world_name.replace(/ /g, '_'))
-      console.log(user)
-      console.log(user.display_name)
       $('#private_world_display').append(`
         <div class="item_box world" id="world_id_${world.world_name.split(' ').join('_')}">
           <div class="world-left">

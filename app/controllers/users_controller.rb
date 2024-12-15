@@ -289,18 +289,17 @@ class UsersController < ApplicationController
   end
 
   def send_invite
-    cur_user = User.find_user_by_session_token(cookies[:session])
     @friend = User.find_by(id: params[:friend_id])
     @world = World.find_by(id: params[:world_id])
 
     existing_world = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: false)
     existing_request = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: true)
-    world = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
+    invite = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
     if existing_request != nil
-      @message = "An invite has already been sent for " + world.world.world_name + "!"
+      @message = "An invite has already been sent for " + invite.world.world_name + "!"
     elsif existing_world != nil
-      @message = "This player is already on " + world.world.world_name + "!"
-    elsif world.save
+      @message = "This player is already on " + invite.world.world_name + "!"
+    elsif invite.save
       @message = "Invite sent!"
     else
       @message = "Failed to send world invite."
@@ -312,12 +311,8 @@ class UsersController < ApplicationController
 
   def approve_invite
     @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
-    puts @invite.world
-    puts @invite.user
     @world = World.find_by_id(@invite.world_id)
     @user = User.find_by_id(@invite.user_id)
-    puts @user
-    puts @world
     if @invite&.update(request: false)
       @message = 'Invite accepted!'
     else
