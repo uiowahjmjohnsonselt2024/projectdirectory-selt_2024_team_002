@@ -98,59 +98,57 @@ RSpec.describe UserWorld, type: :model do
         expect(user_world.xp_boost_count).to eq 0
       end
 
-      it 'gives users xp normally' do
-        user_world = described_class.new
-        allow(user_world).to receive(:xp).and_return(15)
-        allow(user_world).to receive(:gain_xp).with(15)
-        user_world.gain_xp(15)
-        expect(user_world.xp).to eq 15
+    describe 'XP Boost' do
+      it 'activates xp boost correctly' do
+        user_world.boost_xp
+        expect(user_world.xp_boost).to eq(1.25)
+        expect(user_world.xp_boost_count).to eq(0)
       end
 
-      it 'gives users boosted xp' do
-        user_world = described_class.new
-        allow(user_world).to receive(:xp).and_return(25)
-        allow(user_world).to receive(:gain_xp).with(20).and_return(25)
-        user_world.gain_xp(20)
-        expect(user_world.xp).to eq 25
+      it 'gives normal xp when boost is not active' do
+        user_world.gain_xp(10)
+        expect(user_world.xp).to eq(10)
+      end
+
+      it 'gives boosted xp and resets boost after 5 uses' do
+        user_world.boost_xp
+        5.times { user_world.gain_xp(10) }
+
+        expect(user_world.xp).to eq((10 * 1.25).round * 5)
+        expect(user_world.xp_boost).to eq(1)
+        expect(user_world.xp_boost_count).to eq(0)
       end
     end
 
-    describe 'speed' do
-      it 'activates speed boost when using a speed potion' do
-        user_world = instance_double(described_class)
-        allow(user_world).to receive(:use_speed_potion)
-        allow(user_world).to receive(:speed_boost).and_return(true)
-        allow(user_world).to receive(:speed_boost_count).and_return(0)
+    describe 'Speed Boost' do
+      it 'activates speed boost correctly' do
+        user_world.use_speed_potion
         expect(user_world.speed_boost).to be true
-        expect(user_world.speed_boost_count).to eq 0
+        expect(user_world.speed_boost_count).to eq(0)
       end
 
-      it 'updates speed count' do
-        user_world = described_class.new
-        allow(user_world).to receive(:update_speed_count)
-        allow(user_world).to receive(:speed_boost_count).and_return(1)
-        user_world.update_speed_count
-        expect(user_world.speed_boost_count).to eq 1
+      it 'disables speed boost after 3 updates' do
+        user_world.use_speed_potion
+        3.times { user_world.update_speed_count }
+
+        expect(user_world.speed_boost).to be false
+        expect(user_world.speed_boost_count).to eq(0)
       end
     end
 
-    describe 'luck' do
-      it 'activates luck when using a 4 leaf clover' do
-        user_world = described_class.new
-        allow(user_world).to receive(:use_leaf_clover)
-        allow(user_world).to receive(:lucky?).and_return(true)
-        allow(user_world).to receive(:luck_boost).and_return(true)
-        allow(user_world).to receive(:update_luck_count).and_return(0)
+    describe 'Luck Boost' do
+      it 'activates luck boost correctly' do
+        user_world.use_leaf_clover
         expect(user_world.luck_boost).to be true
-        expect(user_world.luck_boost_count).to eq 0
+        expect(user_world.luck_boost_count).to eq(0)
       end
 
-      it 'updates luck count' do
-        user_world = described_class.new
-        allow(user_world).to receive(:update_luck_count)
-        allow(user_world).to receive(:luck_boost_count).and_return(0)
-        user_world.update_luck_count
-        expect(user_world.luck_boost_count).to eq 0
+      it 'disables luck boost after 5 updates' do
+        user_world.use_leaf_clover
+        5.times { user_world.update_luck_count }
+
+        expect(user_world.luck_boost).to be false
+        expect(user_world.luck_boost_count).to eq(0)
       end
     end
   end
