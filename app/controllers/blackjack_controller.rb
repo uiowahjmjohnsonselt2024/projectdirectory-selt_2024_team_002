@@ -24,11 +24,12 @@ class BlackjackController < ApplicationController
 
     @gridsquare = Gridsquare.find_by_row_col(@world.id, @user_world.user_row, @user_world.user_col)
 
-    if process_result(params[:result])
-      render json: { shard_balance: @cur_user.available_credits }, status: :ok
-    end
+    return unless process_result(params[:result])
+
+    render json: { shard_balance: @cur_user.available_credits }, status: :ok
   end
 
+  # rubocop:disable Metrics/MethodLength
   def process_result(result)
     case result
     when 'win'
@@ -43,4 +44,5 @@ class BlackjackController < ApplicationController
     end
     true
   end
+  # rubocop:enable Metrics/MethodLength
 end
