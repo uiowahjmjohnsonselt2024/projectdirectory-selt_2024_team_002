@@ -81,7 +81,22 @@ class WorldsController < ApplicationController
 
   def update; end
 
-  def destroy; end
+  def destroy
+    user_world = UserWorld.find_by(user_id: @cur_user.id, world_id: params[:id])
+    world = World.find_by(id: params[:id])
+
+    UserWorld.where(world_id: world.id).destroy_all
+    Gridsquare.where(world_id: world.id).destroy_all
+    Message.where(world_id: world.id).destroy_all
+    OpenaiEvent.where(world_id: world.id).destroy_all
+
+    if World.delete(world)
+      @message = 'World deleted.'
+    else
+      @message = 'Error deleting world.'
+    end
+    redirect_to worlds_path
+  end
 
   def join_world
     @selected_world = World.find(params[:id].split('_')[1])
