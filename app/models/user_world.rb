@@ -91,7 +91,7 @@ class UserWorld < ApplicationRecord
 
   def update_speed_count
     self.speed_boost_count += 1
-    if speed_boost_count >= 5
+    if speed_boost_count >= 3
       self.speed_boost = false
       self.speed_boost_count = 0
     end

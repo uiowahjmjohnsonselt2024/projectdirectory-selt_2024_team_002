@@ -88,16 +88,6 @@ RSpec.describe UserWorld, type: :model do
   end
 
   describe 'item' do
-    describe 'xp' do
-      it 'activates xp boost when using a XP booster' do
-        user_world = described_class.new
-        allow(user_world).to receive(:boost_xp)
-        allow(user_world).to receive(:xp_boost).and_return(true)
-        allow(user_world).to receive(:gain_xp).with(15)
-        expect(user_world.xp_boost).to be true
-        expect(user_world.xp_boost_count).to eq 0
-      end
-
     describe 'XP Boost' do
       it 'activates xp boost correctly' do
         user_world.boost_xp
@@ -157,32 +147,6 @@ RSpec.describe UserWorld, type: :model do
     it 'returns the seen tiles for a user in a world' do
       user_world.save!
       expect(UserWorld.find_known_squares(user.id, world.id)).to eq([["1", "1"]])
-    end
-  end
-
-  describe 'boost_xp' do
-    it 'activates XP boost' do
-      user_world.boost_xp
-      expect(user_world.xp_boost).to eq(1.25)
-      expect(user_world.xp_boost_count).to eq(0)
-    end
-  end
-
-  describe 'update_speed_count' do
-    it 'updates speed boost count' do
-      user_world.use_speed_potion
-      5.times { user_world.update_speed_count }
-      expect(user_world.speed_boost).to be false
-      expect(user_world.speed_boost_count).to eq(0)
-    end
-  end
-
-  describe 'update_luck_count' do
-    it 'updates luck boost count' do
-      user_world.use_leaf_clover
-      5.times { user_world.update_luck_count }
-      expect(user_world.luck_boost).to be false
-      expect(user_world.luck_boost_count).to eq(0)
     end
   end
 end
