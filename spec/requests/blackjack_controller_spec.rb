@@ -36,7 +36,7 @@ RSpec.describe BlackjackController, type: :request do
       it 'does not charge the user and returns failure' do
         post buy_in_path, params: { world_id: world.id }
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to include('success' => false, 'shard_balance' => 50)
+        expect(JSON.parse(response.body)).to include('has_enough_credits' => false, 'shard_balance' => 50)
       end
     end
 
