@@ -96,7 +96,7 @@
         </div>
         <div class="world-right">
           <% if world.user.display_name == @cur_user.display_name %>
-            <%= button_to 'Delete', confirm_world_path(id: world.id), method: :get, class: "button", onclick: "flashFadeOut()" %>
+            <%= button_to 'Delete', world_path(id: world.id), method: :delete, :class => "button", onclick: "flashFadeOut()" %>
           <% else %>
             <h3>Owned by <%=world.user.display_name %> </h3>
           <% end %>

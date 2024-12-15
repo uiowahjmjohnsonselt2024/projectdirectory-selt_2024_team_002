@@ -134,10 +134,4 @@ class WorldsController < ApplicationController
     params[:is_public] == '0' && params[:max_player].to_i > max_players_limit ||
       params[:world_code].blank? || params[:world_name].blank? || params[:max_player].blank?
   end
-
-  def confirm
-    puts "-----------"
-    puts params[:world_id]
-    @selected_world = World.find_by(id: params[:world_id])
-  end
 end
