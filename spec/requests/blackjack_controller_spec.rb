@@ -18,6 +18,41 @@ RSpec.describe BlackjackController, type: :request do
     cookies[:session] = 'testtoken'
   end
 
+  describe 'POST #buy_in' do
+    context 'when user has enough credits' do
+      it 'charges the user and returns success' do
+        expect(cur_user).to receive(:charge_credits).with(gridsquare.buy_in_amount)
+        post buy_in_path, params: { world_id: world.id }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to include('has_enough_credits' => true, 'luck_boost' => true)
+      end
+    end
+
+    context 'when user does not have enough credits' do
+      before do
+        allow(cur_user).to receive(:available_credits).and_return(50)
+      end
+
+      it 'does not charge the user and returns failure' do
+        post buy_in_path, params: { world_id: world.id }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to include('has_enough_credits' => false, 'shard_balance' => 50)
+      end
+    end
+
+    context 'when user is not authenticated' do
+      before do
+        allow(User).to receive(:find_user_by_session_token).and_return(nil)
+      end
+
+      it 'redirects to the login path with an alert' do
+        post buy_in_path, params: { world_id: world.id }
+        expect(response).to redirect_to(users_login_path)
+        expect(flash[:alert]).to eq('Please login')
+      end
+    end
+  end
+
   describe 'POST #update_user_credits' do
     context 'when result is win' do
       it 'adds credits to the user' do
