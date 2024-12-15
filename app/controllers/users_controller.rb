@@ -64,17 +64,17 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    @user = User.find_by_reset_password_token(params[:token])
+    @user = User.find_by(reset_password_token: params[:token])
     if params[:new_password] != params[:confirm_new_password]
       flash[:alert] = 'Password confirmation must match'
-      return redirect_to new_user_path
+      return redirect_to reset_password_path(token: params[:token])
     end
-    if @user.update_password(params[:new_password])
-      flash[:notice] = 'Password reset successful'
+    if @user.update_password(params[:new_password]) and @user.valid?
+      flash[:notice] = 'Password reset successfully'
       return redirect_to users_login_path
     end
     flash[:alert] = @user.errors.empty? ? 'Something went wrong' : @user.errors.full_messages.first
-    redirect_to reset_password_path
+    redirect_to reset_password_path(token: params[:token])
   end
 
   def get_session
@@ -288,6 +288,53 @@ class UsersController < ApplicationController
       inverse_friendship.destroy
     end
     @message = 'Friend request declined.'
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def send_invite
+    @friend = User.find_by(id: params[:friend_id])
+    @world = World.find_by(id: params[:world_id])
+
+    existing_world = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: false)
+    existing_request = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: true)
+    invite = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
+    if existing_request != nil
+      @message = "An invite has already been sent for " + invite.world.world_name + "!"
+    elsif existing_world != nil
+      @message = "This player is already on " + invite.world.world_name + "!"
+    elsif invite.save
+      @message = "Invite sent!"
+    else
+      @message = "Failed to send world invite."
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def approve_invite
+    @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    @world = World.find_by_id(@invite.world_id)
+    @user = User.find_by_id(@invite.user_id)
+    if @invite&.update(request: false)
+      @message = 'Invite accepted!'
+    else
+      @message = 'Error accepting invite.'
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def reject_invite
+    @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    if UserWorld.delete(@invite)
+      @message = 'Invite rejected.'
+    else
+      @message = 'Error rejecting invite.'
+    end
     respond_to do |format|
       format.js
     end
