@@ -13,6 +13,8 @@ RSpec.describe BlackjackController, type: :request do
     allow(Gridsquare).to receive(:find_by_row_col).and_return(gridsquare)
     allow(cur_user).to receive(:charge_credits)
     allow(cur_user).to receive(:save).and_return(true)
+    allow(user_world).to receive(:luck_boost).and_return(true) # Stub the luck_boost method
+    allow(user_world).to receive(:update_luck_count) # Stub the update_luck_count method
     cookies[:session] = 'testtoken'
   end
 
