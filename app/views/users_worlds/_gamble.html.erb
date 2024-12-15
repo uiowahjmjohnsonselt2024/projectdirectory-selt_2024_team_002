@@ -65,13 +65,15 @@
     function displayHand(hand, elementId, hideSecondCard = true) {
         const handElement = document.getElementById(elementId);
         handElement.innerHTML = '';
+        const baseUrl = '/cards';
+
         hand.forEach((card, index) => {
             const cardImage = document.createElement('img');
             if (elementId === 'dealer_cards' && index === 1 && hideSecondCard) {
-                cardImage.src = '/assets/cards/face_down.png';
+                cardImage.src = `${baseUrl}/face_down.png`;
                 cardImage.alt = 'Face Down';
             } else {
-                cardImage.src = `/assets/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
+                cardImage.src = `${baseUrl}/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
                 cardImage.alt = `${card[1]} of ${card[0]}`;
             }
             cardImage.className = 'card';
@@ -133,7 +135,7 @@
 
     function nextHand() {
         if (!hasEnoughCredits()) {
-            alert('You do not have enough credits to play!');
+            alert('You do not have enough credits to play another hand!');
             return;
         }
 
@@ -221,17 +223,9 @@
         displayHand(dealerHand, 'dealer_cards', false);
         document.getElementById('hit_button').style.display = 'none';
         document.getElementById('stand_button').style.display = 'none';
+        document.getElementById('play_hand_button').style.display = 'block';
         document.getElementById('status_message').style.display = 'block';
-        document.getElementById("close_gamble_link").style.display = "block";
-
-        if (hasEnoughCredits()) {
-            document.getElementById('play_button').style.display = 'none';
-            document.getElementById('play_hand_button').style.display = 'block';
-        } else {
-            alert('You do not have enough credits to play!');
-            document.getElementById('play_button').style.display = 'block';
-            document.getElementById('play_hand_button').style.display = 'none';
-        }
+        document.getElementById("close_gamble_link").style.display = "block"
     }
 
     function updateUserCredits(result) {
@@ -258,9 +252,9 @@
     }
 
     function hasEnoughCredits() {
-        const availableCredits = parseInt(document.getElementById('shard_balance').textContent.split(': ')[1], 10);
-        const buyIn = parseInt(document.getElementById('buy_in').textContent.split(': ')[1], 10);
-        return availableCredits >= buyIn;
+        const shard_balance = parseInt(document.getElementById('shard_balance').textContent.split(' ')[2]);
+        const buy_in = parseInt(document.getElementById('buy_in').textContent.split(' ')[2]);
+        return shard_balance >= buy_in;
     }
 </script>
 
