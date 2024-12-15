@@ -63,7 +63,11 @@
           <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}", is_from_world: false}, class: "button" %>
         </div>
         <div class="world-right">
-          <h3>Owned by <%=world.user.display_name %> </h3>
+          <% if world.user.display_name == @cur_user.display_name %>
+            <%= button_to 'Delete', world_path(id: world.id), method: :delete, class: "button", onclick: "flashFadeOut()" %>
+          <% else %>
+            <h3>Owned by <%=world.user.display_name %> </h3>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -86,7 +90,11 @@
           <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}", is_from_world: false}, class: "button" %>
         </div>
         <div class="world-right">
-          <h3>Owned by <%=world.user.display_name %> </h3>
+          <% if world.user.display_name == @cur_user.display_name %>
+            <%= button_to 'Delete', world_path(id: world.id), method: :delete, class: "button", onclick: "flashFadeOut()" %>
+          <% else %>
+            <h3>Owned by <%=world.user.display_name %> </h3>
+          <% end %>
         </div>
       </div>
     <% end %>
