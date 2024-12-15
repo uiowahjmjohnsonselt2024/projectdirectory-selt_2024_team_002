@@ -13,10 +13,10 @@
   </div>
   <p id='status_message'></p>
   <div id="shuffling_message" style="display:none;">Deck has been reshuffled!</div>
-  <button id="play_button" onclick="startGame()" style='display:block'>Play</button>
-  <button id="play_hand_button" onclick="nextHand()" style='display:none'>Play Hand</button>
-  <button id="hit_button" onclick="hit()" style='display:none'>Hit</button>
-  <button id="stand_button" onclick="stand()" style='display:none'>Stand</button>
+  <button id="play_button" class="accept_button" onclick="startGame()" style='display:block'>Play</button>
+  <button id="play_hand_button" class="accept_button" onclick="nextHand()" style='display:none'>Play Next Hand</button>
+  <button id="hit_button" class="accept_button" onclick="hit()" style='display:none'>Hit</button>
+  <button id="stand_button" class="accept_button" onclick="stand()" style='display:none'>Stand</button>
 </div>
 
 <script>
@@ -132,7 +132,8 @@
     }
 
     function nextHand() {
-        document.getElementById('status_message').style.display = 'none';  // Hide status message for new hand
+        document.getElementById("close_gamble_link").style.display = "none"
+        document.getElementById('status_message').style.display = 'none';
 
         playerHand = [];
         dealerHand = [];
@@ -214,6 +215,7 @@
         document.getElementById('stand_button').style.display = 'none';
         document.getElementById('play_hand_button').style.display = 'block';
         document.getElementById('status_message').style.display = 'block';
+        document.getElementById("close_gamble_link").style.display = "block"
     }
 
     function updateUserCredits(result) {
