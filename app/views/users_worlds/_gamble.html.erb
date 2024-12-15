@@ -37,7 +37,6 @@
                 deck.push([suit, value]);
             });
         });
-        shuffle(deck);
     }
 
     function shuffle(array) {
@@ -56,6 +55,7 @@
     function dealCard(hand) {
         if (deck.length === 0) {
             initDeck();
+            shuffle(deck);
         }
         const card = deck.pop();
         hand.push(card);
