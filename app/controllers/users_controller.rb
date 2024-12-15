@@ -317,7 +317,7 @@ class UsersController < ApplicationController
   def approve_invite
     @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
     @world = World.find_by_id(@invite.world_id)
-    @user = User.find_by_id(@invite.user_id)
+    @user = User.find_by_id(@world.user_id)
     if @invite&.update(request: false)
       @message = 'Invite accepted!'
     else

@@ -579,12 +579,14 @@ RSpec.describe 'Users', type: :request do
 
   describe 'approve_invite' do
     let(:cur_user) { instance_double(User, id: 1) }
-    let(:world) { instance_double(World, id: 1, world_name: 'Fantasy World') }
+    let(:world) { instance_double(World, id: 1, user_id: 1, world_name: 'Fantasy World') }
     let(:invite) { instance_double(UserWorld, id: 1, user_id: user.id, world_id: world.id, request: true) }
     let(:user) { instance_double(User, id: 2) }
 
     before do
       allow(UserWorld).to receive(:find_by).with(user_id: user.id.to_s, world_id: world.id.to_s).and_return(invite)
+      allow(World).to receive(:find_by_id).with(world.id).and_return(world)
+      allow(User).to receive(:find_by_id).with(world.user_id).and_return(cur_user)
     end
 
     it 'sets the correct message when invite is accepted' do
