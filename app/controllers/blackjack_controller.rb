@@ -30,7 +30,7 @@ class BlackjackController < ApplicationController
 
     @cur_user.charge_credits(@gridsquare.buy_in_amount)
 
-    render json: { has_enough_credits: has_enough_credits}
+    render json: { has_enough_credits: has_enough_credits, luck_boost: @user_world.luck_boost }, status: :ok
   end
   # rubocop:enable Metrics/MethodLength
 
@@ -50,7 +50,10 @@ class BlackjackController < ApplicationController
     render json: { shard_balance: @cur_user.available_credits }, status: :ok
   end
 
+  # rubocop:disable Metrics/MethodLength
   def process_result(result)
+    @user_world.update_luck_count if @user_world.luck_boost
+
     case result
     when 'win'
       @cur_user.charge_credits(-2 * @gridsquare.buy_in_amount)
@@ -64,4 +67,5 @@ class BlackjackController < ApplicationController
     end
     true
   end
+  # rubocop:enable Metrics/MethodLength
 end
