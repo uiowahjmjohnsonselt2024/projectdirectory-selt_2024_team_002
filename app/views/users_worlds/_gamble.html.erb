@@ -1,0 +1,268 @@
+<div class='floating-partial-box' id="blackjack_start">
+  <h1>Blackjack</h1>
+  <p>Test your luck!</p>
+  <p id='shard_balance'>Shards Available: <%= user.available_credits %></p>
+  <p id='buy_in'>Buy In: <%= gridsquare.buy_in_amount %></p>
+  <div id='player_hand' style='display:none'>
+    <p>Your Hand:</p>
+    <div id='player_cards'></div>
+  </div>
+  <div id='dealer_hand' style='display:none'>
+    <p>Dealer Hand:</p>
+    <div id='dealer_cards'></div>
+  </div>
+  <p id='status_message'></p>
+  <div id="shuffling_message" style="display:none;">Deck has been reshuffled!</div>
+  <button id="play_button" class="accept_button" onclick="startGame()" style='display:block'>Play</button>
+  <button id="play_hand_button" class="accept_button" onclick="nextHand()" style='display:none'>Play Next Hand</button>
+  <button id="hit_button" class="accept_button" onclick="hit()" style='display:none'>Hit</button>
+  <button id="stand_button" class="accept_button" onclick="stand()" style='display:none'>Stand</button>
+</div>
+
+<script>
+    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+    let deck = [];
+    let playerHand = [];
+    let dealerHand = [];
+    let playerScore = 0;
+    let dealerScore = 0;
+    let status = '';
+
+    function initDeck() {
+        deck = [];
+        suits.forEach(suit => {
+            values.forEach(value => {
+                deck.push([suit, value]);
+            });
+        });
+        shuffle(deck);
+    }
+
+    function shuffle(array) {
+        document.getElementById('shuffling_message').style.display = 'block';
+
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+
+        setTimeout(() => {
+            document.getElementById('shuffling_message').style.display = 'none';
+        }, 2000);
+    }
+
+    function dealCard(hand) {
+        if (deck.length === 0) {
+            initDeck();
+        }
+        const card = deck.pop();
+        hand.push(card);
+        return card;
+    }
+
+    function displayHand(hand, elementId, hideSecondCard = true) {
+        const handElement = document.getElementById(elementId);
+        handElement.innerHTML = '';
+        hand.forEach((card, index) => {
+            const cardImage = document.createElement('img');
+            if (elementId === 'dealer_cards' && index === 1 && hideSecondCard) {
+                cardImage.src = '/assets/cards/face_down.png';
+                cardImage.alt = 'Face Down';
+            } else {
+                cardImage.src = `/assets/cards/${card[1].toLowerCase()}_of_${card[0].toLowerCase()}.png`;
+                cardImage.alt = `${card[1]} of ${card[0]}`;
+            }
+            cardImage.className = 'card';
+            handElement.appendChild(cardImage);
+        });
+    }
+
+    function calculateScore(hand) {
+        let values = hand.map(card => cardValue(card[1]));
+        let score = values.reduce((a, b) => a + b, 0);
+        values.filter(v => v === 11).forEach(() => {
+            if (score > 21) score -= 10;
+        });
+        return score;
+    }
+
+    function cardValue(value) {
+        if (['J', 'Q', 'K'].includes(value)) return 10;
+        if (value === 'A') return 11;
+        return parseInt(value, 10);
+    }
+
+    function updateScores() {
+        playerScore = calculateScore(playerHand);
+        dealerScore = calculateScore(dealerHand);
+    }
+
+    function checkGameStatus() {
+        if (playerScore > 21) {
+            status = 'Player Bust! Dealer Wins!';
+            document.getElementById('status_message').style.display = 'block';
+        } else if (dealerScore > 21) {
+            status = 'Dealer Bust! Player Wins!';
+            updateUserCredits('win');
+            document.getElementById('status_message').style.display = 'block';
+        } else if (dealerScore >= 17) {
+            if (playerScore > dealerScore) {
+                status = 'Player Wins!';
+                updateUserCredits('win');
+                document.getElementById('status_message').style.display = 'block';
+            } else if (playerScore < dealerScore) {
+                status = 'Dealer Wins!';
+                document.getElementById('status_message').style.display = 'block';
+            } else {
+                status = 'Push!';
+                updateUserCredits('push');
+                document.getElementById('status_message').style.display = 'block';
+            }
+        }
+        document.getElementById('status_message').textContent = status;
+    }
+
+    function startGame() {
+        initDeck();
+        nextHand();
+        document.getElementById('status_message').style.display = 'none';
+        document.getElementById('play_button').style.display = 'none';
+    }
+
+    function nextHand() {
+        updateUserCredits('buy_in');
+        document.getElementById("close_gamble_link").style.display = "none"
+        document.getElementById('status_message').style.display = 'none';
+
+        playerHand = [];
+        dealerHand = [];
+
+        // Deal two new cards
+        for (let i = 0; i < 2; i++) {
+            dealCard(playerHand);
+            dealCard(dealerHand);
+        }
+
+        updateScores();
+
+        // Display the hands
+        displayHand(playerHand, 'player_cards');
+        displayHand(dealerHand, 'dealer_cards');
+
+        if (playerScore === 21 && playerHand.length === 2 && dealerScore === 21 && dealerHand.length === 2) {
+            status = 'Push! Both Player and Dealer have Blackjack!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
+            updateUserCredits('push');
+            endGame();
+            return;
+        }
+
+        if (playerScore === 21 && playerHand.length === 2) {
+            status = 'Player Blackjack! Player Wins!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
+            updateUserCredits('win');
+            endGame();
+            return;
+        }
+
+        if (dealerScore === 21 && dealerHand.length === 2) {
+            status = 'Dealer Blackjack! Dealer Wins!';
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('status_message').textContent = status;
+            endGame();
+            return;
+        }
+
+        // Enable gameplay actions
+        document.getElementById('player_hand').style.display = 'block';
+        document.getElementById('dealer_hand').style.display = 'block';
+        document.getElementById('hit_button').style.display = 'block';
+        document.getElementById('stand_button').style.display = 'block';
+        document.getElementById('play_hand_button').style.display = 'none';
+    }
+
+    function hit() {
+        console.log('hit')
+        dealCard(playerHand);
+        updateScores();
+        displayHand(playerHand, 'player_cards');
+
+        if (playerScore === 21) {
+            stand();
+        }
+
+        if (playerScore > 21) {
+            checkGameStatus();
+            endGame();
+        }
+    }
+
+    function stand() {
+        console.log('stand');
+        while (dealerScore < 17) {
+            dealCard(dealerHand);
+            updateScores();
+        }
+        displayHand(dealerHand, 'dealer_cards', false);
+        checkGameStatus();
+        endGame();
+    }
+
+    function endGame() {
+        displayHand(dealerHand, 'dealer_cards', false);
+        document.getElementById('hit_button').style.display = 'none';
+        document.getElementById('stand_button').style.display = 'none';
+        document.getElementById('play_hand_button').style.display = 'block';
+        document.getElementById('status_message').style.display = 'block';
+        document.getElementById("close_gamble_link").style.display = "block"
+    }
+
+    function updateUserCredits(result) {
+        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        fetch('/blackjack/update_user_credits', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({
+                result: result,
+                world_id: <%= @world.id %>
+            })
+        })
+          .then(response => response.json())
+          .then(data => {
+              const shard_balance = data.shard_balance
+              document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
+          })
+          .catch(error => {
+              console.error('Error updating credits:', error);
+          });
+    }
+</script>
+
+<style>
+    .card {
+        width: 100px;
+        height: auto;
+        margin: 5px;
+    }
+
+    .floating-partial-box {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    h1 {
+        margin-bottom: 10px; /* Reduces the space below the <h1> */
+    }
+
+    p {
+        margin-top: 0; /* Removes the top margin of the <p> */
+        margin-bottom: 5px; /* Reduces the bottom margin of the <p> */
+    }
+</style>

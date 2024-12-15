@@ -95,9 +95,9 @@
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
       <%= submit_tag 'Quest', id: "quest_log_button", class: "game_button", onclick: "disable_background_interaction('quest')"%>
     <% end %>
-    <%= form_tag cell_action_path, method: :post, id: 'action_form', remote: true do %>
+    <%= form_tag gamble_path, method: :post, id: 'gamble_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
-      <%= submit_tag 'Action', id: "action_engage_button", class: "game_button"%>
+      <%= submit_tag 'Gamble', id: "gamble_button", class: "game_button", onclick: "disable_background_interaction('gamble')"%>
     <% end %>
     <%= form_tag inventory_path, method: :post, id: 'action_form', remote: true do %>
       <input type="hidden" name="world_id" id="world_id" value="<%= @world.id %>"/>
@@ -143,6 +143,14 @@
   <div class="partial-container" id="partial_shop_container">
     <a id="close_shop_link" class="close-button" onclick="enable_background_interaction()"></a>
     <div id="shop">
+    </div>
+  </div>
+</div>
+
+<div class="scroll-independent-div-center">
+  <div class="partial-container" id="partial_gamble_container">
+    <a id="close_gamble_link" class="close-button" onclick="enable_background_interaction()"></a>
+    <div id="gamble">
     </div>
   </div>
 </div>
@@ -211,6 +219,10 @@
                 document.getElementById("partial_quest_container").style.display = "block"
                 document.getElementById("partial_quest_container").style.pointerEvents = "auto";
                 document.getElementById("close_quest_link").style.display = "block"
+            } else if (element_name === "gamble") {
+                document.getElementById("partial_gamble_container").style.display = "block"
+                document.getElementById("partial_gamble_container").style.pointerEvents = "auto";
+                document.getElementById("close_gamble_link").style.display = "block"
             } else if (element_name === "chat") {
                 document.getElementById("partial_chat_container").style.display = "block"
                 document.getElementById("partial_chat_container").style.pointerEvents = "auto";
@@ -232,6 +244,7 @@
         document.getElementById("partial_movement_container").style.display = "none"
         document.getElementById("partial_shop_container").style.display = "none"
         document.getElementById("partial_quest_container").style.display = "none"
+        document.getElementById("partial_gamble_container").style.display = "none"
         document.getElementById("partial_chat_container").style.display = "none"
         document.getElementById("partial_inventory_container").style.display = "none"
 
@@ -401,6 +414,15 @@
     $(document).on('ajax:complete', 'form', function() {
         isSubmitting = false;
     });
+</script>
+
+<script>
+  function disableGameClose() {
+    document.getElementById("close_gamble_link").style.display = "none"
+  }
+  function enableGameClose() {
+    document.getElementById("close_gamble_link").style.display = "block"
+  }
 </script>
 
 </body>

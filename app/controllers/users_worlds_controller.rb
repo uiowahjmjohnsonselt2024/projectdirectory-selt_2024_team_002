@@ -46,6 +46,22 @@ class UsersWorldsController < ApplicationController
     render json: { error: 'none' }, status: :ok
   end
 
+  def gamble
+    @cur_user = User.find_user_by_session_token(cookies[:session])
+    @world = World.find(params[:world_id])
+    @user_world = UserWorld.find_by_ids(@cur_user.id, @world.id)
+    @gridsquare = Gridsquare.find_by_row_col(@world, @user_world.user_row, @user_world.user_col)
+
+    if @gridsquare.buy_in_amount.nil? || @gridsquare.buy_in_amount % 5 != 0
+      @gridsquare.set_random_buy_in_amount
+      @gridsquare.save
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def shop
     @cur_user = User.find_user_by_session_token(cookies[:session])
     @world = World.find(params[:world_id])
