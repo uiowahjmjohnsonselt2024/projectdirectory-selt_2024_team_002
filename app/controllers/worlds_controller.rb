@@ -86,9 +86,9 @@ class WorldsController < ApplicationController
     world = World.find_by(id: params[:world_id])
 
     if UserWorld.delete(user_world) && World.delete(world)
-      @message = 'Invite rejected.'
+      @message = 'World deleted.'
     else
-      @message = 'Error rejecting invite.'
+      @message = 'Error deleting world.'
     end
     redirect_to worlds_path
   end
