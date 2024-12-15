@@ -1,4 +1,4 @@
-<div class='floating-partial-box' id="blackjack_start">
+<div class='floating-partial-wide-box' id="blackjack_start">
   <h1 id="blackjack_title">Blackjack</h1>
   <p id="blackjack_title_2">Test your luck!</p>
   <p id='shard_balance'>Shards Available: <%= user.available_credits %></p>
@@ -38,6 +38,7 @@
     let playerScore = 0;
     let dealerScore = 0;
     let status = '';
+    let shard_balance = 0;
 
     function initDeck() {
         deck = [];
@@ -149,7 +150,6 @@
         updateUserCredits('buy_in');
         document.getElementById("end_game_button").style.display = "none"
         document.getElementById('status_message').style.display = 'none';
-        shuffle(deck);
 
         playerHand = [];
         dealerHand = [];
@@ -196,6 +196,7 @@
         document.getElementById('player_hand').style.display = 'block';
         document.getElementById('dealer_hand').style.display = 'block';
         document.getElementById('play_hand_button').style.display = 'none';
+        shuffle(deck);
     }
 
     function hit() {
@@ -249,12 +250,22 @@
         })
           .then(response => response.json())
           .then(data => {
-              const shard_balance = data.shard_balance
+              shard_balance = data.shard_balance
               document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
           })
           .catch(error => {
               console.error('Error updating credits:', error);
           });
+    }
+
+    function checkAvailableCredits(current_shard) {
+        const buy_in = <%= @gridsquare.buy_in_amount %>
+        if (buy_in > current_shard) {
+            document.getElementById('status_message').textContent = 'You do not have enough shards to play!'
+            document.getElementById('status_message').style.display = 'block';
+            document.getElementById('play_button').style.display = 'none';
+            document.getElementById('play_hand_button').style.display = 'none';
+        }
     }
 </script>
 
@@ -266,11 +277,6 @@
         margin-right: 5px;
     }
 
-    .floating-partial-box {
-        max-height: 90vh;
-        width: 700px;
-        overflow-y: auto;
-    }
 
     h1 {
         margin-bottom: 10px; /* Reduces the space below the <h1> */

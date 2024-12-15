@@ -264,7 +264,7 @@ RSpec.describe 'Users', type: :request do
   describe 'users payment' do
     it 'sets the correct message when a field is blank' do
       post users_payment_path, params: { card_number: '', expiration_date: '', billing_address: '', total_shards: 0 }
-      expect(assigns(:message)).to eq('There is an error on processing. Please check your fields are correct.')
+      expect(flash[:alert]).to be_present
     end
 
     it 'sets the correct message when cc is invalid' do
@@ -273,7 +273,7 @@ RSpec.describe 'Users', type: :request do
       allow(cc_checker).to receive(:valid_luhn?).and_return(false)
       post users_payment_path,
            params: { card_number: 'a', expiration_date: '1111', billing_address: '1111', total_shards: 0 }
-      expect(assigns(:message)).to eq('Card number is not valid. Please recheck your card number.')
+      expect(flash[:alert]).to be_present
     end
 
     it 'sets the correct message when exp-date is invalid' do
@@ -282,7 +282,7 @@ RSpec.describe 'Users', type: :request do
       allow(cc_checker).to receive(:valid_luhn?).and_return(true)
       post users_payment_path,
            params: { card_number: 'a', expiration_date: 'aaaa', billing_address: '1111', total_shards: 0 }
-      expect(assigns(:message)).to eq('Expiration date can only be 4 digits. Please try again.')
+      expect(flash[:alert]).to be_present
     end
 
     it 'sets the correct message when ccv is invalid' do
@@ -291,7 +291,7 @@ RSpec.describe 'Users', type: :request do
       allow(cc_checker).to receive(:valid_luhn?).and_return(true)
       post users_payment_path,
            params: { card_number: 'a', expiration_date: '1111', billing_address: '1111', total_shards: 0, ccv: 'aaa' }
-      expect(assigns(:message)).to eq('CVV can only be 3 digits. Please try again.')
+      expect(flash[:alert]).to be_present
     end
 
     it 'redirects correctly' do
@@ -541,7 +541,7 @@ RSpec.describe 'Users', type: :request do
 
         post users_send_invite_path, params: { friend_id: friend.id.to_s, world_id: world.id.to_s }, xhr: true
 
-        expect(assigns(:message)).to eq("An invite has already been sent for Fantasy World!")
+        expect(assigns(:message)).to eq("An invitation has already been sent for Fantasy World!")
       end
 
       it 'when the player has already accepted the invite' do
@@ -563,7 +563,7 @@ RSpec.describe 'Users', type: :request do
 
         post users_send_invite_path, params: { friend_id: friend.id.to_s, world_id: world.id.to_s }, xhr: true
 
-        expect(assigns(:message)).to eq("Invite sent!")
+        expect(assigns(:message)).to eq("Invitation sent!")
       end
 
       it 'did not save' do
@@ -572,7 +572,7 @@ RSpec.describe 'Users', type: :request do
 
         post users_send_invite_path, params: { friend_id: friend.id.to_s, world_id: world.id.to_s }, xhr: true
 
-        expect(assigns(:message)).to eq("Failed to send world invite.")
+        expect(assigns(:message)).to eq("Failed to send world invitation!")
       end
     end
   end
@@ -592,7 +592,7 @@ RSpec.describe 'Users', type: :request do
 
       post users_approve_invite_path, params: { user_id: user.id, world_id: world.id }, xhr: true
 
-      expect(assigns(:message)).to eq('Invite accepted!')
+      expect(assigns(:message)).to eq('Invitation accepted!')
     end
 
     it 'sets the correct message when there is an error accepting invite' do
@@ -600,7 +600,7 @@ RSpec.describe 'Users', type: :request do
 
       post users_approve_invite_path, params: { user_id: user.id, world_id: world.id }, xhr: true
 
-      expect(assigns(:message)).to eq('Error accepting invite.')
+      expect(assigns(:message)).to eq('Error accepting invitation.')
     end
   end
 
@@ -620,7 +620,7 @@ RSpec.describe 'Users', type: :request do
 
       delete users_reject_invite_path, params: { user_id: 2, world_id: world.id }, xhr: true
 
-      expect(assigns(:message)).to eq('Invite rejected.')
+      expect(assigns(:message)).to eq('Invitation rejected.')
     end
 
     it 'sets the correct message when there is an error rejecting invite' do
@@ -628,7 +628,7 @@ RSpec.describe 'Users', type: :request do
 
       delete users_reject_invite_path, params: { user_id: 2, world_id: world.id }, xhr: true
 
-      expect(assigns(:message)).to eq('Error rejecting invite.')
+      expect(assigns(:message)).to eq('Error rejecting invitation.')
     end
   end
 

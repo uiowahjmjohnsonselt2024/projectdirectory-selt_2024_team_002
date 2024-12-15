@@ -60,7 +60,7 @@
         <div class="world-center">
           <h3><%= world.world_name %></h3>
           <p>Max Players: <%= world.max_player %></p>
-          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}", is_from_world: false}, class: "button" %>
         </div>
         <div class="world-right">
           <h3>Owned by <%=world.user.display_name %> </h3>
@@ -83,7 +83,7 @@
         <div class="world-center">
           <h3><%= world.world_name %></h3>
           <p>Max Players: <%= world.max_player %></p>
-          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}", is_from_world: false}, class: "button" %>
         </div>
         <div class="world-right">
           <h3>Owned by <%=world.user.display_name %> </h3>

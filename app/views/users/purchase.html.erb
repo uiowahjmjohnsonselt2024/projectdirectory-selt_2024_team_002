@@ -10,7 +10,7 @@
   <div class="profile_toolbar">
     <div class="scroll-independent-div-tl">
       <% if @is_from_game == true %>
-        <%= button_to '<', cookies[:previous_url], params: {id: "world_#{cookies[:world_id]}"}, method: :post, id: "return_button", class: "big-circle-button"%>
+        <%= button_to '<', cookies[:previous_url], params: {id: "world_#{cookies[:world_id]}", is_from_world: true}, method: :post, id: "return_button", class: "big-circle-button"%>
       <% else %>
         <%= button_to '<', worlds_path, method: :get, id: "return_button", class: "big-circle-button"%>
       <% end %>

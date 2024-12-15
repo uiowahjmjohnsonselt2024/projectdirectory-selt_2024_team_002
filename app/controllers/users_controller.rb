@@ -141,35 +141,29 @@ class UsersController < ApplicationController
     @user = User.find_user_by_session_token(cookies[:session])
 
     if card_number == "" or expiration_date == "" or cvv == "" or billing_address == ""
-      @message = "There is an error on processing. Please check your fields are correct."
-      respond_to do |format|
-        format.js
-      end
+      flash[:alert] = "There is an error on processing. Please check your fields are correct."
+      redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
+      return
     else
       detector = CreditCardDetector::Detector.new(card_number)
       result = detector.valid_luhn?
       unless result
-        @message = "Card number is not valid. Please recheck your card number."
-        respond_to do |format|
-          format.js
-        end
+        flash[:alert] = "Card number is not valid. Please recheck your card number."
+        redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
         return
       end
       unless expiration_date =~ /\A\d\d\d\d\Z/
-        @message = "Expiration date can only be 4 digits. Please try again."
-        respond_to do |format|
-          format.js
-        end
+        flash[:alert] = "Expiration date can only be 4 digits. Please try again."
+        redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
         return
       end
       unless cvv =~ /\A\d\d\d\Z/
-        @message = "CVV can only be 3 digits. Please try again."
-        respond_to do |format|
-          format.js
-        end
+        flash[:alert] = "CVV can only be 3 digits. Please try again."
+        redirect_to users_checkout_post_path(total_amount: params[:total_amount], with_currency: params[:with_currency], total_shards: params[:total_shards])
         return
       end
       @user.update(available_credits: @user.available_credits + num_of_shards)
+      flash[:notice] = "Purchase #{num_of_shards} shards successful! Thank you for your support!"
       redirect_to users_purchase_path
     end
   end
@@ -307,7 +301,7 @@ class UsersController < ApplicationController
     elsif invite.save
       @message = "Invitation sent!"
     else
-      @message = "Failed to send world invitation for " + invite.world.world_name + "!"
+      @message = "Failed to send world invitation!"
     end
     respond_to do |format|
       format.js

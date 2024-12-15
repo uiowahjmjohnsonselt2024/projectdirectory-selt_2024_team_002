@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get 'users/purchase', to: 'users#purchase', as: 'users_purchase'
   post 'users/conversion', to: 'users#conversion', defaults: { format: 'js' }
   get 'users/checkout', to: 'users#checkout'
-  post 'users/checkout', to: 'users#checkout'
+  post 'users/checkout', to: 'users#checkout', as: 'users_checkout_post'
   post 'users/payment', to: 'users#payment', defaults: { format: 'js' }
   # friends list paths
   post 'users/add_friend', to: 'users#add_friend', defaults: { format: 'js' }
