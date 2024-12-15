@@ -15,7 +15,7 @@ class World < ApplicationRecord
   before_create :init_current_players
   @@dim = 6 # rubocop:disable Style/ClassVars
 
-  # this must be done this way, active stroage DOES NOT WORK
+  # this must be done this way, active storage DOES NOT WORK
   # with after_create call back when seeding!!!!!!!
   def init_if_not_inited
     return unless gridsquares.empty?
