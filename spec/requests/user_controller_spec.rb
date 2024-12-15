@@ -375,6 +375,69 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
+  describe 'reject request' do
+    let(:cur_user) { instance_double(User, id: 1) }
+    let(:friend) { instance_double(User, id: 2) }
+    let(:existing_friendship) { instance_double(Friendship, user_id: 1, friend_id: 2) }
+    let(:inverse_friendship) { instance_double(Friendship, user_id: 2, friend_id: 1) }
+
+    before do
+      allow(User).to receive(:find_user_by_session_token).with(anything).and_return(cur_user)
+      allow(User).to receive(:find_by).with(id: friend.id.to_s).and_return(friend)
+    end
+
+    describe 'when friendships exist' do
+      before do
+        allow(Friendship).to receive(:find_by).with(user_id: friend.id.to_s, friend_id: cur_user.id).and_return(existing_friendship)
+        allow(Friendship).to receive(:find_by).with(user_id: cur_user.id, friend_id: friend.id.to_s).and_return(inverse_friendship)
+        allow(existing_friendship).to receive(:destroy)
+        allow(inverse_friendship).to receive(:destroy)
+      end
+
+      it 'destroys the existing friendship' do
+        delete users_reject_request_path, params: { friend_id: friend.id }, xhr: true
+
+        expect(existing_friendship).to have_received(:destroy)
+        expect(inverse_friendship).to have_received(:destroy)
+        expect(assigns(:message)).to eq('Friend request declined.')
+      end
+    end
+
+    describe 'when only one direction of friendship exists' do
+      it 'destroys only the existing friendship' do
+        allow(Friendship).to receive(:find_by).with(user_id: cur_user.id, friend_id: friend.id.to_s).and_return(existing_friendship)
+        allow(Friendship).to receive(:find_by).with(user_id: friend.id.to_s, friend_id: cur_user.id).and_return(nil)
+        allow(existing_friendship).to receive(:destroy)
+
+        delete users_reject_request_path, params: { friend_id: friend.id }, xhr: true
+
+        expect(existing_friendship).to have_received(:destroy)
+        expect(assigns(:message)).to eq('Friend request declined.')
+      end
+
+      it 'destroys only the inverse friendship' do
+        allow(Friendship).to receive(:find_by).with(user_id: cur_user.id, friend_id: friend.id.to_s).and_return(nil)
+        allow(Friendship).to receive(:find_by).with(user_id: friend.id.to_s, friend_id: cur_user.id).and_return(inverse_friendship)
+        allow(inverse_friendship).to receive(:destroy)
+
+        delete users_reject_request_path, params: { friend_id: friend.id }, xhr: true
+
+        expect(inverse_friendship).to have_received(:destroy)
+        expect(assigns(:message)).to eq('Friend request declined.')
+      end
+    end
+
+    describe 'when no friendships exist' do
+      it 'sets the correct message without destroying anything' do
+        allow(Friendship).to receive(:find_by).and_return(nil)
+
+        delete users_reject_request_path, params: { friend_id: friend.id }, xhr: true
+
+        expect(assigns(:message)).to eq('Friend request declined.')
+      end
+    end
+  end
+
   describe 'delete friend' do
     before do
       usr = instance_double(User)
@@ -457,8 +520,120 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe 'update password' do 
-    before do 
+  describe 'send invite' do
+    let(:user) { instance_double(User, id: 0) }
+    let(:friend) { instance_double(User, id: 1) }
+    let(:world) { instance_double(World, id: 1, world_name: 'Fantasy World') }
+    let(:invite) { instance_double(UserWorld, world: world, request: true) }
+
+    before do
+      allow(User).to receive(:find_user_by_session_token).and_return(user)
+      allow(User).to receive(:find_by).with(hash_including(id: friend.id.to_s)).and_return(friend)
+      allow(World).to receive(:find_by).with(id: world.id.to_s).and_return(world)
+    end
+
+    describe 'displays the correct message' do
+      it 'when an invite has already been sent' do
+        existing_request = double('UserWorld', request: true, world: world)
+        allow(UserWorld).to receive(:find_by).with(user_id: friend.id, world_id: world.id, request: true).and_return(existing_request)
+        allow(UserWorld).to receive(:find_by).with(user_id: friend.id, world_id: world.id, request: false).and_return(nil)
+        allow(UserWorld).to receive(:new).with(user_id: friend.id, world_id: world.id, request: true).and_return(invite)
+
+        post users_send_invite_path, params: { friend_id: friend.id.to_s, world_id: world.id.to_s }, xhr: true
+
+        expect(assigns(:message)).to eq("An invite has already been sent for Fantasy World!")
+      end
+
+      it 'when the player has already accepted the invite' do
+        existing_world = double('UserWorld', request: false, world: world)
+        allow(UserWorld).to receive(:find_by).with(user_id: friend.id, world_id: world.id, request: false).and_return(existing_world)
+        allow(UserWorld).to receive(:find_by).with(user_id: friend.id, world_id: world.id, request: true).and_return(nil)
+        allow(UserWorld).to receive(:new).with(user_id: friend.id, world_id: world.id, request: true).and_return(invite)
+
+        post users_send_invite_path, params: { friend_id: friend.id.to_s, world_id: world.id.to_s }, xhr: true
+
+        expect(assigns(:message)).to eq("This player is already on Fantasy World!")
+      end
+    end
+
+    describe 'saves' do
+      it 'has saved successfully' do
+        new_invite = double('UserWorld', save: true, world: world)
+        allow(UserWorld).to receive(:new).and_return(new_invite)
+
+        post users_send_invite_path, params: { friend_id: friend.id.to_s, world_id: world.id.to_s }, xhr: true
+
+        expect(assigns(:message)).to eq("Invite sent!")
+      end
+
+      it 'did not save' do
+        new_invite = double('UserWorld', save: false)
+        allow(UserWorld).to receive(:new).and_return(new_invite)
+
+        post users_send_invite_path, params: { friend_id: friend.id.to_s, world_id: world.id.to_s }, xhr: true
+
+        expect(assigns(:message)).to eq("Failed to send world invite.")
+      end
+    end
+  end
+
+  describe 'approve_invite' do
+    let(:cur_user) { instance_double(User, id: 1) }
+    let(:world) { instance_double(World, id: 1, world_name: 'Fantasy World') }
+    let(:invite) { instance_double(UserWorld, id: 1, user_id: user.id, world_id: world.id, request: true) }
+    let(:user) { instance_double(User, id: 2) }
+
+    before do
+      allow(UserWorld).to receive(:find_by).with(user_id: user.id.to_s, world_id: world.id.to_s).and_return(invite)
+    end
+
+    it 'sets the correct message when invite is accepted' do
+      allow(invite).to receive(:update).with(request: false).and_return(true)
+
+      post users_approve_invite_path, params: { user_id: user.id, world_id: world.id }, xhr: true
+
+      expect(assigns(:message)).to eq('Invite accepted!')
+    end
+
+    it 'sets the correct message when there is an error accepting invite' do
+      allow(invite).to receive(:update).with(request: false).and_return(false)
+
+      post users_approve_invite_path, params: { user_id: user.id, world_id: world.id }, xhr: true
+
+      expect(assigns(:message)).to eq('Error accepting invite.')
+    end
+  end
+
+  describe 'reject_invite' do
+    let(:cur_user) { instance_double(User, id: 1) }
+    let(:world) { instance_double(World, id: 1, world_name: 'Fantasy World') }
+    let(:invite) { instance_double(UserWorld, id: 1, user_id: 2, world_id: world.id, request: true) }
+
+    before do
+      allow(User).to receive(:find_by).with(id: cur_user.id.to_s).and_return(cur_user)
+      allow(World).to receive(:find_by_id).with(world.id).and_return(world)
+      allow(UserWorld).to receive(:find_by).with(user_id: "2", world_id: world.id.to_s).and_return(invite)
+    end
+
+    it 'sets the correct message when invite is rejected' do
+      allow(UserWorld).to receive(:delete).with(invite).and_return(true)
+
+      delete users_reject_invite_path, params: { user_id: 2, world_id: world.id }, xhr: true
+
+      expect(assigns(:message)).to eq('Invite rejected.')
+    end
+
+    it 'sets the correct message when there is an error rejecting invite' do
+      allow(UserWorld).to receive(:delete).with(invite).and_return(false)
+
+      delete users_reject_invite_path, params: { user_id: 2, world_id: world.id }, xhr: true
+
+      expect(assigns(:message)).to eq('Error rejecting invite.')
+    end
+  end
+
+  describe 'update password' do
+    before do
       @usr = instance_double(User)
       allow(User).to receive(:find_by).and_return(@usr)
       allow(@usr).to receive(:invalid_reset_password_token?).and_return(false)

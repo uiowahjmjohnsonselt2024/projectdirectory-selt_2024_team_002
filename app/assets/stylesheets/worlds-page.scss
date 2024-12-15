@@ -27,7 +27,7 @@ body::-webkit-scrollbar {
   }
 }
 
-.world_box {
+.info_box {
   background-color: #A7BCC7;
   color: white;
   border: 1px solid #000;
@@ -37,17 +37,20 @@ body::-webkit-scrollbar {
   text-align: center;
 }
 
-.friend_box {
+.item_box {
   background-color: #A7BCC7;
   color: white;
   border: 1px solid #000;
   padding: 10px;
-  margin: 2px;
   width: 80%;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.friend {
+  margin: 2px;
 }
 
 .friend_left {
@@ -59,7 +62,6 @@ body::-webkit-scrollbar {
   align-items: center;
   position: relative;
   left: 0;
-  gap: 10px;
 }
 
 .friend_center {
@@ -83,8 +85,41 @@ body::-webkit-scrollbar {
   flex-direction: column;
   justify-content: right;
   align-items: center;
-  position: absolute;
+  position: relative;
   right: 0;
+}
+
+.world {
+  margin: 10px;
+}
+
+.world-center {
+  flex-direction: column;
+  position: relative;
+}
+
+.world-right {
+  float: right;
+  margin: auto 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  position: relative;
+}
+
+.world-left {
+  float: left;
+  margin: auto 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  position: relative;
+}
+
+.world-left, .world-center, .world-right {
+  flex: 1;
+  max-width: 30%;
+  word-wrap: break-word;
 }
 
 .box-numeric {

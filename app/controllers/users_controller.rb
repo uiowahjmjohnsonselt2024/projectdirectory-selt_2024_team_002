@@ -293,6 +293,53 @@ class UsersController < ApplicationController
     end
   end
 
+  def send_invite
+    @friend = User.find_by(id: params[:friend_id])
+    @world = World.find_by(id: params[:world_id])
+
+    existing_world = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: false)
+    existing_request = UserWorld.find_by(user_id: @friend.id, world_id: @world.id, request: true)
+    invite = UserWorld.new(user_id: @friend.id, world_id: @world.id, request: true)
+    if existing_request != nil
+      @message = "An invite has already been sent for " + invite.world.world_name + "!"
+    elsif existing_world != nil
+      @message = "This player is already on " + invite.world.world_name + "!"
+    elsif invite.save
+      @message = "Invite sent!"
+    else
+      @message = "Failed to send world invite."
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def approve_invite
+    @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    @world = World.find_by_id(@invite.world_id)
+    @user = User.find_by_id(@invite.user_id)
+    if @invite&.update(request: false)
+      @message = 'Invite accepted!'
+    else
+      @message = 'Error accepting invite.'
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def reject_invite
+    @invite = UserWorld.find_by(user_id: params[:user_id], world_id: params[:world_id])
+    if UserWorld.delete(@invite)
+      @message = 'Invite rejected.'
+    else
+      @message = 'Error rejecting invite.'
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def purchase_plus_user_view
     @user = User.find_user_by_session_token(cookies[:session])
   end

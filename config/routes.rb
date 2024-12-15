@@ -28,10 +28,14 @@ Rails.application.routes.draw do
   get 'users/checkout', to: 'users#checkout'
   post 'users/checkout', to: 'users#checkout'
   post 'users/payment', to: 'users#payment', defaults: { format: 'js' }
+  # friends list paths
   post 'users/add_friend', to: 'users#add_friend', defaults: { format: 'js' }
   delete 'users/delete_friend', to: 'users#delete_friend', defaults: { format: 'js' }
   post 'users/approve_request', to: 'users#approve_request', defaults: { format: 'js' }
   delete 'users/reject_request', to: 'users#reject_request', defaults: { format: 'js' }
+  post 'users/approve_invite', to: 'users#approve_invite', defaults: { format: 'js' }
+  delete 'users/reject_invite', to: 'users#reject_invite', defaults: { format: 'js' }
+  post 'users/send_invite', to: 'users#send_invite', defaults: { format: 'js'}
   # displays page where the user will enter reset email
   get 'users/forgot-password', to: 'users#forgot_password', as: 'forgot_password'
   post 'users/send-reset-email', to: 'users#send_reset_email', as: 'send_reset_email' # sends reset email
@@ -45,6 +49,7 @@ Rails.application.routes.draw do
   # routes for worlds
   post 'worlds/join_world', to: 'worlds#join_world'
   post 'worlds/leave_world', to: 'worlds#leave_world'
+  get 'worlds/invite', to: 'worlds#invite', as: 'world_invite'
   resources :worlds
   root to: redirect('/worlds')
   mount GoodJob::Engine => 'good_job' if ENV['RAILS_ENV'] != 'production'

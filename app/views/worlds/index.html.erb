@@ -48,6 +48,7 @@
   <button class="small_button highlight_button" onclick="openTab(event, 'private_worlds')">Private Worlds</button>
   <button class="small_button highlight_button" onclick="openTab(event, 'friend_list')">Friends</button>
   <button class="small_button highlight_button" onclick="openTab(event, 'friend_requests')">Friend Requests</button>
+  <button class="small_button highlight_button" onclick="openTab(event, 'world_invites')">World Invites</button>
 </div>
 
 
@@ -56,11 +57,18 @@
 
   <div style="display: flex; flex-direction: column; align-items: center;">
     <% @public_worlds.each do |world| %>
-      <div class="world_box <%= world.world_name.split.join '_'%>">
-        <h3><%= world.world_name %></h3>
-        <p>Code: <%= world.world_code %></p>
-        <p>Max Players: <%= world.max_player %></p>
-        <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+      <div class="item_box world <%= world.world_name.split.join '_'%>" id= "<%= world.world_name.split.join '_'%>">
+        <div class="world-left">
+        </div>
+        <div class="world-center">
+          <h3><%= world.world_name %></h3>
+          <p>Code: <%= world.world_code %></p>
+          <p>Max Players: <%= world.max_player %></p>
+          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+        </div>
+        <div class="world-right">
+          <h3>Owned by <%=world.user.display_name %> </h3>
+        </div>
       </div>
     <% end %>
   </div>
@@ -71,13 +79,20 @@
 </div>
 
 <div id="private_worlds" class="tab_content">
-  <div style="display: flex; flex-direction: column; align-items: center;">
+  <div style="display: flex; flex-direction: column; align-items: center;" id="private_world_display">
     <% @private_worlds.each do |world| %>
-      <div class="world_box">
-        <h3><%= world.world_name %></h3>
-        <p>Code: <%= world.world_code %></p>
-        <p>Max Players: <%= world.max_player %></p>
-        <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+      <div class="item_box world" id= "<%= world.world_name.split.join '_'%>">
+        <div class="world-left">
+        </div>
+        <div class="world-center">
+          <h3><%= world.world_name %></h3>
+          <p>Code: <%= world.world_code %></p>
+          <p>Max Players: <%= world.max_player %></p>
+          <%= button_to "Join", {controller: "worlds", action: "join_world", id: "world_#{world[:id]}"}, class: "button" %>
+        </div>
+        <div class="world-right">
+          <h3>Owned by <%=world.user.display_name %> </h3>
+        </div>
       </div>
     <% end %>
   </div>
@@ -89,12 +104,12 @@
 
 <div id="friend_list" class="tab_content">
   <div style="display: flex; flex-direction: column; align-items: center;" id="friend_list_display">
-    <div class="world_box">
+    <div class="info_box">
       <p id="no_friends">Sorry, you currently have no friends. Add some below!</p>
       <button class="button" id="add_friend_button" onclick="addFriend()">Add Friend</button>
 
       <div id="add_friend_container" style="display: none;">
-        <p>Enter your friend's name:</p>
+        <p>Enter your friend's username:</p>
         <%= form_tag "/users/add_friend", :remote => true do %>
           <%= text_field_tag :friend_name, nil, id: 'friend_name', style: "height:30px", class: "textbox"%>
           <%= submit_tag 'Submit', id: 'submit_friend_button', class: "button", onClick: "submitFriend()" %>
@@ -102,12 +117,15 @@
       </div>
     </div>
     <% @friends.each do |friend| %>
-      <div class="friend_box" id="friend_<%= friend.id %>">
+      <div class="item_box friend" id="friend_id_<%= friend.id %>">
         <div class="friend_left">
           <%= button_to 'Remove Friend', users_delete_friend_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button" %>
         </div>
         <div class="friend_center">
           <h3><%= friend.display_name %></h3>
+        </div>
+        <div class="friend_right">
+          <%= link_to 'Invite to World', world_invite_path(friend_id: friend.id), class: 'button' %>
         </div>
       </div>
     <% end %>
@@ -115,14 +133,14 @@
 </div>
 
 <div id="friend_requests" class="tab_content">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <div id="no_requests" class="world_box">
+  <div style="display: flex; flex-direction: column; align-items: center;" id="friend_request_list_display">
+    <div id="no_requests" class="info_box">
       <p>You do not have any requests at the moment.</p>
     </div>
     <% @requested_friends.each do |friend| %>
-      <div class="friend_box" id="request_<%= friend.id %>">
+      <div class="item_box friend" id="request_id_<%= friend.id %>">
         <div class="friend_left">
-          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "button", onclick: "flashFadeOut()" %>
+          <%= button_to 'Approve', users_approve_request_path(friend_id: friend.id), method: :post, :remote => true, :class => "secondary_button", onclick: "flashFadeOut()" %>
           <%= button_to 'Reject', users_reject_request_path(friend_id: friend.id), method: :delete, :remote => true, :class => "button", onclick: "flashFadeOut()" %>
         </div>
         <div class="friend_center">
@@ -133,6 +151,29 @@
   </div>
 </div>
 
+<div id="world_invites" class="tab_content">
+  <div style="display: flex; flex-direction: column; align-items: center;" id="world_invite_list_display">
+    <div id="no_invites" class="info_box">
+      <p>You do not have any world invites at the moment.</p>
+    </div>
+    <% @world_invites.each do |invite| %>
+      <div class="item_box friend" id="invite_id_<%= invite.id %>">
+        <div class="friend_left">
+          <%= button_to 'Approve', users_approve_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :post, :remote => true, :class => "secondary_button" %>
+          <%= button_to 'Reject', users_reject_invite_path(user_id: invite.user_id, world_id: invite.world_id), method: :delete, :remote => true, :class => "button" %>
+        </div>
+        <div class="friend_center">
+          <h3><%= invite.world.world_name %></h3>
+        </div>
+        <div class="friend_right">
+          <h3><%= "Sent by " + invite.world.user.display_name %></h3>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!--These are all used to dynamically update the view, as there are actions done on the page that alter it.-->
 <script>
     function openTab(evt, tabName) {
         let i, tab_content, tab_links;
@@ -186,9 +227,9 @@
 
 <script id="no_friend_message">
     window.noFriendMessage = function() {
-      console.log("NO Friend Message triggered")
-      var friendsLength = <%= @friends.length %>;
-      console.log("Friends length: " + friendsLength)
+      var friends = document.querySelectorAll('[id^="friend_id_"]');
+      var friendsLength = friends.length;
+
       if (friendsLength > 0) {
           document.getElementById('no_friends').style.display = 'none'
       }
@@ -202,9 +243,9 @@
 
 <script id="no_request_message">
     window.noRequestMessage = function() {
-      console.log("NO Request Message triggered")
-      var requestLength = <%= @requested_friends.length %>;
-        console.log("Requests length: " + requestLength)
+        var requests = document.querySelectorAll('[id^="request_id_"]');
+        var requestLength = requests.length;
+
         if (requestLength > 0) {
           document.getElementById('no_requests').style.display = 'none'
       } else {
@@ -213,6 +254,59 @@
   }
 
   window.noRequestMessage();
+</script>
+
+<script id="no_invite_message">
+    window.noInviteMessage = function() {
+        var invites = document.querySelectorAll('[id^="invite_id_"]');
+        var inviteLength = invites.length;
+
+        if (inviteLength > 0) {
+            document.getElementById('no_invites').style.display = 'none'
+        } else {
+            document.getElementById('no_invites').style.display = 'block'
+        }
+    }
+
+    window.noInviteMessage();
+</script>
+
+<script id="append_friend_box">
+    function appendFriendBox(friend) {
+        $('#friend_list_display').append(`
+          <div class="item_box friend" id="friend_id_${friend.id}">
+            <div class="friend_left">
+              ${'<%= j button_to "Remove Friend", users_delete_friend_path(friend_id: "__REPLACE_ID__"), method: :delete, remote: true, class: "button" %>'.replace('__REPLACE_ID__', friend.id)}
+            </div>
+            <div class="friend_center">
+              <h3>${friend.display_name}</h3>
+            </div>
+            <div class="friend_right">
+              ${'<%= j link_to "Invite to World", world_invite_path(friend_id: "__REPLACE_ID__"), class: "button" %>'.replace('__REPLACE_ID__', friend.id)}
+            </div>
+        </div>
+      `);
+    }
+</script>
+
+<script id="append_world_box">
+  function appendWorldBox(world, user) {
+      $('#private_world_display').append(`
+        <div class="item_box world" id="world_id_${world.world_name.split(' ').join('_')}">
+          <div class="world-left">
+          </div>
+          <div class="world-center">
+            <h3>${world.world_name}</h3>
+            <p>Code: ${world.world_code}</p>
+            <p>Max Players: ${world.max_player}</p>
+            ${'<%= j button_to "Join", {controller: "worlds", action: "join_world", id: "__REPLACE_ID__"}, class: "button" %>'.replace('__REPLACE_ID__', "world_" + world.id)}
+          </div>
+          <div class="world-right">
+            <h3>Owned by ${user.display_name}</h3>
+          </div>
+        </div>
+      `);
+  }
 </script>
 
 </body>

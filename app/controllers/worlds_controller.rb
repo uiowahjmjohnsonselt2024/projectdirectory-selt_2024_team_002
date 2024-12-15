@@ -4,6 +4,7 @@
 # rubocop:disable all
 class WorldsController < ApplicationController
   before_action :authenticate_user
+  before_action :index, only: [:index, :invite]
 
   def authenticate_user
     @cur_user = User.find_user_by_session_token(cookies[:session])
@@ -43,9 +44,17 @@ class WorldsController < ApplicationController
   def index
     flash.discard
     @public_worlds = World.where(is_public: true)
-    @private_worlds = World.where(is_public: false)
+    @private_worlds = World.joins(:user_worlds)
+                           .where(is_public: false, user_worlds: { user: @cur_user, request: false })
+    @shareable_worlds = World.joins(:user_worlds)
+                           .where(is_public: false, user_id: @cur_user.id, user_worlds: { user: @cur_user, request: false })
     @friends = User.where(id: Friendship.friend_ids(@cur_user))
     @requested_friends = User.where(id: Friendship.requested_friend_ids(@cur_user))
+    @world_invites = UserWorld.where( user: @cur_user, request: true )
+  end
+
+  def invite
+    @friend = User.find_by_id(params[:friend_id])
   end
 
   def new
@@ -62,6 +71,7 @@ class WorldsController < ApplicationController
       redirect_to new_world_path
     else
       @world = World.create!(new_params)
+      UserWorld.create(user: @cur_user, world: @world)
       flash[:notice] = 'World was successfully created.'
       redirect_to worlds_path
     end
@@ -104,7 +114,7 @@ class WorldsController < ApplicationController
 
   def build_world_params
     new_params = world_params
-    new_params[:user_id_id] = @cur_user.id
+    new_params[:user_id] = @cur_user.id
     new_params[:current_players] = 0 # Ensure current_players is set to 0
     new_params
   end
