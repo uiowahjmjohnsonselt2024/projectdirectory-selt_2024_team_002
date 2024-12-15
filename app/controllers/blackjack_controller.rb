@@ -24,9 +24,9 @@ class BlackjackController < ApplicationController
 
     @gridsquare = Gridsquare.find_by_row_col(@world.id, @user_world.user_row, @user_world.user_col)
 
-    process_result(params[:result])
-
-    render json: { shard_balance: @cur_user.available_credits }, status: :ok
+    if process_result(params[:result])
+      render json: { shard_balance: @cur_user.available_credits }, status: :ok
+    end
   end
 
   def process_result(result)
@@ -38,7 +38,9 @@ class BlackjackController < ApplicationController
     when 'push'
       @cur_user.charge_credits(-@gridsquare.buy_in_amount)
     else
-      redirect_to world_path(@world), alert: 'Invalid result' and return
+      redirect_to world_path(@world), alert: 'Invalid result'
+      return false
     end
+    true
   end
 end
