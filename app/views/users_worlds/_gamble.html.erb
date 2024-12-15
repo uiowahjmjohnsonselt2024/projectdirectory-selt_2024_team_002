@@ -21,7 +21,7 @@
     </div>
     <div>
       <%= form_tag world_path(id: @world.id), method: :get, id: 'end_game_form' do %>
-        <button id="end_game_button" class="not_accept_button" style='display:none; float:left; width: fit-content;'>End Gamble</button>
+        <button id="end_game_button" class="not_accept_button" style='display:none; float:left; width: fit-content;'>End Session</button>
       <% end %>
       <button id="stand_button" class="accept_button" onclick="stand()" style='display:none'>Stand</button>
     </div>
