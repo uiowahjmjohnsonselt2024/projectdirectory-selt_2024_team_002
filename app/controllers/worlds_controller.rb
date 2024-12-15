@@ -82,7 +82,6 @@ class WorldsController < ApplicationController
   def update; end
 
   def destroy
-    Rails.logger.info("were here!@!!!!")
     user_world = UserWorld.find_by(user_id: @cur_user.id, world_id: params[:world_id])
     world = World.find_by(id: params[:world_id])
 
