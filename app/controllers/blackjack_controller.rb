@@ -23,14 +23,14 @@ class BlackjackController < ApplicationController
     redirect_to world_path(@world), alert: 'User does not belong to this world' and return unless @user_world
 
     @gridsquare = Gridsquare.find_by_row_col(@world.id, @user_world.user_row, @user_world.user_col)
-    unless @cur_user.available_credits >= @gridsquare.buy_in_amount
-      render json: { success: false, shard_balance: @cur_user.available_credits}, status: :ok
+    has_enough_credits = @cur_user.available_credits >= @gridsquare.buy_in_amount
+    unless has_enough_credits
+      return render json: { success: false, shard_balance: @cur_user.available_credits }, status: :ok
     end
 
     @cur_user.charge_credits(@gridsquare.buy_in_amount)
-    boost = @cur_user.luck_boost
 
-    render json: { success: true, shard_balance: @cur_user.available_credits, luck_boost: boost }, status: :ok
+    render json: { has_enough_credits: has_enough_credits}
   end
   # rubocop:enable Metrics/MethodLength
 
@@ -54,6 +54,8 @@ class BlackjackController < ApplicationController
     case result
     when 'win'
       @cur_user.charge_credits(-2 * @gridsquare.buy_in_amount)
+    when 'buy_in'
+      @cur_user.charge_credits(@gridsquare.buy_in_amount)
     when 'push'
       @cur_user.charge_credits(-@gridsquare.buy_in_amount)
     else
