@@ -133,8 +133,9 @@
         document.getElementById('play_button').style.display = 'none';
     }
 
-    function nextHand() {
-        updateUserCredits('buy_in');
+    async function nextHand() {
+        const canPlay = await buyIn(); // Wait for buy-in to complete
+        if (!canPlay) return; // Stop if buy-in failed
         document.getElementById("close_gamble_link").style.display = "none"
         document.getElementById('status_message').style.display = 'none';
 
@@ -221,6 +222,36 @@
         document.getElementById('play_hand_button').style.display = 'block';
         document.getElementById('status_message').style.display = 'block';
         document.getElementById("close_gamble_link").style.display = "block"
+    }
+
+    function buyIn() {
+        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        fetch('/blackjack/buy_in', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({
+                result: result,
+                world_id: <%= @world.id %>
+            })
+        })
+          .then(response => response.json())
+          .then(data => {
+              const shard_balance = data.shard_balance;
+              const success = data.success;
+              document.getElementById('shard_balance').textContent = `Shards Available: ${shard_balance}`;
+              if (!success) {
+                  alert('Not enough shards to play!');
+                  throw new Error('Insufficient shards');
+              }
+              return true;
+          })
+          .catch(error => {
+              console.error('Error in buy-in process:', error);
+              return false;
+          });
     }
 
     function updateUserCredits(result) {
