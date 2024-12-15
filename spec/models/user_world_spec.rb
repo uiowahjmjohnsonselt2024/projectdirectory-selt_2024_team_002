@@ -82,33 +82,71 @@ RSpec.describe UserWorld, type: :model do
   end
 
   describe 'item' do
-    it 'activates speed boost when using a speed potion' do
-      user_world = instance_double(described_class)
-      allow(user_world).to receive(:use_speed_potion)
-      allow(user_world).to receive(:speed_boost?).and_return(true)
-      allow(user_world).to receive(:speed_boost).and_return(true)
-      allow(user_world).to receive(:speed_boost_count).and_return(0)
-      expect(user_world.speed_boost).to be true
-      expect(user_world.speed_boost_count).to eq 0
+
+    describe 'xp' do
+      it 'activates xp boost when using a XP booster' do
+        user_world = described_class.new
+        allow(user_world).to receive(:boost_xp)
+        allow(user_world).to receive(:xp_boost).and_return(true)
+        allow(user_world).to receive(:gain_xp).with(15)
+        expect(user_world.xp_boost).to be true
+        expect(user_world.xp_boost_count).to eq 0
+      end
+
+      it 'gives users xp normally' do
+        user_world = described_class.new
+        allow(user_world).to receive(:xp).and_return(15)
+        allow(user_world).to receive(:gain_xp).with(15)
+        user_world.gain_xp(15)
+        expect(user_world.xp).to eq 15
+      end
+
+      it 'gives users boosted xp' do
+        user_world = described_class.new
+        allow(user_world).to receive(:xp).and_return(25)
+        allow(user_world).to receive(:gain_xp).with(20).and_return(25)
+        user_world.gain_xp(20)
+        expect(user_world.xp).to eq 25
+      end
     end
 
-    it 'activates lucky when using a 4 leaf clover' do
-      user_world = described_class.new
-      allow(user_world).to receive(:use_leaf_clover)
-      allow(user_world).to receive(:lucky?).and_return(true)
-      allow(user_world).to receive(:luck_boost).and_return(true)
-      allow(user_world).to receive(:update_luck_count).and_return(0)
-      expect(user_world.luck_boost).to be true
-      expect(user_world.luck_boost_count).to eq 0
+    describe 'speed' do
+      it 'activates speed boost when using a speed potion' do
+        user_world = instance_double(described_class)
+        allow(user_world).to receive(:use_speed_potion)
+        allow(user_world).to receive(:speed_boost).and_return(true)
+        allow(user_world).to receive(:speed_boost_count).and_return(0)
+        expect(user_world.speed_boost).to be true
+        expect(user_world.speed_boost_count).to eq 0
+      end
+
+      it 'updates speed count' do
+        user_world = described_class.new
+        allow(user_world).to receive(:update_speed_count)
+        allow(user_world).to receive(:speed_boost_count).and_return(1)
+        user_world.update_speed_count
+        expect(user_world.speed_boost_count).to eq 1
+      end
     end
 
-    it 'activates xp boost when using a XP booster' do
-      user_world = described_class.new
-      allow(user_world).to receive(:boost_xp)
-      allow(user_world).to receive(:xp_boost).and_return(true)
-      allow(user_world).to receive(:gain_xp).with(15)
-      expect(user_world.xp_boost).to be true
-      expect(user_world.xp_boost_count).to eq 0
+    describe 'luck' do
+      it 'activates luck when using a 4 leaf clover' do
+        user_world = described_class.new
+        allow(user_world).to receive(:use_leaf_clover)
+        allow(user_world).to receive(:lucky?).and_return(true)
+        allow(user_world).to receive(:luck_boost).and_return(true)
+        allow(user_world).to receive(:update_luck_count).and_return(0)
+        expect(user_world.luck_boost).to be true
+        expect(user_world.luck_boost_count).to eq 0
+      end
+
+      it 'updates luck count' do
+        user_world = described_class.new
+        allow(user_world).to receive(:update_luck_count)
+        allow(user_world).to receive(:luck_boost_count).and_return(0)
+        user_world.update_luck_count
+        expect(user_world.luck_boost_count).to eq 0
+      end
     end
   end
 end
