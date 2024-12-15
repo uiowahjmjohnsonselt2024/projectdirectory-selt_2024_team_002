@@ -106,6 +106,7 @@ describe WorldsController do
       allow(UserWorld).to receive(:find_known_squares).and_return([[1, 1]])
       allow(cur_user).to receive_messages(id: 1, available_credits: 10)
       allow(user_world).to receive(:level).and_return(1)
+      allow(user_world).to receive(:speed_boost?).and_return(false)
       get '/worlds/1'
       expect(response).to render_template('show')
     end
