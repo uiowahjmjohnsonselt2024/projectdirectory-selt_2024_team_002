@@ -82,10 +82,12 @@ class WorldsController < ApplicationController
   def update; end
 
   def destroy
-    user_world = UserWorld.find_by(user_id: @cur_user.id, world_id: params[:world_id])
-    world = World.find_by(id: params[:world_id])
+    user_world = UserWorld.find_by(user_id: @cur_user.id, world_id: params[:id])
+    world = World.find_by(id: params[:id])
 
-    if UserWorld.delete(user_world) && World.delete(world)
+    UserWorld.where(world_id: world.id).destroy_all
+
+    if World.delete(world)
       @message = 'World deleted.'
     else
       @message = 'Error deleting world.'
