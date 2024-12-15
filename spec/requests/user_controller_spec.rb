@@ -460,17 +460,27 @@ RSpec.describe 'Users', type: :request do
   describe 'update password' do 
     before do 
       @usr = instance_double(User)
-      allow(User).to receive(:find_by_reset_password_token).and_return(@usr)
-    end
-    
-    it 'redirects to correctly when the confirmation does not match' do
-      post users_update_password_path, params: { new_password: 'alex', confirm_new_password: 'ahahah' }
-      expect(response).to redirect_to new_user_path
-    end
-    
-    it 'updates the password when they match' do
+      allow(User).to receive(:find_by).and_return(@usr)
+      allow(@usr).to receive(:invalid_reset_password_token?).and_return(false)
       allow(@usr).to receive(:update_password).and_return(true)
-      post users_update_password_path, params: { new_password: 'alex', confirm_new_password: 'alex' }
+      allow(@usr).to receive(:valid?).and_return(true)
+    end
+    
+    it 'redirects to reset again when the confirmation does not match' do
+      post update_password_path, params: { new_password: 'alex', confirm_new_password: 'ahahah' }
+      expect(response).to redirect_to reset_password_path
+    end
+
+    it 'redirects to reset again when the password isnt valid' do
+      allow(@usr).to receive(:valid?).and_return(false)
+      allow(@usr).to receive(:errors).and_return([])
+      post update_password_path, params: { new_password: 'alex', confirm_new_password: 'alex' }
+      expect(response).to redirect_to reset_password_path
+    end
+    
+    it 'updates the password when they match and are valid' do
+      allow(@usr).to receive(:valid?).and_return(true)
+      post update_password_path, params: { new_password: 'ThisIsATest1$', confirm_new_password: 'ThisIsATest1$' }
       expect(response).to redirect_to users_login_path
     end
   end

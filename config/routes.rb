@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   post 'users/send-reset-email', to: 'users#send_reset_email', as: 'send_reset_email' # sends reset email
   # displays page where the user will enter new password
   get 'users/reset-password', to: 'users#reset_password', as: 'reset_password'
-  post 'users/update-password', to: 'users#update_password' # resets password
+  post 'users/update-password', to: 'users#update_password', as: 'update_password' # resets password
   get 'users/purchase_plus_user_view', to: 'users#purchase_plus_user_view'
   post 'users/purchase_plus_user', to: 'users#purchase_plus_user'
   resources :users
